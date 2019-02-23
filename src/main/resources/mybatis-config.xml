@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启驼峰自动映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!-- model别名的配置 -->
+    <typeAliases>
+        <!-- 批量扫描别名 别为为类名 -->
+        <package name="com.pojo" />
+    </typeAliases>
+
+    <!--<plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            &lt;!&ndash; 设置为true时，使用RowBounds分页会进行count查询 &ndash;&gt;
+            <property name="rowBoundsWithCount" value="true" />
+        </plugin>
+    </plugins>-->
+    <!-- 配置分页插件 -->
+    <plugins>
+
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+
+            <!-- 设置数据库类型Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+
+            <property name="rowBoundsWithCount" value="true"/>
+
+        </plugin>
+
+    </plugins>
+
+</configuration>
+
+

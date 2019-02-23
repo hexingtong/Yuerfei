@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Yuerfei1">
+    <output-path>$PROJECT_DIR$/target/hugo</output-path>
+    <root id="root" />
+  </artifact>
+</component>
