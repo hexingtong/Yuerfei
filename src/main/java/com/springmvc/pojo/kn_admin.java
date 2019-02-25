@@ -6,59 +6,36 @@ import java.io.Serializable;
 @Repository
 public class kn_admin  implements Serializable{
  private Integer id;
- private Integer title;
- private Integer account;
- private Integer pwd;
- private Integer level;
+ private String title;
+ private String account;
+
 
  public void setId(Integer id) {
   this.id = id;
  }
 
- public void setTitle(Integer title) {
+
+ public void setTitle(String title) {
   this.title = title;
  }
 
- public void setAccount(Integer account) {
-  this.account = account;
+ public String getTitle() {
+
+  return title;
  }
 
- public void setPwd(Integer pwd) {
-  this.pwd = pwd;
- }
 
- public void setLevel(Integer level) {
-  this.level = level;
- }
+
 
  public Integer getId() {
   return id;
  }
 
- public Integer getTitle() {
-  return title;
+ public void setAccount(String account) {
+  this.account = account;
  }
 
- public Integer getAccount() {
+ public String getAccount() {
   return account;
- }
-
- public Integer getPwd() {
-  return pwd;
- }
-
- public Integer getLevel() {
-  return level;
- }
-
- @Override
- public String toString() {
-  return "kn_admin{" +
-          "id=" + id +
-          ", title=" + title +
-          ", account=" + account +
-          ", pwd=" + pwd +
-          ", level=" + level +
-          '}';
  }
 }
