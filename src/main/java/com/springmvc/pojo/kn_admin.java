@@ -7,35 +7,29 @@ import java.io.Serializable;
 public class kn_admin  implements Serializable{
  private Integer id;
  private String title;
- private String account;
+ private  int phone;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
- public void setId(Integer id) {
-  this.id = id;
- }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
 
- public void setTitle(String title) {
-  this.title = title;
- }
+    public Integer getId() {
+        return id;
+    }
 
- public String getTitle() {
+    public String getTitle() {
+        return title;
+    }
 
-  return title;
- }
-
-
-
-
- public Integer getId() {
-  return id;
- }
-
- public void setAccount(String account) {
-  this.account = account;
- }
-
- public String getAccount() {
-  return account;
- }
+    public int getPhone() {
+        return phone;
+    }
 }
