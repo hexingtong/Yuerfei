@@ -105,6 +105,7 @@ public class kn_admintestController {
     @ResponseBody
     public void test(HttpServletResponse response){
        // SmsPhone smsDemo=new SmsPhone();
+
         ListObject listObject=new ListObject();
         listObject.setItems(knAdminservice.queryAll());
         listObject.setCode(StatusCode.CODE_ERROR);
