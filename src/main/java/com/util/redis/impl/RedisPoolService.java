@@ -16,6 +16,7 @@ public class RedisPoolService implements RedisService {
 	public String set(String key, String value) {
 		Jedis jedis = jedisPool.getResource();
 		String result = jedis.set(key, value);
+
 		jedis.close();
 		return result;
 	}

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import java.util.List;
 public class kn_admintestController {
     @Autowired
     private kn_adminservice knAdminservice;
+
 
 
     /**
@@ -110,15 +112,21 @@ public class kn_admintestController {
         listObject.setItems(knAdminservice.queryAll());
         listObject.setCode(StatusCode.CODE_ERROR);
         listObject.setMsg("验证码错误！");
+        Jedis jedis =new Jedis("172.26.62.118",6379);
+        jedis.set("name","俊杰");
+        System.out.printf(jedis.get("name"));
         ResponseUtils.renderJson(response,JsonUtils.toJson(listObject));
-
 
 
 
     }
 
 
-
+    public static void main(String[] args) {
+        Jedis jedis =new Jedis("172.26.62.118",6379);
+        jedis.set("name","俊杰");
+        System.out.printf(jedis.get("name"));
+    }
 
 
 }
