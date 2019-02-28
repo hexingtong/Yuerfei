@@ -20,27 +20,27 @@ public class kn_goods implements Serializable {
     //产品图片
     private String img;
     //申请成功率
-    private String cgl;
+    private String Success_rate;
     //额度
-    private String ed;
+    private String Limit;
     //期限
-    private String qx;
+    private String Deadline;
     //利率
-    private String fy;
+    private String Interest_rate;
     //放贷速度
-    private String fdsd;
+    private String Pace_lending;
     //审核方式
-    private String shfs;
+    private String Review_way;
     //到账方式
-    private String dzfs;
+    private String Account_way;
     //征信要求
-    private String zxyq;
+    private String Credit_required;
     //平台名称
-    private String ptmc;
+    private String Platform_name;
     //申请攻略的文字说明
-    private String sqgl;
+    private String Application_strategy;
     //申请攻略的图片说明
-    private String sqgl_img;
+    private String Application_strategy_img;
     //排序级别
     private int level;
     //简介
@@ -71,17 +71,17 @@ public class kn_goods implements Serializable {
                 ", property_ids='" + property_ids + '\'' +
                 ", tag_id=" + tag_id +
                 ", img='" + img + '\'' +
-                ", cgl='" + cgl + '\'' +
-                ", ed='" + ed + '\'' +
-                ", qx='" + qx + '\'' +
-                ", fy='" + fy + '\'' +
-                ", fdsd='" + fdsd + '\'' +
-                ", shfs='" + shfs + '\'' +
-                ", dzfs='" + dzfs + '\'' +
-                ", zxyq='" + zxyq + '\'' +
-                ", ptmc='" + ptmc + '\'' +
-                ", sqgl='" + sqgl + '\'' +
-                ", sqgl_img='" + sqgl_img + '\'' +
+                ", Success_rate='" + Success_rate + '\'' +
+                ", Limit='" + Limit + '\'' +
+                ", Deadline='" + Deadline + '\'' +
+                ", Interest_rate='" + Interest_rate + '\'' +
+                ", Pace_lending='" + Pace_lending + '\'' +
+                ", Review_way='" + Review_way + '\'' +
+                ", Account_way='" + Account_way + '\'' +
+                ", Credit_required='" + Credit_required + '\'' +
+                ", Platform_name='" + Platform_name + '\'' +
+                ", Application_strategy='" + Application_strategy + '\'' +
+                ", Application_strategy_img='" + Application_strategy_img + '\'' +
                 ", level=" + level +
                 ", info='" + info + '\'' +
                 ", url='" + url + '\'' +
@@ -119,48 +119,48 @@ public class kn_goods implements Serializable {
         this.img = img;
     }
 
-    public void setCgl(String cgl) {
-        this.cgl = cgl;
+    public void setSuccess_rate(String success_rate) {
+        Success_rate = success_rate;
     }
 
-    public void setEd(String ed) {
-        this.ed = ed;
+    public void setLimit(String limit) {
+        Limit = limit;
     }
 
-    public void setQx(String qx) {
-        this.qx = qx;
+    public void setDeadline(String deadline) {
+        Deadline = deadline;
     }
 
-    public void setFy(String fy) {
-        this.fy = fy;
+    public void setInterest_rate(String interest_rate) {
+        Interest_rate = interest_rate;
     }
 
-    public void setFdsd(String fdsd) {
-        this.fdsd = fdsd;
+    public void setPace_lending(String pace_lending) {
+        Pace_lending = pace_lending;
     }
 
-    public void setShfs(String shfs) {
-        this.shfs = shfs;
+    public void setReview_way(String review_way) {
+        Review_way = review_way;
     }
 
-    public void setDzfs(String dzfs) {
-        this.dzfs = dzfs;
+    public void setAccount_way(String account_way) {
+        Account_way = account_way;
     }
 
-    public void setZxyq(String zxyq) {
-        this.zxyq = zxyq;
+    public void setCredit_required(String credit_required) {
+        Credit_required = credit_required;
     }
 
-    public void setPtmc(String ptmc) {
-        this.ptmc = ptmc;
+    public void setPlatform_name(String platform_name) {
+        Platform_name = platform_name;
     }
 
-    public void setSqgl(String sqgl) {
-        this.sqgl = sqgl;
+    public void setApplication_strategy(String application_strategy) {
+        Application_strategy = application_strategy;
     }
 
-    public void setSqgl_img(String sqgl_img) {
-        this.sqgl_img = sqgl_img;
+    public void setApplication_strategy_img(String application_strategy_img) {
+        Application_strategy_img = application_strategy_img;
     }
 
     public void setLevel(int level) {
@@ -227,48 +227,48 @@ public class kn_goods implements Serializable {
         return img;
     }
 
-    public String getCgl() {
-        return cgl;
+    public String getSuccess_rate() {
+        return Success_rate;
     }
 
-    public String getEd() {
-        return ed;
+    public String getLimit() {
+        return Limit;
     }
 
-    public String getQx() {
-        return qx;
+    public String getDeadline() {
+        return Deadline;
     }
 
-    public String getFy() {
-        return fy;
+    public String getInterest_rate() {
+        return Interest_rate;
     }
 
-    public String getFdsd() {
-        return fdsd;
+    public String getPace_lending() {
+        return Pace_lending;
     }
 
-    public String getShfs() {
-        return shfs;
+    public String getReview_way() {
+        return Review_way;
     }
 
-    public String getDzfs() {
-        return dzfs;
+    public String getAccount_way() {
+        return Account_way;
     }
 
-    public String getZxyq() {
-        return zxyq;
+    public String getCredit_required() {
+        return Credit_required;
     }
 
-    public String getPtmc() {
-        return ptmc;
+    public String getPlatform_name() {
+        return Platform_name;
     }
 
-    public String getSqgl() {
-        return sqgl;
+    public String getApplication_strategy() {
+        return Application_strategy;
     }
 
-    public String getSqgl_img() {
-        return sqgl_img;
+    public String getApplication_strategy_img() {
+        return Application_strategy_img;
     }
 
     public int getLevel() {
