@@ -21,4 +21,22 @@ private kn_adminMapper adminMapper;
         return knAdmin;
     }
 
+    public List<kn_admin> queryListPhone(String phone){
+        List<kn_admin> kn_Admin=adminMapper.queryListPhone(phone);
+        return kn_Admin;
+    }
+
+    public int insertAndmin(kn_admin kn_admin){
+        int kn_Admin=adminMapper.insertAndmin(kn_admin);
+        return kn_Admin;
+    }
+
+    public int countAndmin(String phone){
+        int kn_Admin=adminMapper.countAndmin(phone);
+        return kn_Admin;
+    }
+    public kn_admin queryByid(String phone){
+        kn_admin knAdmin=adminMapper.queryByid(phone);
+        return knAdmin;
+    }
 }
