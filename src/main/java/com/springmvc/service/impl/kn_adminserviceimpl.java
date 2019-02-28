@@ -21,5 +21,4 @@ private kn_adminMapper adminMapper;
         return knAdmin;
     }
 
-
 }

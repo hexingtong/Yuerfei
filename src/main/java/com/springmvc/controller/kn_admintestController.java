@@ -103,30 +103,7 @@ public class kn_admintestController {
 
     }
 
-    @RequestMapping("/test")
-    @ResponseBody
-    public void test(HttpServletResponse response){
-       // SmsPhone smsDemo=new SmsPhone();
 
-        ListObject listObject=new ListObject();
-        listObject.setItems(knAdminservice.queryAll());
-        listObject.setCode(StatusCode.CODE_ERROR);
-        listObject.setMsg("验证码错误！");
-        Jedis jedis =new Jedis("172.26.62.118",6379);
-        jedis.set("name","俊杰");
-        System.out.printf(jedis.get("name"));
-        ResponseUtils.renderJson(response,JsonUtils.toJson(listObject));
-
-
-
-    }
-
-
-    public static void main(String[] args) {
-        Jedis jedis =new Jedis("172.26.62.118",6379);
-        jedis.set("name","俊杰");
-        System.out.printf(jedis.get("name"));
-    }
 
 
 }
