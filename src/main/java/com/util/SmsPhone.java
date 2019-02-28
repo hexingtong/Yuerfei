@@ -71,13 +71,15 @@ public class SmsPhone {
     public static int getNewcode() {
         return newcode;
     }
+
     public static void setNewcode(){
         newcode = (int)(Math.random()*9999)+10000;  //每次调用生成一次六位数的随机数
     }
+
     public static void main(String[] args) throws Exception {
         setNewcode();
         String code = Integer.toString(getNewcode());
-        SendSmsResponse sendSms =sendSms("13672577347",code);//填写你需要测试的手机号码
+        SendSmsResponse sendSms =sendSms("13022061304",code);//填写你需要测试的手机号码
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + sendSms.getCode());
         System.out.println("Message=" + sendSms.getMessage());

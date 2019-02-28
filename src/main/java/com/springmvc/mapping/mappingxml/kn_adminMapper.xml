@@ -6,4 +6,25 @@
   SELECT  id,title,account FROM  kn_admin where id=#{id}
 </select>
 
+  
+  <select id="queryListPhone" resultType="kn_admin" parameterType="String">
+
+  SELECT id,title,phone,pwd,`level`,img,add_time,login_time FROM kn_admin where phone=#{phone}
+
+  </select>
+
+  <insert id="insertAndmin"  parameterType="kn_admin">
+    INSERT INTO kn_admin (phone,add_time,login_time) VALUES(#{phone},#{add_time},#{login_time});
+  </insert>
+
+
+    <select id="countAndmin" resultType="int" parameterType="String">
+        SELECT count(*) FROM kn_admin where phone=#{phone}
+    </select>
+
+    <select id="queryByid" resultType="kn_admin" parameterType="String">
+      SELECT id FROM kn_admin where phone=#{phone}
+    </select>
+
+
 </mapper>
