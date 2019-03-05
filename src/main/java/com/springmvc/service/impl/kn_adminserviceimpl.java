@@ -3,6 +3,8 @@ package com.springmvc.service.impl;
 import com.springmvc.mapping.kn_adminMapper;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.kn_adminservice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Service
 public class kn_adminserviceimpl  extends BaseServiceImpl<kn_admin> implements kn_adminservice  {
-
+    final Logger logger = LoggerFactory.getLogger(kn_adminserviceimpl.class);
 @Autowired
 private kn_adminMapper adminMapper;
 
@@ -44,4 +46,24 @@ private kn_adminMapper adminMapper;
         return knadmin;
     }
 
+
+    /**
+     * Description：通过用户名得到用户信息(id，密码）
+     * @author boyang
+     * @date 2019/3/4 16:50
+     * @param
+     * @return com.springmvc.pojo.kn_admin
+     */
+    @Override
+    public kn_admin queryByPhone(String phone) {
+        logger.info("传入手机号码"+"{"+phone+"}");
+        kn_admin knAdmin;
+        if (phone!=null){
+            knAdmin= adminMapper.queryByPhone(phone);
+            return  knAdmin;
+        }else {
+            logger.info("手机号码为空");
+        }
+        return null;
+    }
 }

@@ -13,4 +13,11 @@ public class StatusCode {
 
     public static String CODE_ERROR_EXIST_OPERATION = "0005";      //已操作
 
+
+
+
+
+
+
+
 }

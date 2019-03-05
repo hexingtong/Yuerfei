@@ -23,7 +23,7 @@ public  class kn_goodsServiceimpl extends  BaseServiceImpl<kn_goods> implements 
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 @Autowired
   private kn_goodsMapper knGoodsMapper;
-    private String s;
+
 
 
     /**

@@ -10,7 +10,11 @@
   <!-- Spring和mybatis的配置文件 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-mybatis.xml</param-value>
+    <param-value>
+        classpath:spring-mybatis.xml
+        classpath:applicationContext-shiro.xml
+    </param-value>
+
   </context-param>
 
   <!--Log4j配置-->
@@ -79,6 +83,21 @@
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
   </servlet>
+  <!--静态资源图片配置-->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.gif</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+  </servlet-mapping>
 
   <!-- 拦截设置 -->
   <servlet-mapping>
@@ -92,6 +111,29 @@
   <session-config>
     <session-timeout>15</session-timeout>
   </session-config>
+
+<!--shrio配置文件-->
+  <!-- shiro过虑器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+          <!-- 设置true由servlet容器控制filter的生命周期 -->
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+      <!-- 设置spring容器filter的bean id，如果不设置则找与filter-name一致的bean-->
+      <init-param>
+        <param-name>targetBeanName</param-name>
+        <param-value>shiroFilter</param-value>
+      </init-param>
+    </filter>
+    <!-- 拦截所有的请求路径 -->
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- 还有一个地方要注意，因为我是单独把shiro写在一个xml文件中，新加了一个文件，所以要添加路径 -->
 
 
 

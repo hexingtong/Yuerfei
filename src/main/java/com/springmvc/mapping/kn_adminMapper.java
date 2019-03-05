@@ -17,5 +17,14 @@ public interface kn_adminMapper  extends Mapper<kn_admin>{
 
     kn_admin queryByid(String phone);
 
+    /**
+     * Description：(id，密码）
+     * @author boyang
+     * @date 2019/3/4 16:52
+     * @param
+     * @return
+     */
+    kn_admin queryByPhone(String phone);
+
     int UpdateLoginTime(kn_admin kn_admin);
 }
