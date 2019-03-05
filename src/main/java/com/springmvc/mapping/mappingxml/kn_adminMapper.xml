@@ -19,12 +19,15 @@
 
 
     <select id="countAndmin" resultType="int" parameterType="String">
-        SELECT count(*) FROM kn_admin where phone=#{phone}
+        SELECT count(1) FROM kn_admin where phone=#{phone}
     </select>
 
     <select id="queryByid" resultType="kn_admin" parameterType="String">
       SELECT id FROM kn_admin where phone=#{phone}
     </select>
 
+    <update id="UpdateLoginTime"  parameterType="kn_admin">
+      UPDATE kn_admin SET login_time=#{login_time} WHERE id=#{id}
+    </update>
 
 </mapper>

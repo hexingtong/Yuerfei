@@ -14,5 +14,8 @@ public interface kn_adminMapper  extends Mapper<kn_admin>{
     int insertAndmin(kn_admin kn_admin);
 
     int countAndmin(String phone);
+
     kn_admin queryByid(String phone);
+
+    int UpdateLoginTime(kn_admin kn_admin);
 }

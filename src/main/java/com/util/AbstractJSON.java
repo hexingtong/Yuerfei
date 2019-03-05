@@ -9,6 +9,7 @@ public class AbstractJSON {
     private String msg;                             //响应状态描述
     private Long time = new Date().getTime();       //时间戳
 
+
     public String getCode() {
         return code;
     }

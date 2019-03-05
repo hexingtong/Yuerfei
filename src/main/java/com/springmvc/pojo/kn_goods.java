@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class kn_goods implements Serializable {
     //id
-    private int id;
+    private Integer id;
     //产品名称
     private String title;
     //类别id\
@@ -37,10 +37,10 @@ public class kn_goods implements Serializable {
     private String Credit_required;
     //平台名称
     private String Platform_name;
-    //申请攻略的文字说明
-    private String Application_strategy;
-    //申请攻略的图片说明
-    private String Application_strategy_img;
+    //产品详情申请条件
+    private String application_requirement;
+    //产品详情描述
+    private String details;
     //排序级别
     private int level;
     //简介
@@ -51,7 +51,7 @@ public class kn_goods implements Serializable {
     private String loogLine;
     //推荐（1未推荐2推荐）
     private int appoint;
-    //上架状态（1保存2上架3下架）
+    //上架状态（上架状态(0审核中，1审核失败，2审核同过,3已上架，4保存））
     private int status;
     //添加时间
     private Date add_time;
@@ -61,6 +61,24 @@ public class kn_goods implements Serializable {
     private String homepicture;
     //有无连接状态码
     private int statusCode;
+    //cpa
+    private String cpa;
+    //点击
+    private String pv;
+    //独立访客
+    private String uv;
+    //uv收益
+    private String uv_earnings;
+    //cpa收益
+    private String cpa_price;
+    //关联用户表，只能是商家id
+    private Integer admin_id;
+    //点击量
+    private Integer click;
+    //详情表id
+    private Integer details_id;
+    //审核失败原因
+    private String audit_failed;
 
     @Override
     public String toString() {
@@ -80,8 +98,8 @@ public class kn_goods implements Serializable {
                 ", Account_way='" + Account_way + '\'' +
                 ", Credit_required='" + Credit_required + '\'' +
                 ", Platform_name='" + Platform_name + '\'' +
-                ", Application_strategy='" + Application_strategy + '\'' +
-                ", Application_strategy_img='" + Application_strategy_img + '\'' +
+                ", application_requirement='" + application_requirement + '\'' +
+                ", details='" + details + '\'' +
                 ", level=" + level +
                 ", info='" + info + '\'' +
                 ", url='" + url + '\'' +
@@ -92,7 +110,109 @@ public class kn_goods implements Serializable {
                 ", activation='" + activation + '\'' +
                 ", homepicture='" + homepicture + '\'' +
                 ", statusCode=" + statusCode +
+                ", cpa='" + cpa + '\'' +
+                ", pv='" + pv + '\'' +
+                ", uv='" + uv + '\'' +
+                ", uv_earnings='" + uv_earnings + '\'' +
+                ", cpa_price='" + cpa_price + '\'' +
+                ", admin_id=" + admin_id +
+                ", click=" + click +
+                ", details_id=" + details_id +
+                ", audit_failed='" + audit_failed + '\'' +
                 '}';
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setApplication_requirement(String application_requirement) {
+        this.application_requirement = application_requirement;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public void setCpa(String cpa) {
+        this.cpa = cpa;
+    }
+
+    public void setPv(String pv) {
+        this.pv = pv;
+    }
+
+    public void setUv(String uv) {
+        this.uv = uv;
+    }
+
+    public void setUv_earnings(String uv_earnings) {
+        this.uv_earnings = uv_earnings;
+    }
+
+    public void setCpa_price(String cpa_price) {
+        this.cpa_price = cpa_price;
+    }
+
+    public void setAdmin_id(Integer admin_id) {
+        this.admin_id = admin_id;
+    }
+
+    public void setClick(Integer click) {
+        this.click = click;
+    }
+
+    public void setDetails_id(Integer details_id) {
+        this.details_id = details_id;
+    }
+
+    public void setAudit_failed(String audit_failed) {
+        this.audit_failed = audit_failed;
+    }
+
+    public String getApplication_requirement() {
+
+        return application_requirement;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public String getCpa() {
+        return cpa;
+    }
+
+    public String getPv() {
+        return pv;
+    }
+
+    public String getUv() {
+        return uv;
+    }
+
+    public String getUv_earnings() {
+        return uv_earnings;
+    }
+
+    public String getCpa_price() {
+        return cpa_price;
+    }
+
+    public Integer getAdmin_id() {
+        return admin_id;
+    }
+
+    public Integer getClick() {
+        return click;
+    }
+
+    public Integer getDetails_id() {
+        return details_id;
+    }
+
+    public String getAudit_failed() {
+        return audit_failed;
     }
 
     public void setId(int id) {
@@ -153,14 +273,6 @@ public class kn_goods implements Serializable {
 
     public void setPlatform_name(String platform_name) {
         Platform_name = platform_name;
-    }
-
-    public void setApplication_strategy(String application_strategy) {
-        Application_strategy = application_strategy;
-    }
-
-    public void setApplication_strategy_img(String application_strategy_img) {
-        Application_strategy_img = application_strategy_img;
     }
 
     public void setLevel(int level) {
@@ -261,14 +373,6 @@ public class kn_goods implements Serializable {
 
     public String getPlatform_name() {
         return Platform_name;
-    }
-
-    public String getApplication_strategy() {
-        return Application_strategy;
-    }
-
-    public String getApplication_strategy_img() {
-        return Application_strategy_img;
     }
 
     public int getLevel() {

@@ -14,7 +14,6 @@ public interface kn_adminservice  extends  BaseService<kn_admin>{
     kn_admin queryList(Integer id);
 
 
-
     /**
      * 根据手机号查询用户信息
      */
@@ -27,9 +26,20 @@ public interface kn_adminservice  extends  BaseService<kn_admin>{
 
     /**
      * 查询数据库有没有这个用户
-     * 根据手机号查询
+     *
      */
     int countAndmin(String phone);
 
+    /**
+     * 根据手机号查到id值
+     * @param phone
+     * @return
+     */
     kn_admin queryByid(String phone);
+
+    /**
+     * 根据id 修改最近登录时间
+     */
+    int UpdateLoginTime(kn_admin kn_admin);
+
 }
