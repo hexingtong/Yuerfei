@@ -34,5 +34,20 @@
     <update id="UpdateLoginTime"  parameterType="kn_admin">
       UPDATE kn_admin SET login_time=#{login_time} WHERE id=#{id}
     </update>
-
+  <!--自定义用户信息表分页.boyang-->
+  <select id="queryListAdmin" parameterType="kn_admin" resultType="com.springmvc.pojo.kn_admin">
+    select * from kn_admin
+    <where>
+      <if test="level!=null and level!='' and level==0 ">
+        AND	level=0
+      </if>
+      <if test="level!=null and level!='' and level==1 ">
+        AND	level=1
+      </if>
+      <if test="level!=null and level!='' and level==2 ">
+        AND	level=2
+      </if>
+    </where>
+ ORDER  BY login_time
+  </select>
 </mapper>
