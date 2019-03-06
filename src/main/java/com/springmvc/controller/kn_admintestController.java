@@ -9,9 +9,6 @@ import com.springmvc.service.kn_adminservice;
 import com.sun.javafx.collections.MappingChange;
 import com.util.*;
 import com.util.token.TokenUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +140,7 @@ public class kn_admintestController {
                         Date utilDate = DateUtil.stringToDate(dateUtil);
                         kn.setAdd_time(utilDate);
                         kn.setLogin_time(utilDate);
-                        String bs = Test.isClient(request);
+
                         //添加注册来源
                         //kn.setregistered_source();
 
