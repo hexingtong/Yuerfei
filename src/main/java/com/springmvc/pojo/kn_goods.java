@@ -1,5 +1,7 @@
 package com.springmvc.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,6 +10,8 @@ import java.util.Date;
  */
 public class kn_goods implements Serializable {
     //id
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
     //产品名称
     private String title;

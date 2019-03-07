@@ -3,6 +3,8 @@ package com.springmvc.pojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Description：角色表
@@ -20,6 +22,8 @@ public class RoleInfo {
      *
      * @mbg.generated Tue Mar 05 18:04:04 CST 2019
      */
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**

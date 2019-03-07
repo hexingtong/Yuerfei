@@ -3,6 +3,8 @@ package com.springmvc.pojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Description：产品详情表
@@ -13,7 +15,8 @@ import javax.persistence.Column;
  */
 @Repository
 public class GoodsDetail {
-
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**

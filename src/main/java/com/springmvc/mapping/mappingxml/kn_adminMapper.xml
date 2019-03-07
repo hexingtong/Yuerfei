@@ -18,7 +18,7 @@
   </insert>
 
 
-    <select id="countAndmin" resultType="int" parameterType="String">
+    <select id="countAndmin" resultType="java.lang.Integer" parameterType="String">
         SELECT count(1) FROM kn_admin where phone=#{phone}
     </select>
 
@@ -47,7 +47,76 @@
       <if test="level!=null and level!='' and level==2 ">
         AND	level=2
       </if>
+      <if test="phone!=null and phone!='' ">
+        AND  phone  LIKE '%${phone}%'
+      </if>
     </where>
  ORDER  BY login_time
   </select>
+
+  <!--更新数据-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.kn_admin">
+    update kn_admin
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredSource != null">
+        registered_source = #{registeredSource,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="authenticationStatus != null">
+        Authentication_Status = #{authenticationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseName != null">
+        enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null">
+        business_license = #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationMessage != null">
+        authentication_message = #{authenticationMessage,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--通过手机号模糊查找信息-->
+    <select id="selectPhoneList" parameterType="String" resultType="kn_admin">
+
+    SELECT * FROM  kn_admin WHERE
+
+         phone  LIKE '%${phone}%'
+
+        AND	level=1  ORDER  BY login_time
+    </select>
 </mapper>

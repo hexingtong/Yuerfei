@@ -1,5 +1,7 @@
 package com.springmvc.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 public class ActiveUser implements Serializable{
@@ -7,6 +9,8 @@ public class ActiveUser implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 2213599757045449327L;
+	@Id
+	@GeneratedValue(generator = "JDBC")
 	private Integer id;//id
     private String account;//账号名
     private Integer roleId;//角色id

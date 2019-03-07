@@ -3,6 +3,8 @@ package com.springmvc.pojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**  
@@ -14,7 +16,8 @@ import java.util.Date;
  */
 @Repository
 public class KnTag {
-
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**

@@ -69,9 +69,9 @@ public interface BaseService<T> {
 
 	/**
 	 * 根据id删除
-	 * 
-	 * @param id
-	 */
+	 *
+     * @param id
+     */
 	public void deleteById(Serializable id);
 
 	/**

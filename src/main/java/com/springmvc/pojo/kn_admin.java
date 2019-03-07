@@ -5,6 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +18,9 @@ import static javax.print.attribute.standard.MediaPrintableArea.MM;
  */
 @Repository
 public class kn_admin  implements Serializable{
-    //id
+
+    @Id
+    @GeneratedValue(generator = "JDBC")
  private Integer id;
  //姓名
  private String title;
@@ -35,17 +39,17 @@ public class kn_admin  implements Serializable{
     @Transient
     private String token;
     //增加时“
-    @JsonFormat( pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "add_time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date add_time;
+    private Date addTime;
     //最近登录时间
-    @JsonFormat( pattern = "yyyy-MM-dd HH:mm", timezone="GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "login_time")
-    private  Date login_time;
+    private  Date loginTime;
     //最近一次登录ip
-    private  String login_ip;
+    private  String loginIp;
     //注册来源
     private String registeredSource;
 
@@ -137,95 +141,75 @@ public class kn_admin  implements Serializable{
         this.authenticationMessage = authenticationMessage;
     }
 
-    @Override
-    public String toString() {
-        return "kn_admin{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", phone='" + phone + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", level=" + level +
-                ", img='" + img + '\'' +
-                ", token='" + token + '\'' +
-                ", add_time=" + add_time +
-                ", login_time=" + login_time +
-                ", login_ip='" + login_ip + '\'' +
-                ", registeredSource='" + registeredSource + '\'' +
-                ", adminId=" + adminId +
-                ", authenticationStatus=" + authenticationStatus +
-                ", enterpriseName='" + enterpriseName + '\'' +
-                ", idNumber='" + idNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", businessLicense='" + businessLicense + '\'' +
-                ", authenticationMessage=" + authenticationMessage +
-                '}';
+    public Integer getId() {
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public void setAdd_time(Date add_time) {
-        this.add_time = add_time;
-    }
-
-    public void setLogin_time(Date login_time) {
-        this.login_time = login_time;
-    }
-
-    public void setLogin_ip(String login_ip) {
-        this.login_ip = login_ip;
-    }
-
-    public void setToken(String token){this.token=token;}
-
-    public Integer getId() {
-        return id;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPhone() {
         return phone;
     }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Integer getLevel() {
         return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getImg() {
         return img;
     }
 
-    public Date getAdd_time() {
-        return add_time;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public Date getLogin_time() {
-        return login_time;
+    public String getToken() {
+        return token;
     }
 
-    public String getLogin_ip() {
-        return login_ip;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getToken(){return token;}
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
 }

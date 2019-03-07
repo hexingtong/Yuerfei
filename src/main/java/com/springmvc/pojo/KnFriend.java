@@ -14,7 +14,7 @@ import java.util.Date;
 @Repository
 public class KnFriend {
 
-    private Short id;
+    private Integer id;
 
     /**
      *
@@ -52,11 +52,11 @@ public class KnFriend {
      */
     private Integer enrollment;
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

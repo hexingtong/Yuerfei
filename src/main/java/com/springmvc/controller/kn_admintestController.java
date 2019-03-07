@@ -112,7 +112,7 @@ public class kn_admintestController {
                         Date utilDate = DateUtil.stringToDate(dateUtil);
                         //修改最后一次登录时间
                         kn_admin kna = new kn_admin();
-                        kna.setLogin_time(utilDate);
+                        kna.setLoginTime(utilDate);
                         kna.setId(Integer.parseInt(id));
                         knAdminservice.UpdateLoginTime(kna);
                         // logger.info(""+knAdminservice.queryListPhone(Phone));
@@ -138,13 +138,13 @@ public class kn_admintestController {
                         kn.setPhone(Phone);
                         String dateUtil = DateUtil.getNowDate();
                         Date utilDate = DateUtil.stringToDate(dateUtil);
-                        kn.setAdd_time(utilDate);
-                        kn.setLogin_time(utilDate);
+                        kn.setAddTime(utilDate);
+                        kn.setLoginTime(utilDate);
 
                         //添加注册来源
                         //kn.setregistered_source();
 
-                        logger.info("Date时间:" + kn.getAdd_time());
+                        logger.info("Date时间:" + kn.getAddTime());
                         if (knAdminservice.insertAndmin(kn) > 0) {
                             logger.info("注册成功！");
                             //根据手机号查询id

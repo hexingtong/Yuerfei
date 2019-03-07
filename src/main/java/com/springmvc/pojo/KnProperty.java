@@ -3,6 +3,8 @@ package com.springmvc.pojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 /**
  * Description：产品属性表
@@ -13,7 +15,8 @@ import java.util.Date;
  */
 @Repository
 public class KnProperty {
-
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**

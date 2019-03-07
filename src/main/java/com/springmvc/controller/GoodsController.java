@@ -26,7 +26,7 @@ import java.util.List;
  * @Date: 2019/2/27 15:28
  **/
 @Controller
-@RequestMapping("/Goods")
+@RequestMapping("/goods")
 public class GoodsController {
 
     final Logger logger = LoggerFactory.getLogger(GoodsController.class);
@@ -43,7 +43,7 @@ public class GoodsController {
      * @author boyang
      * @date 2019/2/27 16:53
      */
-    @RequestMapping("getGoodsList")
+    @RequestMapping("getgoodslist")
     @ResponseBody
     public void getDataList(Model model,HttpServletResponse response
     ) {

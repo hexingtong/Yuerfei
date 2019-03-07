@@ -14,6 +14,9 @@ public class StatusCode {
     public static String CODE_ERROR_EXIST_OPERATION = "0005";      //已操作
 
 
+    public static String SUCCESSFULLY = "1";//返回成功
+    public static String FAILED = "0";//返回成功
+
 
 
 
