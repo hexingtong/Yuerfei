@@ -53,4 +53,5 @@ public interface kn_adminservice  extends  BaseService<kn_admin>{
      */
     kn_admin queryByPhone(String phone);
 
+
 }

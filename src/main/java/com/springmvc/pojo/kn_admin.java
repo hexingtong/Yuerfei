@@ -18,9 +18,9 @@ import static javax.print.attribute.standard.MediaPrintableArea.MM;
  */
 @Repository
 public class kn_admin  implements Serializable{
-
-    @Id
-    @GeneratedValue(generator = "JDBC")
+ //id
+ @Id
+ @GeneratedValue(generator = "JDBC")
  private Integer id;
  //姓名
  private String title;
@@ -50,22 +50,54 @@ public class kn_admin  implements Serializable{
     private  Date loginTime;
     //最近一次登录ip
     private  String loginIp;
+
+    @Override
+    public String toString() {
+        return "kn_admin{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", phone='" + phone + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", level=" + level +
+                ", img='" + img + '\'' +
+                ", token='" + token + '\'' +
+                ", addTime=" + addTime +
+                ", loginTime=" + loginTime +
+                ", loginIp='" + loginIp + '\'' +
+                ", registeredSource='" + registeredSource + '\'' +
+                ", adminId=" + adminId +
+                ", authenticationStatus=" + authenticationStatus +
+                ", enterpriseName='" + enterpriseName + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", businessLicense='" + businessLicense + '\'' +
+                ", authenticationMessage=" + authenticationMessage +
+                '}';
+    }
+
     //注册来源
+    @Column(name = "registered_source")
     private String registeredSource;
 
     //生成的用户id(uuid)
+    @Column(name = "admin_id")
     private Integer adminId;
     //商家的认证状态(0:审核中。1：认证成功 2：认证失败)
+    @Column(name = "Authentication_Status")
     private Integer authenticationStatus;
     //企业名称
+    @Column(name = "enterprise_name")
     private String enterpriseName;
     //证件号码
+    @Column(name = "id_number")
     private String idNumber;
     //邮箱
     private String email;
     //营业执照
+    @Column(name = "business_license")
     private String businessLicense;
     //认证信息
+
     private Integer authenticationMessage;
 
 
@@ -141,75 +173,71 @@ public class kn_admin  implements Serializable{
         this.authenticationMessage = authenticationMessage;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Integer getLevel() {
-        return level;
     }
 
     public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public String getImg() {
-        return img;
-    }
-
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Date getAddTime() {
-        return addTime;
     }
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
-    public Date getLoginTime() {
-        return loginTime;
-    }
-
     public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
+    public void setToken(String token){this.token=token;}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
     }
 
     public String getLoginIp() {
         return loginIp;
     }
 
-    public void setLoginIp(String loginIp) {
-        this.loginIp = loginIp;
-    }
+    public String getToken(){return token;}
 }

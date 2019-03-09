@@ -84,7 +84,6 @@
     <async-supported>true</async-supported>
   </servlet>
 
-
   <!-- 拦截设置 -->
   <servlet-mapping>
     <servlet-name>mvc-dispatcher</servlet-name>

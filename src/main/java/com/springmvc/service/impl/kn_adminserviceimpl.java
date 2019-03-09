@@ -40,6 +40,7 @@ private kn_adminMapper adminMapper;
     public kn_admin queryByid(String phone){
         kn_admin knAdmin=adminMapper.queryByid(phone);
         return knAdmin;
+
     }
     public int UpdateLoginTime(kn_admin kn_admin){
         int knadmin=adminMapper.UpdateLoginTime(kn_admin);
@@ -66,4 +67,9 @@ private kn_adminMapper adminMapper;
         }
         return null;
     }
+
+
+
+
+
 }

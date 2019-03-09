@@ -9,8 +9,8 @@
         <module name="Yuerfei" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Yuerfei" target="1.6" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Yuerfei" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

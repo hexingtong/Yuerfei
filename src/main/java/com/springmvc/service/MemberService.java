@@ -2,6 +2,7 @@ package com.springmvc.service;
 
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
+import com.springmvc.pojo.kn_tag;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -42,4 +43,32 @@ public interface MemberService  extends  BaseService<kn_admin>{
      * @return
      */
     List<kn_admin> selectPhoneList( String phone);
+
+
+    /**
+     * 根据id 删除商家账户
+     * @param id
+     * @return
+     */
+    int deletebyIdMerchant(Integer id);
+
+    /**
+     * 获取标签列表 分页
+     * @param pageNo
+     * @param pageSize
+     * @param title
+     * @return
+     */
+    PageResultInfo queryListTag(Integer pageNo,Integer pageSize,String title);
+
+    /**
+     * 增加标签
+     * @param knTag
+     * @return
+     */
+    int MercjatTagIncrease(kn_tag knTag);
+    /**
+     * 编辑标签
+     */
+    int MercjatTagUpadete(kn_tag knTag);
 }

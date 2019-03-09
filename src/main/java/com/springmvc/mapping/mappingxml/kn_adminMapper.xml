@@ -34,6 +34,7 @@
     <update id="UpdateLoginTime"  parameterType="kn_admin">
       UPDATE kn_admin SET login_time=#{login_time} WHERE id=#{id}
     </update>
+
   <!--自定义用户信息表分页.boyang-->
   <select id="queryListAdmin" parameterType="kn_admin" resultType="com.springmvc.pojo.kn_admin">
     select * from kn_admin

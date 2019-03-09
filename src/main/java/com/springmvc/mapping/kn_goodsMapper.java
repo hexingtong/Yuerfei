@@ -25,6 +25,17 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
     List<kn_goods> getGoodsList();
 
     /**
+     * 根据id查询商家信息
+     * @param id
+     * @return
+     */
+    int queryMerchantId(Integer id);
+
+    /**
+     * 根据id删除商家产品
+     */
+    int delectMerchant(Integer id);
+    /**
      * Description：得到商家产品列表
      *
      * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态

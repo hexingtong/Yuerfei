@@ -43,4 +43,8 @@ public interface kn_goodsservice extends  BaseService<kn_goods>{
      * @return
      */
     Integer getDetailId(Integer id);
+    //根据
+    int queryMerchantId(Integer id);
+
+    int delectMerchant(Integer id);
 }

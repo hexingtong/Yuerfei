@@ -142,4 +142,24 @@ public  class kn_goodsServiceimpl extends  BaseServiceImpl<kn_goods> implements 
     }
 
 
+
+    public int queryMerchantId(Integer id){
+        int lis=knGoodsMapper.queryMerchantId(id);
+        if (lis<0){
+            logger.info("没有查询到对应商品");
+            return lis;
+        }else {
+            logger.info("查询到有商品");
+            //删除对应的商品
+
+            return  lis;
+        }
+
+    }
+
+    public int delectMerchant(Integer id){
+        int lst=knGoodsMapper.delectMerchant(id);
+        return lst;
+    }
+
 }
