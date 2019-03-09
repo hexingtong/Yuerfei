@@ -33,6 +33,16 @@ public class RoleInfo {
     @Column(name = "role_name")
     private String roleName;
 
+    private String parentId;
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
     public Integer getId() {
         return id;
     }
