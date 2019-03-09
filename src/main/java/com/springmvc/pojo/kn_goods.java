@@ -1,5 +1,9 @@
 package com.springmvc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -16,33 +20,44 @@ public class kn_goods implements Serializable {
     //产品名称
     private String title;
     //类别id\
-    private int category_id;
+    @Column(name = "category_id")
+    private int categoryId;
     //属性id
-    private String property_ids;
+    @Column(name = "property_ids")
+    private String propertyId;
     //标签图片id
-    private int tag_id;
+    @Column(name = "tag_id")
+    private int tagId;
     //产品图片
     private String img;
     //申请成功率
-    private String Success_rate;
+    @Column(name = "Success_rate")
+    private String SuccessRate;
     //额度
     private String Limit;
     //期限
     private String Deadline;
     //利率
-    private String Interest_rate;
+    @Column(name = "Interest_rate")
+    private String Interestrate;
     //放贷速度
-    private String Pace_lending;
+    @Column(name = "Pace_lending")
+    private String PaceLending;
     //审核方式
-    private String Review_way;
+    @Column(name = "Review_way")
+    private String ReviewWay;
     //到账方式
-    private String Account_way;
+    @Column(name = "Platform_name")
+    private String AccountWay;
     //征信要求
-    private String Credit_required;
+    @Column(name = "Credit_required")
+    private String Creditrequired;
     //平台名称
-    private String Platform_name;
+    @Column(name = "Account_way")
+    private String Platformname;
     //产品详情申请条件
-    private String application_requirement;
+    @Column(name = "application_requirement")
+    private String applicationrequirement;
     //产品详情描述
     private String details;
     //排序级别
@@ -58,7 +73,10 @@ public class kn_goods implements Serializable {
     //上架状态（上架状态(0审核中，1审核失败，2审核同过,3已上架，4保存））
     private int status;
     //添加时间
-    private Date add_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "add_time")
+    private Date addTime;
     //激活流程
     private String activation;
     //首页图
@@ -72,350 +90,319 @@ public class kn_goods implements Serializable {
     //独立访客
     private String uv;
     //uv收益
-    private String uv_earnings;
+    @Column(name = "uv_earnings")
+    private String uvEarnings;
     //cpa收益
-    private String cpa_price;
+    @Column(name = "cpa_price")
+    private String cpaPrice;
     //关联用户表，只能是商家id
-    private Integer admin_id;
+    @Column(name = "admin_id")
+    private Integer adminId;
     //点击量
     private Integer click;
     //详情表id
-    private Integer details_id;
-    //审核失败原因
-    private String audit_failed;
+    @Column(name = "details_id")
+    private Integer detailsId;
+    //审核失败原因f
+    @Column(name = "audit_failed")
+    private String auditailed;
+    //已申请人数
+    @Column(name = "apply_count")
+    private Integer applyCount;
 
-    @Override
-    public String toString() {
-        return "kn_goods{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", category_id=" + category_id +
-                ", property_ids='" + property_ids + '\'' +
-                ", tag_id=" + tag_id +
-                ", img='" + img + '\'' +
-                ", Success_rate='" + Success_rate + '\'' +
-                ", Limit='" + Limit + '\'' +
-                ", Deadline='" + Deadline + '\'' +
-                ", Interest_rate='" + Interest_rate + '\'' +
-                ", Pace_lending='" + Pace_lending + '\'' +
-                ", Review_way='" + Review_way + '\'' +
-                ", Account_way='" + Account_way + '\'' +
-                ", Credit_required='" + Credit_required + '\'' +
-                ", Platform_name='" + Platform_name + '\'' +
-                ", application_requirement='" + application_requirement + '\'' +
-                ", details='" + details + '\'' +
-                ", level=" + level +
-                ", info='" + info + '\'' +
-                ", url='" + url + '\'' +
-                ", loogLine='" + loogLine + '\'' +
-                ", appoint=" + appoint +
-                ", status=" + status +
-                ", add_time=" + add_time +
-                ", activation='" + activation + '\'' +
-                ", homepicture='" + homepicture + '\'' +
-                ", statusCode=" + statusCode +
-                ", cpa='" + cpa + '\'' +
-                ", pv='" + pv + '\'' +
-                ", uv='" + uv + '\'' +
-                ", uv_earnings='" + uv_earnings + '\'' +
-                ", cpa_price='" + cpa_price + '\'' +
-                ", admin_id=" + admin_id +
-                ", click=" + click +
-                ", details_id=" + details_id +
-                ", audit_failed='" + audit_failed + '\'' +
-                '}';
+    public Integer getId() {
+        return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setApplication_requirement(String application_requirement) {
-        this.application_requirement = application_requirement;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public void setCpa(String cpa) {
-        this.cpa = cpa;
-    }
-
-    public void setPv(String pv) {
-        this.pv = pv;
-    }
-
-    public void setUv(String uv) {
-        this.uv = uv;
-    }
-
-    public void setUv_earnings(String uv_earnings) {
-        this.uv_earnings = uv_earnings;
-    }
-
-    public void setCpa_price(String cpa_price) {
-        this.cpa_price = cpa_price;
-    }
-
-    public void setAdmin_id(Integer admin_id) {
-        this.admin_id = admin_id;
-    }
-
-    public void setClick(Integer click) {
-        this.click = click;
-    }
-
-    public void setDetails_id(Integer details_id) {
-        this.details_id = details_id;
-    }
-
-    public void setAudit_failed(String audit_failed) {
-        this.audit_failed = audit_failed;
-    }
-
-    public String getApplication_requirement() {
-
-        return application_requirement;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public String getCpa() {
-        return cpa;
-    }
-
-    public String getPv() {
-        return pv;
-    }
-
-    public String getUv() {
-        return uv;
-    }
-
-    public String getUv_earnings() {
-        return uv_earnings;
-    }
-
-    public String getCpa_price() {
-        return cpa_price;
-    }
-
-    public Integer getAdmin_id() {
-        return admin_id;
-    }
-
-    public Integer getClick() {
-        return click;
-    }
-
-    public Integer getDetails_id() {
-        return details_id;
-    }
-
-    public String getAudit_failed() {
-        return audit_failed;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setProperty_ids(String property_ids) {
-        this.property_ids = property_ids;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setTag_id(int tag_id) {
-        this.tag_id = tag_id;
+    public String getPropertyId() {
+        return propertyId;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setPropertyId(String propertyId) {
+        this.propertyId = propertyId;
     }
 
-    public void setSuccess_rate(String success_rate) {
-        Success_rate = success_rate;
+    public int getTagId() {
+        return tagId;
     }
 
-    public void setLimit(String limit) {
-        Limit = limit;
-    }
-
-    public void setDeadline(String deadline) {
-        Deadline = deadline;
-    }
-
-    public void setInterest_rate(String interest_rate) {
-        Interest_rate = interest_rate;
-    }
-
-    public void setPace_lending(String pace_lending) {
-        Pace_lending = pace_lending;
-    }
-
-    public void setReview_way(String review_way) {
-        Review_way = review_way;
-    }
-
-    public void setAccount_way(String account_way) {
-        Account_way = account_way;
-    }
-
-    public void setCredit_required(String credit_required) {
-        Credit_required = credit_required;
-    }
-
-    public void setPlatform_name(String platform_name) {
-        Platform_name = platform_name;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setLoogLine(String loogLine) {
-        this.loogLine = loogLine;
-    }
-
-    public void setAppoint(int appoint) {
-        this.appoint = appoint;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public void setAdd_time(Date add_time) {
-        this.add_time = add_time;
-    }
-
-    public void setActivation(String activation) {
-        this.activation = activation;
-    }
-
-    public void setHomepicture(String homepicture) {
-        this.homepicture = homepicture;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getCategory_id() {
-        return category_id;
-    }
-
-    public String getProperty_ids() {
-        return property_ids;
-    }
-
-    public int getTag_id() {
-        return tag_id;
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     public String getImg() {
         return img;
     }
 
-    public String getSuccess_rate() {
-        return Success_rate;
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getSuccessRate() {
+        return SuccessRate;
+    }
+
+    public void setSuccessRate(String successRate) {
+        SuccessRate = successRate;
     }
 
     public String getLimit() {
         return Limit;
     }
 
+    public void setLimit(String limit) {
+        Limit = limit;
+    }
+
     public String getDeadline() {
         return Deadline;
     }
 
-    public String getInterest_rate() {
-        return Interest_rate;
+    public void setDeadline(String deadline) {
+        Deadline = deadline;
     }
 
-    public String getPace_lending() {
-        return Pace_lending;
+    public String getInterestrate() {
+        return Interestrate;
     }
 
-    public String getReview_way() {
-        return Review_way;
+    public void setInterestrate(String interestrate) {
+        Interestrate = interestrate;
     }
 
-    public String getAccount_way() {
-        return Account_way;
+    public String getPaceLending() {
+        return PaceLending;
     }
 
-    public String getCredit_required() {
-        return Credit_required;
+    public void setPaceLending(String paceLending) {
+        PaceLending = paceLending;
     }
 
-    public String getPlatform_name() {
-        return Platform_name;
+    public String getReviewWay() {
+        return ReviewWay;
+    }
+
+    public void setReviewWay(String reviewWay) {
+        ReviewWay = reviewWay;
+    }
+
+    public String getAccountWay() {
+        return AccountWay;
+    }
+
+    public void setAccountWay(String accountWay) {
+        AccountWay = accountWay;
+    }
+
+    public String getCreditrequired() {
+        return Creditrequired;
+    }
+
+    public void setCreditrequired(String creditrequired) {
+        Creditrequired = creditrequired;
+    }
+
+    public String getPlatformname() {
+        return Platformname;
+    }
+
+    public void setPlatformname(String platformname) {
+        Platformname = platformname;
+    }
+
+    public String getApplicationrequirement() {
+        return applicationrequirement;
+    }
+
+    public void setApplicationrequirement(String applicationrequirement) {
+        this.applicationrequirement = applicationrequirement;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public int getLevel() {
         return level;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public String getInfo() {
         return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getUrl() {
         return url;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getLoogLine() {
         return loogLine;
+    }
+
+    public void setLoogLine(String loogLine) {
+        this.loogLine = loogLine;
     }
 
     public int getAppoint() {
         return appoint;
     }
 
+    public void setAppoint(int appoint) {
+        this.appoint = appoint;
+    }
+
     public int getStatus() {
         return status;
     }
 
-    public Date getAdd_time() {
-        return add_time;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public String getActivation() {
         return activation;
     }
 
+    public void setActivation(String activation) {
+        this.activation = activation;
+    }
+
     public String getHomepicture() {
         return homepicture;
     }
 
+    public void setHomepicture(String homepicture) {
+        this.homepicture = homepicture;
+    }
+
     public int getStatusCode() {
         return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getCpa() {
+        return cpa;
+    }
+
+    public void setCpa(String cpa) {
+        this.cpa = cpa;
+    }
+
+    public String getPv() {
+        return pv;
+    }
+
+    public void setPv(String pv) {
+        this.pv = pv;
+    }
+
+    public String getUv() {
+        return uv;
+    }
+
+    public void setUv(String uv) {
+        this.uv = uv;
+    }
+
+    public String getUvEarnings() {
+        return uvEarnings;
+    }
+
+    public void setUvEarnings(String uvEarnings) {
+        this.uvEarnings = uvEarnings;
+    }
+
+    public String getCpaPrice() {
+        return cpaPrice;
+    }
+
+    public void setCpaPrice(String cpaPrice) {
+        this.cpaPrice = cpaPrice;
+    }
+
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
+    }
+
+    public Integer getClick() {
+        return click;
+    }
+
+    public void setClick(Integer click) {
+        this.click = click;
+    }
+
+    public Integer getDetailsId() {
+        return detailsId;
+    }
+
+    public void setDetailsId(Integer detailsId) {
+        this.detailsId = detailsId;
+    }
+
+    public String getAuditailed() {
+        return auditailed;
+    }
+
+    public void setAuditailed(String auditailed) {
+        this.auditailed = auditailed;
+    }
+
+    public Integer getApplyCount() {
+        return applyCount;
+    }
+
+    public void setApplyCount(Integer applyCount) {
+        this.applyCount = applyCount;
     }
 }

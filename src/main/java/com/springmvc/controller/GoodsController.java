@@ -1,5 +1,11 @@
 package com.springmvc.controller;
 
+import com.springmvc.pojo.KnProperty;
+import com.springmvc.pojo.KnTag;
+import com.springmvc.pojo.Statusputaway;
+import com.springmvc.service.KnTagService;
+import com.springmvc.service.PropertyService;
+import com.springmvc.service.StatusputawayService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
 import com.util.JsonUtils;
@@ -17,7 +23,9 @@ import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName GoodsController
@@ -34,7 +42,12 @@ public class GoodsController {
 
     @Autowired
     kn_goodsservice knGoodsservice;
-
+    @Autowired
+    PropertyService propertyService;
+@Autowired
+    StatusputawayService  statusputawayService;
+@Autowired
+    KnTagService knTagService;
     /**
      * Description：得到所有的产品
      *
@@ -65,5 +78,51 @@ public class GoodsController {
         }
 
     }
+    /**
+     * Description：产品属性接口
+     * @author boyang
+     * @date 2019/3/8 15:19
+     * @param
+     * @return
+     */
+    @RequestMapping("getAttributelist")
+    @ResponseBody
+    public Map<String,List<KnProperty>> getPropertyList( HttpServletResponse response
+    ) {
+        Map<String,List<KnProperty>>map=new HashMap<String,List<KnProperty>>();
 
+        map.put("property",propertyService.queryAll());
+        return map;
+    }
+
+    /**
+     * Description：产品上架状态接口
+     * @author boyang
+     * @date 2019/3/8 15:19
+     * @param
+     * @return
+     */
+    @RequestMapping("getStatuslist")
+    @ResponseBody
+    public Map<String,List<Statusputaway>> getPutawayList( HttpServletResponse response
+    ) {
+        Map<String,List<Statusputaway>>map=new HashMap<String,List<Statusputaway>>();
+        map.put("Statusputaway",statusputawayService.queryAll());
+        return map;
+    }
+    /**
+     * Description：产品标签接口
+     * @author boyang
+     * @date 2019/3/8 15:19
+     * @param
+     * @return
+     */
+    @RequestMapping("getTaglist")
+    @ResponseBody
+    public Map<String,List<KnTag>> getTaglist( HttpServletResponse response
+    ) {
+        Map<String,List<KnTag>>map=new HashMap<String,List<KnTag>>();
+        map.put("KnTag",knTagService.queryAll());
+        return map;
+    }
 }

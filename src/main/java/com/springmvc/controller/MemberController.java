@@ -37,7 +37,7 @@ public class MemberController {
     /**
      * Description：得到商家列表
      *
-     * @param , response, pageNo：当前页, pageSize：页容量]
+     * @param , response, pageNo：当前页, pageSize：页容量,传入的手机号
      * @return com.springmvc.pojo.PageResultInfo
      * @author boyang
      * @date 11:21
@@ -48,9 +48,9 @@ public class MemberController {
                                       @RequestParam(value = "pageNo", defaultValue = "1",
                                               required = false)
                                               Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "3", required = false)
+                                      @RequestParam(value = "pageSize", defaultValue = "4", required = false)
                                               Integer pageSize,
-                                      @RequestParam(value = "phone", defaultValue = "null", required = false)
+                                      @RequestParam(value = "phone", required = false)
                                                   String phone) {
         logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
         PageResultInfo resultInfo = memberService.queryListAdmin(pageNo, pageSize,phone);
@@ -108,29 +108,29 @@ public class MemberController {
 
     }
 
-    /**
-     * Description：会员手机号码搜索接口
-     * @author boyang
-     * @date 2019/3/6 19:20
-     * @param
-     * @return
-     */
-    @RequestMapping("/selectPhoneList")
-    @ResponseBody
-    public List<kn_admin> selectPhoneList(String phone) {
-        logger.info("传入查询的手机号"+phone);
-        List list=new ArrayList();
-         if (phone!=null){
-             list=  memberService.selectPhoneList(phone);
-             logger.info("返回数据"+list);
-             return  list;
-        }else {
-             logger.info("没有数据返回");
-             return null;
-
-         }
-
-    }
+//    /**
+//     * Description：会员手机号码搜索接口
+//     * @author boyang
+//     * @date 2019/3/6 19:20
+//     * @param
+//     * @return
+//     */
+//    @RequestMapping("/selectPhoneList")
+//    @ResponseBody
+//    public List<kn_admin> selectPhoneList(String phone) {
+//        logger.info("传入查询的手机号"+phone);
+//        List list=new ArrayList();
+//         if (phone!=null){
+//             list=  memberService.selectPhoneList(phone);
+//             logger.info("返回数据"+list);
+//             return  list;
+//        }else {
+//             logger.info("没有数据返回");
+//             return null;
+//
+//         }
+//
+//    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.springmvc.service.impl;
 
+import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.kn_adminMapper;
@@ -39,7 +40,7 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
         kn_admin knAdmin=new kn_admin();
         knAdmin.setLevel(2);
         List<kn_admin> agentLevelSettings;
-        if (phone!=null||!phone.equals(null)){
+        if (!StringUtils.isEmpty(phone)||!"".equals(phone)){
             knAdmin.setPhone(phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
         }else {
