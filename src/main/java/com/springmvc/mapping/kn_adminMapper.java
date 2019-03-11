@@ -57,5 +57,13 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @return 
      */
     List<kn_admin> selectPhoneList(@Param("phone") String phone);
+    /**
+     * Description：得到管理员列表
+     * @author boyang
+     * @date  19:43
+     * @param
+     * @return
+     */
+    List<kn_admin> selectManagementList(@Param("phone") String phone);
 
 }

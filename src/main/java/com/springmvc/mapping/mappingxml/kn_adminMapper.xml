@@ -119,4 +119,14 @@
 
         AND	level=1  ORDER  BY login_time
     </select>
+  <!--得到管理员列表-->
+  <select id="selectManagementList" resultType="com.springmvc.pojo.kn_admin" parameterType="kn_admin" >
+    SELECT a.* ,b.role_name FROM `kn_admin` a  JOIN role_info b ON a.level=b.id  and  b.parentId=3
+    <if test="phone!=null and phone!='' ">
+      AND  phone  LIKE '%${phone}%'
+    </if>
+ORDER BY login_time
+  </select>
+
+
 </mapper>
