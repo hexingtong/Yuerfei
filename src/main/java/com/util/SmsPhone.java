@@ -73,7 +73,7 @@ public class SmsPhone {
     }
 
     public static void setNewcode(){
-        newcode = (int)(Math.random()*9999)+100000;  //每次调用生成一次六位数的随机数
+        newcode = (int)(Math.random()*999999)+100000;  //每次调用生成一次六位数的随机数
     }
 
     public static void main(String[] args) throws Exception {

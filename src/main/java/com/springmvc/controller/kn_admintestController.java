@@ -38,7 +38,6 @@ public class kn_admintestController {
     @Autowired
     private kn_adminservice knAdminservice;
 
-
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
 
@@ -47,6 +46,7 @@ public class kn_admintestController {
     @ResponseBody
     public void test(HttpServletResponse response, String Phone, HttpSession session) {
         List<kn_admin> lst = new ArrayList();
+        Jedis jedis = new Jedis("47.92.53.177", 6379);
         try {
         SmsPhone.setNewcode();
 
@@ -64,8 +64,6 @@ public class kn_admintestController {
                 session.setAttribute("Smsphones", Phone);
                 ListObject listObject = new ListObject();
                 kn_admin kns = knAdminservice.queryByid(Phone);
-                lst.add(kns);
-                listObject.setItems(lst);
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 listObject.setMsg("发送成功！");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
@@ -87,11 +85,9 @@ public class kn_admintestController {
     public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request) {
         ListObject listObject = new ListObject();
         List<kn_admin> lst = new ArrayList();
-
         String code = session.getAttribute("SmsCode").toString();
         String Phones = session.getAttribute("Smsphones").toString();
         System.out.println("code" + code + "phone" + Phones);
-
         logger.info(Phones);
         if (!code.equals("")&&code != null&&Phones.equals(Phone)&&Phones != null) {
             logger.info("------------------获取session的code 为：" + code);
@@ -127,7 +123,6 @@ public class kn_admintestController {
                     //logger.info(""+knAdminservice.queryListPhone(Phone));
 
                     kn_admin knx = new kn_admin();
-                    knAdmin2.setToken(token);
                     lsx = knAdminservice.queryListByWhere(knAdmin2);
                     ListObjectSuper listObjectSuper = new ListObjectSuper();
                     /* map.put("lis",kn);
@@ -150,10 +145,9 @@ public class kn_admintestController {
                     Date utilDate = DateUtil.stringToDate(dateUtil);
                     kn.setAddTime(utilDate);
                     kn.setLoginTime(utilDate);
-                    String bs = Test.isClient(request);
+                    String bs = IPutil.isClient(request);
                     //添加注册来源
-                    //kn.setregistered_source();
-
+                    kn.setRegisteredSource(bs);
                     logger.info("Date时间:" );
                     if (knAdminservice.insertAndmin(kn) > 0) {
                         logger.info("注册成功！");
@@ -181,6 +175,8 @@ public class kn_admintestController {
                         //设置时间为毫秒
                         jedis.pexpire("token", 1296000000);
                         logger.info("注册登录成功:未注册用户");
+                        listObjectSuper.setMsg("注册成功!");
+                        listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
                         ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
                     } else {
                         logger.info("注册失败！");
