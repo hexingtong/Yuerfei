@@ -30,6 +30,7 @@
 				/logout.action = logout
 				<!-- /**=authc 所有的url都必须通过认证才可以访问 -->
 				/admin/smsPhone=anon
+				/Goods/getGoodsList=anon
 				/admin/login=anon
 				/merchant/addUserInfo=anon
 				/** = authc

@@ -153,5 +153,18 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
         return list;
     }
 
+    @Override
+    public List<kn_goods> queryGoodes(String title) {
+        logger.info("传入搜索产品名"+title);
+        List list=new ArrayList();
+        if (StringUtils.isNotEmpty(title)){
+            list= knGoodsMapper.queryGoodes(title);
+            return list;
+        }else {
+            return null;
+        }
+
+    }
+
 
 }

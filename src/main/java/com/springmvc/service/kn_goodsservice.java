@@ -52,4 +52,12 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * @return
      */
     List<kn_goods> queryByTagid();
+    /**
+     * Description：一对多模糊查找
+     * @author boyang
+     * @date 2019/3/12 19:42
+     * @param
+     * @return
+     */
+    List<kn_goods> queryGoodes( String title);
 }

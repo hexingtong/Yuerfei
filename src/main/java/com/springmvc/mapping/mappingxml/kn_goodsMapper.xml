@@ -43,5 +43,12 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
 
 
   </select>
+    <select id="queryGoodes" resultType="com.springmvc.pojo.kn_goods" parameterType="String">
+      SELECT g.*
+      FROM kn_goods g
+      WHERE title LIKE '%${title}%'
+
+
+    </select>
 
 </mapper>

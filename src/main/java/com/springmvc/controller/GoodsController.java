@@ -56,7 +56,7 @@ public class GoodsController {
      * @author boyang
      * @date 2019/2/27 16:53
      */
-    @RequestMapping("getGoodslist")
+    @RequestMapping("getGoodsList")
     @ResponseBody
     public void getDataList(Model model,HttpServletResponse response
     ) {
@@ -125,4 +125,5 @@ public class GoodsController {
         map.put("KnTag",knTagService.queryAll());
         return map;
     }
+
 }

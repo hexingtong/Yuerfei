@@ -5,10 +5,15 @@ import com.springmvc.pojo.Notice;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.NoticeService;
 import com.springmvc.service.PropertyService;
+import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
+import com.sun.xml.internal.ws.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +30,9 @@ import java.util.Map;
 @RequestMapping("/APP")
 @Controller
 public class HomeController {
-@Autowired
+    final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
+
+    @Autowired
 PropertyService propertyService;
 @Autowired
 kn_goodsservice knGoodsservice;
@@ -38,7 +45,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
-    @RequestMapping("getAttributelist")
+    @RequestMapping("/getAttributelist")
     @ResponseBody
     public Map<String,List<KnProperty>> getPropertyList(HttpServletResponse response
     ) {
@@ -56,7 +63,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
-    @RequestMapping("getGoodlist")
+    @RequestMapping("/getGoodlist")
     @ResponseBody
     public Map<String,List<kn_goods>> getGoods(HttpServletResponse response
     ) {
@@ -72,7 +79,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
-    @RequestMapping("getNoticelist")
+    @RequestMapping("/getNoticelist")
     @ResponseBody
     public Map<String,List<Notice>> getNotice(HttpServletResponse response
     ) {
@@ -80,6 +87,7 @@ NoticeService noticeService;
         map.put("goods",noticeService.queryAll());
         return map;
     }
+
     /**
      * Description： 首页搜索接口
      * @author boyang
@@ -87,9 +95,22 @@ NoticeService noticeService;
      * @param
      * @return
      */
+    @RequestMapping("/getGoodesName")
+    @ResponseBody
+    public Map<String,List<kn_goods>> getGoodesName(@RequestParam(value = "name", required = false)String name
+    ) {
+        logger.info("传入产品名称"+name);
+        Map<String,List<kn_goods>>map=new HashMap<String,List<kn_goods>>();
+        if (com.aliyuncs.utils.StringUtils.isNotEmpty(name)){
+            map.put("goods",knGoodsservice.queryGoodes(name));
+            return map;
+        }else {
+           map.put("goods",knGoodsservice.getGoodsList());
+           return  map;
+        }
 
-//public  Map<String,List<kn_goods>> getGoods(){
-//
-//}
+
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.springmvc.mapping;
 
 import com.springmvc.pojo.kn_goods;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -48,4 +49,13 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @return
      */
     List<kn_goods> queryByTagid();
+
+    /**
+     * Description：一对多模糊查找
+     * @author boyang
+     * @date 2019/3/12 19:42
+     * @param
+     * @return
+     */
+    List<kn_goods> queryGoodes(@Param("title") String name);
 }
