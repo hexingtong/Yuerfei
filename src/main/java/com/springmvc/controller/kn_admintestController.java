@@ -145,9 +145,9 @@ public class kn_admintestController {
                     Date utilDate = DateUtil.stringToDate(dateUtil);
                     kn.setAddTime(utilDate);
                     kn.setLoginTime(utilDate);
-                    String bs = IPutil.isClient(request);
+                    //String bs = IPutil.isClient(request);
                     //添加注册来源
-                    kn.setRegisteredSource(bs);
+                   // kn.setRegisteredSource(bs);
                     logger.info("Date时间:" );
                     if (knAdminservice.insertAndmin(kn) > 0) {
                         logger.info("注册成功！");

@@ -4,7 +4,7 @@ import com.springmvc.pojo.kn_admin;
 
 import java.util.List;
 
-public interface kn_adminservice  extends  BaseService<kn_admin>{
+public interface kn_adminservice  extends BaseService<kn_admin> {
 
     /**
      * 查询id
@@ -52,6 +52,5 @@ public interface kn_adminservice  extends  BaseService<kn_admin>{
      * @return
      */
     kn_admin queryByPhone(String phone);
-
 
 }

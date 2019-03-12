@@ -29,6 +29,6 @@ PageResultInfo queryManagementList(Integer pageNo, Integer pageSize, String phon
  * @param
  * @return 
  */
- public int saveManment( kn_admin knAdmin);
+ public int saveManment(kn_admin knAdmin);
 
 }

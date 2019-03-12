@@ -6,7 +6,6 @@ import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.kn_goodsMapper;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_goods;
-
 import com.springmvc.service.kn_goodsservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,7 @@ import java.util.List;
  *@Date: 2019/2/27 15:02
  **/
 @Service
-public  class kn_goodsServiceimpl extends  BaseServiceImpl<kn_goods> implements kn_goodsservice {
+public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn_goodsservice {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 @Autowired
   private kn_goodsMapper knGoodsMapper;
@@ -141,25 +140,18 @@ public  class kn_goodsServiceimpl extends  BaseServiceImpl<kn_goods> implements 
         return null;
     }
 
-
-
-    public int queryMerchantId(Integer id){
-        int lis=knGoodsMapper.queryMerchantId(id);
-        if (lis<0){
-            logger.info("没有查询到对应商品");
-            return lis;
-        }else {
-            logger.info("查询到有商品");
-            //删除对应的商品
-
-            return  lis;
+    @Override
+    public List<kn_goods> queryByTagid() {
+        logger.info("进入查询接口");
+        List<kn_goods> list=new ArrayList<>();
+        try {
+            list= knGoodsMapper.queryByTagid();
+        } catch (Exception e) {
+            logger.info("查询失败");
+            e.printStackTrace();
         }
-
+        return list;
     }
 
-    public int delectMerchant(Integer id){
-        int lst=knGoodsMapper.delectMerchant(id);
-        return lst;
-    }
 
 }

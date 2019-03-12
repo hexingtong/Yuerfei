@@ -1,9 +1,9 @@
 package com.springmvc.service;
 
+import tk.mybatis.mapper.entity.Example;
+
 import java.io.Serializable;
 import java.util.List;
-
-import tk.mybatis.mapper.entity.Example;
 
 public interface BaseService<T> {
 

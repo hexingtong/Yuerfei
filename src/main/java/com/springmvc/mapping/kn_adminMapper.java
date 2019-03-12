@@ -1,13 +1,12 @@
 package com.springmvc.mapping;
 
 import com.springmvc.pojo.kn_admin;
-import com.springmvc.pojo.kn_tag;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface kn_adminMapper  extends Mapper<kn_admin>{
+public interface kn_adminMapper extends Mapper<kn_admin> {
 
     kn_admin queryList(Integer id);
 
@@ -39,7 +38,7 @@ public interface kn_adminMapper  extends Mapper<kn_admin>{
      * @author boyang
      * @date 2019/3/6 10:48
      */
-    List<kn_admin> queryListAdmin(@Param("level") Integer level,@Param("phone")String phone);
+    List<kn_admin> queryListAdmin(@Param("level") Integer level, @Param("phone") String phone);
 
     /**
      * Description:通过id来更新kn_admin
@@ -50,22 +49,13 @@ public interface kn_adminMapper  extends Mapper<kn_admin>{
      * @date 2019/3/6 17:33
      */
     int updateByPrimaryKeySelective(kn_admin record);
-    /**
+    /**  
      * Description：通过手机模糊查收，会员信息
      * @author boyang
      * @date  19:43
-     * @param
-     * @return
+     * @param 
+     * @return 
      */
-    List<kn_admin> queryListAdmin(@Param("level") Integer level);
-
-    /**
-     * 根据id删除商家账户
-     * @param id
-     * @return
-     */
-    int deletebyIdMerchant(Integer id);
-
     List<kn_admin> selectPhoneList(@Param("phone") String phone);
     /**
      * Description：得到管理员列表
@@ -75,7 +65,5 @@ public interface kn_adminMapper  extends Mapper<kn_admin>{
      * @return
      */
     List<kn_admin> selectManagementList(@Param("phone") String phone);
-
-
 
 }

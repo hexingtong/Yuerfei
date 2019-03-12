@@ -1,8 +1,6 @@
 package com.springmvc.mapping;
 
-import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_goods;
-import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -25,17 +23,6 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
     List<kn_goods> getGoodsList();
 
     /**
-     * 根据id查询商家信息
-     * @param id
-     * @return
-     */
-    int queryMerchantId(Integer id);
-
-    /**
-     * 根据id删除商家产品
-     */
-    int delectMerchant(Integer id);
-    /**
      * Description：得到商家产品列表
      *
      * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态
@@ -43,7 +30,7 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @author boyang
      * @date 11:21
      */
-    List<kn_goods> queryGoodsList( kn_goods kn_goods);
+    List<kn_goods> queryGoodsList(kn_goods kn_goods);
     /**
      * Description：通过id得到商品详情id
      * @author boyang
@@ -52,4 +39,13 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @return
      */
     int getDetailId(Integer id);
+
+    /**
+     * Description：模糊查找含有精选的商品
+     * @author boyang
+     * @date 2019/3/12 12:31
+     * @param
+     * @return
+     */
+    List<kn_goods> queryByTagid();
 }

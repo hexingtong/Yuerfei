@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @return
  */
 @Service
-public class PropertyServiceImpl extends BaseServiceImpl<KnProperty> implements PropertyService{
+public class PropertyServiceImpl extends BaseServiceImpl<KnProperty> implements PropertyService {
 
 }

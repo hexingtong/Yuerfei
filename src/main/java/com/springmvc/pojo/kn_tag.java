@@ -1,9 +1,5 @@
 package com.springmvc.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,10 +14,7 @@ public class kn_tag  implements Serializable{
     //图片
     private  String img;
     //添加时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "add_time")
-    private Date addTime;
+    private Date add_time;
 
     @Override
     public String toString() {
@@ -29,7 +22,7 @@ public class kn_tag  implements Serializable{
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", img='" + img + '\'' +
-                ", addTime=" + addTime +
+                ", add_time=" + add_time +
                 '}';
     }
 
@@ -45,12 +38,8 @@ public class kn_tag  implements Serializable{
         this.img = img;
     }
 
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setAdd_time(Date add_time) {
+        this.add_time = add_time;
     }
 
     public int getId() {
@@ -65,4 +54,7 @@ public class kn_tag  implements Serializable{
         return img;
     }
 
+    public Date getAdd_time() {
+        return add_time;
+    }
 }

@@ -13,26 +13,4 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
 
-
-  <!--自定义用户信息表分页.boyang-->
-  <select id="queryListTag" parameterType="kn_tag" resultType="com.springmvc.pojo.kn_tag">
-    select id,title,img,add_time from kn_tag
-    <where>
-      <if test="title!=null and title!='' ">
-       title LIKE '%${title}%'
-      </if>
-
-    </where>
-    ORDER  BY add_time
-  </select>
-
-  <insert id="MercjatTagIncrease" parameterType="kn_tag">
-   INSERT INTO kn_tag (title,add_time) VALUES(#{title},#{addTime});
-  </insert>
-
-  <update id="MercjatTagUpadete" parameterType="kn_tag">
-    UPDATE kn_tag SET title=#{title} WHERE id=#{id}
-  </update>
-
-
 </mapper>

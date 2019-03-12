@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
+
 @Repository
 public class Statusputaway {
 

@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Service
@@ -40,7 +38,6 @@ private kn_adminMapper adminMapper;
     public kn_admin queryByid(String phone){
         kn_admin knAdmin=adminMapper.queryByid(phone);
         return knAdmin;
-
     }
     public int UpdateLoginTime(kn_admin kn_admin){
         int knadmin=adminMapper.UpdateLoginTime(kn_admin);
@@ -67,9 +64,4 @@ private kn_adminMapper adminMapper;
         }
         return null;
     }
-
-
-
-
-
 }

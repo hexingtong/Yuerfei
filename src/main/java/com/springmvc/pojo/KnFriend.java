@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import java.util.Date;
+
 /**
  * Description：友情链接表
  * @author boyang

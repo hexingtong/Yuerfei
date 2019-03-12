@@ -1,7 +1,6 @@
 package com.springmvc.service;
 
 import com.springmvc.pojo.GoodsDetail;
-import org.springframework.stereotype.Service;
 
 /**
  * Description：产品详情类

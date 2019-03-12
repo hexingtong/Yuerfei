@@ -6,7 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
-/**  
+
+/**
  * Description：站点信息表
  * @author boyang
  * @date 2019/3/5 19:37

@@ -34,7 +34,7 @@ import java.util.Map;
  * @Date: 2019/2/27 15:28
  **/
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/Goods")
 public class GoodsController {
 
     final Logger logger = LoggerFactory.getLogger(GoodsController.class);
@@ -56,7 +56,7 @@ public class GoodsController {
      * @author boyang
      * @date 2019/2/27 16:53
      */
-    @RequestMapping("getgoodslist")
+    @RequestMapping("getGoodslist")
     @ResponseBody
     public void getDataList(Model model,HttpServletResponse response
     ) {

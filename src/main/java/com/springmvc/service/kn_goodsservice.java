@@ -4,6 +4,7 @@ import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_goods;
 
 import java.util.List;
+
 /**
  * Description：
  * @author boyang
@@ -11,7 +12,7 @@ import java.util.List;
  * @param
  * @return
  */
-public interface kn_goodsservice extends  BaseService<kn_goods>{
+public interface kn_goodsservice extends BaseService<kn_goods> {
 
 
     /**
@@ -43,8 +44,12 @@ public interface kn_goodsservice extends  BaseService<kn_goods>{
      * @return
      */
     Integer getDetailId(Integer id);
-    //根据
-    int queryMerchantId(Integer id);
-
-    int delectMerchant(Integer id);
+    /**
+     * Description：模糊查找含有精选的商品
+     * @author boyang
+     * @date 2019/3/12 12:31
+     * @param
+     * @return
+     */
+    List<kn_goods> queryByTagid();
 }
