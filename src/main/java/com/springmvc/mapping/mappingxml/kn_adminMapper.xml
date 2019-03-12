@@ -14,7 +14,7 @@
   </select>
 
   <insert id="insertAndmin"  parameterType="kn_admin">
-    INSERT INTO kn_admin (phone,add_time,login_time) VALUES(#{phone},#{add_time},#{login_time});
+    INSERT INTO kn_admin (phone,add_time,login_time) VALUES(#{phone},#{addTime},#{loginTime});
   </insert>
 
 

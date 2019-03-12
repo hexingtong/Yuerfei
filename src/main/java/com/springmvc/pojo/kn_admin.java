@@ -36,8 +36,6 @@ public class kn_admin  implements Serializable{
  //头像
     private  String img;
 
-    @Transient
-    private String token;
     //增加时“
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -60,7 +58,6 @@ public class kn_admin  implements Serializable{
                 ", pwd='" + pwd + '\'' +
                 ", level=" + level +
                 ", img='" + img + '\'' +
-                ", token='" + token + '\'' +
                 ", addTime=" + addTime +
                 ", loginTime=" + loginTime +
                 ", loginIp='" + loginIp + '\'' +
@@ -205,7 +202,6 @@ public class kn_admin  implements Serializable{
         this.loginIp = loginIp;
     }
 
-    public void setToken(String token){this.token=token;}
 
     public Integer getId() {
         return id;
@@ -239,5 +235,4 @@ public class kn_admin  implements Serializable{
         return loginIp;
     }
 
-    public String getToken(){return token;}
 }
