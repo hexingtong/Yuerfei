@@ -31,7 +31,6 @@ import java.util.Map;
 @Controller
 public class HomeController {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
-
     @Autowired
 PropertyService propertyService;
 @Autowired
@@ -63,7 +62,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
-    @RequestMapping("/getGoodlist")
+    @RequestMapping("/getGoodList")
     @ResponseBody
     public Map<String,List<kn_goods>> getGoods(HttpServletResponse response
     ) {
