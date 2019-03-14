@@ -84,124 +84,130 @@ public class kn_admintestController {
     @ResponseBody
     public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request) {
         ListObject listObject = new ListObject();
-        List<kn_admin> lst = new ArrayList();
-        String code = session.getAttribute("SmsCode").toString();
-        String Phones = session.getAttribute("Smsphones").toString();
-        System.out.println("code" + code + "phone" + Phones);
-        logger.info(Phones);
-        if (!code.equals("")&&code != null&&Phones.equals(Phone)&&Phones != null) {
-            logger.info("------------------获取session的code 为：" + code);
-            Jedis jedis = new Jedis("47.92.53.177", 6379);
-            kn_admin kn = new kn_admin();
-            Map map = new HashMap();
-            //判断验证码是否一致
-            if (code.equals(PhoneCode)) {
-                //判断是否注册
-                int i=knAdminservice.countAndmin(Phone);
-                if (i>0) {
-                    //已经注册
-                    kn_admin kns = knAdminservice.queryByid(Phone);
-                    List lsx = new ArrayList();
-//                kn=knAdminservice.queryByid(Phone);
-                    logger.info("已注册:" + Phone);
-                    logger.info("测试数据");
-                    kn_admin knAdmin2 = new kn_admin();
-                    knAdmin2.setPhone(Phone);
-                    session.setAttribute("id", kns.getId());
-                    Object ids = session.getAttribute("id");
-                    String id = ids.toString();
-                    String token = TokenTest.TokenTest(id);
-                    //token 解析方法
-                    //TokenTest.ValidToken(token);
-                    //date日期转换
-                    String dateUtil = DateUtil.getNowDate();
-                    Date utilDate = DateUtil.stringToDate(dateUtil);
-                    //修改最后一次登录时间
-                    kn_admin kna = new kn_admin();
-                    kna.setLoginTime(utilDate);
-                    kna.setId(Integer.parseInt(id));
-                    //logger.info(""+knAdminservice.queryListPhone(Phone));
+        try {
 
-                    kn_admin knx = new kn_admin();
-                    lsx = knAdminservice.queryListByWhere(knAdmin2);
-                    ListObjectSuper listObjectSuper = new ListObjectSuper();
-                    /* map.put("lis",kn);
-                    map.put("token",token);*/
-                    listObjectSuper.setMsg("登录成功！");
-                    listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
-                    listObjectSuper.setItems(lsx);
-                    listObjectSuper.setToken(token);
-                    //存入token
-                    jedis.set("token" + id + "", token);
-                    //设置时间为毫秒
-                    jedis.pexpire("token", 1296000000);
-                    logger.info("登录成功：已注册用户");
-                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
-                } else {
-                    //没有注册
-                    logger.info("未注册:");
-                    kn.setPhone(Phone);
-                    String dateUtil = DateUtil.getNowDate();
-                    Date utilDate = DateUtil.stringToDate(dateUtil);
-                    kn.setAddTime(utilDate);
-                    kn.setLoginTime(utilDate);
-                    //String bs = IPutil.isClient(request);
-                    //添加注册来源
-                   // kn.setRegisteredSource(bs);
-                    logger.info("Date时间:" );
-                    if (knAdminservice.insertAndmin(kn) > 0) {
-                        logger.info("注册成功！");
-                        //根据手机号查询id
+            List<kn_admin> lst = new ArrayList();
+            String code = session.getAttribute("SmsCode").toString();
+            String Phones = session.getAttribute("Smsphones").toString();
+            System.out.println("code" + code + "phone" + Phones);
+            logger.info(Phones);
+            if (!code.equals("") && code != null && Phones.equals(Phone) && Phones != null) {
+                logger.info("------------------获取session的code 为：" + code);
+                Jedis jedis = new Jedis("47.92.53.177", 6379);
+                kn_admin kn = new kn_admin();
+                Map map = new HashMap();
+                //判断验证码是否一致
+                if (code.equals(PhoneCode)) {
+                    //判断是否注册
+                    int i = knAdminservice.countAndmin(Phone);
+                    if (i > 0) {
+                        //已经注册
                         kn_admin kns = knAdminservice.queryByid(Phone);
-                        session.setAttribute("id", kns.getId());
-                        logger.info("测试id值" + session.getAttribute("id"));
-                        Object ids = session.getAttribute("id");
-                        String id = ids.toString();
-                        System.out.println();
-                        String token = TokenTest.TokenTest(id);
-                        TokenTest.ValidToken(token);
-                        listObject.setMsg("注册成功&&通过验证");
-                        listObject.setCode(StatusCode.CODE_SUCCESS);
-                        logger.info("id数据:" + id);
+                        List lsx = new ArrayList();
+//                kn=knAdminservice.queryByid(Phone);
+                        logger.info("已注册:" + Phone);
+                        logger.info("测试数据");
                         kn_admin knAdmin2 = new kn_admin();
                         knAdmin2.setPhone(Phone);
-                        lst = knAdminservice.queryListByWhere(knAdmin2);
+                        session.setAttribute("id", kns.getId());
+                        Object ids = session.getAttribute("id");
+                        String id = ids.toString();
+                        String token = TokenTest.TokenTest(id);
+                        //token 解析方法
+                        //TokenTest.ValidToken(token);
+                        //date日期转换
+                        String dateUtil = DateUtil.getNowDate();
+                        Date utilDate = DateUtil.stringToDate(dateUtil);
+                        //修改最后一次登录时间
+                        kn_admin kna = new kn_admin();
+                        kna.setLoginTime(utilDate);
+                        kna.setId(Integer.parseInt(id));
+                        //logger.info(""+knAdminservice.queryListPhone(Phone));
+
+                        kn_admin knx = new kn_admin();
+                        lsx = knAdminservice.queryListByWhere(knAdmin2);
                         ListObjectSuper listObjectSuper = new ListObjectSuper();
-                        listObjectSuper.setItems(knAdminservice.queryListPhone(Phone));
-                        listObjectSuper.setItems(lst);
+                    /* map.put("lis",kn);
+                    map.put("token",token);*/
+                        listObjectSuper.setMsg("登录成功！");
+                        listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
+                        listObjectSuper.setItems(lsx);
                         listObjectSuper.setToken(token);
                         //存入token
                         jedis.set("token" + id + "", token);
                         //设置时间为毫秒
                         jedis.pexpire("token", 1296000000);
-                        logger.info("注册登录成功:未注册用户");
-                        listObjectSuper.setMsg("注册成功!");
-                        listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
+                        logger.info("登录成功：已注册用户");
                         ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
                     } else {
-                        logger.info("注册失败！");
-                        listObject.setMsg("注册失败！");
-                        listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
-                        listObject.setItems(lst);
-                        ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                        //没有注册
+                        logger.info("未注册:");
+                        kn.setPhone(Phone);
+                        String dateUtil = DateUtil.getNowDate();
+                        Date utilDate = DateUtil.stringToDate(dateUtil);
+                        kn.setAddTime(utilDate);
+                        kn.setLoginTime(utilDate);
+                        //String bs = IPutil.isClient(request);
+                        //添加注册来源
+                        // kn.setRegisteredSource(bs);
+                        logger.info("Date时间:");
+                        if (knAdminservice.insertAndmin(kn) > 0) {
+                            logger.info("注册成功！");
+                            //根据手机号查询id
+                            kn_admin kns = knAdminservice.queryByid(Phone);
+                            session.setAttribute("id", kns.getId());
+                            logger.info("测试id值" + session.getAttribute("id"));
+                            Object ids = session.getAttribute("id");
+                            String id = ids.toString();
+                            System.out.println();
+                            String token = TokenTest.TokenTest(id);
+                            TokenTest.ValidToken(token);
+                            listObject.setMsg("注册成功&&通过验证");
+                            listObject.setCode(StatusCode.CODE_SUCCESS);
+                            logger.info("id数据:" + id);
+                            kn_admin knAdmin2 = new kn_admin();
+                            knAdmin2.setPhone(Phone);
+                            lst = knAdminservice.queryListByWhere(knAdmin2);
+                            ListObjectSuper listObjectSuper = new ListObjectSuper();
+                            listObjectSuper.setItems(knAdminservice.queryListPhone(Phone));
+                            listObjectSuper.setItems(lst);
+                            listObjectSuper.setToken(token);
+                            //存入token
+                            jedis.set("token" + id + "", token);
+                            //设置时间为毫秒
+                            jedis.pexpire("token", 1296000000);
+                            logger.info("注册登录成功:未注册用户");
+                            listObjectSuper.setMsg("注册成功!");
+                            listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
+                            ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
+                        } else {
+                            logger.info("注册失败！");
+                            listObject.setMsg("注册失败！");
+                            listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                            listObject.setItems(lst);
+                            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                        }
                     }
+
+                } else {
+                    listObject.setItems(lst);
+                    listObject.setMsg("验证码不正确或手机号不正确");
+                    listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                    listObject.setItems(lst);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
                 }
 
             } else {
-                listObject.setItems(lst);
-                listObject.setMsg("验证码不正确或手机号不正确");
-                listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
-                listObject.setItems(lst);
+
+                listObject.setCode(StatusCode.CODE_ERROR);
+                listObject.setMsg("没有获取到验证码或手机号");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
-
-        } else {
-
+        }catch (NullPointerException e){
             listObject.setCode(StatusCode.CODE_ERROR);
-            listObject.setMsg("没有获取到验证码或手机号");
+            listObject.setMsg("没有获取到id");
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-
 
     }
 

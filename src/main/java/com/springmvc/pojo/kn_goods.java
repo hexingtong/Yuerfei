@@ -105,7 +105,7 @@ public class kn_goods implements Serializable {
     private Integer detailsId;
     //审核失败原因f
     @Column(name = "audit_failed")
-    private String auditailed;
+    private String auditfailed;
     //已申请人数
     @Column(name = "apply_count")
     private Integer applyCount;
@@ -390,12 +390,12 @@ public class kn_goods implements Serializable {
         this.detailsId = detailsId;
     }
 
-    public String getAuditailed() {
-        return auditailed;
+    public String getAuditfailed() {
+        return auditfailed;
     }
 
-    public void setAuditailed(String auditailed) {
-        this.auditailed = auditailed;
+    public void setAuditfailed(String auditfailed) {
+        this.auditfailed = auditfailed;
     }
 
     public Integer getApplyCount() {

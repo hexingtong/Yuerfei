@@ -1,12 +1,15 @@
 package com.springmvc.controller;
 
 import com.springmvc.pojo.JsonModel;
+import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_adminservice;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Date: 2019/3/1 11:36
  **/
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin2")
 public class AdminController {
-
+    final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
     @Autowired
     private kn_adminservice adminService;
@@ -32,7 +35,7 @@ public class AdminController {
      * 登录页面
      *
      * @Description: TODO
-     * @author wit
+     * @author
      * @return
      * @return String
      */
@@ -45,17 +48,18 @@ public class AdminController {
      * 登录
      *
      * @Description: TODO
-     * @author wit
+     * @author
      * @param userName
      * @param pwd
      * @return
      * @return JsonModel
      */
 @RequestMapping("/loginhoutai")
-@ResponseBody
-    public JsonModel login(String userName, String pwd) {
+    public String login(String userName, String pwd) {
+    logger.info("传入用户名+密码"+userName+pwd);
+    Subject subject = null;
         try {
-            Subject subject = SecurityUtils.getSubject();
+          subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(userName, pwd);
             subject.login(token);
 
@@ -70,16 +74,19 @@ public class AdminController {
                 error = "Unknown error, please contact administrator";
             }
 
-            return new JsonModel(JsonModel.FAILED, error);
+
         }
-        return new JsonModel(JsonModel.SUCCESS);
+    boolean isAuthenticated = subject.isAuthenticated();
+    // 打印认证结果
+    System.out.println("认证结果：" + isAuthenticated);
+        return "/admin2/index";
     }
 
     /**
      * 后台欢迎页
      *
      * @Description: TODO
-     * @author wit
+     * @autho
      * @param model
      * @return
      * @return String
@@ -93,14 +100,14 @@ public class AdminController {
      * 首页
      *
      * @Description: TODO
-     * @author wit
+     * @author
      * @param model
      * @return
      * @return String
      */
     @RequestMapping("/index")
     public String toIndex(Model model) {
-        return "admin/index";
+        return "index";
     }
 
     @RequestMapping("/toUpdatePassword")
