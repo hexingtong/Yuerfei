@@ -1,6 +1,9 @@
 package com.springmvc.pojo.DTO;
 
-import com.springmvc.pojo.kn_goods;
+import com.springmvc.pojo.KnGoods;
+
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 /**
  * @ClassName GoodsAttributeDto
@@ -8,7 +11,26 @@ import com.springmvc.pojo.kn_goods;
  * @Author by
  * @Date: 2019/3/8 9:23
  **/
-public class GoodsAttributeDto extends kn_goods {
-    //
 
+public class GoodsAttributeDto extends KnGoods {
+    //属性名字
+    private String propertyTitle;
+
+   private  String statusName;
+
+    public String getPropertyTitle() {
+        return propertyTitle;
+    }
+
+    public void setPropertyTitle(String propertyTitle) {
+        this.propertyTitle = propertyTitle;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
 }

@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-pageEncoding="utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglibs.jsp" %>
+<%--<% String path = request.getContextPath(); %>--%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>商户管理</title>
     <script src="js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/common.css">
+    <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
     <style>
 
     </style>
@@ -17,11 +22,11 @@ pageEncoding="utf-8"%>
         <div class="indexcontent">
             <div class="indexcontent-left">
                 <div class="indexcontent-left-header">
-                    <img class="left-img1" src="./images/logo.svg"/>
+                    <img class="left-img1" src="${ctx }/images/logo.svg"/>
                 </div>
                 <div class="indexcontent-left-face">
                     <div>
-                        <img class="left-img1" src="./images/head portrait.svg"/>
+                        <img class="left-img1" src="${ctx }/images/head portrait.svg"/>
                     </div>
                 </div>
                 <div class="indexcontent-left-list">
@@ -31,13 +36,13 @@ pageEncoding="utf-8"%>
                 </div>
             </div>
             <div class="right-collection">
-                <!--会员管理右边-->
+                <!--商户管理右边-->
                 <div class="indexcontent-right1">
                     <div class="indexcontent-right-main">
                         <div class="indexcontent-right-top">
-                            <img  src="./images/Full screen button.svg"/>
+                            <img  src="${ctx }/images/Full screen button.svg"/>
                             <div class="indexcontent-right-top-right">
-                                <img  src="./images/quit.svg"/>
+                                <img  src="${ctx }/images/quit.svg"/>
                                 <p>退出</p>
                             </div>
                         </div>
@@ -83,7 +88,7 @@ pageEncoding="utf-8"%>
                                             <div class="members-form-tops">
                                                 <div class="members-form-tops-text">营业执照</div>
                                                 <div class="members-form-tops-img">
-                                                    <img  src="./images/timg.jpg"/>
+                                                    <img  src="${ctx }/images/timg.jpg"/>
                                                 </div>
                                             </div>
 
@@ -117,15 +122,15 @@ pageEncoding="utf-8"%>
       var Height1=$(window).height()-60;//
       var Width=$(window).width();
       var indexData=[
-          {icon:"./images/home-1.svg",text:"欢迎来到首页"},
-          {icon:"./images/member-1.svg",text:"会员管理列表"},
-          {icon:"./images/commercial tenant.svg",text:"商户管理列表"},
-          {icon:"./images/attributa-1.svg",text:"产品属性列表"},
-          {icon:"./images/label-1.svg",text:"标签展示列表"},
-          {icon:"./images/merchant display-1.svg",text:"商户展示列表"},
-          {icon:"./images/supermarket-1.svg",text:"超市展示列表"},
-          {icon:"./images/referral  link.svg",text:"推广链接列表"},
-          {icon:"./images/merchant display-1.svg",text:"管理人员列表"},
+          {icon:"&#xe604",text:"欢迎来到首页"},
+          {icon:"&#xe60d",text:"会员管理列表"},
+          {icon:"&#xe60f",text:"商户管理列表"},
+          {icon:"&#xe602",text:"产品属性列表"},
+          {icon:"&#xe603",text:"标签展示列表"},
+          {icon:"&#xe610",text:"商户展示列表"},
+          {icon:"&#xe615",text:"超市展示列表"},
+          {icon:"&#xe605",text:"推广链接列表"},
+          {icon:"&#xe608",text:"管理人员列表"},
       ];
       console.log(Height+'+'+Width);
       $('#indexBox').css('width',Width);
@@ -136,21 +141,21 @@ pageEncoding="utf-8"%>
           if(i==2){
               h1 += '<div class="indexcontent-left-item active">'+
                       '<div class="indexcontent-left-item-left">'+
-                      '<img src="'+indexData[i].icon+'"/>'+
+                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
                       '</div>'+
                       '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
                       '<div class="indexcontent-left-item-right">'+
-                      '<img src="./images/跳转 前往 右箭头 向右 下一步 线性 .png"/>'+
+                      '<i class="iconfont">&#xe912</i>'+
                       '</div>'+
                       '</div>';
           }else{
               h1 += '<div class="indexcontent-left-item grey">'+
                       '<div class="indexcontent-left-item-left">'+
-                      '<img src="'+indexData[i].icon+'"/>'+
+                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
                       '</div>'+
                       '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
                       '<div class="indexcontent-left-item-right">'+
-                      '<img src="./images/跳转 前往 右箭头 向右 下一步 线性  (1).png"/>'+
+                      '<i class="iconfont">&#xe912</i>'+
                       '</div>'+
                       '</div>';
           };
@@ -168,7 +173,7 @@ pageEncoding="utf-8"%>
   });
 
     $('.back').on('click',function(){
-        window.history.back(-1);
+        window.location.href="index.jsp";
     })
 
 

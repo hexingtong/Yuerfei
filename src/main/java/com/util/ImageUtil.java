@@ -91,7 +91,8 @@ public class ImageUtil {
                     String newpath = savePath + "\\"+DateUtil.getDateString() +st + filename;
                     FileOutputStream out = new FileOutputStream(newpath);
                     String type=pageUtils.getPicType(new FileInputStream(new File(newpath)));
-                    if(type.equals("jpg")||type.equals("gif")||type.equals("png")){
+                    System.out.println(type);
+//                    if(type.equals("jpg")||type.equals("gif")||type.equals("png")){
                         //创建一个缓冲区
                         byte buffer[] = new byte[1024];
                         //判断输入流中的数据是否已经读完的标识
@@ -115,9 +116,9 @@ public class ImageUtil {
                         int last=newpath.length();
                         String i=newpath.substring(begin,last).replace("\\","/");
                         return i;
-                    }else{
-                        return "error";
-                    }
+//                    }else{
+//                        return "error";
+//                    }
 
 
                 }

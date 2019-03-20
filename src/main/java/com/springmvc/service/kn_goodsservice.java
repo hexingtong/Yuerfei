@@ -1,7 +1,7 @@
 package com.springmvc.service;
 
 import com.springmvc.pojo.PageResultInfo;
-import com.springmvc.pojo.kn_goods;
+import com.springmvc.pojo.KnGoods;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @param
  * @return
  */
-public interface kn_goodsservice extends BaseService<kn_goods> {
+public interface kn_goodsservice extends BaseService<KnGoods> {
 
 
     /**
@@ -25,7 +25,7 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * @author boyang
      * @date 2019/2/27 14:27
      */
-    List<kn_goods> getGoodsList();
+    List<KnGoods> getGoodsList();
 
     /**
      * Description：得到商家产品列表
@@ -51,7 +51,7 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * @param
      * @return
      */
-    List<kn_goods> queryByTagid();
+    List<KnGoods> queryByTagid();
     /**
      * Description：一对多模糊查找
      * @author boyang
@@ -59,5 +59,5 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * @param
      * @return
      */
-    List<kn_goods> queryGoodes( String title);
+    List<KnGoods> queryGoodes(String title);
 }

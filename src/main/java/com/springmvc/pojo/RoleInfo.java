@@ -32,7 +32,7 @@ public class RoleInfo {
      */
     @Column(name = "role_name")
     private String roleName;
-
+    @Column(name = "parentId")
     private String parentId;
 
     public String getParentId() {

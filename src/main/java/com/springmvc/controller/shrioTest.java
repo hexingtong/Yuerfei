@@ -37,7 +37,7 @@ public class shrioTest {
         boolean isAuthenticated = subject.isAuthenticated();
         // 打印认证结果
         System.out.println("认证结果：" + isAuthenticated);
-       return "/Login/index";
+       return "index";
 
     }
 

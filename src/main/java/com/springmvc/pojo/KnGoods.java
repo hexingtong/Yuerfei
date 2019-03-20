@@ -2,6 +2,7 @@ package com.springmvc.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,8 @@ import java.util.Date;
 /**
  * 产品类
  */
-public class kn_goods implements Serializable {
+@Repository
+public class KnGoods  {
     //id
     @Id
     @GeneratedValue(generator = "JDBC")
@@ -24,7 +26,7 @@ public class kn_goods implements Serializable {
     private int categoryId;
     //属性id
     @Column(name = "property_ids")
-    private String propertyId;
+    private String propertyIds;
     //标签图片id
     @Column(name = "tag_id")
     private int tagId;
@@ -73,7 +75,7 @@ public class kn_goods implements Serializable {
     //上架状态（上架状态(0审核中，1审核失败，2审核同过,3已上架，4保存））
     private int status;
     //添加时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "add_time")
     private Date addTime;
@@ -134,13 +136,6 @@ public class kn_goods implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public String getPropertyId() {
-        return propertyId;
-    }
-
-    public void setPropertyId(String propertyId) {
-        this.propertyId = propertyId;
-    }
 
     public int getTagId() {
         return tagId;
@@ -404,5 +399,56 @@ public class kn_goods implements Serializable {
 
     public void setApplyCount(Integer applyCount) {
         this.applyCount = applyCount;
+    }
+
+    @Override
+    public String toString() {
+        return "KnGoods{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", categoryId=" + categoryId +
+                ", propertyIds='" + propertyIds + '\'' +
+                ", tagId=" + tagId +
+                ", img='" + img + '\'' +
+                ", SuccessRate='" + SuccessRate + '\'' +
+                ", Limit='" + Limit + '\'' +
+                ", Deadline='" + Deadline + '\'' +
+                ", Interestrate='" + Interestrate + '\'' +
+                ", PaceLending='" + PaceLending + '\'' +
+                ", ReviewWay='" + ReviewWay + '\'' +
+                ", AccountWay='" + AccountWay + '\'' +
+                ", Creditrequired='" + Creditrequired + '\'' +
+                ", Platformname='" + Platformname + '\'' +
+                ", applicationrequirement='" + applicationrequirement + '\'' +
+                ", details='" + details + '\'' +
+                ", level=" + level +
+                ", info='" + info + '\'' +
+                ", url='" + url + '\'' +
+                ", loogLine='" + loogLine + '\'' +
+                ", appoint=" + appoint +
+                ", status=" + status +
+                ", addTime=" + addTime +
+                ", activation='" + activation + '\'' +
+                ", homepicture='" + homepicture + '\'' +
+                ", statusCode=" + statusCode +
+                ", cpa='" + cpa + '\'' +
+                ", pv='" + pv + '\'' +
+                ", uv='" + uv + '\'' +
+                ", uvEarnings='" + uvEarnings + '\'' +
+                ", cpaPrice='" + cpaPrice + '\'' +
+                ", adminId=" + adminId +
+                ", click=" + click +
+                ", detailsId=" + detailsId +
+                ", auditfailed='" + auditfailed + '\'' +
+                ", applyCount=" + applyCount +
+                '}';
+    }
+
+    public String getPropertyIds() {
+        return propertyIds;
+    }
+
+    public void setPropertyIds(String propertyIds) {
+        this.propertyIds = propertyIds;
     }
 }

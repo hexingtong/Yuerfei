@@ -457,8 +457,8 @@
     }
 
     .indexcontent-tabPage{
-        width:240px;
-        height:30px;
+        width:60%;
+        height:70px;
         position: absolute;
         bottom:20px;
         right:0px;

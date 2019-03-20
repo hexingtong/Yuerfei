@@ -9,8 +9,9 @@
 	trimDirectiveWhitespaces="true"%>
 <c:set var="ctx"
 	value="${pageContext.request.contextPath}" />
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 
-/>
+
+

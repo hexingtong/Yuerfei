@@ -4,6 +4,7 @@ import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.kn_adminMapper;
+import com.springmvc.pojo.DTO.knadmin2;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.MemberService;
@@ -37,9 +38,9 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
     public PageResultInfo queryListAdmin(Integer pageNo, Integer pageSize, String phone) {
 logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
         PageHelper.startPage(pageNo, pageSize);
-        kn_admin knAdmin=new kn_admin();
+        knadmin2 knAdmin=new knadmin2();
         knAdmin.setLevel(2);
-        List<kn_admin> agentLevelSettings;
+        List<knadmin2> agentLevelSettings;
         if (!StringUtils.isEmpty(phone)||!"".equals(phone)){
             knAdmin.setPhone(phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
@@ -47,7 +48,7 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
         }
         logger.info("获取admin表中所有数据");
-        PageInfo<kn_admin> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageInfo<knadmin2> pageInfo = new PageInfo<>(agentLevelSettings);
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
         return resultInfo;
     }

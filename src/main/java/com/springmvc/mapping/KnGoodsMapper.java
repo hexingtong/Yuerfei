@@ -1,6 +1,7 @@
 package com.springmvc.mapping;
 
-import com.springmvc.pojo.kn_goods;
+import com.springmvc.pojo.DTO.GoodsAttributeDto;
+import com.springmvc.pojo.KnGoods;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * 产品类
  */
-public interface kn_goodsMapper extends Mapper<kn_goods> {
+public interface KnGoodsMapper extends Mapper<KnGoods> {
 
     /**
      * Description：
@@ -21,7 +22,7 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @author boyang
      * @date 2019/2/27 14:27
      */
-    List<kn_goods> getGoodsList();
+    List<KnGoods> getGoodsList();
 
     /**
      * Description：得到商家产品列表
@@ -31,7 +32,7 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @author boyang
      * @date 11:21
      */
-    List<kn_goods> queryGoodsList(kn_goods kn_goods);
+    List<GoodsAttributeDto> queryGoodsList(GoodsAttributeDto kn_goods);
     /**
      * Description：通过id得到商品详情id
      * @author boyang
@@ -48,7 +49,7 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @param
      * @return
      */
-    List<kn_goods> queryByTagid();
+    List<KnGoods> queryByTagid();
 
     /**
      * Description：一对多模糊查找
@@ -57,5 +58,5 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @param
      * @return
      */
-    List<kn_goods> queryGoodes(@Param("title") String name);
+    List<KnGoods> queryGoodes(@Param("title") String name);
 }

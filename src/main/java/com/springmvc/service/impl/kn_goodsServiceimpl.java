@@ -3,9 +3,10 @@ package com.springmvc.service.impl;
 import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.springmvc.mapping.kn_goodsMapper;
+import com.springmvc.mapping.KnGoodsMapper;
+import com.springmvc.pojo.DTO.GoodsAttributeDto;
 import com.springmvc.pojo.PageResultInfo;
-import com.springmvc.pojo.kn_goods;
+import com.springmvc.pojo.KnGoods;
 import com.springmvc.service.kn_goodsservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +24,10 @@ import java.util.List;
  *@Date: 2019/2/27 15:02
  **/
 @Service
-public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn_goodsservice {
+public  class kn_goodsServiceimpl extends BaseServiceImpl<KnGoods> implements kn_goodsservice {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 @Autowired
-  private kn_goodsMapper knGoodsMapper;
+  private KnGoodsMapper knGoodsMapper;
 
 
 
@@ -38,9 +39,9 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
      * @return java.util.List<com.springmvc.pojo.kn_goods>
      */
     @Override
-    public List<kn_goods> getGoodsList() {
+    public List<KnGoods> getGoodsList() {
        logger.info("沒有參數");
-             List<kn_goods> lis=new ArrayList();
+             List<KnGoods> lis=new ArrayList();
              lis=knGoodsMapper.getGoodsList();
                if (lis!=null){
                    logger.info("參數為："+lis);
@@ -63,8 +64,8 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
     public PageResultInfo queryGoodsList(Integer pageNo, Integer pageSize, String title, Integer Index1, Integer propertyId, Integer statusId) {
         logger.info("传入的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
         PageHelper.startPage(pageNo, pageSize);
-        kn_goods knGoods=new kn_goods();
-        List<kn_goods> agentLevelSettings;
+        GoodsAttributeDto knGoods=new GoodsAttributeDto();
+        List<GoodsAttributeDto> agentLevelSettings;
 
         if (!StringUtils.isEmpty(title)&&!"".equals(title)){
             logger.info("进入title");
@@ -72,7 +73,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
 
         }if(propertyId!=null&&propertyId.equals("0")){
             logger.info("进入propertyId");
-            knGoods.setPropertyId(propertyId.toString());
+            knGoods.setPropertyIds(propertyId.toString());
 
         }if(statusId!=null&&statusId.equals("0")){
             logger.info("进入statusId");
@@ -84,7 +85,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 logger.info("进入index11");
                 knGoods.setAddTime(new Date());
                 agentLevelSettings= knGoodsMapper.queryGoodsList(knGoods);
-                PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<GoodsAttributeDto> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
                 return resultInfo;
@@ -93,7 +94,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 knGoods.setClick(2);
                 agentLevelSettings= knGoodsMapper.queryGoodsList(knGoods);
 
-                PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<GoodsAttributeDto> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
                 return resultInfo;
@@ -104,7 +105,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             try {
                 knGoods.setId(1);
                         agentLevelSettings= knGoodsMapper.queryGoodsList(knGoods);
-                PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<GoodsAttributeDto> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
                 return resultInfo;
@@ -141,9 +142,9 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
     }
 
     @Override
-    public List<kn_goods> queryByTagid() {
+    public List<KnGoods> queryByTagid() {
         logger.info("进入查询接口");
-        List<kn_goods> list=new ArrayList<>();
+        List<KnGoods> list=new ArrayList<>();
         try {
             list= knGoodsMapper.queryByTagid();
         } catch (Exception e) {
@@ -154,7 +155,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
     }
 
     @Override
-    public List<kn_goods> queryGoodes(String title) {
+    public List<KnGoods> queryGoodes(String title) {
         logger.info("传入搜索产品名"+title);
         List list=new ArrayList();
         if (StringUtils.isNotEmpty(title)){

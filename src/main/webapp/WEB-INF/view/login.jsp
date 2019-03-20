@@ -92,12 +92,12 @@
                 </div>
                 <div class="loginContent-top-right">
                     <div class="loginContent-top-right-main">
-                        <form action="demo_form.asp" method="post" class="form1" id="form1">
+
                             <div class="divInput">
                                 <input name="code" id="code" placeholder="请输入您的帐号" />
                             </div>
                             <div class="divInput">
-                                <input name="pwd1" id="pwd1" placeholder="请输入您的密码" />
+                                <input name="pwd1" id="pwd1" placeholder="请输入您的密码"/>
                             </div>
                             <div class="divBtn">
                                 <button onclick="sign()">登录</button>
@@ -106,7 +106,7 @@
                                 <input type="checkbox" />
                                 <p>下次自动登录</p>
                             </div>
-                        </form>
+
                     </div>
                 </div>
             </div>
@@ -131,10 +131,9 @@
     function sign(){
         var user_account=document.getElementById("code").value;
         var user_password=document.getElementById("pwd1").value;
-        alert("${ctx }/admin/loginhoutai");
+       // alert("<%=basePath %>/admin/loginhoutai");
         if (user_account==""||user_account==null) {
             alert("账号不能为空")
-
             return;
         }
 
@@ -142,16 +141,39 @@
             alert("密码不能为空")
             return;
         }
+  if(user_account!=null&&user_password!=null){
+          $.ajax({
+              type:"post",
+              dateType:"json",
+              url:"<%=basePath %>admin2/login2",
+              data:{userName:user_account,pwd:user_password},
+              success: function(data){
+                  var jsonData=JSON.parse(data);
+                //  alert(data)
+                  if(jsonData=="null"){
+                      alert("传入有误")
+                  }else if (jsonData=="fail2"){
+                      alert("密码不匹配")
+                  }else if(jsonData=="fail"){
+                      alert("没有该数据")
+                  }else if(jsonData=="suse"){
+                      window.location.href=("<%=basePath %>/admin2/index");
+                  }
 
-        $.post("<%=basePath %>admin2/loginhoutai",{userName:user_account,pwd:user_password},function(data){
-            if(data.code==1){
-                alert("成功")
 
-            }
+              },
+              error:{
+
+              }
+
+
+          });
 
 
 
-        });
+
+  }
+
 
 
 

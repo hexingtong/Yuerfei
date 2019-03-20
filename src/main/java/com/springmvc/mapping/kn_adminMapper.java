@@ -1,5 +1,6 @@
 package com.springmvc.mapping;
 
+import com.springmvc.pojo.DTO.knadmin2;
 import com.springmvc.pojo.kn_admin;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
@@ -38,7 +39,7 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @author boyang
      * @date 2019/3/6 10:48
      */
-    List<kn_admin> queryListAdmin(@Param("level") Integer level, @Param("phone") String phone);
+    List<knadmin2> queryListAdmin(@Param("level") Integer level, @Param("phone") String phone);
 
     /**
      * Description:通过id来更新kn_admin
@@ -64,6 +65,6 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @param
      * @return
      */
-    List<kn_admin> selectManagementList(@Param("phone") String phone);
+    List<knadmin2> selectManagementList(@Param("phone") String phone);
 
 }
