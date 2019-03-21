@@ -38,11 +38,10 @@ public class TokenTest {
     }
 
     //处理解析的业务逻辑
-    public static void ValidToken(String token) {
+    public static String ValidToken(String token) {
         //解析token
         try {
             if (token != null) {
-
                 Map<String, Object> validMap = TokenUtils.valid(token);
                 int i = (int) validMap.get("Result");
                 if (i == 0) {
@@ -51,8 +50,11 @@ public class TokenTest {
                     System.out.println("uid是" + jsonObject.get("uid"));
                     System.out.println("sta是"+jsonObject.get("sta"));
                     System.out.println("exp是"+jsonObject.get("exp"));
+                    String uid=(String)jsonObject.get("uid");
+                    return uid;
                 } else if (i == 2) {
                     System.out.println("token已经过期");
+                    return "error";
                 }
             }
         } catch (ParseException e) {
@@ -60,6 +62,7 @@ public class TokenTest {
         } catch (JOSEException e) {
             e.printStackTrace();
         }
+        return "";
     }
 
     public static void main(String[] ages) {
