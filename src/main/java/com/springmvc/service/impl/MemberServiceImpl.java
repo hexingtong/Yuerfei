@@ -3,16 +3,19 @@ package com.springmvc.service.impl;
 import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.StringUtil;
+import com.springmvc.mapping.KnFriendMapper;
+import com.springmvc.mapping.KnTagMapper;
 import com.springmvc.mapping.kn_adminMapper;
-import com.springmvc.pojo.DTO.knadmin2;
-import com.springmvc.pojo.PageResultInfo;
-import com.springmvc.pojo.kn_admin;
+import com.springmvc.mapping.kn_goodsMapper;
+import com.springmvc.pojo.*;
 import com.springmvc.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +30,14 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
     @Autowired
     kn_adminMapper knAdminMapper;
 
+    @Autowired
+    private kn_goodsMapper knGoodsMapper;
+
+    @Autowired
+    KnTagMapper knTagMapper;
+
+    @Autowired
+    KnFriendMapper knFriendMapper;
     /**
      * Description：
      * @author boyang
@@ -38,9 +49,9 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
     public PageResultInfo queryListAdmin(Integer pageNo, Integer pageSize, String phone) {
 logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
         PageHelper.startPage(pageNo, pageSize);
-        knadmin2 knAdmin=new knadmin2();
-        knAdmin.setLevel(2);
-        List<knadmin2> agentLevelSettings;
+        kn_admin knAdmin=new kn_admin();
+        knAdmin.setLevel(1);
+        List<kn_admin> agentLevelSettings;
         if (!StringUtils.isEmpty(phone)||!"".equals(phone)){
             knAdmin.setPhone(phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
@@ -48,7 +59,7 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
         }
         logger.info("获取admin表中所有数据");
-        PageInfo<knadmin2> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageInfo<kn_admin> pageInfo = new PageInfo<>(agentLevelSettings);
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
         return resultInfo;
     }
@@ -100,6 +111,92 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
             return null;
         }
 
+
+    }
+    @Override
+    public int deletebyIdMerchant(Integer id) {
+        int kn = knAdminMapper.deletebyIdMerchant(id);
+        if (kn > 0) {
+            if (knGoodsMapper.delectMerchant(id) > 0) {
+                logger.info("删除商家产品成功");
+                return kn;
+            } else {
+                logger.info("删除商家产品失败");
+            }
+            return kn;
+        } else {
+            return kn;
+        }
+
+    }
+
+
+    @Override
+    public PageResultInfo queryListfriend(Integer pageNo, Integer pageSize,String title,Integer Index) {
+        logger.info("传入的pageno,pagesize"+pageNo+":"+pageSize);
+        PageHelper.startPage(pageNo, pageSize);
+        kn_friend knFriend=new kn_friend();
+        List<kn_friend> agentLevelSettings;
+        if(!StringUtils.isEmpty(title) && !"".equals(title)){
+            logger.info("进入title");
+            knFriend.setTitle(title);
+            agentLevelSettings = knFriendMapper.selectFriend(knFriend);
+            PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+            PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+            return resultInfo;
+        }
+        if(Index!=null&& !Index.equals("0") && !Index.equals(0)) {
+            if (Index==1 || Index.equals(1) || Index.equals("1")) {
+                //推荐级别
+                knFriend.setLevel(2);
+                agentLevelSettings = knFriendMapper.selectFriend(knFriend);
+                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
+                return resultInfo;
+            }else if(Index==2 || Index.equals(2) || Index.equals("2")){
+                //添加时间
+                knFriend.setAddTime(new Date());
+                agentLevelSettings = knFriendMapper.selectFriend(knFriend);
+                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
+                return resultInfo;
+            }else if(Index==3 || Index.equals(3) || Index.equals("3")){
+                //点击量排序
+                knFriend.setClick(2);
+                agentLevelSettings = knFriendMapper.selectFriend(knFriend);
+                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
+                return resultInfo;
+            }
+        }
+        agentLevelSettings = knFriendMapper.selectFriend(knFriend);
+        logger.info("获取admin表中所有数据");
+        PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+        return resultInfo;
+    }
+
+    public int deleteFriend(int id){
+        int i=knFriendMapper.deleteFriend(id);
+        if(i>0){
+            logger.info("删除成功");
+            return 1;
+        }else {
+            logger.info("删除失败");
+            return 0;
+        }
+    }
+
+    @Override
+    public int updateFrilend(kn_friend kn_friend) {
+        int i=knFriendMapper.updateFrilend(kn_friend);
+        if(i>0){
+            logger.info("编辑成功");
+            return 1;
+        }else {
+            logger.info("编辑失败");
+            return 0;
+        }
 
     }
 

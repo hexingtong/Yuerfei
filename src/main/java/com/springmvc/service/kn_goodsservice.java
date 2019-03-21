@@ -1,7 +1,8 @@
 package com.springmvc.service;
 
 import com.springmvc.pojo.PageResultInfo;
-import com.springmvc.pojo.KnGoods;
+import com.springmvc.pojo.VO.GoodsSupermarketDvo;
+import com.springmvc.pojo.kn_goods;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @param
  * @return
  */
-public interface kn_goodsservice extends BaseService<KnGoods> {
+public interface kn_goodsservice extends BaseService<kn_goods> {
 
 
     /**
@@ -25,7 +26,7 @@ public interface kn_goodsservice extends BaseService<KnGoods> {
      * @author boyang
      * @date 2019/2/27 14:27
      */
-    List<KnGoods> getGoodsList();
+    List<kn_goods> getGoodsList();
 
     /**
      * Description：得到商家产品列表
@@ -51,7 +52,7 @@ public interface kn_goodsservice extends BaseService<KnGoods> {
      * @param
      * @return
      */
-    List<KnGoods> queryByTagid();
+    List<kn_goods> queryByTagid();
     /**
      * Description：一对多模糊查找
      * @author boyang
@@ -59,5 +60,29 @@ public interface kn_goodsservice extends BaseService<KnGoods> {
      * @param
      * @return
      */
-    List<KnGoods> queryGoodes(String title);
+    List<kn_goods> queryGoodes(String title);
+
+    /**
+     * Description：得到超市产品列表
+     *
+     */
+    PageResultInfo queryGoods(Integer pageNo, Integer pageSize, String title, Integer Index1, Integer propertyId, Integer status);
+
+    /**
+     * 增加超市列表
+     */
+    int insertSupermarket(GoodsSupermarketDvo goodsSupermarketDvo);
+
+    /**
+     * 编辑超市列表
+     */
+    int updateSupermarket(GoodsSupermarketDvo goodsSupermarketDvo);
+    /**
+     * 删除超市列表
+     */
+    int deleteSupermarket(GoodsSupermarketDvo goodsSupermarketDvo);
+    /**
+     * 根据id查询超市名称
+     */
+    kn_goods selectGoodsSK(int id);
 }

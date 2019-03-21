@@ -1,23 +1,19 @@
 package com.springmvc.controller;
 
-import com.aliyuncs.utils.StringUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.KnPropertyMapper;
 import com.springmvc.pojo.JsonModel;
 import com.springmvc.pojo.KnProperty;
 import com.springmvc.pojo.PageResultInfo;
-import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.PropertyService;
-import com.util.ImageUtil;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,31 +39,6 @@ public class GoodsAttributeController {
 
     final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-
-/**
- * Description：跳到新增
- * @author boyang
- * @date 2019/3/19 15:33
- * @param
- * @return
- */
-@RequestMapping("toAdd")
-public String toAdd(Model model, Integer id) {
-    return "productAdd";
-}
-    /**
-     * Description：跳到产品属性编辑
-     * @author boyang
-     * @date 2019/3/18 10:01
-     * @param
-     * @return
-     */
-    @RequestMapping("/toEdit")
-    public String toEdit(Model model, Integer id){
-        KnProperty property=  propertyService.queryById(id);
-        model.addAttribute("property", property);
-        return "productEditor";
-    }
     /**
      * Description：, pageNo：当前页, pageSize：页容量,传入的手机号
      * @author boyang
@@ -77,18 +48,14 @@ public String toAdd(Model model, Integer id) {
      */
     @RequestMapping("/getGoodsList")
     @ResponseBody
-    public PageResultInfo getDataList(Model model, HttpServletResponse response,
+    public List<KnProperty> getDataList(Model model, HttpServletResponse response,
                                         @RequestParam(value = "pageNo", defaultValue = "1",
                                               required = false)
                                               Integer pageNo,
-                                        @RequestParam(value = "pageSize", defaultValue = "90", required = false)
-                                              Integer pageSize
-                                                    ) {
-        PageHelper.startPage(pageNo, pageSize);
-        PageInfo<KnProperty> pageInfo = new PageInfo<KnProperty>(propertyService.queryListByPage(pageNo,pageSize));
-        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+                                        @RequestParam(value = "pageSize", defaultValue = "3", required = false)
+                                              Integer pageSize) {
         logger.info("传入的pageno,pagesize"+pageNo+":"+pageSize);
-        return  resultInfo;
+        return  propertyService.queryListByPage(pageNo,pageSize);
 
 
     }
@@ -102,16 +69,15 @@ public String toAdd(Model model, Integer id) {
      */
     @RequestMapping("/addAttribute")
     @ResponseBody
-    public int save(@RequestBody KnProperty property) {
+    public int save(KnProperty property) {
         logger.info("传入产品"+property);
-        if (property!=null){
+        if (property.getId()!=null){
     property.setAddTime(new Date());
             propertyService.saveSelective(property);
-            return 1;
         }else {
-            return  0;
+            propertyService.updateSelectiveById(property);
         }
-
+         return  property.getId();
     }
     /**
      * Description：删除产品属性
@@ -120,46 +86,20 @@ public String toAdd(Model model, Integer id) {
      * @param
      * @return
      */
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     @ResponseBody
     public int delete(Integer id) {
         logger.info("传入产品属性id"+id);
         if (id!=null){
             propertyService.deleteById(id);
-            return 1;
         }else {
             return 0;
         }
 
+        return 1;
+    }
 
-    }
-/**
- * Description：编辑产品属性接口
- * @author boyang
- * @date 2019/3/18 11:28
- * @param
- * @return
- */
-@RequestMapping("/updateAttribute")
-@ResponseBody
-public JsonModel updateAdmin(Integer id, String img,String title) {
-    logger.info("传入用户id,img" + "{" + id + ":" + img + "}");
-    KnProperty knProperty=new KnProperty();
-    if (id!=null&& StringUtils.isNotEmpty(img)&&StringUtils.isNotEmpty(title)){
-        knProperty.setImg(img);
-        knProperty.setId(id);
-        knProperty.setTitle(title);
-    }
-    String erro = "";
-    try {
-        propertyService.updateSelectiveById(knProperty);
-        return new JsonModel(JsonModel.SUCCESS);
-    } catch (Exception e) {
-        erro = "更新异常";
-        e.printStackTrace();
-        return new JsonModel(JsonModel.FAILED, erro);
-    }
-}
+
     /**
      * 图片文件上传
      */
@@ -205,31 +145,6 @@ public JsonModel updateAdmin(Integer id, String img,String title) {
             }
         }
         return  new JsonModel();
-    }
-
-    /**
-     * 用户信息头像上传功能
-     *
-     * @param
-     * @param
-     * @return
-     */
-    @RequestMapping("/addUserInfo")
-    public void addUserInfo(HttpServletResponse response,HttpServletRequest request) throws IOException {
-        try {
-            List<FileItem> lst= ImageUtil.getRequeat(request);
-            String i=ImageUtil.upload(request,lst);
-            logger.info("返回的String值是--"+i);
-            Object msg=request.getAttribute("message");
-            logger.info(msg+"");
-            if(i=="error"){
-                logger.info("上传失败");
-            }else{
-                logger.info("上传成功");
-            }
-        } catch (FileUploadException e) {
-            e.printStackTrace();
-        }
     }
 
 }

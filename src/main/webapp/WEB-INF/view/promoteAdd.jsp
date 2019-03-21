@@ -3,21 +3,16 @@
 <%@include file="/common/taglibs.jsp" %>
 <%--<% String path = request.getContextPath(); %>--%>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-    String imgd2 = "http://47.92.53.177:8080/Yuerfei/";
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>新增推广链接产品</title>
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
-    <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="${ctx }/js/layui/css/layui.css" media="all">
-    <script type="text/javascript" src="${ctx }/js/layer/layer.js"></script>
-    <script type="text/javascript" src="${ctx }/js/paging.js"></script>
-    <script type="text/javascript" src="${ctx }/js/layui/layui.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/common.css">
+    <link rel="stylesheet" type="text/css" href="./css/font/iconfont.css">
     <style>
 
     </style>

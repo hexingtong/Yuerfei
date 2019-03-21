@@ -2,11 +2,12 @@ package com.springmvc.controller.APP;
 
 import com.springmvc.pojo.KnProperty;
 import com.springmvc.pojo.Notice;
-import com.springmvc.pojo.KnGoods;
+import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.NoticeService;
 import com.springmvc.service.PropertyService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
+import com.sun.xml.internal.ws.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +64,9 @@ NoticeService noticeService;
      */
     @RequestMapping("/getGoodList")
     @ResponseBody
-    public Map<String,List<KnGoods>> getGoods(HttpServletResponse response
+    public Map<String,List<kn_goods>> getGoods(HttpServletResponse response
     ) {
-        Map<String,List<KnGoods>>map=new HashMap<String,List<KnGoods>>();
+        Map<String,List<kn_goods>>map=new HashMap<String,List<kn_goods>>();
 
         map.put("goods",knGoodsservice.queryByTagid());
         return map;
@@ -95,10 +96,10 @@ NoticeService noticeService;
      */
     @RequestMapping("/getGoodesName")
     @ResponseBody
-    public Map<String,List<KnGoods>> getGoodesName(@RequestParam(value = "name", required = false)String name
+    public Map<String,List<kn_goods>> getGoodesName(@RequestParam(value = "name", required = false)String name
     ) {
         logger.info("传入产品名称"+name);
-        Map<String,List<KnGoods>>map=new HashMap<String,List<KnGoods>>();
+        Map<String,List<kn_goods>>map=new HashMap<String,List<kn_goods>>();
         if (com.aliyuncs.utils.StringUtils.isNotEmpty(name)){
             map.put("goods",knGoodsservice.queryGoodes(name));
             return map;

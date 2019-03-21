@@ -44,6 +44,7 @@ public class KnFriend {
      *
      添加时间
      */
+
     @Column(name = "add_time")
     private Date addTime;
 
@@ -52,6 +53,35 @@ public class KnFriend {
      注册人数
      */
     private Integer enrollment;
+
+    /**
+     * 上架状态
+     * @return
+     */
+    private Integer status;
+
+    @Override
+    public String toString() {
+        return "KnFriend{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", img='" + img + '\'' +
+                ", level=" + level +
+                ", addTime=" + addTime +
+                ", enrollment=" + enrollment +
+                ", status=" + status +
+                '}';
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getStatus() {
+
+        return status;
+    }
 
     public Integer getId() {
         return id;

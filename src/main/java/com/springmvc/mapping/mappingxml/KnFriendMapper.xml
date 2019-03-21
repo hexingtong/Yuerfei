@@ -16,4 +16,43 @@
     <result column="enrollment" jdbcType="INTEGER" property="enrollment" />
   </resultMap>
 
+  <!--* Description：得到推广列表
+     *
+     * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态-->
+  <select id="selectFriend" parameterType="kn_friend" resultType="kn_friend">
+    select * from kn_friend
+    <where>
+      <if test="title!=null and title!='' ">
+        AND  title  LIKE '%${title}%'
+      </if>
+    </where>
+    <if test="addTime!=null and addTime!='' ">
+      ORDER BY add_time
+    </if>
+    <if test="click!=null and click!='' ">
+      ORDER BY click DESC
+    </if>
+    <if test="level!=null and level!='' ">
+      ORDER BY `level` DESC
+    </if>
+  </select>
+
+  <delete id="deleteFriend" parameterType="int">
+  DELETE FROM kn_friend WHERE id=#{id}
+  </delete>
+
+  <update id="updateFrilend" parameterType="kn_friend">
+  UPDATE  kn_friend
+    <trim prefix="set" suffixOverrides=",">
+      <if test="title!=null and title!='' ">
+      title=#{title},
+      </if>
+      <if test="url!=null and url!='' ">
+        url=#{url},
+      </if>
+    </trim>
+    WHERE id=#{id}
+  </update>
+
+
 </mapper>

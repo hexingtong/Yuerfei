@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,14 +34,8 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    //跳到会员编辑页面
-    @RequestMapping("/toEdit")
-    public String toEdit(@ModelAttribute("id")String param){
-        param="membersCode";
-        return param;
-    }
     /**
-     * Description：得到会列表
+     * Description：得到商家列表
      *
      * @param , response, pageNo：当前页, pageSize：页容量,传入的手机号
      * @return com.springmvc.pojo.PageResultInfo
@@ -55,7 +48,7 @@ public class MemberController {
                                       @RequestParam(value = "pageNo", defaultValue = "1",
                                               required = false)
                                               Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "90", required = false)
+                                      @RequestParam(value = "pageSize", defaultValue = "4", required = false)
                                               Integer pageSize,
                                       @RequestParam(value = "phone", required = false)
                                                   String phone) {
@@ -67,12 +60,12 @@ public class MemberController {
     }
 
     /**
-     * Description：通过用户id删除会信息
+     * Description：通过用户id删除商家信息
      *
      * @return
      * @author boyang
      * @date 2019/3/6 11:50
-     * @param: 传入会的id
+     * @param: 传入商户的id
      */
     @RequestMapping("/deleteAdmin")
     @ResponseBody

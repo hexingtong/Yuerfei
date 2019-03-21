@@ -13,11 +13,120 @@
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
     <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="${ctx }/css/zxf_page.css"/>
-    <script type="text/javascript" src="${ctx }/js/zxf_page.js"></script>
+    <link rel="stylesheet" type="text/css" href="${ctx }/js/layui/css/layui.css">
     <script type="text/javascript" src="${ctx }/js/layer/layer.js"></script>
+    <script type="text/javascript" src="${ctx }/js/paging.js"></script>
+    <script type="text/javascript" src="${ctx }/js/layui/layui.js"></script>
     <style>
+        /*翻页*/
+        .pagenation {
+            padding: 40px 30px 60px 0;
+            color: #666;
+            -webkit-touch-callout:none;
+            -webkit-user-select:none;
+            -khtml-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;}
 
+        .pagenation .pagenum {
+            float: left;
+            min-width: 30px;
+            padding: 3px 5px;
+            text-align: center;
+            margin-right: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .pagenation .pagenum.indexpage, .pagenation .pagenum.lastpage, .pagenation .pagenum.nextpage {
+            background: rgba(255,255,255,0);
+            color: #d9cfce;
+        }
+
+        .pagenation .pagenum.indexpage.active, .pagenation .pagenum.lastpage.active, .pagenation .pagenum.nextpage.active {
+            background-color: #f5f5f5;
+            color: #999;
+        }
+
+        .pagenation .pagenum.indexpage.active a, .pagenation .pagenum.lastpage.active a, .pagenation .pagenum.nextpage.active a {
+            color: #999;
+        }
+
+        .pagenation .pagenum.pagetext, .pagenation .pagenum.totalpage {
+            border-radius: 0px;
+            background: rgba(255,255,255,0);
+            border: none;
+        }
+
+        .pagenation .pagenum a {
+            color: #999;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pagenation .pageswiperbox {
+            min-width: 35px;
+            max-width: 175px;
+            overflow: hidden;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            float: left;
+        }
+
+        .pagenation .pageswiper {
+            width: auto;
+        }
+
+        .pagenation .pageswiper .pagenum {
+            display: inline-block;
+            float: none;
+        }
+
+        .pagenation .pagenum.curpage {
+            background: rgba(255,255,255,0);
+            color: #FE7200;
+            border: none;
+        }
+
+        .pagenation .pagenum.curpage a {
+            color: #FE7200;
+            display: block;
+            width: 100%;
+        }
+
+        .pagenation .pageinput {
+            text-align: center;
+            border: 1px solid #e5e5e5;
+            width: 40px;
+            margin: 0 3px;
+            line-height: 17px;
+            box-sizing: border-box;
+            vertical-align: top;
+        }
+
+        .pagenation .pagesubbtn {
+            background: rgba(255,255,255,0);
+        }
+
+        .pagenation .pagesubbtn a {
+            color: #d9cfce;
+        }
+
+        .pagenation .pagesubbtn.active {
+            background: #f5f5f5;
+        }
+
+        .pagenation .pagesubbtn a {
+            color: #999;
+        }
     </style>
 </head>
 <body>
@@ -27,13 +136,9 @@
 <!--超市展示右边-->
             <div class="indexcontent-right6" style="display: block;">
                 <div class="indexcontent-right-main">
-                    <div class="indexcontent-right-top">
-                        <img src="${ctx }/images/Full screen button.svg">
-                        <div class="indexcontent-right-top-right">
-                            <img src="${ctx }/images/quit.svg">
-                            <p>退出</p>
-                        </div>
-                    </div>
+
+                    <%@ include file="top.jsp" %>
+
                     <div class="indexcontent-right-bottom" style="height: 884px;">
                         <div class="indexcontent-right-bottom-main">
                             <div class="indexcontent-right-bottom-main-header">
@@ -47,41 +152,37 @@
                             </div>
                             <div class="indexcontent-right-bottom-main-content">
                                 <div class="refresh">
-                                    <div style="background: rgb(36,143,255);color:#fff;">刷新</div>
-                                    <div class="super-add" style="margin-left:-30px;background:#FF8D2F;color:#fff;">新增</div>
+                                    <div  onclick="window.location.reload();" style="background: rgb(36,143,255);color:#fff;">刷新</div>
+                                    <div id="add" class="super-add" style="margin-left:-30px;background:#FF8D2F;color:#fff;">新增</div>
                                     <div class="labelSelet" style="width:80%;height:90px;margin-left:20px;margin-top:10px;padding:0px;">
                                         <div class="labelSelet-main">
                                             <div class="selectDiv">
                                                 <p>排序方式</p>
-                                                <select class="select">
-                                                    <option>推荐级别</option>
-                                                    <option>添加时间</option>
-                                                    <option>点击量</option>
-                                                    <option>添加时间</option>
-                                                    <option>点击量</option>
+                                                <select id="Index1" class="select">
+                                                    <option value="1">推荐级别</option>
+                                                    <option value="2">添加时间</option>
+                                                    <option value="3">点击量</option>
                                                 </select>
                                             </div>
 
                                             <div class="selectDiv">
                                                 <p>产品属性</p>
-                                                <select class="select">
-                                                    <option>新户专享</option>
-                                                    <option>添加时间</option>
-                                                    <option>点击量</option>
-                                                    <option>添加时间</option>
-                                                    <option>点击量</option>
+                                                <select id="propertyId" class="select">
+                                                    <option value="1">新户专享</option>
+                                                    <option value="2">贷款超市</option>
+                                                    <option value="3">大额快贷</option>
+                                                    <option value="4">小额快贷</option>
                                                 </select>
                                             </div>
                                             <div class="selectDiv">
                                                 <p>筛选</p>
-                                                <select class="select">
-                                                    <option>审核中</option>
-                                                    <option>添加时间</option>
-                                                    <option>点击量</option>
-                                                    <option>添加时间</option>
-                                                    <option>点击量</option>
+                                                <select id="status" class="select">
+                                                    <option value="1">申请中</option>
+                                                    <option value="2">审核失败</option>
+                                                    <option value="3">审核成功</option>
                                                 </select>
                                             </div>
+                                            <button id="ok" class="layui-btn layui-btn-normal">确定</button>
                                         </div>
                                     </div>
                                 </div>
@@ -99,56 +200,275 @@
                                         </ul>
                                     </div>
                                     <div class="shopping-tbody1">
-                                        <div class="shopping-tbody-item">
-                                            <ul>
-                                                <li>
-                                                    <img src="${ctx }/images/微信截图_20190307101309.png">
-                                                </li>
-                                                <li>速贷贷款</li>
-                                                <li>新户专享</li>
-                                                <li>审核中</li>
-                                                <li>2019-02-23</li>
-                                                <li>78</li>
-                                                <li>8</li>
-                                                <li>
-                                                    <div class="sets">
-                                                        <div class="supermarketgraphics">图形数据</div>
-                                                        <div class="supermarketEditor">编辑</div>
-                                                        <div>删除</div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="shopping-tbody-items">
-                                            <ul>
-                                                <li>
-                                                    <img src="${ctx }/images/微信截图_20190307101309.png">
-                                                </li>
-                                                <li>速贷贷款</li>
-                                                <li>新户专享</li>
-                                                <li>审核中</li>
-                                                <li>2019-02-23</li>
-                                                <li>78</li>
-                                                <li>8</li>
-                                                <li>
-                                                    <div class="sets">
-                                                        <div class="supermarketgraphics">图形数据</div>
-                                                        <div class="supermarketEditor">编辑</div>
-                                                        <div>删除</div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+
 
                                     </div>
                                 </div>
-                                <div class="indexcontent-tabPage">
-                                    <div class="zxf_pagediv6"><span class="disabled">上一页</span><span class="current">1</span><a href="javascript:;" class="zxfPagenum nextpage">2</a><a href="javascript:;" class="zxfPagenum">3</a><span>...</span><a href="javascript:;" class="nextbtn">下一页</a><span>共<b>20</b>页，</span><span>到第<input type="number" class="zxfinput" value="5">页</span><span class="zxfokbtn">确定</span></div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                $('#add').click(function(){
+                    $(location).attr('href', '<%=basePath %>/url/SupermarketAdd')
+                })
+
+                function supermarUpadete(id) {
+
+                    $(location).attr('href', '<%=basePath %>/url/SupermarketUpdate?id='+id+'')
+                }
+                //删除会员
+                function supermardelect(id){
+                    //询问框
+                    layer.confirm('是否删除', {
+                        btn: ['是','否'] //按钮
+                    }, function(){
+                        $.ajax({
+                            type:"post",
+                            dateType:"json",
+                            url:"${ctx }/Supermarke/getSupermarket",
+                            data:{id:id},
+                            success:function(result){
+                                var imgs='${ctx }';
+                                if(jsonData.code=="200"){
+                                    layer.msg('删除成功', {icon: 1,time: 5000});
+                                    window.location.reload();
+                                }else{
+                                    layer.msg("删除失败")
+                                }
+
+                            },error:function(result){
+                                layer.msg('错误');
+                            }
+                        })
+                    }, function(){
+                    });
+                }
+                $(document).ready(function(){
+                    var total2=0;
+                    //数据框的值
+                    var sousuo2="";
+                    //
+                    //点击按钮
+                    $('#button').click(function(){
+                        sousuo2=$("input[name='placeholder2']").val();
+                        $(".shopping-tbody1").empty();
+                        $.ajax({
+                            type:"post",
+                            dateType:"json",
+                            url:"<%=basePath %>/Supermarke/getSupermarket",
+                            data:{pageNo:1,pageSize:7,title:sousuo2},
+                            success: function(result){
+                                var jsonData=JSON.parse(result);
+                                total2=jsonData.items[0].total;
+                                var  I=jsonData.items[0].rows.length;
+                                var imgs='<%=basePath %>';
+                                var o = $(".promote-tbody1");
+                                if (jsonData.length!==0) {
+                                    for(var G=0;G<I;G++){
+                                        var D ='<div class="shopping-tbody-item">' +
+                                            '<ul class="ul">' +
+                                            '<li>'+
+                                            '<img src="'+imgs+''+jsonData.rows[G].img+'">' +
+                                            '</li>' +
+                                            '<li>'+jsonData.rows[G].title+'</li>' +
+                                            '<li>'+jsonData.rows[G].ptitle+'</li>' +
+                                            '<li>'+jsonData.rows[G].pstatus+'</li>' +
+                                            '<li>'+jsonData.rows[G].addTime+'</li>' +
+                                            '<li>'+jsonData.rows[G].pv+'</li>' +
+                                            '<li>'+jsonData.rows[G].uv+'</li>' +
+                                            '<li>'+
+                                            '<div class="sets">'+
+                                            '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + jsonData.rows[G].id+'">编辑</div>' +
+                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + jsonData.rows[G].id  + '">删除</div>' +
+                                            ' </div>' +
+                                            '</li>' +
+                                            '</ul>' +
+                                            '</div>'
+                                        var K=$(D);
+                                        o.append(K);
+
+                                    }
+                                }
+                                $(".shopping-tbody1").paging(options)
+                            },
+                            error:function(){
+                                alert("错误")
+                            }
+                        });
+                        //ajax结束
+
+
+                    })
+
+                    //点击确定
+                    $('#ok').click(function(){
+                        var Index = document.getElementById("Index1").value;
+                        var propertyId = document.getElementById("propertyId").value;
+                        var status = document.getElementById("status").value;
+                        $(".shopping-tbody1").empty();
+                        alert(Index)
+                        alert(propertyId)
+                        alert(status)
+                        $.ajax({
+                            type:"post",
+                            dateType:"json",
+                            url:"<%=basePath %>/Supermarke/getSupermarket",
+                            data:{pageNo:1,pageSize:7,Index1:Index,propertyId:propertyId,status:status},
+                            success: function(result) {
+                                var jsonData = JSON.parse(result);
+                                total2 = jsonData.rows.total;
+                                var I = jsonData.rows.length;
+                                var o = $(".shopping-tbody1");
+                                var imgs='<%=basePath %>';
+                                if (jsonData.length !== 0) {
+                                    for (var G = 0; G < I; G++) {
+                                        var D ='<div class="shopping-tbody-item">' +
+                                            '<ul class="ul">' +
+                                            '<li>'+
+                                            '<img src="'+imgs+''+jsonData.rows[G].img+'">' +
+                                            '</li>' +
+                                            '<li>'+jsonData.rows[G].title+'</li>' +
+                                            '<li>'+jsonData.rows[G].ptitle+'</li>' +
+                                            '<li>'+jsonData.rows[G].pstatus+'</li>' +
+                                            '<li>'+jsonData.rows[G].addTime+'</li>' +
+                                            '<li>'+jsonData.rows[G].pv+'</li>' +
+                                            '<li>'+jsonData.rows[G].uv+'</li>' +
+                                            '<li>'+
+                                            '<div class="sets">'+
+                                            '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + jsonData.rows[G].id+'">编辑</div>' +
+                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + jsonData.rows[G].id  + '">删除</div>' +
+                                            ' </div>' +
+                                            '</li>' +
+                                            '</ul>' +
+                                            '</div>'
+                                        var K = $(D);
+                                        o.append(K);
+                                    }
+                                }
+                                $(".shopping-tbody1").paging(options)
+                            }
+                        })
+
+                    })
+
+                    //点击进入会员管理刷新页面
+                    $.ajax({
+                        type:"post",
+                        dateType:"json",
+                        url:"<%=basePath %>/Supermarke/getSupermarket",
+                        data:{pageNo:1,pageSize:7},
+                        success: function(result){
+                            var jsonData=JSON.parse(result);
+                            total2=jsonData.total;
+                            var  I=jsonData.rows.length;
+                            var o = $(".shopping-tbody1");
+                            var imgs='<%=basePath %>';
+                            if (jsonData.length!==0) {
+                                for(var G=0;G<I;G++){
+                                    var D ='<div class="shopping-tbody-item">' +
+                                        '<ul class="ul">' +
+                                        '<li>'+
+                                        '<img src="'+imgs+''+jsonData.rows[G].img+'">' +
+                                        '</li>' +
+                                        '<li>'+jsonData.rows[G].title+'</li>' +
+                                        '<li>'+jsonData.rows[G].ptitle+'</li>' +
+                                        '<li>'+jsonData.rows[G].pstatus+'</li>' +
+                                        '<li>'+jsonData.rows[G].addTime+'</li>' +
+                                        '<li>'+jsonData.rows[G].pv+'</li>' +
+                                        '<li>'+jsonData.rows[G].uv+'</li>' +
+                                        '<li>'+
+                                        '<div class="sets">'+
+                                        '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                        '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + jsonData.rows[G].id + '">编辑</div>' +
+                                        '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + jsonData.rows[G].id  + '">删除</div>' +
+                                        ' </div>' +
+                                        '</li>' +
+                                        '</ul>' +
+                                        '</div>'
+                                    var K=$(D);
+                                    o.append(K);
+
+                                }
+                            }
+                            $(".shopping-tbody1").paging(options)
+                        },
+                        error:function(){
+                            alert("错误")
+                        }
+                    });
+                    //ajax结束
+                    var options = {
+                        list:".ul",//列表标识
+                        currentPage:1,//初始页（选传，默认1）
+                        pageSize:5,//每页列表数
+                        // listTotal:5,//列表总数（选传），不传为list总数
+                        callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
+                            var currentPage=JSON.parse(currentPage);
+                            loadData2(ajaxDemo2(currentPage))
+                        }
+                    }
+
+                    //会员得到数据
+                    function ajaxDemo2(page,pageSize){
+                        if(!pageSize)var pageSize = 7;
+                        if(sousuo2==""||sousuo2.valueOf("")){
+                            //没有搜索的时候
+                            $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize,title:sousuo2},function(data){
+                                var data=JSON.parse(data);
+                                loadData2(data);
+                            })
+
+                        }else {
+                            //搜索有值的时候
+                            $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize},function(data){
+                                var data=JSON.parse(data);
+                                loadData2(data);
+                            })
+
+                        }
+
+                    }
+                    //会员拼接数据
+                    function loadData2(data){
+                        console.log("callback")
+                        $(".shopping-tbody1").empty();
+                        var I=data.rows.length;
+                        var o = $(".shopping-tbody1");
+                        var imgs='<%=basePath %>';
+                        if (data.length!==0) {
+                            for(var G=0;G<I;G++){
+                                var D ='<div class="shopping-tbody-item">' +
+                                    '<ul class="ul">' +
+                                    '<li>'+
+                                    '<img src="'+imgs+''+data.rows[G].img+'">' +
+                                    '</li>' +
+                                    '<li>'+data.rows[G].title+'</li>' +
+                                    '<li>'+data.rows[G].ptitle+'</li>' +
+                                    '<li>'+data.rows[G].pstatus+'</li>' +
+                                    '<li>'+data.rows[G].addTime+'</li>' +
+                                    '<li>'+data.rows[G].pv+'</li>' +
+                                    '<li>'+data.rows[G].uv+'</li>' +
+                                    '<li>'+
+                                    '<div class="sets">'+
+                                    '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                    '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + data.rows[G].id + '">编辑</div>' +
+                                    '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + data.rows[G].id  + '">删除</div>' +
+                                    ' </div>' +
+                                    '</li>' +
+                                    '</ul>' +
+                                    '</div>'
+                                var K=$(D);
+                                o.append(K);
+                            }
+                        }
+                    }
+                });
+            </script>
 </body>
 </html>

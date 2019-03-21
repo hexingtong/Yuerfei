@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springmvc.mapping.kn_goodsMapper" >
+<!--by-->
+  <select id="getGoodsList" resultType="kn_goods">
+    select * FROM kn_goods ORDER  BY `level` DESC
+  </select>
+
+    <select id="queryMerchantId" resultType="int" parameterType="kn_goods">
+        select admin_id FROM kn_goods WHERE admin_id =#{id}
+    </select>
+
+    <delete id="delectMerchant">
+        DELETE FROM kn_goods WHERE admin_id=#{id}
+    </delete>
+  <!--* Description：得到商家产品列表
+     *
+     * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态-->
+  <select id="queryGoodsList" parameterType="kn_goods" resultType="com.springmvc.pojo.kn_goods">
+    select * from kn_goods
+    <where>
+      <if test="title!=null and title!='' ">
+        AND  title  LIKE '%${title}%'
+      </if>
+      <if test="propertyId!=null and propertyId!='' ">
+        AND  property_ids=#{propertyId}
+      </if>
+      <if test="status!=null and status!='' ">
+        AND  status=#{status}
+      </if>
+      AND admin_id in(
+      select t.id from kn_admin t where level=1 )
+    </where>
+
+    <if test="addTime!=null and addTime!='' ">
+      ORDER BY add_time
+    </if>
+    <if test="click!=null and click!='' ">
+      ORDER BY click DESC
+    </if>
+  </select>
+
+  <select id="getDetailId" resultType="java.lang.Integer" parameterType="Integer">
+    SELECT details_id FROM kn_goods WHERE id=#{id}
+
+
+    </select>
+    <!--模糊查找含有精选的商品-->
+    <select id="queryByTagid" resultType="com.springmvc.pojo.kn_goods">
+select g.* from kn_goods g WHERE tag_id LIKE '%4%'
+
+
+
+  </select>
+
+    <select id="queryGoodes" resultType="com.springmvc.pojo.kn_goods" parameterType="String">
+      SELECT g.*
+      FROM kn_goods g
+      WHERE title LIKE '%${title}%'
+    </select>
+
+
+
+
+  <!--* Description：得到超市产品列表
+ *
+ * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态-->
+  <select id="queryGoods" parameterType="kn_goodsSupper" resultType="com.springmvc.pojo.kn_goodsSupper">
+    select k.id,k.img,k.title,k.status,(case
+    when k.status = 1  then '审核中'
+    when k.status = 2 then '审核失败'
+    when k.status = 3  then '审核通过'
+    when k.status = 4  then '已上架'
+    when k.status = 5  then '保存'
+    end )pstatus,k.add_time,k.pv,k.uv,p.title AS ptitle from kn_goods k,kn_property p
+    <where>
+       p.id=k.property_ids
+      <if test="title!=null and title!='' ">
+        AND  title  LIKE '%${title}%'
+      </if>
+      <if test="propertyId!=null and propertyId!='' ">
+        AND  property_ids=#{propertyId}
+      </if>
+      <if test="status!=null and status!='' ">
+        AND  `status`=#{status}
+      </if>
+      AND admin_id in(
+      select t.id from kn_admin t where level=1 )
+    </where>
+
+    <if test="addTime!=null and addTime!='' ">
+      ORDER BY add_time
+    </if>
+    <if test="click!=null and click!='' ">
+      ORDER BY click DESC
+    </if>
+
+  </select>
+
+  <!--
+   超市插入第一段数据后获得id  这条是为不显示的语句
+   -->
+  <insert id="insertGoodsSk" parameterType="kn_goods">
+    insert into kn_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null and title!='' ">
+        title,
+      </if>
+      <if test="applyCount!=null and applyCount!='' ">
+        apply_count,
+      </if>
+      <if test="Limit!=null and Limit!=''">
+        `Limit`,
+      </if>
+      <if test="Deadline!=null and Deadline!='' ">
+        Deadline,
+      </if>
+      <if test="Interestrate!=null and Interestrate!='' ">
+        Interest_rate,
+      </if>
+      <if test="propertyId!=null and propertyId!='' ">
+        property_ids,
+      </if>
+      <if test="tagId!=null and tagId!='' ">
+        tag_id,
+      </if>
+      <if test="details!=null and details!='' " >
+        details,
+      </if>
+      <if test="status!=null and status!='' ">
+        `status`,
+      </if>
+      <if test="url!=null and url!=''">
+        url,
+      </if>
+        <if test="addTime!=null and addTime!='' ">
+          add_time,
+        </if>
+        <if test="detailsId!=null and detailsId!='' ">
+            details_id,
+        </if>
+      <if test="img!=null and img!='' ">
+        img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null and title!='' ">
+        #{title},
+      </if>
+      <if test="applyCount!=null and applyCount!='' ">
+        #{applyCount},
+      </if>
+      <if test="Limit!=null and Limit!=''">
+        #{Limit},
+      </if>
+      <if test="Deadline!=null and Deadline!='' ">
+        #{Deadline},
+      </if>
+      <if test="Interestrate!=null and Interestrate!='' ">
+        #{Interestrate},
+      </if>
+      <if test="propertyId!=null and propertyId!='' ">
+        #{propertyId},
+      </if>
+      <if test="tagId!=null and tagId!='' ">
+        #{tagId},
+      </if>
+      <if test="details!=null and details!='' " >
+        #{details},
+      </if>
+      <if test="status!=null and status!='' ">
+        #{status},
+      </if>
+      <if test="url!=null and url!=''">
+        #{url},
+      </if>
+        <if test="addTime!=null and addTime!='' ">
+            #{addTime},
+        </if>
+        <if test="detailsId!=null and detailsId!='' ">
+            #{detailsId},
+        </if>
+      <if test="img!=null and img!=''">
+        #{img},
+      </if>
+    </trim>
+
+  </insert>
+
+  <insert id="insertGoodsDetailSK" parameterType="GoodsDetail">
+    insert into goods_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="description">
+        description,
+      </if>
+      <if test="applicationCondition!=null and applicationCondition!='' ">
+        application_condition,
+      </if>
+      <if test="loopLines!=null and loopLines!='' ">
+        loop_lines,
+      </if>
+      <if test="activationProcess!=null and activationProcess!='' ">
+        activation_process,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="description">
+        #{description},
+      </if>
+      <if test="applicationCondition!=null and applicationCondition!='' ">
+        #{applicationCondition},
+      </if>
+      <if test="loopLines!=null and loopLines!='' ">
+        #{loopLines},
+      </if>
+      <if test="activationProcess!=null and activationProcess!='' ">
+        #{activationProcess},
+      </if>
+    </trim>
+
+    <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+
+  </insert>
+
+
+  <update id="updateGoodsSk" parameterType="kn_goods"  >
+    UPDATE kn_goods
+    <trim prefix="set" suffixOverrides=",">
+      <if test="title != null and title!='' ">
+        title=#{title},
+      </if>
+      <if test="applyCount!=null and applyCount!='' ">
+        apply_count=#{applyCount},
+      </if>
+      <if test="Limit!=null and Limit!='' ">
+        `Limit`=#{Limit},
+      </if>
+      <if test="Deadline!=null and Deadline!='' ">
+        Deadline=#{Deadline},
+      </if>
+      <if test="Interestrate!=null and Interestrate!='' ">
+        Interest_rate=#{Interestrate},
+      </if>
+      <if test="propertyId!=null and propertyId!='' ">
+        property_ids=#{propertyId},
+      </if>
+      <if test="tagId!=null and tagId!='' ">
+        tag_id=#{tagId},
+      </if>
+      <if test="details!=null and details!='' " >
+        details=#{details},
+      </if>
+      <if test="status!=null and status!='' ">
+        `status`=#{status},
+      </if>
+      <if test="url!=null and url!=''">
+        url=#{url},
+      </if>
+      <if test="img">
+        img=#{img},
+      </if>
+    </trim>
+    WHERE id=#{id}
+  </update>
+
+  <update id="updateGoodsDetailSK" parameterType="GoodsDetail">
+     UPDATE goods_detail
+    <trim prefix="set" suffixOverrides=",">
+      <if test="description !=null and description!='' ">
+        description=#{description},
+      </if>
+      <if test="applicationCondition!=null and applicationCondition!='' ">
+        application_condition= #{applicationCondition},
+      </if>
+      <if test="loopLines!=null and loopLines!='' ">
+        loop_line=#{loopLines},
+      </if>
+      <if test="activationProcess!=null and activationProcess!='' ">
+        activation_process=#{activationProcess},
+      </if>
+    </trim>
+    WHERE id=#{id}
+
+  </update>
+
+
+  <delete id="deleteGoodsSk" parameterType="kn_goods">
+  DELETE FROM kn_goods WHERE id=#{id}
+  </delete>
+
+  <delete id="deleteGoodsDetailSk" parameterType="GoodsDetail">
+  DELETE  FROM goods_detail where id=#{id}
+  </delete>
+
+  <select id="selectGoodsSK" parameterType="int" resultType="com.springmvc.pojo.kn_goods">
+    select * FROM kn_goods where id=#{id}
+  </select>
+
+</mapper>

@@ -1,5 +1,6 @@
 package com.springmvc.service;
 
+import com.springmvc.pojo.LoanTerm;
 import com.springmvc.pojo.kn_admin;
 
 import java.util.List;
@@ -53,4 +54,10 @@ public interface kn_adminservice  extends BaseService<kn_admin> {
      */
     kn_admin queryByPhone(String phone);
 
+    /**
+     * 查询用户信息
+     */
+    kn_admin selectUser(Integer id);
+
+    int instTest(LoanTerm loanTerm);
 }

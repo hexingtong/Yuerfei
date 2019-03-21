@@ -1,8 +1,9 @@
 package com.springmvc.controller;
 
-import com.util.DateUtil;
-import com.util.DateUtils2;
-import com.util.TokenTest;
+import com.springmvc.service.impl.kn_goodsServiceimpl;
+import com.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,30 +12,18 @@ import redis.clients.jedis.Jedis;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Test {
 
-    public static String isClient(HttpServletRequest request){
-        String userAgent = request.getHeader("user-agent").toLowerCase();
-        if (userAgent == null || userAgent.indexOf("windows nt") == -1 ? false : true) { // 判断当前客户端是否为PC
-            return "pc";
-        } else if (userAgent == null || userAgent.indexOf("android") == -1 ? false : true) { // 判断当前客户端是否为android
-            return "android";
-        } else if (userAgent == null || userAgent.indexOf("iphone") == -1 ? false : true) { // 判断当前客户端是否为iPhone
-            return "iPhone";
-        } else if (userAgent == null || userAgent.indexOf("wap") == -1 ? false : true) { // 判断当前客户端是否为wap
-            return "wap";
-        } else if (userAgent == null || userAgent.indexOf("micromessenger") == -1 ? false : true) { // 判断当前客户端是否为微信
-            return "weixin";
-        }
-        return "";
-    }
+
 
 
 
     public static void main(String[] args) {
-
+        final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 //        String utilDates=DateUtil.getNowDate();
 //        Date date=DateUtil.stringToDate(utilDates);
 //        System.out.println("获取的Date时间"+DateUtil.getNowDate());
@@ -63,9 +52,21 @@ public class Test {
 //                String id="13";
 //                String token = TokenTest.TokenTest(id);
 //                TokenTest.ValidToken(token);
-
-        DateUtils2.getNow();
-
+//        Map map=new HashMap();
+//        String token="eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiI0MyIsInN0YSI6MTU1MjM3NDQzODU0NSwiZXhwIjoxNTUzNjcwNDM4NTQ1fQ.DtwhMMxsGaMshwiQ8IyrUTPKPJJHtI0P9KCwAT1FHD8";
+//        TokenTest.ValidToken(token);
+//        Jedis jedis = new Jedis("47.92.53.177", 6379);
+//        SmsPhone.setNewcode();
+//        String code=Integer.toString(SmsPhone.getNewcode());
+//        System.out.println("验证码:"+code);
+//        String Phone="13022061303";
+//        jedis.set("SmsCode" + Phone + "", code);
+////        //设置时间为毫秒
+//        jedis.pexpire("SmsCode" + Phone + "", 60000);
+//        String z="SmsCode"+Phone;
+//        String x=jedis.get(z);
+//        logger.info("z里面的值:"+z);
+//        logger.info("redis里的验证码为："+x);
 
 
     }

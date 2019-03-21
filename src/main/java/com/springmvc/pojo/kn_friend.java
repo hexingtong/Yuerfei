@@ -1,5 +1,9 @@
 package com.springmvc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
 import java.util.Date;
 
 /*
@@ -17,7 +21,21 @@ public class kn_friend {
     //排序级别（100最小）
     private  int level;
     //添加时间
-    private Date add_time;
+    //增加时“
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "add_time")
+    private Date addTime;
+    //pv
+    private int pv;
+    //uv
+    private int uv;
+    //点击量
+    private int click;
+    //上架状态
+    private int status;
+    //注册人数
+    private int enrollment;
 
     @Override
     public String toString() {
@@ -27,8 +45,56 @@ public class kn_friend {
                 ", url='" + url + '\'' +
                 ", logo='" + logo + '\'' +
                 ", level=" + level +
-                ", add_time=" + add_time +
+                ", addTime=" + addTime +
+                ", pv=" + pv +
+                ", uv=" + uv +
+                ", click=" + click +
+                ", status=" + status +
+                ", enrollment=" + enrollment +
                 '}';
+    }
+
+    public void setEnrollment(int enrollment) {
+        this.enrollment = enrollment;
+    }
+
+    public int getEnrollment() {
+
+        return enrollment;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+
+        return status;
+    }
+
+    public void setClick(int click) {
+        this.click = click;
+    }
+
+    public int getClick() {
+
+        return click;
+    }
+
+    public int getPv() {
+        return pv;
+    }
+
+    public int getUv() {
+        return uv;
+    }
+
+    public void setPv(int pv) {
+        this.pv = pv;
+    }
+
+    public void setUv(int uv) {
+        this.uv = uv;
     }
 
     public void setId(int id) {
@@ -51,9 +117,7 @@ public class kn_friend {
         this.level = level;
     }
 
-    public void setAdd_time(Date add_time) {
-        this.add_time = add_time;
-    }
+
 
     public int getId() {
         return id;
@@ -75,7 +139,12 @@ public class kn_friend {
         return level;
     }
 
-    public Date getAdd_time() {
-        return add_time;
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    public Date getAddTime() {
+
+        return addTime;
     }
 }

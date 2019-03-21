@@ -9,10 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>标签新增</title>
-    <script src="js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/common.css">
-    <link rel="stylesheet" type="text/css" href="./css/font/iconfont.css">
+    <title>标签修改</title>
+    <script src='https://libs.baidu.com/jquery/1.10.2/jquery.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
+    <script type="text/javascript" src="${ctx }/js/layer/layer.js"></script>
     <style>
 
     </style>
@@ -20,120 +21,91 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
     <div id="indexBox">
         <div class="indexcontent">
-            <div class="indexcontent-left">
-                <div class="indexcontent-left-header">
-                    <img class="left-img1" src="./images/logo.svg"/>
-                </div>
-                <div class="indexcontent-left-face">
-                    <div>
-                        <img class="left-img1" src="./images/head portrait.svg"/>
-                    </div>
-                </div>
-                <div class="indexcontent-left-list">
-                    <div class="indexcontent-left-list-main">
-
-                    </div>
-                </div>
-            </div>
-            <div class="right-collection">
-                <!--会员管理右边-->
-                <div class="indexcontent-right1">
-                    <div class="indexcontent-right-main">
-                        <div class="indexcontent-right-top">
-                            <img  src="./images/Full screen button.svg"/>
-                            <div class="indexcontent-right-top-right">
-                                <img  src="./images/quit.svg"/>
-                                <p>退出</p>
-                            </div>
-                        </div>
-                        <div class="indexcontent-right-bottom">
-                            <div class="label-right-bottom-main">
-                                <div class="indexcontent-right-bottom-main-header">
-                                    <div class="indexcontent-header-title">标签展示列表</div>
+            <%--<div class="right-collection">--%>
+                <%@ include file="left.jsp" %>
+                <div class="right-collection">
+                    <!--标签修改右边-->
+                    <div class="indexcontent-right1">
+                        <div class="indexcontent-right-main">
+                            <div class="indexcontent-right-top">
+                                <img src="${ctx }/images/Full screen button.svg">
+                                <div class="indexcontent-right-top-right">
+                                    <img src="${ctx }/images/quit.svg">
+                                    <p>退出</p>
                                 </div>
-                                <div class="indexcontent-right-bottom-main-content">
-                                    <form>
-                                        <div class="members-form">
-                                            <div class="members-form-top">
-                                                <div class="members-form-top-text">标签名称</div>
-                                                <div class="members-form-top-input">
-                                                    <input placeholder="请输入标签名称20字以内"/>
+                            </div>
+                            <div class="indexcontent-right-bottom" style="height: 884px;">
+                                <div class="label-right-bottom-main">
+                                    <div class="indexcontent-right-bottom-main-header">
+                                        <div class="indexcontent-header-title">标签展示列表</div>
+                                    </div>
+                                    <div class="indexcontent-right-bottom-main-content">
+                                            <div class="members-form">
+                                                <div class="members-form-top">
+                                                    <div class="members-form-top-text">标签名称</div>
+                                                    <div class="members-form-top-input">
+                                                        <input name="title" type="text"  placeholder="请输入标签名称20字以内">
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="tagid" value="${param.id }" >
+                                                <div class="members-form-bottom">
+                                                    <div id="sub" onclick="Tagtijiao" >提交</div>
+                                                    <div class="back" onclick="javascript :history.back(-1);">返回</div>
                                                 </div>
                                             </div>
-                                            <div class="members-form-bottom">
-                                                <div>提交</div>
-                                                <div class="back">返回</div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <%--</div>--%>
     </div>
+
 <script>
-  $(document).ready(function(){
-      var Height=$(window).height();//
-      var Height1=$(window).height()-60;//
-      var Width=$(window).width();
-      var indexData=[
-          {icon:"&#xe604",text:"欢迎来到首页"},
-          {icon:"&#xe60d",text:"会员管理列表"},
-          {icon:"&#xe60f",text:"商户管理列表"},
-          {icon:"&#xe602",text:"产品属性列表"},
-          {icon:"&#xe603",text:"标签展示列表"},
-          {icon:"&#xe610",text:"商户展示列表"},
-          {icon:"&#xe615",text:"超市展示列表"},
-          {icon:"&#xe605",text:"推广链接列表"},
-          {icon:"&#xe608",text:"管理人员列表"},
-      ];
-      console.log(Height+'+'+Width);
-      $('#indexBox').css('width',Width);
-      $('#indexBox').css('height',Height);
-      $('.indexcontent-right-bottom').css('height',Height1);
-      var h1 = '';
-      for(var i=0;i<indexData.length;i++){
-          if(i==4){
-              h1 += '<div class="indexcontent-left-item active">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          }else{
-              h1 += '<div class="indexcontent-left-item grey">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          };
 
-      };
-      $('.indexcontent-left-list-main').append(h1);
-
-      /*点击左边切换右边*/
-      $('.indexcontent-left-list-main>div').on('click',function(){
-          var index=$(this).index();
-          console.log(index);
-          window.location.href="index.html?id="+index;
-      })
-
-  });
-
-    $('.back').on('click',function(){
-        window.location.href="index.jsp";
+    $('#sub').click(function(){
+        Tagtijiao();
     })
 
+
+    function Tagtijiao(){
+        var title=$("input[name='title']").val();
+        var id=$("#tagid").val();
+        if(title!=null&&title!=""){
+        $.ajax({
+               type:"post",
+               dateType:"json",
+               url:"${ctx }/Tag/MercjatTagListUpadete",
+               data:{title:title,id:id},
+               success:function(result){
+                   var jsonData=JSON.parse(result);
+                   if(jsonData.code=="200"){
+                    layer.msg("修改成功！");
+                       window.history.go(-1);
+                   }else {
+                       layer.msg("修改失败!")
+                   }
+               },
+               error:function(){
+                   layer.msg("错误！")
+               }
+           });
+        }else{
+            layer.msg("请输入值！")
+        }
+    }
+
+  $(document).ready(function() {
+      var Height = $(window).height();//
+      var Height1 = $(window).height() - 60;//
+      var Width = $(window).width();
+      console.log(Height + '+' + Width);
+      $('#indexBox').css('width', Width);
+      $('#indexBox').css('height', Height);
+      $('.indexcontent-right-bottom').css('height', Height1);
+  })
 
 </script>
 </body>

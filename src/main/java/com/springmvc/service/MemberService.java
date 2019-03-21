@@ -2,6 +2,8 @@ package com.springmvc.service;
 
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
+import com.springmvc.pojo.kn_friend;
+import com.springmvc.pojo.kn_tag;
 
 import java.util.List;
 
@@ -40,4 +42,30 @@ public interface MemberService  extends  BaseService<kn_admin>{
      * @return
      */
     List<kn_admin> selectPhoneList(String phone);
+
+    /**
+     * 根据id 删除商家账户
+     * @param id
+     * @return
+     */
+    int deletebyIdMerchant(Integer id);
+
+    /**
+     * 查询推广链接
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageResultInfo queryListfriend(Integer pageNo, Integer pageSize, String title, Integer Index1);
+
+    /**
+     * 删除推广链接
+     * @param id
+     * @return
+     */
+    int deleteFriend(int id);
+    /**
+     * 编辑推广链接
+     */
+    int updateFrilend(kn_friend kn_friend);
 }

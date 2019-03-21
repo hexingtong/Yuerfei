@@ -10,14 +10,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head lang="en">
     <meta charset="UTF-8">
     <title>添加产品展示</title>
-    <script src="js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/common.css">
-    <link rel="stylesheet" type="text/css" href="./css/upload.css">
-    <link rel="stylesheet" type="text/css" href="./css/font/iconfont.css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${ctx }/js/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="${ctx }/js/layer/layer.js"></script>
+    <script type="text/javascript" src="${ctx }/js/paging.js"></script>
+    <script type="text/javascript" src="${ctx }/js/layui/layui.js"></script>
     <style>
         /*å¤´åƒ*/
         /**************账户设置**********************/
-        .user-img-wrap{
+        .layui-upload-img{
             padding: .5rem;
             overflow: hidden;
             display: flex;
@@ -107,33 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
     <div id="indexBox">
         <div class="indexcontent">
-            <div class="indexcontent-left">
-                <div class="indexcontent-left-header">
-                    <img class="left-img1" src="./images/logo.svg"/>
-                </div>
-                <div class="indexcontent-left-face">
-                    <div>
-                        <img class="left-img1" src="./images/head portrait.svg"/>
-                    </div>
-                </div>
-                <div class="indexcontent-left-list" style="height:1250px;">
-                    <div class="indexcontent-left-list-main">
-
-                    </div>
-                </div>
-            </div>
+            <%@ include file="left.jsp" %>
             <div class="right-collection">
                 <!--会员管理右边-->
                 <div class="indexcontent-right1">
                     <div class="indexcontent-right-main">
-                        <div class="indexcontent-right-top">
-                            <img  src="./images/Full screen button.svg"/>
-                            <div class="indexcontent-right-top-right">
-                                <img  src="./images/quit.svg"/>
-                                <p>退出</p>
-                            </div>
-                        </div>
-                        <div class="indexcontent-right-bottom" style="height:1450px;">
+                        <%@ include file="top.jsp" %>
+                        <div class="indexcont
+                        ent-right-bottom" style="height:1450px;">
                             <div class="indexcontent-right-bottom-main">
                                 <div class="indexcontent-right-bottom-main-header">
                                     <div class="indexcontent-header-title">添加产品展示</div>
@@ -142,23 +126,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <form>
                                         <div class="members-form">
                                             <div class="members-form-top">
-                                                <div class="members-form-top-text">属性名称</div>
+                                                <div class="members-form-top-text">产品名称</div>
                                                 <div class="members-form-top-input">
-                                                    <input placeholder="请输入管理员只能姓名(10字以内)"/>
+                                                    <input name="title" placeholder="请输入产品名称(10字以内)"/>
                                                 </div>
                                             </div>
                                             <div class="members-form-top-add" style="margin-top:50px;">
                                                 <div class="members-form-top-add-left">
-                                                    <div class="shop-form-top-text-add">图片名称</div>
-                                                    <div class="shop-form-top-input-add user-img-wrap" id="header_thumb">
-                                                        <img class="thumbImg"   src="./images/微信截图_20190307101309.png"/>
-                                                    </div>
+                                                    <%--<div class="shop-form-top-text-add">图片名称</div>--%>
+                                                    <%--<div class="shop-form-top-input-add user-img-wrap" id="header_thumb">--%>
+                                                        <%--<img class="thumbImg"   src="${ctx }/images/微信截图_20190307101309.png"/>--%>
+                                                    <%--</div>--%>
+                                                        <div class="layui-upload">
+                                                            <button type="button" class="layui-btn" id="test1">上传图片</button>
+                                                            <div class="layui-upload-list">
+                                                                <!--预览图片-->
+                                                                <img width="160" height="100" class="layui-upload-img" id="demo1">
+                                                                <!--提示上传信息-->
+                                                                <p id="demoText"></p>
+                                                            </div>
+                                                        </div>
+
                                                 </div>
                                                 <div class="members-form-top-add-right">
                                                     <div class="lines">
                                                         <p>产品额度</p>
                                                         <div class="linesInput">
-                                                            <input placeholder="请输入额度" />
+                                                            <input name="Limit" placeholder="请输入额度" />
                                                         </div>
                                                         <span>元</span>
                                                     </div>
@@ -168,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="members-form-top-add-lefts">
                                                     <div class="members-form-top-text-adds">申请人数</div>
                                                     <div class="linesInput">
-                                                        <input placeholder="请输入人数" />
+                                                        <input name="applyCount" placeholder="请输入人数" />
                                                     </div>
                                                     <span>人</span>
                                                 </div>
@@ -176,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="lines">
                                                         <p>产品利率</p>
                                                         <div class="linesInput">
-                                                            <input placeholder="请输入利率" />
+                                                            <input name="interestrate" placeholder="请输入利率" />
                                                         </div>
                                                         <span>%</span>
                                                     </div>
@@ -184,12 +178,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             </div>
                                             <div class="shopDate">
                                                 <div class="shopDate-left">
-                                                    <div class="shopDate-title">产品日期</div>
+                                                    <div class="shopDate-title">产品期限</div>
                                                     <div class="shopDate-cloose">
                                                         <div class="date">
-                                                            <form name="form1" method="post" action="">
-                                                                <select name="month"></select>
-                                                            </form>
+                                                                <select name="month" id="index">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="2">5</option>
+                                                                    <option value="6">6</option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8</option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10</option>
+                                                                    <option value="11">11</option>
+                                                                    <option value="12">12</option>
+                                                                </select>
                                                         </div>
                                                         <p>月</p>
                                                         <div class="date" style="margin-left:40px;">
@@ -219,11 +224,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div class="shopAttribute">
                                                 <div class="shopDate-left">
                                                     <div class="lines">
-                                                        <div class="shopDate-title">产品日期</div>
+                                                        <div class="shopDate-title">产品属性</div>
                                                         <div class="shopDate-clooses">
-                                                            <select class="selects">
-                                                                <option>新户专享</option>
-                                                                <option>添加时间</option>
+                                                            <select id="propertyIds"  class="selects">
+                                                                <option value="1">新户专享</option>
+                                                                <option value="2">贷款超市</option>
+                                                                <option value="3">大额快贷</option>
+                                                                <option value="4">小额快贷</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -232,9 +239,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="lines">
                                                         <div class="shopDate-title">标签名称</div>
                                                         <div class="shopDate-clooses">
-                                                            <select class="selects">
-                                                                <option>请选择</option>
-                                                                <option>精选</option>
+                                                            <select id="tagId" class="selects">
+                                                                <option value="1">热门</option>
+                                                                <option value="2">推荐</option>
+                                                                <option value="3">新品</option>
+                                                                <option value="4">精选</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -244,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">产品描述</div>
                                                     <div class="describe-clooses">
-                                                        <input placeholder="请输入相关产品描述(16个字以内)" />
+                                                        <input id="details" placeholder="请输入相关产品描述(16个字以内)" />
                                                     </div>
 
                                                 </div>
@@ -255,10 +264,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="product-texts" style="background:#fff;">
                                                         <div class="product-labelss">
                                                             <label class="bui-radios-label">
-                                                                <input type="radio" name="sex"><i class="bui-radios"></i>是
+                                                                <input type="radio" value="1" name="indexx"><i id="show" class="bui-radios"></i>是
                                                             </label>
                                                             <label class="bui-radios-label" style="margin-left:30px;">
-                                                                <input type="radio" name="sex"><i class="bui-radios"></i>否
+                                                                <input type="radio" value="0" name="indexx"><i id="hide" class="bui-radios"></i>否
                                                             </label>
 
                                                         </div>
@@ -266,19 +275,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             <div class="product-texts-main">
                                                                 <div class="product-texts-item">
                                                                     <p>相关描述</p>
-                                                                    <div><input placeholder="请输入相关描述" /></div>
+                                                                    <div><input id="descriptions" placeholder="请输入相关描述" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>申请条件</p>
-                                                                    <div><input placeholder="请输入相关描述" /></div>
+                                                                    <div><input id="application_conditions" placeholder="请输入申请条件" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>循环额度</p>
-                                                                    <div><input placeholder="请输入相关描述" /></div>
+                                                                    <div><input id="loop_liness" placeholder="请输入循环额度" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>激活流程</p>
-                                                                    <div><input placeholder="请输入相关描述" /></div>
+                                                                    <div><input id="activation_processs" placeholder="请输入激活流程" /></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -293,9 +302,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                         <div class="sorting-clooses-main">
                                                             <div class="sorting-clooses-main-top">
                                                                 <p>审核状态</p>
-                                                                <select class="select-2">
-                                                                    <option>请选择</option>
-                                                                    <option>精选</option>
+                                                                <select id="status" class="select-2">
+                                                                    <option value="4">上架</option>
+                                                                    <option value="5">保存</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -307,13 +316,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">网站链接</div>
                                                     <div class="describe-clooses">
-                                                        <input placeholder="请输入相关网站链接" />
+                                                        <input name="url" placeholder="请输入相关网站链接" />
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="members-form-bottoms">
-                                                <div>提交</div>
+                                                <div id="sub">提交</div>
                                                 <div class="back">返回</div>
                                             </div>
                                         </div>
@@ -326,76 +335,92 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
     </div>
-    <script src="js/Calender.js"></script>
-    <script type="text/javascript" src="js/upload/upload.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#header_thumb").fileUpload({
-                "url": "savetofile.php",
-                "file": "fileToUpload",
-                "uploadComplete": function (data) {
-                    //回调函数，data就是后台返回的json
-                    console.log(data);
-                },
-                "uploadFailed": null
-            });
-        });
-    </script>
+
 <script>
-  $(document).ready(function(){
+    layui.use(['upload','jquery'], function(){
+        var $ = layui.$,
+            upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '${ctx }/merchant/addUserInfo'
+            ,before: function(obj){//文件上传前的回调
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）直接将图片地址赋值给img的src属性
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code=="404"){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+
+                if(res.code=="200"){
+                    layer.msg("上传成功")
+                }
+
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+
+
+    $("#hide").click(function(){
+        $(".product-texts-main").hide();
+
+    });
+
+    $("#show").click(function(){
+        $(".product-texts-main").show();
+
+    });
+    /**点击提交
+     * */
+    $("#sub").click(function(){
+        var title=$("input[name='title']").val();
+        var applyCount=$("input[name='applyCount']").val();
+        var Limit=$("input[name='Limit']").val();
+        var Deadline = document.getElementById("index").value;
+        var interestrate=$("input[name='interestrate']").val();
+        var propertyIds=$("input[name='propertyIds']").val();
+        var tagId=$("input[name='tagId']").val();
+        var details=$("input[name='details']").val();
+        var description=$("input[name='description']").val();//详请描述
+        var applicationConditions=$("input[name='application_conditions']").val();//申请条件
+        var loopLiness=$("input[name='loop_liness']").val();//循环额度
+        var activationProcesss=$("input[name='activation_processs']").val();//激活流程
+        var url=$("input[name='url']").val();//详请描述
+        var img=$("input[name='demo1']").val();//图片上传
+        var id=${goods.id};
+        var indexx=$('input:radio[name="indexx"]:checked').val();
+        var detailsId=${goods.detailsId};
+        alert(indexx);
+        $.post('${ctx }/Supermarke/insertSupermarket',{id:id, title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx,detailsId:detailsId
+            },function (res) {
+                var jsonData=JSON.parse(res);
+                if(jsonData.code=="200") {
+                    layer.msg("编辑成功!")
+                    window.history.go(-1);
+                }else{
+                    layer.msg("编辑失败！")
+                }
+            }
+        )
+    });
+    $(document).ready(function(){
       var Height=$(window).height();//
       var Height1=$(window).height()-60;//
       var Width=$(window).width();
-      var indexData=[
-          {icon:"&#xe604",text:"欢迎来到首页"},
-          {icon:"&#xe60d",text:"会员管理列表"},
-          {icon:"&#xe60f",text:"商户管理列表"},
-          {icon:"&#xe602",text:"产品属性列表"},
-          {icon:"&#xe603",text:"标签展示列表"},
-          {icon:"&#xe610",text:"商户展示列表"},
-          {icon:"&#xe615",text:"超市展示列表"},
-          {icon:"&#xe605",text:"推广链接列表"},
-          {icon:"&#xe608",text:"管理人员列表"},
-      ];
-      console.log(Height+'+'+Width);
-      /*$('#indexBox').css('width',Width);
-      $('#indexBox').css('height',Height);*/
-     /* $('.indexcontent-right-bottom').css('height',Height1);*/
-      var h1 = '';
-      for(var i=0;i<indexData.length;i++){
-          if(i==6){
-              h1 += '<div class="indexcontent-left-item active">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          }else{
-              h1 += '<div class="indexcontent-left-item grey">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          };
-
-      };
-      $('.indexcontent-left-list-main').append(h1);
-
-
-      /*点击左边切换右边*/
-      $('.indexcontent-left-list-main>div').on('click',function(){
-          var index=$(this).index();
-          console.log(index);
-          window.location.href="index.html?id="+index;
-      })
-
   });
 
     $('.back').on('click',function(){

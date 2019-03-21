@@ -2,11 +2,13 @@ package com.springmvc.controller;
 
 import com.springmvc.pojo.JsonModel;
 import com.springmvc.pojo.PageResultInfo;
+import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.GoodsDetailService;
 import com.springmvc.service.kn_goodsservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-public class ActiveUser extends kn_admin implements Serializable{
+public class ActiveUser implements Serializable{
 	/**
 	 * 
 	 */

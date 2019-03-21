@@ -1,6 +1,6 @@
 package com.springmvc.pojo.VO;
 
-import com.springmvc.pojo.KnGoods;
+import com.springmvc.pojo.kn_goods;
 
 /**
  * @ClassName TenantGoodsVO
@@ -8,7 +8,7 @@ import com.springmvc.pojo.KnGoods;
  * @Author by
  * @Date: 2019/3/8 16:23
  **/
-public class TenantGoodsVO extends KnGoods {
+public class TenantGoodsVO extends kn_goods {
     //详请描述;
     private String description;
     //客服电话

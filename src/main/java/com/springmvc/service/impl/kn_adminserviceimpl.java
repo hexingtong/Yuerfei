@@ -1,12 +1,16 @@
 package com.springmvc.service.impl;
 
 import com.springmvc.mapping.kn_adminMapper;
+import com.springmvc.pojo.LoanTerm;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.kn_adminservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -64,4 +68,24 @@ private kn_adminMapper adminMapper;
         }
         return null;
     }
+
+    @Override
+    public kn_admin selectUser(Integer id) {
+        kn_admin knAdmin=new kn_admin();
+        knAdmin=adminMapper.selectUser(id);
+        return knAdmin;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+    public int instTest(LoanTerm loanTerm) {
+        int i=adminMapper.instTest(loanTerm);
+        if(i>0){
+            throw new NullPointerException("hhh");
+        }else {
+            throw new RuntimeException("抛出异常,事务回滚");
+        }
+    }
+
+
 }
