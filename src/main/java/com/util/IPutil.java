@@ -79,4 +79,20 @@ public class IPutil {
         return ip;
     }
 
+    public static String isClient(HttpServletRequest request){
+        String userAgent = request.getHeader("user-agent").toLowerCase();
+        if (userAgent == null || userAgent.indexOf("windows nt") == -1 ? false : true) { // 判断当前客户端是否为PC
+            return "pc";
+        } else if (userAgent == null || userAgent.indexOf("android") == -1 ? false : true) { // 判断当前客户端是否为android
+            return "android";
+        } else if (userAgent == null || userAgent.indexOf("iphone") == -1 ? false : true) { // 判断当前客户端是否为iPhone
+            return "iPhone";
+        } else if (userAgent == null || userAgent.indexOf("wap") == -1 ? false : true) { // 判断当前客户端是否为wap
+            return "wap";
+        } else if (userAgent == null || userAgent.indexOf("micromessenger") == -1 ? false : true) { // 判断当前客户端是否为微信
+            return "weixin";
+        }
+        return "";
+    }
+
 }
