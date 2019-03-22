@@ -3,7 +3,6 @@ package com.springmvc.service;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.pojo.kn_friend;
-import com.springmvc.pojo.kn_tag;
 
 import java.util.List;
 

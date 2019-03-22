@@ -1,6 +1,6 @@
 package com.springmvc.mapping;
 
-import com.springmvc.pojo.LoanTerm;
+import com.springmvc.pojo.DTO.knadmin2;
 import com.springmvc.pojo.kn_admin;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
@@ -39,7 +39,7 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @author boyang
      * @date 2019/3/6 10:48
      */
-    List<kn_admin> queryListAdmin(@Param("level") Integer level, @Param("phone") String phone);
+    List<knadmin2> queryListAdmin(@Param("level") Integer level, @Param("phone") String phone);
 
     /**
      * Description:通过id来更新kn_admin
@@ -50,21 +50,14 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @date 2019/3/6 17:33
      */
     int updateByPrimaryKeySelective(kn_admin record);
-    /**
+    /**  
      * Description：通过手机模糊查收，会员信息
      * @author boyang
      * @date  19:43
-     * @param
-     * @return
+     * @param 
+     * @return 
      */
     List<kn_admin> selectPhoneList(@Param("phone") String phone);
-    /**
-     * 根据id删除商家账户
-     * @param id
-     * @return
-     */
-    int deletebyIdMerchant(Integer id);
-
     /**
      * Description：得到管理员列表
      * @author boyang
@@ -72,20 +65,17 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @param
      * @return
      */
-    List<kn_admin> selectManagementList(@Param("phone") String phone);
-
+    List<knadmin2> selectManagementList(@Param("phone") String phone);
     /***
      * 查询用户信息
      */
     kn_admin selectUser(Integer id);
     /**
-     * 查询推广
+     * 根据id删除商家账户
+     * @param id
+     * @return
      */
-    List<kn_admin> queryListfriend(@Param("level") Integer level);
-    /**
-     * 事务测试
-     */
-    int instTest(LoanTerm loanTerm);
+    int deletebyIdMerchant(Integer id);
 
 
 }

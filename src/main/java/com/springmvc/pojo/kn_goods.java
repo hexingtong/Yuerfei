@@ -2,6 +2,7 @@ package com.springmvc.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,8 @@ import java.util.Date;
 /**
  * 产品类
  */
-public class kn_goods implements Serializable {
+@Repository
+public class kn_goods {
     //id
     @Id
     @GeneratedValue(generator = "JDBC")
@@ -40,7 +42,7 @@ public class kn_goods implements Serializable {
     //利率
     @Column(name = "Interest_rate")
     private String Interestrate;
-    //放贷速度
+    //期限区域
     @Column(name = "Pace_lending")
     private String PaceLending;
     //审核方式
@@ -73,7 +75,7 @@ public class kn_goods implements Serializable {
     //上架状态（上架状态(0审核中，1审核失败，2审核同过,3已上架，4保存））
     private int status;
     //添加时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "add_time")
     private Date addTime;
@@ -105,7 +107,7 @@ public class kn_goods implements Serializable {
     private Integer detailsId;
     //审核失败原因f
     @Column(name = "audit_failed")
-    private String auditailed;
+    private String auditfailed;
     //已申请人数
     @Column(name = "apply_count")
     private Integer applyCount;
@@ -134,13 +136,6 @@ public class kn_goods implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public String getPropertyId() {
-        return propertyIds;
-    }
-
-    public void setPropertyId(String propertyId) {
-        this.propertyIds = propertyId;
-    }
 
     public int getTagId() {
         return tagId;
@@ -148,49 +143,6 @@ public class kn_goods implements Serializable {
 
     public void setTagId(int tagId) {
         this.tagId = tagId;
-    }
-
-    @Override
-    public String toString() {
-        return "kn_goods{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", categoryId=" + categoryId +
-                ", propertyId='" + propertyIds + '\'' +
-                ", tagId=" + tagId +
-                ", img='" + img + '\'' +
-                ", SuccessRate='" + SuccessRate + '\'' +
-                ", Limit='" + Limit + '\'' +
-                ", Deadline='" + Deadline + '\'' +
-                ", Interestrate='" + Interestrate + '\'' +
-                ", PaceLending='" + PaceLending + '\'' +
-                ", ReviewWay='" + ReviewWay + '\'' +
-                ", AccountWay='" + AccountWay + '\'' +
-                ", Creditrequired='" + Creditrequired + '\'' +
-                ", Platformname='" + Platformname + '\'' +
-                ", applicationrequirement='" + applicationrequirement + '\'' +
-                ", details='" + details + '\'' +
-                ", level=" + level +
-                ", info='" + info + '\'' +
-                ", url='" + url + '\'' +
-                ", loogLine='" + loogLine + '\'' +
-                ", appoint=" + appoint +
-                ", status=" + status +
-                ", addTime=" + addTime +
-                ", activation='" + activation + '\'' +
-                ", homepicture='" + homepicture + '\'' +
-                ", statusCode=" + statusCode +
-                ", cpa='" + cpa + '\'' +
-                ", pv='" + pv + '\'' +
-                ", uv='" + uv + '\'' +
-                ", uvEarnings='" + uvEarnings + '\'' +
-                ", cpaPrice='" + cpaPrice + '\'' +
-                ", adminId=" + adminId +
-                ", click=" + click +
-                ", detailsId=" + detailsId +
-                ", auditailed='" + auditailed + '\'' +
-                ", applyCount=" + applyCount +
-                '}';
     }
 
     public String getImg() {
@@ -433,12 +385,12 @@ public class kn_goods implements Serializable {
         this.detailsId = detailsId;
     }
 
-    public String getAuditailed() {
-        return auditailed;
+    public String getAuditfailed() {
+        return auditfailed;
     }
 
-    public void setAuditailed(String auditailed) {
-        this.auditailed = auditailed;
+    public void setAuditfailed(String auditfailed) {
+        this.auditfailed = auditfailed;
     }
 
     public Integer getApplyCount() {
@@ -447,5 +399,56 @@ public class kn_goods implements Serializable {
 
     public void setApplyCount(Integer applyCount) {
         this.applyCount = applyCount;
+    }
+
+    @Override
+    public String toString() {
+        return "KnGoods{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", categoryId=" + categoryId +
+                ", propertyIds='" + propertyIds + '\'' +
+                ", tagId=" + tagId +
+                ", img='" + img + '\'' +
+                ", SuccessRate='" + SuccessRate + '\'' +
+                ", Limit='" + Limit + '\'' +
+                ", Deadline='" + Deadline + '\'' +
+                ", Interestrate='" + Interestrate + '\'' +
+                ", PaceLending='" + PaceLending + '\'' +
+                ", ReviewWay='" + ReviewWay + '\'' +
+                ", AccountWay='" + AccountWay + '\'' +
+                ", Creditrequired='" + Creditrequired + '\'' +
+                ", Platformname='" + Platformname + '\'' +
+                ", applicationrequirement='" + applicationrequirement + '\'' +
+                ", details='" + details + '\'' +
+                ", level=" + level +
+                ", info='" + info + '\'' +
+                ", url='" + url + '\'' +
+                ", loogLine='" + loogLine + '\'' +
+                ", appoint=" + appoint +
+                ", status=" + status +
+                ", addTime=" + addTime +
+                ", activation='" + activation + '\'' +
+                ", homepicture='" + homepicture + '\'' +
+                ", statusCode=" + statusCode +
+                ", cpa='" + cpa + '\'' +
+                ", pv='" + pv + '\'' +
+                ", uv='" + uv + '\'' +
+                ", uvEarnings='" + uvEarnings + '\'' +
+                ", cpaPrice='" + cpaPrice + '\'' +
+                ", adminId=" + adminId +
+                ", click=" + click +
+                ", detailsId=" + detailsId +
+                ", auditfailed='" + auditfailed + '\'' +
+                ", applyCount=" + applyCount +
+                '}';
+    }
+
+    public String getPropertyIds() {
+        return propertyIds;
+    }
+
+    public void setPropertyIds(String propertyIds) {
+        this.propertyIds = propertyIds;
     }
 }

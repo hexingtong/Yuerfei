@@ -99,13 +99,13 @@
                             <div class="divInput">
                                 <input name="pwd1" id="pwd1" placeholder="请输入您的密码"/>
                             </div>
-                            <div class="divBtn">
-                                <button onclick="sign()">登录</button>
+                            <div class="divBtn" onclick="sign()">
+                                <button >登录</button>
                             </div>
-                            <div class="divRadio">
-                                <input type="checkbox" />
-                                <p>下次自动登录</p>
-                            </div>
+                            <%--<div class="divRadio">--%>
+                                <%--<input type="checkbox" />--%>
+                              <%--<p>下次自动登录</p>--%>
+                            <%--</div>--%>
 
                     </div>
                 </div>
@@ -156,7 +156,10 @@
                       alert("密码不匹配")
                   }else if(jsonData=="fail"){
                       alert("没有该数据")
-                  }else if(jsonData=="suse"){
+                  }else if (jsonData.items=="no"){
+                      alert("没有该权限")
+                  }
+                  else if(jsonData=="suse"){
                       window.location.href=("<%=basePath %>/admin2/index");
                   }
 

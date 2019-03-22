@@ -31,7 +31,7 @@ public class TagController {
             defaultValue = "1", required = false) Integer pageNo,
                            @RequestParam(value = "pageSize", defaultValue = "7", required = false)
                                    Integer pageSize, String title) {
-        ListObjectPage listObject = new ListObjectPage();
+        ListObject listObject = new ListObject();
         List lst = new ArrayList();
         kn_tag knTag = new kn_tag();
 

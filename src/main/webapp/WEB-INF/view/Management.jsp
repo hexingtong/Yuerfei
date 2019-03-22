@@ -142,6 +142,10 @@
                                 var o = $(".management-tbody1");
                                 if (result.length!==0) {
                                     for(var G=0;G<I;G++){
+                                        if(result.rows[G].loginTime==null){
+                                            result.rows[G].loginTime=""
+
+                                        }
                                         var D ='<div class="management-tbody-item">'+
                                             '<ul class="ul">' +
                                             '<li><img src="'+imgd+result.rows[G].img+'"/></li>'+
@@ -191,13 +195,16 @@
                         type:"post",
                         dateType:"json",
                         url:"<%=basePath %>/Manage/getManageList",
-                        data:{pageNo:1,pageSize:7},
+                        data:{},
                         success: function(result){
                             total2=result.total;
                             var  I=result.rows.length;
                             var o = $(".management-tbody1");
                             if (result.length!==0) {
                                 for(var G=0;G<I;G++){
+                                    if(result.rows[G].loginTime==null){
+                                        result.rows[G].loginTime=""
+                                    }
                                     var D ='<div class="management-tbody-item">'+
                                         '<ul class="ul">' +
                                         '<li><img src="'+imgd+result.rows[G].img+'"/></li>'+
@@ -231,7 +238,7 @@
 
                     //会员得到数据
                     function ajaxDemo2(page,pageSize){
-                        if(!pageSize)var pageSize = 7;
+                        if(!pageSize)var pageSize = 5;
                             //搜索有值的时候
                             $.post('<%=basePath %>/Manage/getManageList',{pageNo:page,pageSize:pageSize},function(data){
                                 loadData2(data);
@@ -248,6 +255,11 @@
                         var o = $(".management-tbody1");
                         if (data.length!==0) {
                             for(var G=0;G<I;G++){
+if(data.rows[G].loginTime==null){
+    data.rows[G].loginTime=""
+
+}
+
                                 var D ='<div class="management-tbody-item">'+
                                     '<ul class="ul">' +
                                     '<li><img src="'+imgd+data.rows[G].img+'"/></li>'+

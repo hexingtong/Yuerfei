@@ -7,7 +7,6 @@ import com.springmvc.service.NoticeService;
 import com.springmvc.service.PropertyService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
-import com.sun.xml.internal.ws.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

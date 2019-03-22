@@ -120,8 +120,8 @@ public class MerchantController {
     @RequestMapping("/addUserInfo")
     public void addUserInfo(HttpServletResponse response,HttpServletRequest request) throws IOException {
         try {
-            List lstt=new ArrayList();
             ListObject listObject = new ListObject();
+            List lstt=new ArrayList();
             List<FileItem> lst=ImageUtil.getRequeat(request);
             String i=ImageUtil.upload(request,lst);
             logger.info("返回的String值是--"+i);
@@ -136,6 +136,8 @@ public class MerchantController {
                 logger.info("上传成功");
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 listObject.setMsg("上传成功");
+                lstt.add(i);
+                listObject.setItems(lstt);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
         } catch (FileUploadException e) {

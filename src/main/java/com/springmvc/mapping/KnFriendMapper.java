@@ -1,8 +1,6 @@
 package com.springmvc.mapping;
 
-import com.springmvc.pojo.KnFriend;
 import com.springmvc.pojo.kn_friend;
-import com.springmvc.pojo.kn_goods;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

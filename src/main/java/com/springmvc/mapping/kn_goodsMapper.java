@@ -1,7 +1,7 @@
 package com.springmvc.mapping;
 
+import com.springmvc.pojo.DTO.GoodsAttributeDto;
 import com.springmvc.pojo.GoodsDetail;
-import com.springmvc.pojo.VO.GoodsSupermarketDvo;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.pojo.kn_goodsSupper;
 import org.apache.ibatis.annotations.Param;
@@ -34,7 +34,7 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @author boyang
      * @date 11:21
      */
-    List<kn_goods> queryGoodsList(kn_goods kn_goods);
+    List<GoodsAttributeDto> queryGoodsList(GoodsAttributeDto kn_goods);
     /**
      * Description：通过id得到商品详情id
      * @author boyang
@@ -85,6 +85,8 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @date 11:21
      */
     List<kn_goodsSupper> queryGoods(kn_goodsSupper kn_goods);
+
+
     /**
      * 插入超市表 不用插入详情表的语句
      */

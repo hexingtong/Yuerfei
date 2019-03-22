@@ -30,7 +30,7 @@
     </select>
   <select id="queryByPhone" resultType="com.springmvc.pojo.kn_admin" parameterType="String">
 
-    select id,pwd from kn_admin WHERE phone=#{phone};
+    select * from kn_admin WHERE phone=#{phone};
 
   </select>
 
@@ -39,8 +39,8 @@
     </update>
 
   <!--自定义用户信息表分页.boyang-->
-  <select id="queryListAdmin" parameterType="kn_admin" resultType="com.springmvc.pojo.kn_admin">
-    select * from kn_admin
+  <select id="queryListAdmin" parameterType="kn_admin" resultType="com.springmvc.pojo.DTO.knadmin2">
+    select a.*,a.phone AS adminPhone from kn_admin a
     <where>
       <if test="level!=null and level!='' and level==0 ">
         AND	level=0
@@ -124,7 +124,7 @@
         AND	level=1  ORDER  BY login_time
     </select>
   <!--得到管理员列表-->
-  <select id="selectManagementList" resultType="com.springmvc.pojo.kn_admin" parameterType="kn_admin" >
+  <select id="selectManagementList" resultType="com.springmvc.pojo.DTO.knadmin2" parameterType="kn_admin" >
     SELECT a.* ,b.role_name FROM `kn_admin` a  JOIN role_info b ON a.level=b.id  and  b.parentId=3
     <if test="phone!=null and phone!='' ">
       AND  phone  LIKE '%${phone}%'
@@ -136,25 +136,6 @@ ORDER BY login_time
       SELECT * FROM kn_admin WHERE id=#{id}
     </select>
 
-    <!--事务测试-->
-    <insert id="instTest" parameterType="LoanTerm">
-      INSERT INTO loan_term
-      <trim prefix="(" suffix=")" suffixOverrides=",">
-        <if test="id!=null">
-          id,
-        </if>
-        <if test="term!=null">
-          term,
-        </if>
-      </trim>
-      <trim prefix="values (" suffix=")" suffixOverrides=",">
-        <if test="id!=null">
-          #{id},
-        </if>
-        <if test="term!=null">
-        #{term},
-        </if>
-      </trim>
-    </insert>
+
 
 </mapper>

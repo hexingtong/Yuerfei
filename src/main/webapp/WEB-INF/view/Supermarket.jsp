@@ -174,14 +174,14 @@
                                                     <option value="4">小额快贷</option>
                                                 </select>
                                             </div>
-                                            <div class="selectDiv">
-                                                <p>筛选</p>
-                                                <select id="status" class="select">
-                                                    <option value="1">申请中</option>
-                                                    <option value="2">审核失败</option>
-                                                    <option value="3">审核成功</option>
-                                                </select>
-                                            </div>
+                                            <%--<div class="selectDiv">--%>
+                                                <%--<p>筛选</p>--%>
+                                                <%--<select id="status" class="select">--%>
+                                                    <%--<option value="1">申请中</option>--%>
+                                                    <%--<option value="2">审核失败</option>--%>
+                                                    <%--<option value="3">审核成功</option>--%>
+                                                <%--</select>--%>
+                                            <%--</div>--%>
                                             <button id="ok" class="layui-btn layui-btn-normal">确定</button>
                                         </div>
                                     </div>
@@ -260,31 +260,30 @@
                             type:"post",
                             dateType:"json",
                             url:"<%=basePath %>/Supermarke/getSupermarket",
-                            data:{pageNo:1,pageSize:7,title:sousuo2},
+                            data:{pageNo:1,pageSize:5,title:sousuo2},
                             success: function(result){
-                                var jsonData=JSON.parse(result);
-                                total2=jsonData.items[0].total;
-                                var  I=jsonData.items[0].rows.length;
+                                total2=result.total;
+                                var  I=result.rows.length;
+                                var o = $(".shopping-tbody1");
                                 var imgs='<%=basePath %>';
-                                var o = $(".promote-tbody1");
-                                if (jsonData.length!==0) {
+                                if (result.length!==0) {
                                     for(var G=0;G<I;G++){
                                         var D ='<div class="shopping-tbody-item">' +
                                             '<ul class="ul">' +
                                             '<li>'+
-                                            '<img src="'+imgs+''+jsonData.rows[G].img+'">' +
+                                            '<img src="'+imgs+''+result.rows[G].img+'">' +
                                             '</li>' +
-                                            '<li>'+jsonData.rows[G].title+'</li>' +
-                                            '<li>'+jsonData.rows[G].ptitle+'</li>' +
-                                            '<li>'+jsonData.rows[G].pstatus+'</li>' +
-                                            '<li>'+jsonData.rows[G].addTime+'</li>' +
-                                            '<li>'+jsonData.rows[G].pv+'</li>' +
-                                            '<li>'+jsonData.rows[G].uv+'</li>' +
+                                            '<li>'+result.rows[G].title+'</li>' +
+                                            '<li>'+result.rows[G].ptitle+'</li>' +
+                                            '<li>'+result.rows[G].pstatus+'</li>' +
+                                            '<li>'+result.rows[G].addTime+'</li>' +
+                                            '<li>'+result.rows[G].pv+'</li>' +
+                                            '<li>'+result.rows[G].uv+'</li>' +
                                             '<li>'+
                                             '<div class="sets">'+
                                             '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
-                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + jsonData.rows[G].id+'">编辑</div>' +
-                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + jsonData.rows[G].id  + '">删除</div>' +
+                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
+                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
                                             ' </div>' +
                                             '</li>' +
                                             '</ul>' +
@@ -308,47 +307,44 @@
                     //点击确定
                     $('#ok').click(function(){
                         var Index = document.getElementById("Index1").value;
-                        var propertyId = document.getElementById("propertyId").value;
+                        var propertyIds = document.getElementById("propertyId").value;
                         var status = document.getElementById("status").value;
                         $(".shopping-tbody1").empty();
-                        alert(Index)
-                        alert(propertyId)
-                        alert(status)
                         $.ajax({
                             type:"post",
                             dateType:"json",
                             url:"<%=basePath %>/Supermarke/getSupermarket",
-                            data:{pageNo:1,pageSize:7,Index1:Index,propertyId:propertyId,status:status},
+                            data:{pageNo:1,pageSize:5,Index1:Index,propertyIds:propertyIds,status:status},
                             success: function(result) {
-                                var jsonData = JSON.parse(result);
-                                total2 = jsonData.rows.total;
-                                var I = jsonData.rows.length;
+                                total2=result.total;
+                                var  I=result.rows.length;
                                 var o = $(".shopping-tbody1");
                                 var imgs='<%=basePath %>';
-                                if (jsonData.length !== 0) {
-                                    for (var G = 0; G < I; G++) {
+                                if (result.length!==0) {
+                                    for(var G=0;G<I;G++){
                                         var D ='<div class="shopping-tbody-item">' +
                                             '<ul class="ul">' +
                                             '<li>'+
-                                            '<img src="'+imgs+''+jsonData.rows[G].img+'">' +
+                                            '<img src="'+imgs+''+result.rows[G].img+'">' +
                                             '</li>' +
-                                            '<li>'+jsonData.rows[G].title+'</li>' +
-                                            '<li>'+jsonData.rows[G].ptitle+'</li>' +
-                                            '<li>'+jsonData.rows[G].pstatus+'</li>' +
-                                            '<li>'+jsonData.rows[G].addTime+'</li>' +
-                                            '<li>'+jsonData.rows[G].pv+'</li>' +
-                                            '<li>'+jsonData.rows[G].uv+'</li>' +
+                                            '<li>'+result.rows[G].title+'</li>' +
+                                            '<li>'+result.rows[G].ptitle+'</li>' +
+                                            '<li>'+result.rows[G].pstatus+'</li>' +
+                                            '<li>'+result.rows[G].addTime+'</li>' +
+                                            '<li>'+result.rows[G].pv+'</li>' +
+                                            '<li>'+result.rows[G].uv+'</li>' +
                                             '<li>'+
                                             '<div class="sets">'+
                                             '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
-                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + jsonData.rows[G].id+'">编辑</div>' +
-                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + jsonData.rows[G].id  + '">删除</div>' +
+                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
+                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
                                             ' </div>' +
                                             '</li>' +
                                             '</ul>' +
                                             '</div>'
-                                        var K = $(D);
+                                        var K=$(D);
                                         o.append(K);
+
                                     }
                                 }
                                 $(".shopping-tbody1").paging(options)
@@ -362,31 +358,31 @@
                         type:"post",
                         dateType:"json",
                         url:"<%=basePath %>/Supermarke/getSupermarket",
-                        data:{pageNo:1,pageSize:7},
+                        data:{pageNo:1,pageSize:5},
                         success: function(result){
-                            var jsonData=JSON.parse(result);
-                            total2=jsonData.total;
-                            var  I=jsonData.rows.length;
+                            // var jsonData=JSON.parse(result);
+                            total2=result.total;
+                            var  I=result.rows.length;
                             var o = $(".shopping-tbody1");
                             var imgs='<%=basePath %>';
-                            if (jsonData.length!==0) {
+                            if (result.length!==0) {
                                 for(var G=0;G<I;G++){
                                     var D ='<div class="shopping-tbody-item">' +
                                         '<ul class="ul">' +
                                         '<li>'+
-                                        '<img src="'+imgs+''+jsonData.rows[G].img+'">' +
-                                        '</li>' +
-                                        '<li>'+jsonData.rows[G].title+'</li>' +
-                                        '<li>'+jsonData.rows[G].ptitle+'</li>' +
-                                        '<li>'+jsonData.rows[G].pstatus+'</li>' +
-                                        '<li>'+jsonData.rows[G].addTime+'</li>' +
-                                        '<li>'+jsonData.rows[G].pv+'</li>' +
-                                        '<li>'+jsonData.rows[G].uv+'</li>' +
+                                        '<img src="'+imgs+''+result.rows[G].img+'">' +
+                                        '</li>'+
+                                        '<li>'+result.rows[G].title+'</li>' +
+                                        '<li>'+result.rows[G].ptitle+'</li>' +
+                                        '<li>'+result.rows[G].pstatus+'</li>' +
+                                        '<li>'+result.rows[G].addTime+'</li>' +
+                                        '<li>'+result.rows[G].pv+'</li>' +
+                                        '<li>'+result.rows[G].uv+'</li>' +
                                         '<li>'+
                                         '<div class="sets">'+
                                         '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
-                                        '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + jsonData.rows[G].id + '">编辑</div>' +
-                                        '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + jsonData.rows[G].id  + '">删除</div>' +
+                                        '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
+                                        '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
                                         ' </div>' +
                                         '</li>' +
                                         '</ul>' +
@@ -409,25 +405,22 @@
                         pageSize:5,//每页列表数
                         // listTotal:5,//列表总数（选传），不传为list总数
                         callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
-                            var currentPage=JSON.parse(currentPage);
                             loadData2(ajaxDemo2(currentPage))
                         }
                     }
 
                     //会员得到数据
                     function ajaxDemo2(page,pageSize){
-                        if(!pageSize)var pageSize = 7;
+                        if(!pageSize)var pageSize = 5;
                         if(sousuo2==""||sousuo2.valueOf("")){
                             //没有搜索的时候
                             $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize,title:sousuo2},function(data){
-                                var data=JSON.parse(data);
                                 loadData2(data);
                             })
 
                         }else {
                             //搜索有值的时候
                             $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize},function(data){
-                                var data=JSON.parse(data);
                                 loadData2(data);
                             })
 
@@ -465,6 +458,7 @@
                                     '</div>'
                                 var K=$(D);
                                 o.append(K);
+
                             }
                         }
                     }

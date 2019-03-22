@@ -40,6 +40,8 @@ public class GoodsController {
     final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
 
+
+
     @Autowired
     kn_goodsservice knGoodsservice;
     @Autowired

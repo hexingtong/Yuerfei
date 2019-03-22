@@ -4,13 +4,13 @@ import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.kn_goodsMapper;
+import com.springmvc.pojo.DTO.GoodsAttributeDto;
 import com.springmvc.pojo.GoodsDetail;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.pojo.kn_goodsSupper;
 import com.springmvc.service.kn_goodsservice;
-import com.util.ListObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,15 +69,16 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
     public PageResultInfo queryGoodsList(Integer pageNo, Integer pageSize, String title, Integer Index1, Integer propertyId, Integer statusId) {
         logger.info("传入的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
         PageHelper.startPage(pageNo, pageSize);
-        kn_goods knGoods=new kn_goods();
-        List<kn_goods> agentLevelSettings;
+        GoodsAttributeDto knGoods=new GoodsAttributeDto();
+        List<GoodsAttributeDto> agentLevelSettings;
+
         if (!StringUtils.isEmpty(title)&&!"".equals(title)){
             logger.info("进入title");
             knGoods.setTitle(title);
 
         }if(propertyId!=null&&propertyId.equals("0")){
             logger.info("进入propertyId");
-            knGoods.setPropertyId(propertyId.toString());
+            knGoods.setPropertyIds(propertyId.toString());
 
         }if(statusId!=null&&statusId.equals("0")){
             logger.info("进入statusId");
@@ -89,7 +90,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 logger.info("进入index11");
                 knGoods.setAddTime(new Date());
                 agentLevelSettings= knGoodsMapper.queryGoodsList(knGoods);
-                PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<GoodsAttributeDto> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
                 return resultInfo;
@@ -98,7 +99,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 knGoods.setClick(2);
                 agentLevelSettings= knGoodsMapper.queryGoodsList(knGoods);
 
-                PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<GoodsAttributeDto> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
                 return resultInfo;
@@ -109,7 +110,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             try {
                 knGoods.setId(1);
                 agentLevelSettings= knGoodsMapper.queryGoodsList(knGoods);
-                PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<GoodsAttributeDto> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId"+pageNo+":"+pageSize+":"+title+":"+Index1+":"+propertyId+":"+statusId);
                 return resultInfo;
@@ -190,7 +191,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
         }
         if (propertyId != null && propertyId.equals("0")) {
             logger.info("进入propertyId");
-            knGoods.setPropertyId(propertyId.toString());
+            knGoods.setPropertyIds(propertyId.toString());
         }
         if (status != null && status.equals("0")) {
             logger.info("进入statusId");
@@ -207,7 +208,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                         knGoods.setAddTime(new Date());
                         knGoods.setStatus(status);
                         logger.info("propertyId转换后的String值"+propertyId.toString());
-                        knGoods.setPropertyId(propertyId.toString());
+                        knGoods.setPropertyIds(propertyId.toString());
                         agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                         PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
                         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
@@ -237,7 +238,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                         knGoods.setStatus(status);
                         knGoods.setClick(2);
                         logger.info("propertyId转换后的String值"+propertyId.toString());
-                        knGoods.setPropertyId(propertyId.toString());
+                        knGoods.setPropertyIds(propertyId.toString());
                         agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                         PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
                         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
@@ -291,7 +292,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             logger.info("传进来的值：title" + goodsSupermarketDvo.getTitle() + "apply_count`" + goodsSupermarketDvo.getApplyCount() + "Limit`" + goodsSupermarketDvo.getLimit() + "Deadline"
                     + goodsSupermarketDvo.getDeadline()
                     + "Interest_rate" + goodsSupermarketDvo.getInterestrate() +
-                    "property_ids" + goodsSupermarketDvo.getPropertyId() + "tag_id" + goodsSupermarketDvo.getTagId() + "details" +
+                    "property_ids" + goodsSupermarketDvo.getPropertyIds() + "tag_id" + goodsSupermarketDvo.getTagId() + "details" +
                     goodsSupermarketDvo.getDetails() + "status" + goodsSupermarketDvo.getStatus()
                     + "url" + goodsSupermarketDvo.getUrl());
             kn_goods knGoods=new kn_goods();
@@ -301,12 +302,13 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             knGoods.setLimit(goodsSupermarketDvo.getLimit());
             knGoods.setDeadline(goodsSupermarketDvo.getDeadline());
             knGoods.setInterestrate(goodsSupermarketDvo.getInterestrate());
-            knGoods.setPropertyId(goodsSupermarketDvo.getPropertyId());
+            knGoods.setPropertyIds(goodsSupermarketDvo.getPropertyIds());
             knGoods.setTagId(goodsSupermarketDvo.getTagId());
             knGoods.setDetails(goodsSupermarketDvo.getDetails() );
             knGoods.setStatus(goodsSupermarketDvo.getStatus());
             knGoods.setUrl(goodsSupermarketDvo.getUrl());
             knGoods.setImg(goodsSupermarketDvo.getImg());
+            knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
             int i=knGoodsMapper.insertGoodsSk(knGoods);
             if(i>0){
                 logger.info("插入成功！");
@@ -333,7 +335,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 knGoods.setLimit(goodsSupermarketDvo.getLimit());
                 knGoods.setDeadline(goodsSupermarketDvo.getDeadline());
                 knGoods.setInterestrate(goodsSupermarketDvo.getInterestrate());
-                knGoods.setPropertyId(goodsSupermarketDvo.getPropertyId());
+                knGoods.setPropertyIds(goodsSupermarketDvo.getPropertyIds());
                 knGoods.setTagId(goodsSupermarketDvo.getTagId());
                 knGoods.setDetails(goodsSupermarketDvo.getDetails() );
                 knGoods.setStatus(goodsSupermarketDvo.getStatus());
@@ -341,6 +343,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 knGoods.setDetailsId(goodsDetail.getId());
                 knGoods.setAddTime(new Date());
                 knGoods.setImg(goodsSupermarketDvo.getImg());
+                knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
                 logger.info("插入的详情表的id是"+goodsDetail.getId());
 
                 int x=knGoodsMapper.insertGoodsSk(knGoods);
@@ -367,7 +370,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             logger.info("传进来的值：title" + goodsSupermarketDvo.getTitle() + "apply_count`" + goodsSupermarketDvo.getApplyCount() + "Limit`" + goodsSupermarketDvo.getLimit() + "Deadline"
                     + goodsSupermarketDvo.getDeadline()
                     + "Interest_rate" + goodsSupermarketDvo.getInterestrate() +
-                    "property_ids" + goodsSupermarketDvo.getPropertyId() + "tag_id" + goodsSupermarketDvo.getTagId() + "details" +
+                    "property_ids" + goodsSupermarketDvo.getPropertyIds() + "tag_id" + goodsSupermarketDvo.getTagId() + "details" +
                     goodsSupermarketDvo.getDetails() + "status" + goodsSupermarketDvo.getStatus()
                     + "url" + goodsSupermarketDvo.getUrl());
             kn_goods knGoods=new kn_goods();
@@ -377,12 +380,13 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             knGoods.setLimit(goodsSupermarketDvo.getLimit());
             knGoods.setDeadline(goodsSupermarketDvo.getDeadline());
             knGoods.setInterestrate(goodsSupermarketDvo.getInterestrate());
-            knGoods.setPropertyId(goodsSupermarketDvo.getPropertyId());
+            knGoods.setPropertyIds(goodsSupermarketDvo.getPropertyIds());
             knGoods.setTagId(goodsSupermarketDvo.getTagId());
             knGoods.setDetails(goodsSupermarketDvo.getDetails() );
             knGoods.setStatus(goodsSupermarketDvo.getStatus());
             knGoods.setUrl(goodsSupermarketDvo.getUrl());
             knGoods.setImg(goodsSupermarketDvo.getImg());
+            knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
             int i=knGoodsMapper.updateGoodsSk(knGoods);
             logger.info("i的值"+i);
             if(i>0){
@@ -413,13 +417,14 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 knGoods.setLimit(goodsSupermarketDvo.getLimit());
                 knGoods.setDeadline(goodsSupermarketDvo.getDeadline());
                 knGoods.setInterestrate(goodsSupermarketDvo.getInterestrate());
-                knGoods.setPropertyId(goodsSupermarketDvo.getPropertyId());
+                knGoods.setPropertyIds(goodsSupermarketDvo.getPropertyIds());
                 knGoods.setTagId(goodsSupermarketDvo.getTagId());
                 knGoods.setDetails(goodsSupermarketDvo.getDetails() );
                 knGoods.setStatus(goodsSupermarketDvo.getStatus());
                 knGoods.setUrl(goodsSupermarketDvo.getUrl());
                 knGoods.setDetailsId(goodsDetail.getId());
                 knGoods.setImg(goodsSupermarketDvo.getImg());
+                knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
                 int x=knGoodsMapper.updateGoodsSk(knGoods);
                 if(x>0){
                     logger.info("goods表编辑成功");

@@ -76,16 +76,16 @@ private kn_adminMapper adminMapper;
         return knAdmin;
     }
 
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
-    public int instTest(LoanTerm loanTerm) {
-        int i=adminMapper.instTest(loanTerm);
-        if(i>0){
-            throw new NullPointerException("hhh");
-        }else {
-            throw new RuntimeException("抛出异常,事务回滚");
-        }
-    }
+//    @Override
+//    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+//    public int instTest(LoanTerm loanTerm) {
+//        int i=adminMapper.instTest(loanTerm);
+//        if(i>0){
+//            throw new NullPointerException("hhh");
+//        }else {
+//            throw new RuntimeException("抛出异常,事务回滚");
+//        }
+//    }
 
 
 }

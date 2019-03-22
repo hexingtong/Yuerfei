@@ -145,7 +145,7 @@
     </div>
     <div class="indexcontent-left-face">
         <div>
-            <img class="left-img1" src="${ctx }/images/head portrait.svg">
+            <img class="left-img1" src="${ctx }/${user.img}">
         </div>
     </div>
     <div class="indexcontent-left-list">
@@ -165,7 +165,7 @@
                     <i class="iconfont"></i>
                 </div>
                 <div class="indexcontent-left-item-middle" onclick="MeberUrl()">会员管理列表</div>
-                <div class="indexcontent-left-item-right">
+                    <div class="indexcontent-left-item-right">
                     <i class="iconfont"></i>
                 </div>
             </div>

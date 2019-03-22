@@ -180,8 +180,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-left">
                                                     <div class="shopDate-title">产品期限</div>
                                                     <div class="shopDate-cloose">
-                                                        <div class="date">
+                                                        <div class="date1">
                                                                 <select name="month" id="index">
+                                                                    <option value="0">0</option>
                                                                     <option value="1">1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -197,16 +198,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                 </select>
                                                         </div>
                                                         <p>月</p>
-                                                        <div class="date" style="margin-left:40px;">
-                                                            <form name="form1" method="post" action="">
-                                                                <select name="month"></select>
-                                                            </form>
+                                                        <div class="date" style="margin-left:40px;" onclick="onclickss()">
+                                                            <select name="month" id="index2">
+                                                                <option value="0" >0</option>
+                                                                <option value="1" selected="selected">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="2">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="date_"></div>
-                                                        <div class="date">
-                                                            <form name="form1" method="post" action="">
-                                                                <select name="day"></select>
-                                                            </form>
+                                                        <div class="date_">
+
+
+                                                        </div>
+                                                        <div class="date" onclick="onclickss()" >
+                                                            <select name="month" id="index3">
+                                                                <option value="0">0</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="2">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
                                                         </div>
                                                         <p>月</p>
                                                     </div>
@@ -337,6 +365,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 <script>
+
+    //打一个期限点击事件
+    $(".date1").click(function(){
+        var options=$("#index option:selected");
+       var dat= options.val()
+  if(dat!=0){
+      $("#index2").hide();
+      $("#index3").hide();
+  }else {
+      $("#index2").show();
+      $("#index3").show();
+  }
+
+
+    });
+//第二个点击事件
+//     $(".date2").click(function(){
+//         var options2=$("#index2 option:selected");
+//         var dat2= options2.val()
+//
+//         var options3=$("#index3 option:selected");
+//         var dat3= options3.val()
+//         if(dat2!=0&&dat3!=0){
+//             $("#index").hide();
+//
+//         }else {
+//             $("#index").show();
+//
+//         }
+//
+//
+//     });
+
+
+    function onclickss(){
+        var options2=$("#index2 option:selected");
+        var dat2= options2.val()
+
+        var options3=$("#index3 option:selected");
+        var dat3= options3.val()
+        if(dat2!=0&&dat3!=0){
+            $("#index").hide();
+
+        }else {
+            $("#index").show();
+
+        }
+    }
+    $("#hide").click(function(){
+        $(".product-texts-main").hide();
+
+    });
+
+    $("#show").click(function(){
+        $(".product-texts-main").show();
+
+    });
+
+
     layui.use(['upload','jquery'], function(){
         var $ = layui.$,
             upload = layui.upload;
@@ -375,22 +462,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 
 
-    $("#hide").click(function(){
-        $(".product-texts-main").hide();
 
-    });
-
-    $("#show").click(function(){
-        $(".product-texts-main").show();
-
-    });
     /**点击提交
      * */
     $("#sub").click(function(){
         var title=$("input[name='title']").val();
         var applyCount=$("input[name='applyCount']").val();
         var Limit=$("input[name='Limit']").val();
-        var Deadline = document.getElementById("index").value;
+        var Deadline1 = document.getElementById("index").value;
+        if(Deadline1!=0){
+var Deadline=Deadline1
+        }else {
+            var Deadline2 = document.getElementById("index2").value;
+            var Deadline3 = document.getElementById("index3").value;
+            if(Deadline2!=null&&Deadline3!=null){
+if((Deadline3-Deadline2)>0){
+    var Pace_lending=Deadline2+"--"+Deadline3
+    Deadline=(Deadline3-Deadline2)
+}else {
+    alert("选择有误")
+   var noDead=1;
+}
+
+
+            }
+        }
+
         var interestrate=$("input[name='interestrate']").val();
         var propertyIds=$("input[name='propertyIds']").val();
         var tagId=$("input[name='tagId']").val();
@@ -401,23 +498,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var activationProcesss=$("input[name='activation_processs']").val();//激活流程
         var url=$("input[name='url']").val();//详请描述
         var img=$("input[name='demo1']").val();//图片上传
-        var id=${goods.id};
         var indexx=$('input:radio[name="indexx"]:checked').val();
-        var detailsId=${goods.detailsId};
         alert(indexx);
-        $.post('${ctx }/Supermarke/insertSupermarket',{id:id, title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx,detailsId:detailsId
-            },function (res) {
-                var jsonData=JSON.parse(res);
-                if(jsonData.code=="200") {
-                    layer.msg("编辑成功!")
-                    window.history.go(-1);
-                }else{
-                    layer.msg("编辑失败！")
+        if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
+        ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||description==null||description==undefined||
+            description == ''||applicationConditions==null||applicationConditions==undefined||applicationConditions == ''||loopLiness==null||loopLiness==undefined||loopLiness == ''||activationProcesss==null||activationProcesss==undefined||
+            activationProcesss == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
+        ){
+            layer.msg("选择错误！")
+        }else{
+            $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx
+                    ,Pace_lending:Pace_lending },function (res) {
+                    var jsonData=JSON.parse(res);
+                    if(jsonData.code=="200") {
+                        layer.msg("编辑成功!")
+                        window.history.go(-1);
+                    }else{
+                        layer.msg("编辑失败！")
+                    }
                 }
-            }
-        )
+            )
+        }
     });
     $(document).ready(function(){
+
       var Height=$(window).height();//
       var Height1=$(window).height()-60;//
       var Width=$(window).width();

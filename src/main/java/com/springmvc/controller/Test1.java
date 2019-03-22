@@ -22,16 +22,16 @@ public class Test1 {
         return "index";
     }
 
-    @RequestMapping("/test")
-    public void test(String term,int id){
-        try {
-            LoanTerm loanTerm=new LoanTerm();
-            loanTerm.setId(id);
-            loanTerm.setTerm(term);
-            knAdminservice.instTest(loanTerm);
-        }catch (Exception e){
-            System.out.println("发生异常");
-        }
-
-    }
+//    @RequestMapping("/test")
+//    public void test(String term,int id){
+//        try {
+//            LoanTerm loanTerm=new LoanTerm();
+//            loanTerm.setId(id);
+//            loanTerm.setTerm(term);
+//            knAdminservice.instTest(loanTerm);
+//        }catch (Exception e){
+//            System.out.println("发生异常");
+//        }
+//
+//    }
 }

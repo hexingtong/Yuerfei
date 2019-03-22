@@ -404,6 +404,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var indexx=$('input:radio[name="indexx"]:checked').val();
         var detailsId=${goods.detailsId};
         alert(indexx);
+        if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
+            ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||description==null||description==undefined||
+            description == ''||applicationConditions==null||applicationConditions==undefined||applicationConditions == ''||loopLiness==null||loopLiness==undefined||loopLiness == ''||activationProcesss==null||activationProcesss==undefined||
+            activationProcesss == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
+        ){
+            layer.msg("选择错误！")
+        }else{
         $.post('${ctx }/Supermarke/updateSupermarket',{id:id, title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx,detailsId:detailsId
             },function (res) {
                 var jsonData=JSON.parse(res);
@@ -415,6 +422,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
                 }
             )
+        }
+
+
+
+
     });
 
 

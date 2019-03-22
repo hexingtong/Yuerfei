@@ -44,7 +44,7 @@ public class SupermarketController {
                                       @RequestParam(value = "pageNo", defaultValue = "1",
                                               required = false)
                                               Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "7", required = false)
+                                      @RequestParam(value = "pageSize", defaultValue = "5", required = false)
                                               Integer pageSize,
                                       @RequestParam(value = "title", required = false)
                                               String title,

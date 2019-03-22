@@ -221,6 +221,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 $(location).attr('href', '<%=basePath %>/url/MangerUrl')
                             } else if (data == 0) {
                                 alert("修改失败")
+                            }else if (data == -2) {
+                                alert("账号重复请重新输入")
                             } else {
                                 alert("系统繁忙")
                             }

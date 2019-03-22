@@ -8,7 +8,10 @@ import com.springmvc.mapping.KnFriendMapper;
 import com.springmvc.mapping.KnTagMapper;
 import com.springmvc.mapping.kn_adminMapper;
 import com.springmvc.mapping.kn_goodsMapper;
-import com.springmvc.pojo.*;
+import com.springmvc.pojo.DTO.knadmin2;
+import com.springmvc.pojo.PageResultInfo;
+import com.springmvc.pojo.kn_admin;
+import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +50,11 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
      */
     @Override
     public PageResultInfo queryListAdmin(Integer pageNo, Integer pageSize, String phone) {
-logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
+        logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
         PageHelper.startPage(pageNo, pageSize);
-        kn_admin knAdmin=new kn_admin();
-        knAdmin.setLevel(1);
-        List<kn_admin> agentLevelSettings;
+        knadmin2 knAdmin=new knadmin2();
+        knAdmin.setLevel(2);
+        List<knadmin2> agentLevelSettings;
         if (!StringUtils.isEmpty(phone)||!"".equals(phone)){
             knAdmin.setPhone(phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
@@ -59,7 +62,7 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
         }
         logger.info("获取admin表中所有数据");
-        PageInfo<kn_admin> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageInfo<knadmin2> pageInfo = new PageInfo<>(agentLevelSettings);
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
         return resultInfo;
     }
@@ -88,7 +91,7 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
                 return 0;
             }
 
-    }else {
+        }else {
             logger.info("id:phone,有空值");
             return 0;
         }
@@ -110,6 +113,8 @@ logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
         }else {
             return null;
         }
+
+
 
 
     }

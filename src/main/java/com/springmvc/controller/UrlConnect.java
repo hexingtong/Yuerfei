@@ -1,8 +1,6 @@
 package com.springmvc.controller;
 
-import com.springmvc.mapping.kn_goodsMapper;
 import com.springmvc.pojo.kn_goods;
-import com.springmvc.service.kn_adminservice;
 import com.springmvc.service.kn_goodsservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,7 +80,7 @@ public class UrlConnect {
 
     //管理人员列表
     @RequestMapping("/MangerUrl")
-    public String Manger(){return"Manger";}
+    public String Manger(){return"Management";}
 
 
 }

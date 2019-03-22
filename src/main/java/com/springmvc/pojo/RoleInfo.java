@@ -10,8 +10,8 @@ import javax.persistence.Id;
  * Description：角色表
  * @author boyang
  * @date 2019/3/5 19:39
- * @param 
- * @return 
+ * @param
+ * @return
  */
 @Repository
 public class RoleInfo {
@@ -32,7 +32,7 @@ public class RoleInfo {
      */
     @Column(name = "role_name")
     private String roleName;
-
+    @Column(name = "parentId")
     private String parentId;
 
     public String getParentId() {

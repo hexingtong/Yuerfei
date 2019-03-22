@@ -27,6 +27,16 @@ public class LoanTerm {
      *
      * @mbg.generated Tue Mar 12 10:33:24 CST 2019
      */
+    private  Integer indexLoan;
+
+    public Integer getIndexLoan() {
+        return indexLoan;
+    }
+
+    public void setIndexLoan(Integer indexLoan) {
+        this.indexLoan = indexLoan;
+    }
+
     public Integer getId() {
         return id;
     }
