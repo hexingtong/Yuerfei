@@ -83,4 +83,8 @@ public class UrlConnect {
     public String Manger(){return"Management";}
 
 
+//    //到超市数据展示
+//    @RequestMapping("/supermarkData")
+//    public String supermarkData(){return"supermarkData";}
+
 }

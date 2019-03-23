@@ -136,7 +136,7 @@
                                         <div class="members-form-bottom">
 
                                             <div id="add">提交</div>
-                                            <div class="back">返回</div>
+                                            <div class="back" onclick="javascript :history.back(-1);">返回</div>
                                         </div>
                                     </div>
                                 </form>
@@ -256,17 +256,17 @@
         var Height = $(window).height();//
         var Height1 = $(window).height() - 60;//
         var Width = $(window).width();
-        var indexData = [
-            {icon: "${ctx }/images/home-1.svg", text: "欢迎来到首页"},
-            {icon: "${ctx }/images/member-1.svg", text: "会员管理列表"},
-            {icon: "${ctx }/images/commercial tenant-1.svg", text: "商户管理列表"},
-            {icon: "${ctx }/images/attributa-1.svg", text: "产品属性列表"},
-            {icon: "${ctx }/images/label-1.svg", text: "标签展示列表"},
-            {icon: "${ctx }/images/merchant display-1.svg", text: "商户展示列表"},
-            {icon: "${ctx }/images/supermarket-1.svg", text: "超市展示列表"},
-            {icon: "${ctx }/images/referral  link.svg", text: "推广链接列表"},
-            {icon: "${ctx }/images/merchant display.svg", text: "管理人员列表"},
-        ];
+        <%--var indexData = [--%>
+            <%--{icon: "${ctx }/images/home-1.svg", text: "欢迎来到首页"},--%>
+            <%--{icon: "${ctx }/images/member-1.svg", text: "会员管理列表"},--%>
+            <%--{icon: "${ctx }/images/commercial tenant-1.svg", text: "商户管理列表"},--%>
+            <%--{icon: "${ctx }/images/attributa-1.svg", text: "产品属性列表"},--%>
+            <%--{icon: "${ctx }/images/label-1.svg", text: "标签展示列表"},--%>
+            <%--{icon: "${ctx }/images/merchant display-1.svg", text: "商户展示列表"},--%>
+            <%--{icon: "${ctx }/images/supermarket-1.svg", text: "超市展示列表"},--%>
+            <%--{icon: "${ctx }/images/referral  link.svg", text: "推广链接列表"},--%>
+            <%--{icon: "${ctx }/images/merchant display.svg", text: "管理人员列表"},--%>
+        <%--];--%>
         console.log(Height + '+' + Width);
         $('#indexBox').css('width', Width);
         $('#indexBox').css('height', Height);

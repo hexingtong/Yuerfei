@@ -94,13 +94,18 @@ public class MerchantController {
         //根据id删除
         kn_admin knAdmim = new kn_admin();
         ListObject listObject = new ListObject();
-        if (memberService.deletebyIdMerchant(id) > 0) {
+        int i=memberService.deletebyIdMerchant(id);
+        if (i> 0) {
             //查询商家有没有产品
             listObject.setCode(StatusCode.CODE_SUCCESS);
             listObject.setMsg("删除成功!");
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         } else {
             listObject.setMsg("删除失败!)");
+            listObject.setCode(StatusCode.CODE_ERROR);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }if(i==404){
+            listObject.setMsg("商家有产品不能删除!)");
             listObject.setCode(StatusCode.CODE_ERROR);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }

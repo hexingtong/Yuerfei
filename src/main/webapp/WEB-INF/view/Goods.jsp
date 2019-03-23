@@ -195,16 +195,16 @@
                             url:"${ctx }/merchant/MerchantExamine",
                             data:{id:id},
                             success:function(result){
-                                var jsonData=JSON.parse(result);
-                                if(jsonData.code=="200"){
+                                if(result.code==200){
                                     layer.msg('删除成功', {icon: 1,time: 5000});
                                     window.location.reload();
-                                }else{
-                                    layer.msg("删除失败")
+                                }if(result.code==404){
+                                    layer.msg("商家有商品不能删除!")
+                                    alert("商家有商品不能删除!")
                                 }
 
                             },error:function(result){
-                                layer.msg('错误');
+                                layer.msg("删除失败")
                             }
                         })
                     }, function(){

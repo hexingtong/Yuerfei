@@ -220,6 +220,12 @@
 
                     $(location).attr('href', '<%=basePath %>/url/SupermarketUpdate?id='+id+'')
                 }
+
+                //到数据招
+                function supermarkshowData(id) {
+
+                    $(location).attr('href', '<%=basePath %>/url/supermarkData?id='+id+'')
+                }
                 //删除会员
                 function supermardelect(id){
                     //询问框
@@ -281,7 +287,7 @@
                                             '<li>'+result.rows[G].uv+'</li>' +
                                             '<li>'+
                                             '<div class="sets">'+
-                                            '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                            '<div onclick="supermarkshowData(this.id)" id="' + result.rows[G].id + '"  class="supermarketgraphics">图形数据</div>' +
                                             '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
                                             '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
                                             ' </div>' +
@@ -335,7 +341,7 @@
                                             '<li>'+result.rows[G].uv+'</li>' +
                                             '<li>'+
                                             '<div class="sets">'+
-                                            '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                            '<div onclick="supermarkshowData(this.id)" id="' + result.rows[G].id + '"  class="supermarketgraphics">图形数据</div>' +
                                             '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
                                             '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
                                             ' </div>' +
@@ -380,7 +386,7 @@
                                         '<li>'+result.rows[G].uv+'</li>' +
                                         '<li>'+
                                         '<div class="sets">'+
-                                        '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                        '<div onclick="supermarkshowData(this.id)"id="' + result.rows[G].id +'"  class="supermarketgraphics">图形数据</div>' +
                                         '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
                                         '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
                                         ' </div>' +
@@ -423,7 +429,6 @@
                             $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize},function(data){
                                 loadData2(data);
                             })
-
                         }
 
                     }

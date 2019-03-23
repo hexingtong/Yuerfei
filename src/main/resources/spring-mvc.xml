@@ -75,7 +75,8 @@
 			<mvc:exclude-mapping path="/admin2/**"/>
 			<mvc:exclude-mapping path="/url/**"/>
 			<mvc:exclude-mapping path="/Supermarke/getSupermarket"/>
-
+			<mvc:exclude-mapping path="/data/**"/>
+			<mvc:exclude-mapping path="/Goods/**"/>
 			<bean class="com.util.LoginHandlerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

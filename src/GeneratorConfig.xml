@@ -47,10 +47,12 @@
 
         <!-- 指定数据库表 -->
 
-        <table schema="db_wechat" tableName="kn_goods"
+        <table schema="db_wechat" tableName="goodspvdata"
                enableCountByExample="false" enableDeleteByExample="false"
         enableSelectByExample="false" enableUpdateByExample="false"/>
-
+        <table schema="db_wechat" tableName="goodsuvdata"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"/>
 
 
 

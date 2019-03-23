@@ -126,9 +126,9 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
                 logger.info("删除商家产品成功");
                 return kn;
             } else {
-                logger.info("删除商家产品失败");
+                logger.info("商家有产品，请先删除产品");
+                return 404;
             }
-            return kn;
         } else {
             return kn;
         }

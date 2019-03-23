@@ -58,13 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--会员管理右边-->
                 <div class="indexcontent-right1">
                     <div class="indexcontent-right-main">
-                        <div class="indexcontent-right-top">
-                            <img src="${ctx }/images/Full screen button.svg">
-                            <div class="indexcontent-right-top-right">
-                                <img src="${ctx }/images/quit.svg">
-                                <p>退出</p>
-                            </div>
-                        </div>
+                        <%@ include file="top.jsp" %>
                         <div class="indexcontent-right-bottom" style="height: 837px;">
                             <div class="indexcontent-right-bottom-main">
                                 <div class="indexcontent-right-bottom-main-header">
@@ -122,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                                             <div class="members-form-bottom">
                                                 <div id="add">提交</div>
-                                                <div class="back">返回</div>
+                                                <div class="back" onclick="javascript :history.back(-1);">返回</div>
                                             </div>
                                         </div></form>
 
