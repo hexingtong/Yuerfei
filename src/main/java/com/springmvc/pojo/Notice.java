@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
@@ -28,6 +29,17 @@ import java.util.Date;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addtime;
 
+    @Column(name="index_loan")
+    private Integer indexLoan;
+
+    public void setIndexLoan(Integer indexLoan) {
+        this.indexLoan = indexLoan;
+    }
+
+    public Integer getIndexLoan() {
+
+        return indexLoan;
+    }
 
     public Integer getId() {
         return id;

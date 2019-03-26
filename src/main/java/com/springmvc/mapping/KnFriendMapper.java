@@ -26,4 +26,17 @@ public interface KnFriendMapper extends Mapper<kn_friend> {
      * @return
      */
     int updateFrilend(kn_friend kn_friend);
+
+    /**
+     * 根据id查询单个推广链接所有数据
+     */
+    kn_friend selectFrilend(Integer id);
+    /**
+     * 增加推广链接
+     */
+    int insertFrilend(kn_friend kn_friend);
+    /**
+     * 查询所有 推广数据
+     */
+    kn_friend selectAlllAndFriend();
 }

@@ -37,6 +37,10 @@
     </if>
   </select>
 
+  <select id="selectAlllAndFriend" resultType="kn_friend">
+    SELECT * FROM kn_friend
+  </select>
+
   <delete id="deleteFriend" parameterType="int">
   DELETE FROM kn_friend WHERE id=#{id}
   </delete>
@@ -50,9 +54,44 @@
       <if test="url!=null and url!='' ">
         url=#{url},
       </if>
+      <if test="pv!=null and pv!='' ">
+        pv=#{pv},
+      </if>
+      <if test="uv!=null and uv!='' ">
+        uv=#{uv},
+      </if>
     </trim>
     WHERE id=#{id}
   </update>
 
+  <select id="selectFrilend" parameterType="int" resultType="kn_friend">
+    SELECT * FROM kn_friend WHERE id=#{id}
+  </select>
+
+  <insert id="insertFrilend" parameterType="kn_friend">
+  insert into kn_friend
+  <trim prefix="(" suffix=")" suffixOverrides=",">
+  <if test="title!=null and title!='' ">
+    title,
+  </if>
+    <if test="url!=null and url!='' ">
+     `url`,
+    </if>
+    <if test="addTime!=null and addTime!='' ">
+      add_time,
+    </if>
+  </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="title!=null and title!='' ">
+      #{title},
+    </if>
+      <if test="url!=null and url!='' ">
+        #{url},
+      </if>
+      <if test="addTime!=null and addTime!='' ">
+        #{addTime},
+      </if>
+    </trim>
+  </insert>
 
 </mapper>

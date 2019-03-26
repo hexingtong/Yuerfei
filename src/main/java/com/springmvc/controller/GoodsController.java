@@ -41,12 +41,15 @@ public class GoodsController {
 
 
 
+
     @Autowired
     kn_goodsservice knGoodsservice;
     @Autowired
     PropertyService propertyService;
+
     @Autowired
     StatusputawayService  statusputawayService;
+
     @Autowired
     KnTagService knTagService;
     /**

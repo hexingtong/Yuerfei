@@ -345,6 +345,59 @@ public class DateUtils2 {
         c.set(year, month - 1, getDaysOfMonth(year, month));
         return c.get(Calendar.DAY_OF_WEEK);
     }
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 获取离当前时间的前三十天
+     * @Date 18:52 2019/3/26
+     * @Param []
+     * @return java.util.Date
+     **/
+    public static String getBeGinDaYoFMoth(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        String endDate = sdf.format(today);//当前日期
+        //获取三十天前日期
+        Calendar theCa = Calendar.getInstance();
+        theCa.setTime(today);
+        theCa.add(theCa.DATE, -30);//最后一个数字30可改，30天的意思
+        Date start = theCa.getTime();
+        String startDate = sdf.format(start);//三十天之前日期
+        return startDate;
+    }
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 获取离当前时间前7天
+     * @Date 19:06 2019/3/26
+     * @Param
+     * @return
+     **/
+    public static String getSevenDay(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        //过去七天
+        c.setTime(new Date());
+        c.add(Calendar.DATE, - 7);
+        Date d = c.getTime();
+        String day = format.format(d);
+        return day;
+    }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 获取3天前的日期
+     * @Date 19:28 2019/3/26
+     * @Param
+     * @return
+     **/
+    public static String ThreeDay(){
+        Calendar calendar1 = Calendar.getInstance();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        calendar1.add(Calendar.DATE, -3);
+        String three_days_ago = sdf1.format(calendar1.getTime());
+        System.out.println(three_days_ago);
+        return three_days_ago;
+    }
+
 
     /**
      * 获得当前日期字符串，格式"yyyy-MM-dd HH:mm:ss"
@@ -576,6 +629,7 @@ public class DateUtils2 {
         Timestamp d = new Timestamp(System.currentTimeMillis());
         return d;
     }
+
 
 
 

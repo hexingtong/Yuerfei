@@ -186,6 +186,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
     public PageResultInfo queryGoods(Integer pageNo, Integer pageSize, String title, Integer Index1, Integer propertyId, Integer status) {
         logger.info("传入的pageno,pagesize,title,Index1,propertyId,status" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
         PageHelper.startPage(pageNo, pageSize);
+        logger.info("propertyIds");
         kn_goodsSupper knGoods = new kn_goodsSupper();
         List<kn_goodsSupper> agentLevelSettings;
         if (!StringUtils.isEmpty(title) && !"".equals(title)) {
@@ -204,12 +205,9 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             logger.info("进入按时间排序");
             if (Index1 == 1 || Index1.equals(1) || Index1.equals("1")) {
                 logger.info("进入进入按时间排序1");
-                if(status!=null&&!status.equals(0)&&!status.equals(0)){
-                logger.info("进入按时间排序和按审核状态排序");
                     if(propertyId!=null&&!propertyId.equals(0)&&!propertyId.equals(0)){
-                        logger.info("进入按时间按审核状态按产品属性排序");
+                        logger.info("进入按时间按产品属性排序");
                         knGoods.setAddTime(new Date());
-                        knGoods.setStatus(status);
                         logger.info("propertyId转换后的String值"+propertyId.toString());
                         knGoods.setPropertyIds(propertyId.toString());
                         agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
@@ -218,14 +216,6 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                         logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                         return resultInfo;
                     }
-                    knGoods.setAddTime(new Date());
-                    knGoods.setStatus(status);
-                    agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
-                    PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
-                    PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
-                    logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
-                    return resultInfo;
-                }
                 knGoods.setAddTime(new Date());
                 agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                 PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
@@ -233,12 +223,10 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                 return resultInfo;
             } else if (Index1 == 2 || Index1.equals(2) || Index1.equals("2")) {
-                logger.info("进入点击量排序");
-                if(status!=null&&!status.equals(0)&&!status.equals(0)){
-                    logger.info("进入点击量和按状态排序");
+                    logger.info("进入点击量排序");
+                    logger.info("进入点击量排序");
                     if(propertyId!=null&&!propertyId.equals(0)&&!propertyId.equals(0)){
-                        logger.info("进入按点击量和按状态和按属性排序");
-                        knGoods.setStatus(status);
+                        logger.info("进入按点击量和按属性排序");
                         knGoods.setClick(2);
                         logger.info("propertyId转换后的String值"+propertyId.toString());
                         knGoods.setPropertyIds(propertyId.toString());
@@ -248,14 +236,6 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                         logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                         return resultInfo;
                     }
-                    knGoods.setStatus(status);
-                    knGoods.setClick(2);
-                    agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
-                    PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
-                    PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
-                    logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
-                    return resultInfo;
-                }
                 knGoods.setClick(2);
                 agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                 PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
@@ -312,6 +292,9 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             knGoods.setUrl(goodsSupermarketDvo.getUrl());
             knGoods.setImg(goodsSupermarketDvo.getImg());
             knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
+            knGoods.setAdminId(goodsSupermarketDvo.getAdminId());
+            logger.info("service期限区域有没有加入去值+"+knGoods.getPaceLending());
+            knGoods.setAddTime(new Date());
             int i=knGoodsMapper.insertGoodsSk(knGoods);
             if(i>0){
                 logger.info("插入成功！");
@@ -390,6 +373,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             knGoods.setUrl(goodsSupermarketDvo.getUrl());
             knGoods.setImg(goodsSupermarketDvo.getImg());
             knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
+            knGoods.setAddTime(new Date());
             int i=knGoodsMapper.updateGoodsSk(knGoods);
             logger.info("i的值"+i);
             if(i>0){
@@ -428,6 +412,7 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 knGoods.setDetailsId(goodsDetail.getId());
                 knGoods.setImg(goodsSupermarketDvo.getImg());
                 knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
+                knGoods.setAddTime(new Date());
                 int x=knGoodsMapper.updateGoodsSk(knGoods);
                 if(x>0){
                     logger.info("goods表编辑成功");

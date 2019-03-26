@@ -90,21 +90,17 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
     when k.status = 5  then '保存'
     end )pstatus,k.add_time,k.pv,k.uv,p.title AS ptitle from kn_goods k,kn_property p
     <where>
-       p.id=k.property_ids
-       And k.status=4 or k.status=5
       <if test="title!=null and title!='' ">
         AND  title  LIKE '%${title}%'
       </if>
       <if test="propertyIds!=null and propertyIds!='' ">
-        AND  property_ids=#{propertyIds}
+        AND  k.property_ids=#{propertyIds}
       </if>
       <if test="status!=null and status!='' ">
         AND  `status`=#{status}
       </if>
-      AND admin_id in(
-      select t.id from kn_admin t where level=1 )
+        AND p.id=k.property_ids
     </where>
-
     <if test="addTime!=null and addTime!='' ">
       ORDER BY add_time
     </if>
@@ -162,7 +158,11 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
       <if test="PaceLending!=null and PaceLending!='' ">
         Pace_lending,
       </if>
+      <if test="adminId !=null and adminId!='' ">
+        admin_id,
+      </if>
     </trim>
+
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="title != null and title!='' ">
         #{title},
@@ -205,6 +205,9 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
       </if>
       <if test="PaceLending!=null and PaceLending!='' ">
         #{PaceLending},
+      </if>
+      <if test="adminId !=null and adminId!='' ">
+        #{adminId},
       </if>
     </trim>
 
@@ -287,6 +290,9 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
       </if>
       <if test="PaceLending!=null and PaceLending!='' ">
         Pace_lending=#{PaceLending},
+      </if>
+      <if test="addTime!=null and addTime!='' ">
+        add_time=#{addTime},
       </if>
     </trim>
     WHERE id=#{id}

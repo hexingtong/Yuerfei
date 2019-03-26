@@ -1,5 +1,7 @@
 package com.springmvc.pojo;
 
+import javax.persistence.Column;
+
 public class LoanTerm {
     /**
      *
@@ -27,6 +29,7 @@ public class LoanTerm {
      *
      * @mbg.generated Tue Mar 12 10:33:24 CST 2019
      */
+    @Column(name="indexLoan")
     private  Integer indexLoan;
 
     public Integer getIndexLoan() {

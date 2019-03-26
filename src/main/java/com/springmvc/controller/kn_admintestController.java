@@ -100,7 +100,6 @@ public class kn_admintestController {
     public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request) {
         ListObject listObject = new ListObject();
         Jedis jedis = new Jedis("47.92.53.177", 6379);
-
         List<kn_admin> lst = new ArrayList();
         String rc = "SmsCode" + Phone;
         //拿取redis里的值

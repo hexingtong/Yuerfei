@@ -42,7 +42,10 @@ public class MerchantController {
     public void MerchantlistModel(Mode model, HttpServletResponse response, @RequestParam(value = "pageNo",
             defaultValue = "1", required = false) Integer pageNo,
                                   @RequestParam(value = "pageSize", defaultValue = "5", required = false)
-                                          Integer pageSize, String phone) {
+                                          Integer pageSize, String phone,
+                                  @RequestParam(value = "level", defaultValue = "1", required = false)
+                                              Integer level
+                                  ) {
         ListObject listObject = new ListObject();
         List lst = new ArrayList();
         kn_admin kn_admin = new kn_admin();

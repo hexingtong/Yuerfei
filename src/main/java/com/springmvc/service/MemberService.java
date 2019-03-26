@@ -49,22 +49,5 @@ public interface MemberService  extends  BaseService<kn_admin>{
      */
     int deletebyIdMerchant(Integer id);
 
-    /**
-     * 查询推广链接
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    PageResultInfo queryListfriend(Integer pageNo, Integer pageSize, String title, Integer Index1);
 
-    /**
-     * 删除推广链接
-     * @param id
-     * @return
-     */
-    int deleteFriend(int id);
-    /**
-     * 编辑推广链接
-     */
-    int updateFrilend(kn_friend kn_friend);
 }
