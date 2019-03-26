@@ -476,10 +476,10 @@ var Deadline=Deadline1
             var Deadline2 = document.getElementById("index2").value;
             var Deadline3 = document.getElementById("index3").value;
             if(Deadline2!=null&&Deadline3!=null){
-if((Deadline3-Deadline2)>0){
-    var Pace_lending=Deadline2+"--"+Deadline3
+        if((Deadline3-Deadline2)>0){
+        var Pace_lending=Deadline2+"--"+Deadline3
     Deadline=(Deadline3-Deadline2)
-}else {
+        }else {
     alert("选择有误")
    var noDead=1;
 }
@@ -502,10 +502,9 @@ if((Deadline3-Deadline2)>0){
         alert(indexx);
         if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
         ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||description==null||description==undefined||
-            description == ''||applicationConditions==null||applicationConditions==undefined||applicationConditions == ''||loopLiness==null||loopLiness==undefined||loopLiness == ''||activationProcesss==null||activationProcesss==undefined||
-            activationProcesss == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
-        ){
-            layer.msg("选择错误！")
+            description == ''||applicationConditions==null||applicationConditions==undefined||applicationConditions == ''||loop
+            Liness==null||loopLiness==undefined||loopLiness == ''||activationProcesss==null||activationProcesss==undefined||
+            activationProcesss == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||in
         }else{
             $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx
                     ,Pace_lending:Pace_lending },function (res) {

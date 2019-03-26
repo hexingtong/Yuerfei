@@ -12,7 +12,7 @@ public class Goodsuvdata {
     @GeneratedValue(generator = "JDBC")
     private Integer id;
 
-    @Column(name = "goodId")
+    @Column(name = "goodsId")
     private Integer goodsid;
 
 

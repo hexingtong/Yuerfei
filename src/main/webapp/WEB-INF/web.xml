@@ -13,6 +13,7 @@
     <param-value>
         classpath:spring-mybatis.xml
         <!--classpath:applicationContext-shiro.xml-->
+      <!--classpath:quartz.xml-->
     </param-value>
 
   </context-param>
@@ -109,6 +110,7 @@
     <session-timeout>15</session-timeout>
   </session-config>
 
+
 <!--shrio配置文件-->
   <!-- shiro过虑器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
     <!--<filter>-->
@@ -139,6 +141,13 @@
       <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
+
+  <!--配置定时器监听器-->
+  <!-- TimerDataTaskListener 监听器 -->
+
+  <!--<listener>-->
+    <!--<listener-class>com.util.timeUtil.TimerDataTaskListener</listener-class>-->
+  <!--</listener>-->
 
 
 

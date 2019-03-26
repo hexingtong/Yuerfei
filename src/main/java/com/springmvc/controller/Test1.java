@@ -2,7 +2,9 @@ package com.springmvc.controller;
 
 import com.springmvc.pojo.LoanTerm;
 import com.springmvc.service.kn_adminservice;
+import com.springmvc.service.kn_goodsservice;
 import com.util.IPutil;
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/admin4")
+@RequestMapping("/Test")
 public class Test1 {
     @Autowired
     private kn_adminservice knAdminservice;
+@Autowired
+private kn_goodsservice knGoodsservice;
 
     @RequestMapping("/xx")
     public String xx(HttpServletRequest request){
@@ -34,4 +38,12 @@ public class Test1 {
 //        }
 //
 //    }
+
+    //测试puuv
+    @RequestMapping("/uv")
+    public void puuv(HttpServletRequest request){
+        System.out.println("ninini");
+        knGoodsservice.upgoodsPvUv();
+    }
+
 }

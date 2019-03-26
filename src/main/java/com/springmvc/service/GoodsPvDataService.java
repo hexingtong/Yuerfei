@@ -12,7 +12,15 @@ import org.springframework.stereotype.Service;
 
 public interface GoodsPvDataService extends BaseService<Goodspvdata> {
 
+    /**
+     * Description： 定时更新总的pv
+     * @author boyang
+     * @date 2019/3/26 14:00
+     * @param
+     * @return
+     */
 
+       Integer unCountPv();
 
 
 }

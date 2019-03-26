@@ -41,14 +41,13 @@ public class GoodsController {
 
 
 
-
     @Autowired
     kn_goodsservice knGoodsservice;
     @Autowired
     PropertyService propertyService;
-@Autowired
+    @Autowired
     StatusputawayService  statusputawayService;
-@Autowired
+    @Autowired
     KnTagService knTagService;
     /**
      * Description：得到所有的产品

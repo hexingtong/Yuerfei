@@ -8,9 +8,11 @@ import com.springmvc.pojo.DTO.GoodsAttributeDto;
 import com.springmvc.pojo.GoodsDetail;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
+import com.springmvc.pojo.VO.paramInfos;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.pojo.kn_goodsSupper;
 import com.springmvc.service.kn_goodsservice;
+import com.util.OpenAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *@ClassName kn_goodsServiceimpl
@@ -468,11 +471,32 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             throw new RuntimeException("抛出异常,事务回滚");
         }
     }
-
     @Override
     public kn_goods selectGoodsSK(int id) {
         kn_goods knGoods=knGoodsMapper.selectGoodsSK(id);
        return knGoods;
+    }
+
+
+    /**
+ * Description：定时更新pv uv
+ * @author boyang
+ * @date 2019/3/25 17:35
+ * @param
+ * @return com.springmvc.pojo.kn_goods()
+ */
+
+    public int upgoodsPvUv() {
+
+        OpenAPI.umengAndroidPvEventParamGetValueList();
+       List LI= OpenAPI.umengAndroidEventParamGetValueList();
+        LI.get(0);
+        logger.info("pu"+OpenAPI.umengAndroidPvEventParamGetValueList());
+
+
+        return 1;
+
+
     }
 
 

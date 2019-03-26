@@ -85,4 +85,14 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * 根据id查询超市名称
      */
     kn_goods selectGoodsSK(int id);
+/**
+ * Description：更新goods胡pv uv
+ * @author boyang
+ * @date 2019/3/25 17:34
+ * @param
+ * @return com.springmvc.pojo.kn_goods
+ */
+  int  upgoodsPvUv();
+
+
 }

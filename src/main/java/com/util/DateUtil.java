@@ -434,4 +434,25 @@ public class DateUtil {
 		return sd.format(date);
 
 	}
+	public final static int SUNDAY = 1;
+
+	public final static int MONDAY = 2;
+	/**
+	 * Description：获取当前的周数
+	 * @author boyang
+	 * @date 2019/3/26 9:11
+	 * @param
+	 * @return
+	 */
+	public static Integer getWeeked() {
+
+		Date today = new Date();
+		Calendar c=Calendar.getInstance();
+		c.setTime(today);
+		int weekday=c.get(Calendar.DAY_OF_WEEK);
+
+		return  weekday;
+
+	}
+
 }

@@ -17,5 +17,22 @@
     <result column="psat" jdbcType="INTEGER" property="psat" />
     <result column="psunday" jdbcType="INTEGER" property="psunday" />
   </resultMap>
+    <update id="upPv" parameterType="java.util.List">
+
+      <foreach collection="list" item="bean" index="index" open="" close="" separator=";">
+        UPDATE goodspvdata
+        <set>
+          stock=#{bean.stock}
+        </set>
+        <where>
+          beanUid = #{bean.beanUid}
+        </where>
+      </foreach>
+
+    </update>
+  <select id="count" resultType="java.lang.Integer" parameterType="Integer">
+    SELECT COUNT (*) FROM goodspvdata WHERE goodId=#{goodId}
+
+  </select>
 
 </mapper>
