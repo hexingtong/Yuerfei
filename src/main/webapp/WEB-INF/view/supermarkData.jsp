@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="${ctx }/js/layer/layer.js"></script>
     <script type="text/javascript" src="https://img.highcharts.com.cn/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="https://img.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+    <script type="text/javascript" src="https://img.highcharts.com.cn/highcharts/modules/data.js"></script>
     <script type="text/javascript" src="https://img.highcharts.com.cn/highcharts/modules/series-label.js"></script>
     <script type="text/javascript" src="https://img.highcharts.com.cn/highcharts/modules/oldie.js"></script>
     <script type="text/javascript" src="https://img.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
@@ -37,12 +38,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="indexcontent-right" style="display: block;">
                     <div class="indexcontent-right-main">
                         <%@ include file="top.jsp" %>
+                        <p>${goodspvdata.ptwo}</p>
                         <div class="indexcontent-right-bottom" style="height: 884px;">
                             <div class="indexcontent-right-bottom-main">
                                 <div class="indexcontent-right-bottom-main-header" style="border:none;">
-                                    <div class="indexcontent-header-title">超市产品数据展示</div>
                                 </div>
+
                                 <div id="container" style="min-width:400px;height:500px"></div>
+                                <div class="message"></div>
+
                             </div>
                         </div>
                     </div>
@@ -113,10 +117,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           },
           series: [{
               name: 'pv',
-              data: [20, 20, 95, 91,10,50,40]
+              data: [${goodspvdata.pone}, ${goodspvdata.ptwo}, ${goodspvdata.pthree}, ${goodspvdata.pfour},${goodspvdata.pfive},${goodspvdata.psat},${goodspvdata.psunday}]
           }, {
               name: 'uv',
-              data: [10, 3, 95, 91,10,50,40 ]
+              data: [${goodsuvdata.uone}, ${goodsuvdata.utwo}, ${goodsuvdata.uthree} ,${goodsuvdata.ufour},${goodsuvdata.ufive},${goodsuvdata.usat},${goodsuvdata.usunday} ]
           }]
       });
 

@@ -224,7 +224,7 @@
                 //到数据招
                 function supermarkshowData(id) {
 
-                    $(location).attr('href', '<%=basePath %>/url/supermarkData?id='+id+'')
+                    $(location).attr('href', '<%=basePath %>/data/pvuv?goodsid='+id+'')
                 }
                 //删除会员
                 function supermardelect(id){

@@ -17,22 +17,53 @@
     <result column="psat" jdbcType="INTEGER" property="psat" />
     <result column="psunday" jdbcType="INTEGER" property="psunday" />
   </resultMap>
-    <update id="upPv" parameterType="java.util.List">
 
-      <foreach collection="list" item="bean" index="index" open="" close="" separator=";">
-        UPDATE goodspvdata
-        <set>
-          stock=#{bean.stock}
-        </set>
-        <where>
-          beanUid = #{bean.beanUid}
-        </where>
-      </foreach>
+  <!--有则更新，无能插入pv，唯一索引goodid-->
+  <insert id="INPV" parameterType="java.util.List">
+    insert into goodspvdata
+    (
+    goodId,
+    pone,
+    ptwo,
+    pthree,
+    pfour,
+    pfive,
+    psat,
+    psunday
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.goodid},
+      #{item.pone},
+      #{item.ptwo},
+      #{item.pthree},
+      #{item.pfour},
+      #{item.pfive},
+      #{item.psat},
+      #{item.psunday}
+      )
 
-    </update>
-  <select id="count" resultType="java.lang.Integer" parameterType="Integer">
-    SELECT COUNT (*) FROM goodspvdata WHERE goodId=#{goodId}
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    pone = values(pone),ptwo=values(ptwo),pthree = values(pthree),pfour=values(pfour),pfive = values(pfive),psat=values(psat),psunday=values(psunday)
 
+  </insert>
+
+  <!-- Description： 查询所有的产品pv通过传入id
+ * @author boyang
+ * @date 2019/3/28 17:22
+ * @param
+ * @return com.springmvc.pojo.Goodspvdata-->
+  <select id="getGoodspvdata" resultType="com.springmvc.pojo.Goodspvdata" parameterType="Integer">
+
+SELECT g.* FROM `goodspvdata` g WHERE goodsId=#{goodsId}
   </select>
+
+
+  <!--<select id="count" resultType="java.lang.Integer" parameterType="Integer">-->
+    <!--SELECT COUNT (*) FROM goodspvdata WHERE goodId=#{goodId}-->
+
+  <!--</select>-->
 
 </mapper>

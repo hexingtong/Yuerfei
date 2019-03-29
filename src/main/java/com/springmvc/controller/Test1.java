@@ -1,6 +1,7 @@
 package com.springmvc.controller;
 
 import com.springmvc.pojo.LoanTerm;
+import com.springmvc.service.GoodsPvDataService;
 import com.springmvc.service.kn_adminservice;
 import com.springmvc.service.kn_goodsservice;
 import com.util.IPutil;
@@ -19,7 +20,8 @@ public class Test1 {
     private kn_adminservice knAdminservice;
 @Autowired
 private kn_goodsservice knGoodsservice;
-
+@Autowired
+    GoodsPvDataService goodsPvDataService;
     @RequestMapping("/xx")
     public String xx(HttpServletRequest request){
 //        String bs = IPutil.isClient(request);
@@ -43,7 +45,7 @@ private kn_goodsservice knGoodsservice;
     @RequestMapping("/uv")
     public void puuv(HttpServletRequest request){
         System.out.println("ninini");
-        knGoodsservice.upgoodsPvUv();
+        goodsPvDataService.unCountPv();
     }
 
 }
