@@ -37,9 +37,10 @@ public class MemberController {
 
     //跳到会员编辑页面
     @RequestMapping("/toEdit")
-    public String toEdit(@ModelAttribute("id")String param){
-        param="membersCode";
-        return param;
+    public String toEdit(Model model, Integer id){
+        kn_admin knAdmin=memberService.selectIdOne(id);
+        model.addAttribute("knadmin",knAdmin);
+        return "membersCode";
     }
     /**
      * Description：得到会列表

@@ -45,7 +45,7 @@
   DELETE FROM kn_friend WHERE id=#{id}
   </delete>
 
-  <update id="updateFrilend" parameterType="kn_friend">
+  <update id="updateFrilend" parameterType="kn_friend" >
   UPDATE  kn_friend
     <trim prefix="set" suffixOverrides=",">
       <if test="title!=null and title!='' ">

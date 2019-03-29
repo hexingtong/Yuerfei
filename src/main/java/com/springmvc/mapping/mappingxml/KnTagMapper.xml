@@ -21,10 +21,10 @@
       <if test="title!=null and title!='' ">
         title LIKE '%${title}%'
       </if>
-
     </where>
     ORDER  BY add_time
   </select>
+
   <!-- 标签增加 -->
   <insert id="MercjatTagIncrease" parameterType="kn_tag">
     INSERT INTO kn_tag (title,add_time) VALUES(#{title},#{addTime});
@@ -38,5 +38,9 @@
   delete FROM kn_tag where id=#{id}
   </delete>
 
+  <!--查询标签信息-->
+  <select id="selectByidTag" parameterType="int" resultType="kn_tag">
+    SELECT * FROM kn_tag WHERE id=#{id}
+   </select>
 
 </mapper>

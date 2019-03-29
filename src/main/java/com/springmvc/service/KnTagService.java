@@ -29,4 +29,12 @@ public interface KnTagService extends BaseService<KnTag> {
      * 编辑标签
      */
     int MercjatTagUpadete(kn_tag knTag);
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 获取标签的回显 根据Id查询数据
+     * @Date 14:41 2019/3/29
+     * @Param
+     * @return
+     **/
+    kn_tag selectByidTag(Integer id);
 }

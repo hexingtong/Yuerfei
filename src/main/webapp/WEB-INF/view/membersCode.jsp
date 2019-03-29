@@ -46,7 +46,7 @@
                                             <div class="members-form-top">
                                                 <div class="members-form-top-text">会员账号</div>
                                                 <div class="members-form-top-input">
-                                                    <input placeholder="请输入会员账号20字以内" name="title">
+                                                    <input placeholder="请输入会员账号20字以内" value="${knadmin.phone}" name="title">
                                                 </div>
                                             </div>
                                             <div class="members-form-bottom">

@@ -44,10 +44,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="members-form-top">
                                                     <div class="members-form-top-text">标签名称</div>
                                                     <div class="members-form-top-input">
-                                                        <input name="title" type="text"  placeholder="请输入标签名称20字以内">
+                                                        <input name="title" type="text" value="${kntag.title}" placeholder="请输入标签名称20字以内">
                                                     </div>
                                                 </div>
-                                                <input type="hidden" id="tagid" value="${param.id }" >
+                                                <input type="hidden" id="tagid" value="${kntag.id}" >
                                                 <div class="members-form-bottom">
                                                     <div id="sub" onclick="Tagtijiao" >提交</div>
                                                     <div class="back" onclick="javascript :history.back(-1);">返回</div>

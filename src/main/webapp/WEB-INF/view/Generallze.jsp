@@ -137,12 +137,7 @@
 <!--推广链接右边-->
             <div class="indexcontent-right7" style="display: block;">
                 <div class="indexcontent-right-main">
-                    <div class="indexcontent-right-top">
-                        <img src="${ctx }/images/Full screen button.svg">
-                        <div class="indexcontent-right-top-right">
-                            <img src="${ctx }/images/quit.svg">
-                            <p>退出</p>
-                        </div>
+                    <%@ include file="top.jsp" %>
                     </div>
                     <div class="indexcontent-right-bottom" style="height: 884px;">
                         <div class="indexcontent-right-bottom-main">
@@ -158,7 +153,7 @@
                             <div class="indexcontent-right-bottom-main-content">
                                 <div class="refresh">
                                     <div style="border:1px solid  rgb(239,242,250);" class="label-editor" onclick="window.location.reload();">刷新</div>
-                                    <div class="promote-add" style="margin-left:-30px;background: rgb(255,141,47);color:#fff;">新增</div>
+                                    <div class="promote-add" onclick="friendinset()" style="margin-left:-30px;background: rgb(255,141,47);color:#fff;">新增</div>
                                     <div class="labelSelet" style="width:80%;height:90px;margin-left:20px;margin-top:10px;padding:0px;">
                                         <div class="labelSelet-main">
 
@@ -204,7 +199,7 @@
                         type:"post",
                         dateType:"json",
                         url:"<%=basePath %>/friend/friendList",
-                        data:{pageNo:1,pageSize:7,Index:Index},
+                        data:{Index:Index},
                         success: function(result) {
                             var jsonData = JSON.parse(result);
                             total2 = jsonData.items[0].total;
@@ -222,7 +217,7 @@
                                         '<li>' + jsonData.items[0].rows[G].enrollment + '</li>' +
                                         '<li>' +
                                         '<div class="promotesets">' +
-                                        '<div onclick="Img(this.id)" >图形数据</div>' +
+                                        '<div onclick="friendImg(this.id)" >图形数据</div>' +
                                         '<div class="promoteEditor"  onclick="friendUpadete(this.id)" id="' + jsonData.items[0].rows[G].id + '">编辑</div>' +
                                         '<div class="promoteidelete" onclick="frienddelect(this.id)" id="' + jsonData.items[0].rows[G].id + '">删除</div>' +
                                         '</div>' +
@@ -244,8 +239,18 @@
                 function friendUpadete(id) {
                     $(location).attr('href', '<%=basePath %>/url/GenerallzeUpdate?id='+id+'')
                 }
+                function friendinset() {
+                    $(location).attr('href', '<%=basePath %>/url/GenerallzeInsert')
+                }
+
+                function friendImg(id) {
+                    $(location).attr('href', '<%=basePath %>/url/FriendImg?id='+id+'')
+                }
+
                 //删除会员
                 function frienddelect(id){
+                    var userId=3100;
+                    var key="3E457CECE7CD995CD2672DC76D876EC0";
                     //询问框
                     layer.confirm('是否删除', {
                         btn: ['是','否'] //按钮
@@ -257,9 +262,14 @@
                             data:{id:id},
                             success:function(result){
                                 var jsonData=JSON.parse(result);
+                                var urlx=jsonData.items[0].url;
                                 if(jsonData.code=="200"){
-                                    layer.msg('删除成功', {icon: 1,time: 5000});
-                                    window.location.reload();
+                                    $.getJSON('https://12i.cn/api.ashx?format=del&userId='+userId+'&key='+key+'&url='+urlx+'', function(data) {
+                                        if(data.success=="ok"){
+                                            layer.msg('删除成功', {icon: 1,time: 5000});
+                                            window.location.reload();
+                                        }
+                                    });
                                 }else{
                                     layer.msg("删除失败")
                                 }
@@ -288,7 +298,7 @@
                             type:"post",
                             dateType:"json",
                             url:"<%=basePath %>/friend/friendList",
-                            data:{pageNo:1,pageSize:7,title:sousuo2},
+                            data:{title:sousuo2},
                             success: function(result){
                                 var jsonData=JSON.parse(result);
                                 total2=jsonData.items[0].total;
@@ -306,7 +316,7 @@
                                             '<li>'+jsonData.items[0].rows[G].enrollment+'</li>'+
                                             '<li>'+
                                             '<div class="promotesets">'+
-                                            '<div onclick="Img(this.id)" >图形数据</div>'+
+                                            '<div onclick="friendImg(this.id)" >图形数据</div>'+
                                             '<div class="promoteEditor"  onclick="friendUpadete(this.id)" id="'+jsonData.items[0].rows[G].id+'">编辑</div>' +
                                             '<div class="promoteidelete" onclick="frienddelect(this.id)" id="'+jsonData.items[0].rows[G].id+'">删除</div>' +
                                             '</div>'+
@@ -340,7 +350,7 @@
                         type:"post",
                         dateType:"json",
                         url:"<%=basePath %>/friend/friendList",
-                        data:{pageNo:1,pageSize:7},
+                        data:{},
                         success: function(result){
                             var jsonData=JSON.parse(result);
                             total2=jsonData.items[0].total;
@@ -358,7 +368,7 @@
                                         '<li>'+jsonData.items[0].rows[G].enrollment+'</li>'+
                                         '<li>'+
                                         '<div class="promotesets">'+
-                                        '<div onclick="Img(this.id)" >图形数据</div>'+
+                                        '<div onclick="friendImg(this.id)" id="'+jsonData.items[0].rows[G].id+'">图形数据</div>'+
                                         '<div class="promoteEditor"  onclick="friendUpadete(this.id)" id="'+jsonData.items[0].rows[G].id+'">编辑</div>' +
                                         '<div class="promoteidelete" onclick="frienddelect(this.id)" id="'+jsonData.items[0].rows[G].id+'">删除</div>' +
                                         '</div>'+
@@ -384,10 +394,9 @@
                     var options = {
                         list:".ul",//列表标识
                         currentPage:1,//初始页（选传，默认1）
-                        pageSize:5,//每页列表数
+                        pageSize:7,//每页列表数
                         // listTotal:5,//列表总数（选传），不传为list总数
                         callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
-                            var currentPage=JSON.parse(currentPage);
                             loadData2(ajaxDemo2(currentPage))
                         }
                     }
@@ -398,14 +407,12 @@
                         if(sousuo2==""||sousuo2.valueOf("")){
                             //没有搜索的时候
                             $.post('<%=basePath %>/friend/friendList',{pageNo:page,pageSize:pageSize,title:sousuo2},function(data){
-                                var data=JSON.parse(data);
                                 loadData2(data);
                             })
 
                         }else {
                             //搜索有值的时候
                             $.post('<%=basePath %>/friend/friendList',{pageNo:page,pageSize:pageSize},function(data){
-                                var data=JSON.parse(data);
                                 loadData2(data);
                             })
 
@@ -416,23 +423,24 @@
                     function loadData2(data){
                         console.log("callback")
                         $(".promote-tbody1").empty();
-                        var I=data.items[0].rows.length;
+                        var jsonData=JSON.parse(data);
+                        var I=jsonData.items[0].rows.length;
                         var o = $(".promote-tbody1");
-                        if (data.length!==0) {
+                        if (jsonData.length!==0) {
                             for(var G=0;G<I;G++){
                                 var D ='<div class="promote-tbody-item">' +
                                     ' <ul class="ul">' +
-                                    '<li>'+data.items[0].rows[G].title+'</li>'+
-                                    '<li>'+data.items[0].rows[G].url+'</li>' +
-                                    '<li>'+data.items[0].rows[G].addTime+'</li>'+
-                                    '<li>'+data.items[0].rows[G].pv+'</li>'+
-                                    '<li>'+data.items[0].rows[G].uv+'</li>'+
-                                    '<li>'+data.items[0].rows[G].enrollment+'</li>'+
+                                    '<li>'+jsonData.items[0].rows[G].title+'</li>'+
+                                    '<li>'+jsonData.items[0].rows[G].url+'</li>' +
+                                    '<li>'+jsonData.items[0].rows[G].addTime+'</li>'+
+                                    '<li>'+jsonData.items[0].rows[G].pv+'</li>'+
+                                    '<li>'+jsonData.items[0].rows[G].uv+'</li>'+
+                                    '<li>'+jsonData.items[0].rows[G].enrollment+'</li>'+
                                     '<li>'+
                                     '<div class="promotesets">'+
                                     '<div onclick="Img(this.id)" >图形数据</div>'+
-                                    '<div class="promoteEditor"  onclick="friendUpadete(this.id)" id="'+data.items[0].rows[G].id+'">编辑</div>' +
-                                    '<div class="promoteidelete" onclick="frienddelect(this.id)" id="'+data.items[0].rows[G].id+'">删除</div>' +
+                                    '<div class="promoteEditor"  onclick="friendUpadete(this.id)" id="'+jsonData.items[0].rows[G].id+'">编辑</div>' +
+                                    '<div class="promoteidelete" onclick="frienddelect(this.id)" id="'+jsonData.items[0].rows[G].id+'">删除</div>' +
                                     '</div>'+
                                     '</li>'+
                                     '</ul>' +

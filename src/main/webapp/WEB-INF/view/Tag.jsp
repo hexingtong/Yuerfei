@@ -320,16 +320,12 @@
                         if(sousuo2==""||sousuo2.valueOf("")){
                             //没有搜索的时候
                             $.post('<%=basePath %>/Tag/MercjatTagList',{pageNo:page,pageSize:pageSize,title:sousuo2},function(data){
-                                alert("没有搜索的时候"+data)
-                                var data=JSON.parse(data);
                                 loadData2(data);
                             })
 
                         }else {
                             //搜索有值的时候
                             $.post('<%=basePath %>/Tag/MercjatTagList',{pageNo:page,pageSize:pageSize},function(data){
-                                var data=JSON.parse(data);
-                                alert("有搜索的时候"+data)
                                 loadData2(data);
                             })
 
@@ -339,18 +335,19 @@
                     //会员拼接数据
                     function loadData2(data){
                         $(".label-tbody").empty();
-                        var I=data.items[0].rows.length;
+                        var jsonData=JSON.parse(data);
+                        var I=jsonData.items[0].rows.length;
                         var o = $(".label-tbody");
-                        if (data.length!==0) {
+                        if (jsonData.length!==0) {
                             for(var G=0;G<I;G++){
                                 var D ='<div class="label-tbody-item">' +
                                     ' <ul class="ul">' +
-                                    '<li>'+data.items[0].rows[G].title+'</li>'+
-                                    '<li>'+data.items[0].rows[G].addTime+'</li>' +
+                                    '<li>'+jsonData.items[0].rows[G].title+'</li>'+
+                                    '<li>'+jsonData.items[0].rows[G].addTime+'</li>' +
                                     '<li>'+
                                     '<div class="set">'
-                                    +'<div class="labelEditor"  onclick="TagUpadete(this.id)" id="'+data.items[0].rows[G].id+'">编辑</div>' +
-                                    '<div class="laveidelete" onclick="Tagdelect(this.id)" id="'+data.items[0].rows[G].id+'">删除</div>' +
+                                    +'<div class="labelEditor"  onclick="TagUpadete(this.id)" id="'+jsonData.items[0].rows[G].id+'">编辑</div>' +
+                                    '<div class="laveidelete" onclick="Tagdelect(this.id)" id="'+jsonData.items[0].rows[G].id+'">删除</div>' +
                                     '</div>'+
                                     '</li>'+
                                     '</ul>' +

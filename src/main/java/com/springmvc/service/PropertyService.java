@@ -1,6 +1,7 @@
 package com.springmvc.service;
 
 import com.springmvc.pojo.KnProperty;
+import com.springmvc.pojo.kn_property;
 
 /**
  * Description：商品属性表
@@ -10,4 +11,6 @@ import com.springmvc.pojo.KnProperty;
  * @return
  */
 public interface PropertyService  extends  BaseService<KnProperty>{
+
+    kn_property selectProperty();
 }

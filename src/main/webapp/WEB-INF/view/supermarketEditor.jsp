@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="layui-upload">
                                                         <div class="layui-upload-list">
                                                             <!--预览图片-->
-                                                            <img width="160" height="100" class="layui-upload-img" id="demo1">
+                                                            <img width="160" height="100" src="<%=basePath %>${goods.img}"  class="layui-upload-img"  id="demo1">
                                                             <!--提示上传信息-->
                                                             <p id="demoText"></p>
                                                         </div>
@@ -177,33 +177,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-left">
                                                     <div class="shopDate-title">产品期限</div>
                                                     <div class="shopDate-cloose">
-                                                        <div class="date">
-                                                                <select name="month" id="index">
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="2">5</option>
-                                                                    <option value="6">6</option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8</option>
-                                                                    <option value="9">9</option>
-                                                                    <option value="10">10</option>
-                                                                    <option value="11">11</option>
-                                                                    <option value="12">12</option>
-                                                                </select>
+                                                        <div class="date1">
+                                                            <select name="month" id="index">
+                                                                <option value="0">0</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="2">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
                                                         </div>
                                                         <p>月</p>
-                                                        <div class="date" style="margin-left:40px;">
-                                                            <form name="form1" method="post" action="">
-                                                                <select name="month"></select>
-                                                            </form>
+                                                        <div class="date" style="margin-left:40px;" onclick="onclickss()">
+                                                            <select name="month" id="index2">
+                                                                <option value="0" >0</option>
+                                                                <option value="1" selected="selected">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="2">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="date_"></div>
-                                                        <div class="date">
-                                                            <form name="form1" method="post" action="">
-                                                                <select name="day"></select>
-                                                            </form>
+                                                        <div class="date_">
+
+
+                                                        </div>
+                                                        <div class="date" onclick="onclickss()" >
+                                                            <select name="month" id="index3">
+                                                                <option value="0">0</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="2">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                            </select>
                                                         </div>
                                                         <p>月</p>
                                                     </div>
@@ -223,12 +251,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="lines">
                                                         <div class="shopDate-title">产品属性</div>
                                                         <div class="shopDate-clooses">
-                                                            <select id="propertyIds"  class="selects">
+
+                                                            <select id="propertyIds" class="selects">
                                                                 <option value="1">新户专享</option>
                                                                 <option value="2">贷款超市</option>
                                                                 <option value="3">大额快贷</option>
                                                                 <option value="4">小额快贷</option>
                                                             </select>
+                                                            <input type="hidden" id="proIds" value="${goods.propertyIds}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -236,12 +266,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="lines">
                                                         <div class="shopDate-title">标签名称</div>
                                                         <div class="shopDate-clooses">
-                                                            <select id="tagId" class="selects">
-                                                                <option value="1">热门</option>
-                                                                <option value="2">推荐</option>
-                                                                <option value="3">新品</option>
-                                                                <option value="4">精选</option>
+
+                                                            <select id="tagId"  class="selects">
+                                                                <option value="1" >热门</option>
+                                                                <option value="2" >推荐</option>
+                                                                <option value="3" >新品</option>
+                                                                <option value="4" >精选</option>
                                                             </select>
+                                                            <input type="hidden" id="tagIds" value="${goods.tagId}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -250,7 +282,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">产品描述</div>
                                                     <div class="describe-clooses">
-                                                        <input id="details" name="details" placeholder="请输入相关产品描述(16个字以内)" />
+                                                        <input id="details" value="${goods.details}" name="details" placeholder="请输入相关产品描述(16个字以内)" />
                                                     </div>
 
                                                 </div>
@@ -261,31 +293,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="product-texts" style="background:#fff;">
                                                         <div class="product-labelss">
                                                             <label class="bui-radios-label">
-                                                                <input type="radio" name="indexx" value="1" ><i id="show"  class="bui-radios"></i>是
+                                                                <input type="radio" checked="true" id="show" name="indexx" value="1" ><i  value="1"  class="bui-radios"></i>是
                                                             </label>
                                                             <label class="bui-radios-label" style="margin-left:30px;">
-                                                                <input type="radio" name="indexx" value="0"><i id="hide" value="0" class="bui-radios"></i>否
+                                                                <input type="radio"id="hide" name="indexx" value="0"><i  value="0" class="bui-radios"></i>否
                                                             </label>
-
                                                         </div>
-
+                                                        <input type="hidden" value="${goods.detailsId}" id="detailsId">
                                                         <div class="product-texts">
                                                             <div class="product-texts-main">
                                                                 <div class="product-texts-item">
                                                                     <p>详情描述</p>
-                                                                    <div><input id="description" placeholder="请输入详情描述" /></div>
+                                                                    <div><input name="description" placeholder="请输入详情描述" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>申请条件</p>
-                                                                    <div><input id="application_conditions"  placeholder="请输入申请条件" /></div>
+                                                                    <div><input name="application_conditions"  placeholder="请输入申请条件" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>循环额度</p>
-                                                                    <div><input id="loop_liness" placeholder="请输入循环额度" /></div>
+                                                                    <div><input name="loop_liness" placeholder="请输入循环额度" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>激活流程</p>
-                                                                    <div><input id="activation_processs" placeholder="请输入激活流程" /></div>
+                                                                    <div><input name="activation_processs" placeholder="请输入激活流程" /></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -301,7 +332,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                         <div class="sorting-clooses-main">
                                                             <div class="sorting-clooses-main-top">
                                                                 <p>审核状态</p>
-                                                                <select id="status" class="select-2">
+                                                                <select name="status" class="select-2">
                                                                     <option value="4">上架</option>
                                                                     <option value="5">保存</option>
                                                                 </select>
@@ -315,7 +346,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">网站链接</div>
                                                     <div class="describe-clooses">
-                                                        <input name="url" placeholder="请输入相关网站链接" />
+                                                        <input name="url" value="${goods.url}" placeholder="请输入相关网站链接" />
                                                     </div>
 
                                                 </div>
@@ -324,6 +355,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div id="sub">提交</div>
                                                 <div class="back">返回</div>
                                             </div>
+                                            <input type="hidden" id="Imgx" value="${goods.img}">
+                                            <input type="hidden" id="Pace_lendingx" value="${goods.paceLending}">
+                                            <input type="hidden" id="Deadline" value="${goods.details}">
                                         </div>
                                     </form>
                                 </div>
@@ -336,6 +370,93 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 <script>
+
+   <%--var dId=${goods.propertyIds}--%>
+       <%--$("#propertyIds").val(dId).trigger("change")--%>
+
+   <%--var dId2=${goods.tagId}--%>
+       <%--$("#tagId").val(dId2).trigger("change")--%>
+   <%--//期限--%>
+
+   <%--&lt;%&ndash;//${goods.Deadline}&ndash;%&gt;--%>
+   <%--var Deadline=$("#Deadline").val();--%>
+       <%--alert(Deadline+"dd")--%>
+   <%--if(Deadline!=null&&Deadline!=undefined&&Deadline!=''){--%>
+       <%--$("#index").val(Deadline).trigger("change")--%>
+   <%--}else {--%>
+       <%--$("#index").hide();--%>
+   <%--}--%>
+
+//期限区域
+
+   //$("#Pace_lendingx").val();
+   // var PaceLending=$("#Pace_lendingx").val();
+   //     if(PaceLending!=null&&PaceLending!=undefined&&PaceLending!=''){
+   //         are=PaceLending.split("--")
+   //          var PaceLending1=are[0]
+   //         var PaceLending2=are[1]
+   //         $("#index2").val(PaceLending1).trigger("change")
+   //         $("#index3").val(PaceLending2).trigger("change")
+   //
+   //     }else {
+   //         $("#index2").hide();
+   //         $("#index3").hide();
+   //     }
+
+
+     //var indexx='';
+    var imgaddress='';
+    //打一个期限点击事件
+    $(".date1").click(function(){
+        var options=$("#index option:selected");
+        var dat= options.val()
+        if(dat!=0){
+            $("#index2").hide();
+            $("#index3").hide();
+        }else {
+            $("#index2").show();
+            $("#index3").show();
+        }
+
+
+    });
+    //第二个点击事件
+    $(".date2").click(function(){
+        var options2=$("#index2 option:selected");
+        var dat2= options2.val()
+
+        var options3=$("#index3 option:selected");
+        var dat3= options3.val()
+        if(dat2!=0&&dat3!=0){
+            $("#index").hide();
+
+        }else {
+            $("#index").show();
+
+        }
+
+
+    });
+
+
+    function onclickss(){
+        var options2=$("#index2 option:selected");
+        var dat2= options2.val()
+
+        var options3=$("#index3 option:selected");
+        var dat3= options3.val()
+        if(dat2!=0&&dat3!=0){
+            $("#index").hide();
+
+        }else {
+            $("#index").show();
+
+        }
+    }
+
+
+
+
     layui.use(['upload','jquery'], function(){
         var $ = layui.$,
             upload = layui.upload;
@@ -358,6 +479,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 //上传成功
 
                 if(res.code=="200"){
+                    imgaddress = res.items[0];
                     layer.msg("上传成功")
                 }
 
@@ -391,27 +513,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var Limit=$("input[name='Limit']").val();
         var Deadline = document.getElementById("index").value;
         var interestrate=$("input[name='interestrate']").val();
-        var propertyIds=$("input[name='propertyIds']").val();
-        var tagId=$("input[name='tagId']").val();
+        var propertyIds=$("#propertyIds").val();
+        var tagId=$("#tagId").val();
         var details=$("input[name='details']").val();
         var description=$("input[name='description']").val();//详请描述
         var applicationConditions=$("input[name='application_conditions']").val();//申请条件
         var loopLiness=$("input[name='loop_liness']").val();//循环额度
         var activationProcesss=$("input[name='activation_processs']").val();//激活流程
         var url=$("input[name='url']").val();//详请描述
-        var img=$("input[name='demo1']").val();//图片上传
+        var img = imgaddress;//图片上传
         var id=${goods.id};
         var indexx=$('input:radio[name="indexx"]:checked').val();
-        var detailsId=${goods.detailsId};
-        alert(indexx);
+        var detailsId=$("#detailsId").val();
+        var Deadline1 = document.getElementById("index").value;
+        var status=$("input[name='status']").val();
+
+        if(img==''||img.valueOf("")||img==undefined){
+            img=$("#Imgx").val();
+        }
+
+        if(Deadline1!=0){
+            var Deadline=Deadline1
+        }else {
+            var Deadline2 = document.getElementById("index2").value;
+            var Deadline3 = document.getElementById("index3").value;
+            if(Deadline2!=null&&Deadline3!=null){
+                if((Deadline3-Deadline2)>0){
+                    var Pace_lending=Deadline2+"--"+Deadline3
+                    Deadline=(Deadline3-Deadline2)
+                    alert("获取的期限值2："+Deadline)
+                }else {
+                    alert("选择有误")
+                    var noDead=1;
+                }
+
+
+            }
+        }
         if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
-            ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||description==null||description==undefined||
-            description == ''||applicationConditions==null||applicationConditions==undefined||applicationConditions == ''||loopLiness==null||loopLiness==undefined||loopLiness == ''||activationProcesss==null||activationProcesss==undefined||
-            activationProcesss == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
+            ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||url==null||url==undefined||url == ''||indexx==null||indexx==undefined||indexx==''
         ){
             layer.msg("选择错误！")
         }else{
         $.post('${ctx }/Supermarke/updateSupermarket',{id:id, title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx,detailsId:detailsId
+            ,PaceLending:Pace_lending
             },function (res) {
                 var jsonData=JSON.parse(res);
             if(jsonData.code=="200") {
@@ -440,6 +585,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       $('.back').on('click', function () {
           window.history.go(-1);
       })
+
+
+
+      var Deadlinex=$("#tagId").val();
+      var Pace_lendingx=$("#Pace_lendingx").val();
+      if(Deadlinex==''||Deadlinex==null||Deadlinex==undefined){
+        //回显Pace_lendingx
+      }
+      if(Pace_lendingx==''||Pace_lendingx==null||Pace_lendingx==undefined){
+          //回显Deadlinex
+      }
+
+
+
   })
 
 </script>

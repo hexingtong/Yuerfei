@@ -1,7 +1,5 @@
 package com.util;
 
-
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -96,7 +94,7 @@ public class OpenAPI {
         }
 
     //成功的
-    //安卓总的点击量ov
+    //安卓总的点击量uv
     public static void umengAndroidUvEventGetData() {
         ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
         apiExecutor.setServerHost(ServerHost);
@@ -115,7 +113,8 @@ public class OpenAPI {
             System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
         }
     }
-        //成功的
+
+    //成功的
     //苹果总的点击量pv
      public static void umengIosEventGetData() {
         ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
@@ -218,13 +217,34 @@ public class OpenAPI {
             return lst;
         }
     }
-
     //获取安卓今日uv参数值事件列表
     public static List umengAndroidEventParamGetValueList() {
         ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
         apiExecutor.setServerHost(ServerHost);
         List lst=new ArrayList();
         UmengUappEventParamGetValueListParam param = new UmengUappEventParamGetValueListParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiAndroid);
+        param.setStartDate(DateUtils2.currDay());
+        param.setEndDate(DateUtils2.currDay());
+        param.setEventName("id_goodsuv");
+        param.setEventParamName("goods_id");
+        try {
+            UmengUappEventParamGetValueListResult result = apiExecutor.execute(param);
+            lst.add(result);
+            lst.add(DateUtils2.currDay());
+            System.out.println(JSONObject.toJSONString(lst));
+            return lst;
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+            lst.add(e.getErrorCode());
+            lst.add(e.getErrorMessage());
+            return lst;
+        }
+    }
+
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 安卓周活跃度
@@ -348,169 +368,6 @@ public class OpenAPI {
         param.setAppkey(YuerfeiAndroid);
         param.setStartDate(DateUtils2.currDay());
         param.setEndDate(DateUtils2.currDay());
-        param.setEventName("id_goodsuv");
-        param.setEventParamName("goods_id");
-        try {
-            UmengUappEventParamGetValueListResult result = apiExecutor.execute(param);
-            lst.add(result);
-            lst.add(DateUtils2.currDay());
-            System.out.println(JSONObject.toJSONString(lst));
-            return lst;
-        } catch (OceanException e) {
-            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
-            lst.add(e.getErrorCode());
-            lst.add(e.getErrorMessage());
-            return lst;
-        }
-    }
-
-
-
-
-    public static void main(String[] args) {
-//
-//        //得到Android pv
-//        JSONObject obj = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidPvEventParamGetValueList().get(0)));
-//        obj.get("paramInfos");
-//        JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")));
-//        System.out.println( ( JSON.toJSONString(obj.get("paramInfos"))));
-//        List<Goodspvdata> android =new ArrayList<>() ;
-//        int weeked=DateUtil.getWeeked();
-//        //得到Android pv 的集合
-//        for (Object i: JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")))){
-//            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(i));
-//            Goodspvdata goodspvdata=new Goodspvdata();
-//
-//
-//            goodspvdata.setGoodid(Integer.parseInt(j.get("name").toString()));
-//if (weeked==2){
-//    goodspvdata.setPone((Integer) j.get("count"));
-//}else if(weeked==3){
-//    goodspvdata.setPtwo((Integer) j.get("count"));
-//}
-//else if(weeked==4){
-//    goodspvdata.setPthree((Integer) j.get("count"));
-//}
-//else if(weeked==5){
-//    goodspvdata.setPfour((Integer) j.get("count"));
-//}
-//else if(weeked==6){
-//    goodspvdata.setPfive((Integer) j.get("count"));
-//}
-//else if(weeked==7){
-//    goodspvdata.setPsat((Integer) j.get("count"));
-//}else if(weeked==1){
-//    goodspvdata.setPsunday((Integer) j.get("count"));
-//}
-//            System.out.println(goodspvdata.toString());
-//            android.add(goodspvdata);
-//        }
-//
-//
-//
-//        //Ios pv
-//        JSONObject iosPv = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidPvEventParamGetValueList().get(0)));
-//        iosPv.get("paramInfos");
-//        JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")));
-//        System.out.println( ( JSON.toJSONString(iosPv.get("paramInfos"))));
-//        List<Goodspvdata> ios =new ArrayList<>() ;
-//
-//        for (Object io: JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")))){
-//
-//            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(io));
-//            Goodspvdata goodspvdata=new Goodspvdata();
-//            goodspvdata.setGoodid(Integer.parseInt(j.get("name").toString()));
-//            if (weeked==2){
-//                goodspvdata.setPone((Integer) j.get("count"));
-//            }else if(weeked==3){
-//                goodspvdata.setPtwo((Integer) j.get("count"));
-//            }
-//            else if(weeked==4){
-//                goodspvdata.setPthree((Integer) j.get("count"));
-//            }
-//            else if(weeked==5){
-//                goodspvdata.setPfour((Integer) j.get("count"));
-//            }
-//            else if(weeked==6){
-//                goodspvdata.setPfive((Integer) j.get("count"));
-//            }
-//            else if(weeked==7){
-//                goodspvdata.setPsat((Integer) j.get("count"));
-//            }else if(weeked==1){
-//                goodspvdata.setPsunday((Integer) j.get("count"));
-//            }
-//            System.out.println("ios---"+goodspvdata.toString());
-//            ios.add(goodspvdata);
-//
-//        }
-//
-//
-////合并去重
-//        //得到总的
-//        List<Goodspvdata> uvpv;
-//        android.addAll(ios);
-//        Set<Goodspvdata> s = new TreeSet<Goodspvdata>(new Comparator<Goodspvdata>() {
-//
-//            @Override
-//            public int compare(Goodspvdata o1, Goodspvdata o2) {
-//                return o1.getGoodid().compareTo(o2.getGoodid());
-//            }
-//        });
-//        s.addAll(ios);
-//        uvpv= new ArrayList<Goodspvdata>(s);
-//
-//
-//
-//        //两个list对象当id相等的时候进行属性值相加,两边没有相同id的时候保存这个对象
-//
-//        android.addAll(ios);
-//        for (Goodspvdata  Android:uvpv){
-//
-//            Android.getGoodid();
-//            for (Goodspvdata Ios: ios){
-//                if(Android.getGoodid()==Ios.getGoodid()){
-//                    if (weeked==2){
-//                        Android.setPone(( Ios.getPone()+Android.getPone()));
-//                    }else if(weeked==3){
-//                        System.out.println( Ios.getPtwo()+"--"+Android.getPtwo());
-//                        Android.setPtwo(( Ios.getPtwo()+Android.getPtwo()));
-//                    }
-//                    else if(weeked==4){
-//                        Android.setPthree(( Ios.getPthree()+Android.getPthree()));
-//                    }
-//                    else if(weeked==5){
-//                        Android.setPfour(( Ios.getPfour()+Android.getPfour()));
-//                    }
-//                    else if(weeked==6){
-//                        Android.setPfive(( Ios.getPfive()+Android.getPfive()));
-//                    }
-//                    else if(weeked==7){
-//                        Android.setPsat(( Ios.getPsat()+Android.getPsat()));
-//
-//                    }else if(weeked==1){
-//                        Android.setPsunday(( Ios.getPsunday()+Android.getPsunday()));
-//
-//                    }
-//
-//
-//
-//                }else {
-//                    //如果他的id第一个不匹配，后面的匹配怎么进行判断
-//
-//                }
-//            }
-//
-//
-//
-//        }
-//        System.out.println("去重-----------------"+uvpv.toString());
-//
-//
-//   OpenAPI.umengAndroidEventGetData();
-//
-//        OpenAPI.umengAndroidUvEventGetData();
-OpenAPI.umengAndroidPvEventParamGetValueList();
-
         param.setPeriodType("daily");
         try {
             UmengUappGetNewUsersResult result = apiExecutor.execute(param);
@@ -612,7 +469,7 @@ OpenAPI.umengAndroidPvEventParamGetValueList();
         UmengUappGetRetentionsParam param = new UmengUappGetRetentionsParam();
         // 测试环境只支持http
         // param.getOceanRequestPolicy().setUseHttps(false);
-        param.setAppkey(YuerfeiIosAppkey);
+        param.setAppkey(YuerfeiAndroid);
         param.setStartDate(DateUtils2.ThreeDay());
         param.setEndDate(DateUtils2.befoDay());
         param.setPeriodType("daily");
@@ -624,6 +481,7 @@ OpenAPI.umengAndroidPvEventParamGetValueList();
             System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
         }return "";
     }
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 苹果3日留存
@@ -651,6 +509,7 @@ OpenAPI.umengAndroidPvEventParamGetValueList();
             System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
         }return "";
     }
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 安卓7日留存
@@ -676,6 +535,7 @@ OpenAPI.umengAndroidPvEventParamGetValueList();
             System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
         }return "";
     }
+
     /**
      * @Author 苏俊杰
      * @Description //TODO Ios7日留存
@@ -705,7 +565,7 @@ OpenAPI.umengAndroidPvEventParamGetValueList();
     public static void main(String[] args) {
 //        String Andrien=OpenAPI.umengAndrienUappGetActiveUsers();//安卓周活跃
 //         String ios=OpenAPI.umengIosUappGetActiveUsers();//苹果周活跃
-//            OpenAPI.umengAndrienDDUappGetActiveUsers();//安卓月活跃
+//                OpenAPI.umengAndrienDDUappGetActiveUsers();//安卓月活跃
 //            OpenAPI.umengIOSDDUappGetActiveUsers(); //苹果月活跃
 //            OpenAPI.umengSevenDayAndrienUappGetNewUsers();//安卓周新增
 //            OpenAPI.umengSevenDayIOSUappGetNewUsers();//苹果周新增

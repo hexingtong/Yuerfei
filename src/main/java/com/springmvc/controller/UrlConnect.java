@@ -1,18 +1,17 @@
 package com.springmvc.controller;
 
-import com.springmvc.pojo.kn_friend;
-import com.springmvc.pojo.kn_goods;
-import com.springmvc.service.FriendService;
-import com.springmvc.service.FriendTimer;
-import com.springmvc.service.kn_goodsservice;
+import com.springmvc.pojo.*;
+import com.springmvc.service.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -21,11 +20,16 @@ import java.util.Map;
 public class UrlConnect {
 
     @Autowired
+    private PropertyService propertyService;
+
+    @Autowired
     private kn_goodsservice kn_goodsservice;
 
     @Autowired
     private FriendService friendService;
 
+    @Autowired
+    private KnTagService knTagService;
     //首页
     @RequestMapping("/indexUrl")
     public String index(){return "index";}
@@ -45,9 +49,12 @@ public class UrlConnect {
 
     //标签编辑页面
     @RequestMapping("/TagEditor")
-    public String labelEditor(@ModelAttribute("id")String param){
-        param="labelEditor";
-        return param;}
+    public String labelEditor(Model model,Integer id){
+        kn_tag kntag=knTagService.selectByidTag(id);
+         System.out.println("控制台的值"+kntag.getTitle());
+        System.out.println("id==="+kntag.getId());
+        model.addAttribute("kntag",kntag);
+        return "labelEditor";}
         //标签增加页面
     @RequestMapping("/TagAdd")
     public String addEditor(){
@@ -65,6 +72,7 @@ public class UrlConnect {
     @RequestMapping("/SupermarketUpdate")
     public String SupermarketUpdate(Model model, Integer id){
         kn_goods goods=kn_goodsservice.selectGoodsSK(id);
+
         model.addAttribute("goods", goods);
         System.out.println(goods.getImg());
         System.out.println(goods.getTitle());
@@ -83,10 +91,11 @@ public class UrlConnect {
     public String Generallze(){return"Generallze";}
     //推广链接编辑
     @RequestMapping("/GenerallzeUpdate")
-    public String GenerallzeUpdate(Model model, Integer id){
+    public String GenerallzeUpdate( Model model, Integer id){
         kn_friend kn_friend=friendService.selectFrilend(id);
         model.addAttribute("knfriend", kn_friend);
-
+        kn_property kn_property=propertyService.selectProperty();
+        model.addAttribute("property", kn_property);
         System.out.println(kn_friend.getClick());
         System.out.println(kn_friend.getTitle());
 
@@ -121,22 +130,13 @@ public class UrlConnect {
     @RequestMapping("/FriendImg")
     public String FriendImg(Model model,Integer id){
         System.out.println("id的值是"+id);
-        if(id==0||id.equals("")) {
+        if(id!=0||!id.equals("")) {
             kn_friend kn_friend = friendService.selectFrilend(id);
             Map map=new HashMap();
             String format = "day";
-            JSONObject jsonObject=FriendTimer.DatePvUv(kn_friend.getUrl(),format);
-            String jsonId=jsonObject.get("id").toString();
-            String jsonDay=jsonObject.get("day").toString();
-            String jsonVisitCount=jsonObject.get("visitCount").toString();
-            String jsonUv=jsonObject.get("uv").toString();
-            System.out.println("jsonId的值"+jsonId);
-            map.put("Id",jsonDay);
-            map.put("Day",jsonId);
-            map.put("VisitCount",jsonVisitCount);
-            map.put("Id",jsonId);
-            map.put("Uv",jsonUv);
-            model.addAttribute("jsonData",map);
+            Person[] person=FriendTimer.DatePvUv(kn_friend.getUrl(),format);
+            System.out.println("person数组有没有对象"+person[10].getDay());
+            model.addAttribute("jsonData",person);
             return "knFriendImg";
         }
         return "knFriendImg";

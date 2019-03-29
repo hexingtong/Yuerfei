@@ -29,17 +29,8 @@ import java.util.Date;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addtime;
 
-    @Column(name="index_loan")
-    private Integer indexLoan;
 
-    public void setIndexLoan(Integer indexLoan) {
-        this.indexLoan = indexLoan;
-    }
 
-    public Integer getIndexLoan() {
-
-        return indexLoan;
-    }
 
     public Integer getId() {
         return id;

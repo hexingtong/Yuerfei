@@ -57,7 +57,7 @@
 
                                                     <div class="layui-upload-list">
                                                         <!--预览图片-->
-                                                        <img width="86" height="86" class="layui-upload-img" id="demo1" >
+                                                        <img width="86" src="<%=basePath %>${property.img}" height="86" class="layui-upload-img" id="demo1" >
                                                         <!--提示上传信息-->
                                                         <p id="demoText"></p>
                                                     </div>
@@ -218,7 +218,7 @@
   });
 
     $('.back').on('click',function(){
-        window.location.href="index.jsp";
+        window.history.go(-1);
     })
 
 

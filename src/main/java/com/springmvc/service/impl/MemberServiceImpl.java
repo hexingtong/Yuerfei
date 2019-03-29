@@ -136,5 +136,17 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
 
 
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 回显会员名字:
+     * @Date 10:36 2019/3/29
+     * @Param
+     * @return
+     **/
+    @Override
+    public kn_admin selectIdOne(Integer id) {
+        kn_admin knAdmin=knAdminMapper.selectIdOne(id);
+        return knAdmin;
+    }
 
 }

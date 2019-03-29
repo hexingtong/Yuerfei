@@ -76,6 +76,13 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @return
      */
     int deletebyIdMerchant(Integer id);
-
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 回显会员名字:
+     * @Date 10:36 2019/3/29
+     * @Param
+     * @return
+     **/
+    kn_admin selectIdOne(Integer id);
 
 }

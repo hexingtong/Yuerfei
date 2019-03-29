@@ -58,9 +58,13 @@ public class Kn_friendController {
     @ResponseBody
     public void deletefriend(HttpServletResponse response,int id){
         ListObject listObject=new ListObject();
+        List lst=new ArrayList();
+        kn_friend kn_friend=FriendService.selectFrilend(id);
         int i=FriendService.deleteFriend(id);
         if(i>0){
             listObject.setMsg("删除成功!");
+            lst.add(kn_friend);
+            listObject.setItems(lst);
             listObject.setCode(StatusCode.CODE_SUCCESS);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }else{
@@ -73,11 +77,15 @@ public class Kn_friendController {
     //推广页面编辑
     @RequestMapping("/updateFriend")
     @ResponseBody
-    public void updateFrilend(HttpServletResponse response,String title,String url){
+    public void updateFrilend(HttpServletResponse response,String title,Integer id,String url){
+        System.out.println("进入接口");
+        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+url+"-->");
         ListObject listObject=new ListObject();
         kn_friend kn_friend=new kn_friend();
         kn_friend.setTitle(title);
         kn_friend.setUrl(url);
+        kn_friend.setId(id);
+        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+url+"-->");
         int i=FriendService.updateFrilend(kn_friend);
         if(i>0){
             listObject.setMsg("编辑成功!");

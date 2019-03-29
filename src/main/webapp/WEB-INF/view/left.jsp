@@ -138,6 +138,7 @@
     function MangerUrl(){
         $(location).attr('href', '${ctx }/url/MangerUrl')
     }
+    var adminId=${user.id};
 </script>
 <div class="indexcontent-left">
     <div class="indexcontent-left-header">
@@ -146,6 +147,7 @@
     <div class="indexcontent-left-face">
         <div>
             <img class="left-img1" src="${ctx }/${user.img}">
+            <%--<input type="hidden" value="" id="adminId">--%>
         </div>
     </div>
     <div class="indexcontent-left-list">
@@ -169,15 +171,15 @@
                     <i class="iconfont"></i>
                 </div>
             </div>
-            <div class="indexcontent-left-item">
-                <div class="indexcontent-left-item-left">
-                    <i class="iconfont"></i>
-                </div>
-                <div class="indexcontent-left-item-middle" onclick="GoodsUrl()">商户管理列表</div>
-                <div class="indexcontent-left-item-right">
-                    <i class="iconfont"></i>
-                </div>
-            </div>
+            <%--<div class="indexcontent-left-item">--%>
+                <%--<div class="indexcontent-left-item-left">--%>
+                    <%--<i class="iconfont"></i>--%>
+                <%--</div>--%>
+                <%--<div class="indexcontent-left-item-middle" onclick="GoodsUrl()">商户管理列表</div>--%>
+                <%--<div class="indexcontent-left-item-right">--%>
+                    <%--<i class="iconfont"></i>--%>
+                <%--</div>--%>
+            <%--</div>--%>
             <div class="indexcontent-left-item">
                 <div class="indexcontent-left-item-left">
                     <i class="iconfont"></i>
@@ -192,14 +194,14 @@
                 <div class="indexcontent-left-item-middle" onclick="TagUrl()">标签展示列表</div>
                 <div class="indexcontent-left-item-right"><i class="iconfont"></i></div>
             </div>
-            <div class="indexcontent-left-item">
-                <div class="indexcontent-left-item-left"><i class="iconfont"></i></div>
-                <div class="indexcontent-left-item-middle" onclick="MerchantUrl()" >商户展示列表</div>
-                <div class="indexcontent-left-item-right"><i class="iconfont"></i></div>
-            </div>
+            <%--<div class="indexcontent-left-item">--%>
+                <%--<div class="indexcontent-left-item-left"><i class="iconfont"></i></div>--%>
+                <%--<div class="indexcontent-left-item-middle" onclick="MerchantUrl()" >商户展示列表</div>--%>
+                <%--<div class="indexcontent-left-item-right"><i class="iconfont"></i></div>--%>
+            <%--</div>--%>
             <div class="indexcontent-left-item">
                 <div class="indexcontent-left-item-left"><i class="iconfont"></i></div>
-                <div class="indexcontent-left-item-middle" onclick="Supermarket()">超市展示列表</div>
+                <div class="indexcontent-left-item-middle" onclick="Supermarket()">产品展示列表</div>
                 <div class="indexcontent-left-item-right"><i class="iconfont"></i></div>
             </div>
             <div class="indexcontent-left-item">

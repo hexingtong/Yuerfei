@@ -183,6 +183,7 @@
                 function merchantUpadete(id) {
                     $(location).attr('href', '<%=basePath %>/merchant/Merchantedit?id='+id+'')
                 }
+
                 //删除会员
                 function merchantdelect(id){
                     //询问框
@@ -192,19 +193,22 @@
                         $.ajax({
                             type:"post",
                             dateType:"json",
-                            url:"${ctx }/merchant/MerchantExamine",
+                            url:"/merchant/MerchantExamine",
                             data:{id:id},
                             success:function(result){
-                                if(result.code==200){
+                                var jsonData=JSON.parse(result);
+                                if(jsonData.code=="200"){
                                     layer.msg('删除成功', {icon: 1,time: 5000});
                                     window.location.reload();
                                 }if(result.code==404){
                                     layer.msg("商家有商品不能删除!")
                                     alert("商家有商品不能删除!")
+                                }else{
+                                    layer.msg("删除失败")
                                 }
 
                             },error:function(result){
-                                layer.msg("删除失败")
+                                layer.msg('错误');
                             }
                         })
                     }, function(){

@@ -1,16 +1,22 @@
 package com.springmvc.controller;
 
+import com.springmvc.pojo.Fund;
 import com.springmvc.pojo.LoanTerm;
+import com.springmvc.pojo.kn_goods;
+import com.springmvc.service.FundService;
 import com.springmvc.service.kn_adminservice;
 import com.springmvc.service.kn_goodsservice;
 import com.util.IPutil;
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/Test")
@@ -20,10 +26,23 @@ public class Test1 {
 @Autowired
 private kn_goodsservice knGoodsservice;
 
+    @Autowired
+    private FundService fundService;
+
+    @Autowired
+    private kn_goodsservice kngoodsservice;
     @RequestMapping("/xx")
     public String xx(HttpServletRequest request){
-//        String bs = IPutil.isClient(request);
-        return "index";
+        List<Fund> lst=new ArrayList<>();
+        Fund fund=new Fund();
+        for(int i=0;i<1000;i++){
+            fund.setTitle(i+"你好");
+            lst.add(fund);
+            System.out.println(""+i);
+        }
+        int i=fundService.insertCollectList(lst);
+        System.out.println("总共插入--------->"+i+"<---------条数据");
+        return ""+i+"";
     }
 
 //    @RequestMapping("/test")
@@ -39,11 +58,15 @@ private kn_goodsservice knGoodsservice;
 //
 //    }
 
-    //测试puuv
-    @RequestMapping("/uv")
-    public void puuv(HttpServletRequest request){
-        System.out.println("ninini");
-        knGoodsservice.upgoodsPvUv();
+    @RequestMapping("/supermarkData")
+    public String toEdit(Model model, Integer id){
+        System.out.println("进入supermarkda+"+id);
+//        List list=new ArrayList();
+//        list=  kngoodsservice.queryAll();
+//        kn_goods kn_goods= (kn_goods) list.get(0);
+        kn_goods kn_goods=   kngoodsservice.queryById(id);
+        model.addAttribute("kn_goods", kn_goods);
+        return "supermarkData";
     }
 
 }

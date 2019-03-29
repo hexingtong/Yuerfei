@@ -128,6 +128,9 @@ ORDER BY login_time
       SELECT * FROM kn_admin WHERE id=#{id}
     </select>
 
-
+  <!--根据查询会员信息-->
+  <select id="selectIdOne" resultType="kn_admin" parameterType="int">
+    SELECT  *FROM kn_admin where id=#{id}
+  </select>
 
 </mapper>

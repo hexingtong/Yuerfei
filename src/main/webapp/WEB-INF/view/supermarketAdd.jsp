@@ -141,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             <button type="button" class="layui-btn" id="test1">上传图片</button>
                                                             <div class="layui-upload-list">
                                                                 <!--预览图片-->
-                                                                <img width="160" height="100" class="layui-upload-img" id="demo1">
+                                                                <img width="160" height="100" name="demo1" class="layui-upload-img" id="demo1">
                                                                 <!--提示上传信息-->
                                                                 <p id="demoText"></p>
                                                             </div>
@@ -281,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">产品描述</div>
                                                     <div class="describe-clooses">
-                                                        <input id="details" placeholder="请输入相关产品描述(16个字以内)" />
+                                                        <input name="details" placeholder="请输入相关产品描述(16个字以内)" />
                                                     </div>
 
                                                 </div>
@@ -303,19 +303,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             <div class="product-texts-main">
                                                                 <div class="product-texts-item">
                                                                     <p>相关描述</p>
-                                                                    <div><input id="descriptions" placeholder="请输入相关描述" /></div>
+                                                                    <div><input name="description" placeholder="请输入相关描述" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>申请条件</p>
-                                                                    <div><input id="application_conditions" placeholder="请输入申请条件" /></div>
+                                                                    <div><input name="application_conditions" placeholder="请输入申请条件" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>循环额度</p>
-                                                                    <div><input id="loop_liness" placeholder="请输入循环额度" /></div>
+                                                                    <div><input name="loop_liness" placeholder="请输入循环额度" /></div>
                                                                 </div>
                                                                 <div class="product-texts-item">
                                                                     <p>激活流程</p>
-                                                                    <div><input id="activation_processs" placeholder="请输入激活流程" /></div>
+                                                                    <div><input name="activation_processs" placeholder="请输入激活流程" /></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -353,6 +353,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div id="sub">提交</div>
                                                 <div class="back">返回</div>
                                             </div>
+
                                         </div>
                                     </form>
                                 </div>
@@ -365,6 +366,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 <script>
+    var imgaddress='';
 
     //打一个期限点击事件
     $(".date1").click(function(){
@@ -381,22 +383,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     });
 //第二个点击事件
-//     $(".date2").click(function(){
-//         var options2=$("#index2 option:selected");
-//         var dat2= options2.val()
-//
-//         var options3=$("#index3 option:selected");
-//         var dat3= options3.val()
-//         if(dat2!=0&&dat3!=0){
-//             $("#index").hide();
-//
-//         }else {
-//             $("#index").show();
-//
-//         }
-//
-//
-//     });
+    $(".date2").click(function(){
+        var options2=$("#index2 option:selected");
+        var dat2= options2.val()
+
+        var options3=$("#index3 option:selected");
+        var dat3= options3.val()
+        if(dat2!=0&&dat3!=0){
+            $("#index").hide();
+
+        }else {
+            $("#index").show();
+
+        }
+
+
+    });
 
 
     function onclickss(){
@@ -446,6 +448,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 //上传成功
 
                 if(res.code=="200"){
+                    imgaddress = res.items[0]
                     layer.msg("上传成功")
                 }
 
@@ -471,49 +474,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var Limit=$("input[name='Limit']").val();
         var Deadline1 = document.getElementById("index").value;
         if(Deadline1!=0){
-var Deadline=Deadline1
+        var Deadline=Deadline1
         }else {
             var Deadline2 = document.getElementById("index2").value;
             var Deadline3 = document.getElementById("index3").value;
             if(Deadline2!=null&&Deadline3!=null){
-        if((Deadline3-Deadline2)>0){
-        var Pace_lending=Deadline2+"--"+Deadline3
+    if((Deadline3-Deadline2)>0){
+    var Pace_lending=Deadline2+"--"+Deadline3
     Deadline=(Deadline3-Deadline2)
-        }else {
-    alert("选择有误")
-   var noDead=1;
-}
+        alert("获取的期限值2："+Deadline)
+    }else {
+        alert("选择有误")
+     var noDead=1;
+    }
 
 
             }
         }
 
+        var Deadlines='';
         var interestrate=$("input[name='interestrate']").val();
-        var propertyIds=$("input[name='propertyIds']").val();
-        var tagId=$("input[name='tagId']").val();
+        var propertyIds=$("#propertyIds").val();
+        var tagId=$("#tagId").val();
         var details=$("input[name='details']").val();
-        var description=$("input[name='description']").val();//详请描述
+        var description=$("input[name='description']").val();//相关描述
         var applicationConditions=$("input[name='application_conditions']").val();//申请条件
         var loopLiness=$("input[name='loop_liness']").val();//循环额度
         var activationProcesss=$("input[name='activation_processs']").val();//激活流程
         var url=$("input[name='url']").val();//详请描述
-        var img=$("input[name='demo1']").val();//图片上传
+        img = imgaddress;
         var indexx=$('input:radio[name="indexx"]:checked').val();
-        alert(indexx);
+        var status=$("#status").val();
+        var adminIdx=adminId;
+        // var adminId=$("#adminId").val();
+        // alert("用户Id为"+adminId)
+        // alert("interestrate的值"+interestrate);
+        // alert("propertyIds的值"+propertyIds);
+        // alert("tagId的值"+tagId);
+        // alert("details的值"+details);
+        // alert("description的值"+description);
+        // alert("applicationConditions的值"+applicationConditions);
+        // alert("loopLiness的值"+loopLiness);
+        // alert("activationProcesss的值"+activationProcesss);
+        // alert("url的值"+url);
+        // alert("img的值"+img);
+        // alert("indexx的值"+indexx);
+        // alert("Deadline的值是"+Deadlines);
         if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
-        ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||description==null||description==undefined||
-            description == ''||applicationConditions==null||applicationConditions==undefined||applicationConditions == ''||loop
-            Liness==null||loopLiness==undefined||loopLiness == ''||activationProcesss==null||activationProcesss==undefined||
-            activationProcesss == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||in
+        ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
+        ){
+            layer.msg("选择错误！")
         }else{
             $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx
-                    ,Pace_lending:Pace_lending },function (res) {
+                    ,Pace_lending:Pace_lending,status:status,adminId:adminIdx},function (res) {
                     var jsonData=JSON.parse(res);
                     if(jsonData.code=="200") {
-                        layer.msg("编辑成功!")
+                        layer.msg("上传成功!")
                         window.history.go(-1);
                     }else{
-                        layer.msg("编辑失败！")
+                        layer.msg("上传失败！")
                     }
                 }
             )

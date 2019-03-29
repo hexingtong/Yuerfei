@@ -3,9 +3,12 @@ package com.util.pvDataUtuil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.springmvc.pojo.GoodsMonthLiucun;
 import com.springmvc.pojo.Goodspvdata;
+import com.springmvc.pojo.Person;
 import com.util.DateUtil;
 import com.util.OpenAPI;
+import net.sf.json.JsonConfig;
 
 import java.util.*;
 
@@ -176,11 +179,34 @@ public static List getDatePvUv(){
 
 /**
  * Description：得到所有的月活，周活
- * @author boyang
+ * @author su
  * @date 2019/3/26 16:23
  * @param
  * @return
  */
+    public static List getMonthActive(){
+        JSONObject obj = JSONObject.parseObject(OpenAPI.umengAndrienDDUappGetActiveUsers());
+        obj.get("activeUserInfo");
+        JSONObject obj1 = JSONObject.parseObject(OpenAPI.umengIOSDDUappGetActiveUsers());
+        net.sf.json.JSONArray jsonArray = net.sf.json.JSONArray.fromObject(JSONArray.parseArray( JSON.toJSONString(obj1.get("activeUserInfo"))));
+        net.sf.json.JSONArray jsonArray1 = net.sf.json.JSONArray.fromObject(JSONArray.parseArray(  JSON.toJSONString(obj.get("activeUserInfo"))));
+        List<?> list = net.sf.json.JSONArray.toList(jsonArray, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        List<?> list2 = net.sf.json.JSONArray.toList(jsonArray1, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        GoodsMonthLiucun[] goodsMonthLiucuns1=new GoodsMonthLiucun[list2.size()];
+        GoodsMonthLiucun[] goodsMonthLiucuns2=new GoodsMonthLiucun[list2.size()];
+        List<GoodsMonthLiucun> yuehuo =new ArrayList<>() ;
+        for (int i=0;i<list.size();i++){
+            goodsMonthLiucuns1[i]=(GoodsMonthLiucun)list.get(i);
+            goodsMonthLiucuns2[i]=(GoodsMonthLiucun)list2.get(i);
+            if(goodsMonthLiucuns1[i].getDate().equals(goodsMonthLiucuns2[i].getDate())){
+                goodsMonthLiucuns1[i].setValue(goodsMonthLiucuns1[i].getValue()+goodsMonthLiucuns2[i].getValue());
+            }
+            System.out.println("总数据"+goodsMonthLiucuns1[i].getDate()+"--"+goodsMonthLiucuns1[i].getValue());
+            yuehuo.add(goodsMonthLiucuns1[i]);
+        }
+        return yuehuo;
+    }
+
 
 
 /**
@@ -192,11 +218,66 @@ public static List getDatePvUv(){
  */
 
 /**
- * Description：用户的留存
- * @author boyang
+ * Description：用户总的3日留存
+ * @author su
  * @date 2019/3/26 16:25
  * @param
  * @return
  */
+    public static List getThreeGetRetentions(){
+        JSONObject obj = JSONObject.parseObject(OpenAPI.umengAndrienUappGetRetentions());
+        obj.get("retentionInfo");
+        JSONObject obj1 = JSONObject.parseObject(OpenAPI.umengIosUappGetRetentions());
+        net.sf.json.JSONArray jsonArray = net.sf.json.JSONArray.fromObject(JSONArray.parseArray( JSON.toJSONString(obj1.get("retentionInfo"))));
+        net.sf.json.JSONArray jsonArray1 = net.sf.json.JSONArray.fromObject(JSONArray.parseArray(  JSON.toJSONString(obj.get("retentionInfo"))));
+        List<?> list = net.sf.json.JSONArray.toList(jsonArray, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        List<?> list2 = net.sf.json.JSONArray.toList(jsonArray1, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        GoodsMonthLiucun[] goodsMonthLiucuns1=new GoodsMonthLiucun[list.size()];
+        GoodsMonthLiucun[] goodsMonthLiucuns2=new GoodsMonthLiucun[list2.size()];
+        List<GoodsMonthLiucun> Threeliucun =new ArrayList<>() ;
+        for (int i=0;i<list.size();i++){
+            goodsMonthLiucuns1[i]=(GoodsMonthLiucun)list.get(i);
+            goodsMonthLiucuns2[i]=(GoodsMonthLiucun)list2.get(i);
+            if(goodsMonthLiucuns1[i].getDate().equals(goodsMonthLiucuns2[i].getDate())){
+                goodsMonthLiucuns1[i].setTotalInstallUser(goodsMonthLiucuns1[i].getTotalInstallUser()+goodsMonthLiucuns2[i].getTotalInstallUser());
+            }
+            System.out.println("Ios的数据是"+goodsMonthLiucuns2[i].getDate()+"---"+goodsMonthLiucuns2[i].getTotalInstallUser());
+            System.out.println("总数据"+goodsMonthLiucuns1[i].getDate()+"--"+goodsMonthLiucuns1[i].getTotalInstallUser());
+            Threeliucun.add(goodsMonthLiucuns1[i]);
+        }
+        return Threeliucun;
+    }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 用户的7日留存
+     * @Date 10:00 2019/3/28
+     * @Param
+     * @return
+     **/
+    public static List getSevenGetRetentions(){
+        JSONObject obj = JSONObject.parseObject(OpenAPI.umengSevenDayAndrienUappGetRetentions());
+        obj.get("retentionInfo");
+        JSONObject obj1 = JSONObject.parseObject(OpenAPI.umengSevenDayIosUappGetRetentions());
+        net.sf.json.JSONArray jsonArray = net.sf.json.JSONArray.fromObject(JSONArray.parseArray( JSON.toJSONString(obj1.get("retentionInfo"))));
+        net.sf.json.JSONArray jsonArray1 = net.sf.json.JSONArray.fromObject(JSONArray.parseArray(  JSON.toJSONString(obj.get("retentionInfo"))));
+        List<?> list = net.sf.json.JSONArray.toList(jsonArray, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        List<?> list2 = net.sf.json.JSONArray.toList(jsonArray1, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        GoodsMonthLiucun[] goodsMonthLiucuns1=new GoodsMonthLiucun[list.size()];
+        GoodsMonthLiucun[] goodsMonthLiucuns2=new GoodsMonthLiucun[list2.size()];
+        List<GoodsMonthLiucun> Sevenliucun =new ArrayList<>() ;
+        for (int i=0;i<list.size();i++){
+            goodsMonthLiucuns1[i]=(GoodsMonthLiucun)list.get(i);
+            goodsMonthLiucuns2[i]=(GoodsMonthLiucun)list2.get(i);
+            if(goodsMonthLiucuns1[i].getDate().equals(goodsMonthLiucuns2[i].getDate())){
+                goodsMonthLiucuns1[i].setTotalInstallUser(goodsMonthLiucuns1[i].getTotalInstallUser()+goodsMonthLiucuns2[i].getTotalInstallUser());
+            }
+            System.out.println("Ios的数据是"+goodsMonthLiucuns2[i].getDate()+"---"+goodsMonthLiucuns2[i].getTotalInstallUser());
+            System.out.println("总数据"+goodsMonthLiucuns1[i].getDate()+"--"+goodsMonthLiucuns1[i].getTotalInstallUser());
+            Sevenliucun.add(goodsMonthLiucuns1[i]);
+        }
+        return  Sevenliucun;
+    }
+
 
 }

@@ -14,4 +14,8 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
 
+  <select id="selectProperty" resultType="kn_property">
+    SELECT * FROM kn_property
+  </select>
+
 </mapper>

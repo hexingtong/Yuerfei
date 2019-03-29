@@ -40,4 +40,12 @@ public interface KnTagMapper extends Mapper<KnTag> {
      * @return
      */
     int MercjatTagDelete(Integer id);
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 获取标签的回显 根据Id查询数据
+     * @Date 14:41 2019/3/29
+     * @Param
+     * @return
+     **/
+    kn_tag selectByidTag(Integer id);
 }

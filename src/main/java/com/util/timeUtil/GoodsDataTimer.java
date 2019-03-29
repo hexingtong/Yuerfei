@@ -34,13 +34,13 @@ GoodsUvDataService goodsUvDataService;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-
-                OpenAPI.umengAndroidPvEventParamGetValueList();
-                OpenAPI.umengAndroidEventParamGetValueList();
-                paramInfos o= (paramInfos) OpenAPI.umengAndroidPvEventParamGetValueList().get(0);
-
-                //paramInfos
-                //for (int i=0;i<)
+//
+//                OpenAPI.umengAndroidPvEventParamGetValueList();
+//                OpenAPI.umengAndroidEventParamGetValueList();
+//                paramInfos o= (paramInfos) OpenAPI.umengAndroidPvEventParamGetValueList().get(0);
+//
+//                //paramInfos
+//                //for (int i=0;i<)
 
 
 
@@ -52,9 +52,9 @@ GoodsUvDataService goodsUvDataService;
         }, 1000, 2000);
     }
     public static void main(String[] args) {
-        paramInfos o= (paramInfos) OpenAPI.umengAndroidPvEventParamGetValueList().get(0);
-
-System.out.println(o.getName());
+//        paramInfos o= (paramInfos) OpenAPI.umengAndroidPvEventParamGetValueList().get(0);
+//        System.out.println(o.getName());
     }
+
 
 }
