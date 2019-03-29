@@ -44,7 +44,7 @@ public class SupermarketController {
                                       @RequestParam(value = "pageNo", defaultValue = "1",
                                               required = false)
                                               Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "5", required = false)
+                                      @RequestParam(value = "pageSize", defaultValue = "3000", required = false)
                                               Integer pageSize,
                                       @RequestParam(value = "title", required = false)
                                               String title,
@@ -63,7 +63,9 @@ public class SupermarketController {
     @RequestMapping("/insertSupermarket")
     public void insertSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         ListObject listObject=new ListObject();
-//        try {
+        try {
+            logger.info("控制层期限有没有值传进来"+goodsSupermarketDvo.getDeadline());
+            logger.info("控制层期限区域有没有值传进来"+goodsSupermarketDvo.getPaceLending());
             int i=kn_goodsservice.insertSupermarket(goodsSupermarketDvo);
             //还要配置事务
             if(i>0){
@@ -75,12 +77,12 @@ public class SupermarketController {
                 listObject.setCode(StatusCode.CODE_ERROR);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
-//        }catch (Exception  e){
-//            listObject.setMsg("发生异常,事务回滚！");
-//            listObject.setCode(StatusCode.CODE_ERROR);
-//            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-//            logger.info("编辑超市接口事务发生异常,数据已回滚");
-//        }
+        }catch (Exception  e){
+            listObject.setMsg("发生异常,事务回滚！");
+            listObject.setCode(StatusCode.CODE_ERROR);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            logger.info("增加超市接口事务发生异常,数据已回滚");
+        }
 
     }
 

@@ -42,16 +42,8 @@
   <select id="queryListAdmin" parameterType="kn_admin" resultType="com.springmvc.pojo.DTO.knadmin2">
     select a.*,a.phone AS adminPhone from kn_admin a
     <where>
-      <if test="level!=null and level!='' and level==0 ">
-        AND	level=0
-      </if>
-      <if test="level!=null and level!='' and level==1 ">
-        AND	level=1
-      </if>
-      <if test="level!=null and level!='' and level==2 ">
-        AND	level=2
-      </if>
-      <if test="phone!=null and phone!='' ">
+      `level`=1
+      <if test="phone!=null and phone!='' and phone!=0 ">
         AND  phone  LIKE '%${phone}%'
       </if>
     </where>

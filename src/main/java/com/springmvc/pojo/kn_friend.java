@@ -17,7 +17,7 @@ public class kn_friend {
     //网址链接
     private  String url;
     //站点logo
-    private  String logo;
+    private  String img;
     //排序级别（100最小）
     private  int level;
     //添加时间
@@ -37,13 +37,22 @@ public class kn_friend {
     //注册人数
     private int enrollment;
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+
+        return img;
+    }
+
     @Override
     public String toString() {
         return "kn_friend{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
-                ", logo='" + logo + '\'' +
+                ", img='" + img + '\'' +
                 ", level=" + level +
                 ", addTime=" + addTime +
                 ", pv=" + pv +
@@ -109,9 +118,7 @@ public class kn_friend {
         this.url = url;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
+
 
     public void setLevel(int level) {
         this.level = level;
@@ -131,9 +138,7 @@ public class kn_friend {
         return url;
     }
 
-    public String getLogo() {
-        return logo;
-    }
+
 
     public int getLevel() {
         return level;

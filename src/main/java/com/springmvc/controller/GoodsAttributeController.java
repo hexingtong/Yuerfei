@@ -38,7 +38,7 @@ import java.util.*;
 @RequestMapping("/GoodsAttribute")
 public class GoodsAttributeController {
 
-@Autowired
+    @Autowired
     PropertyService propertyService;
 
     final Logger logger = LoggerFactory.getLogger(MemberController.class);

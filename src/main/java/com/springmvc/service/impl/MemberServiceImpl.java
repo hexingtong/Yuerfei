@@ -39,8 +39,7 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
     @Autowired
     KnTagMapper knTagMapper;
 
-    @Autowired
-    KnFriendMapper knFriendMapper;
+
     /**
      * Description：
      * @author boyang
@@ -136,74 +135,6 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
     }
 
 
-    @Override
-    public PageResultInfo queryListfriend(Integer pageNo, Integer pageSize,String title,Integer Index) {
-        logger.info("传入的pageno,pagesize"+pageNo+":"+pageSize);
-        PageHelper.startPage(pageNo, pageSize);
-        kn_friend knFriend=new kn_friend();
-        List<kn_friend> agentLevelSettings;
-        if(!StringUtils.isEmpty(title) && !"".equals(title)){
-            logger.info("进入title");
-            knFriend.setTitle(title);
-            agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-            PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
-            PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
-            return resultInfo;
-        }
-        if(Index!=null&& !Index.equals("0") && !Index.equals(0)) {
-            if (Index==1 || Index.equals(1) || Index.equals("1")) {
-                //推荐级别
-                knFriend.setLevel(2);
-                agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
-                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
-                return resultInfo;
-            }else if(Index==2 || Index.equals(2) || Index.equals("2")){
-                //添加时间
-                knFriend.setAddTime(new Date());
-                agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
-                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
-                return resultInfo;
-            }else if(Index==3 || Index.equals(3) || Index.equals("3")){
-                //点击量排序
-                knFriend.setClick(2);
-                agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
-                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
-                return resultInfo;
-            }
-        }
-        agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-        logger.info("获取admin表中所有数据");
-        PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
-        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
-        return resultInfo;
-    }
-
-    public int deleteFriend(int id){
-        int i=knFriendMapper.deleteFriend(id);
-        if(i>0){
-            logger.info("删除成功");
-            return 1;
-        }else {
-            logger.info("删除失败");
-            return 0;
-        }
-    }
-
-    @Override
-    public int updateFrilend(kn_friend kn_friend) {
-        int i=knFriendMapper.updateFrilend(kn_friend);
-        if(i>0){
-            logger.info("编辑成功");
-            return 1;
-        }else {
-            logger.info("编辑失败");
-            return 0;
-        }
-
-    }
 
 
 }

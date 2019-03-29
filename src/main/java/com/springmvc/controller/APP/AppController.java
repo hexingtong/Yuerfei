@@ -76,14 +76,16 @@ public class AppController {
                 lst.add(kn_admin);
                 listObject.setItems(lst);
                 listObject.setCode(StatusCode.CODE_SUCCESS);
-                logger.info(""+kn_admin.getAddTime());
+                listObject.setMsg("成功");
+                logger.info(""+listObject);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
             if (id.equals("error")) {
-//                System.out.println("token过期了");
+//              System.out.println("token过期了");
                 listObject.setCode(StatusCode.CODE_ERROR);
                 listObject.setMsg("token过期了");
                 logger.info("token过期了");
+                logger.info(""+listObject);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
         }catch (NullPointerException e) {

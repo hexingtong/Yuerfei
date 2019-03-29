@@ -39,7 +39,7 @@ public class GoodsDataController  {
     final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
 
-    @Autowired
+@Autowired
     GoodsPvDataService goodsPvDataService;
 @Autowired
     GoodsUvDataService goodsUvDataService;
