@@ -18,4 +18,37 @@
     <result column="usunday" jdbcType="INTEGER" property="usunday" />
   </resultMap>
 
+
+  <!--有则更新，无能插入Uv，唯一索引goodid-->
+  <insert id="inUV" parameterType="java.util.List">
+    insert into goodsuvdata
+    (
+    goodsId,
+    uone,
+    utwo,
+    uthree,
+    ufour,
+    ufive,
+    usat,
+    usunday
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+      (
+      #{item.goodsid},
+      #{item.uone},
+      #{item.utwo},
+      #{item.uthree},
+      #{item.ufour},
+      #{item.ufive},
+      #{item.usat},
+      #{item.usunday}
+      )
+
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    uone = values(uone),utwo=values(utwo),uthree = values(uthree),ufour=values(ufour),ufive = values(ufive),usat=values(usat),usunday=values(usunday)
+
+  </insert>
+
 </mapper>

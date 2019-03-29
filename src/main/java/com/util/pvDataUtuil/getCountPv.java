@@ -5,9 +5,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.springmvc.pojo.GoodsMonthLiucun;
 import com.springmvc.pojo.Goodspvdata;
+import com.springmvc.pojo.Goodsuvdata;
 import com.springmvc.pojo.Person;
 import com.util.DateUtil;
 import com.util.OpenAPI;
+import org.springframework.scheduling.annotation.Scheduled;
 import net.sf.json.JsonConfig;
 
 import java.util.*;
@@ -19,9 +21,14 @@ import java.util.*;
  * @Date: 2019/3/26 14:39
  **/
 public class getCountPv {
-
-
-    public static List getPv(){
+/**
+ * Description：当天得到产品总的pv
+ * @author boyang
+ * @date 2019/3/27 16:35
+ * @param
+ * @return java.util.List
+ */
+    public static List<Goodspvdata> getPv(){
 
         //得到Android pv
         JSONObject obj = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidPvEventParamGetValueList().get(0)));
@@ -56,14 +63,14 @@ public class getCountPv {
             }else if(weeked==1){
                 goodspvdata.setPsunday((Integer) j.get("count"));
             }
-            System.out.println(goodspvdata.toString());
+            System.out.println("Android--"+goodspvdata.toString());
             android.add(goodspvdata);
         }
 
 
 
         //Ios pv
-        JSONObject iosPv = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidPvEventParamGetValueList().get(0)));
+        JSONObject iosPv = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengIosPvEventParamGetValueList().get(0)));
         iosPv.get("paramInfos");
         JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")));
         System.out.println( ( JSON.toJSONString(iosPv.get("paramInfos"))));
@@ -98,84 +105,219 @@ public class getCountPv {
 
         }
 
+        //循环id相同的增加，到新的集合
+List<Goodspvdata> news=new ArrayList<>();
+        Iterator iterList=android.iterator();
+                 while( iterList.hasNext()){
+            Goodspvdata Android= (Goodspvdata) iterList.next();
+                     Iterator iterList2=ios.iterator();
+                while( iterList2.hasNext()){
+                    Goodspvdata Ios= (Goodspvdata) iterList2.next();
 
-//合并去重
-        //得到总的
-        List<Goodspvdata> uvpv;
-        android.addAll(ios);
-        Set<Goodspvdata> s = new TreeSet<Goodspvdata>(new Comparator<Goodspvdata>() {
+     if( Android.getGoodid()==Ios.getGoodid()){
+         Goodspvdata NEWS=new Goodspvdata();
+         if (weeked==2){
 
-            @Override
-            public int compare(Goodspvdata o1, Goodspvdata o2) {
-                return o1.getGoodid().compareTo(o2.getGoodid());
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPone(( Ios.getPone()+Android.getPone()));
+             news.add(NEWS);
+         }else if(weeked==3){
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPtwo(( Ios.getPtwo()+Android.getPtwo()));
+             news.add(NEWS);
+         }
+         else if(weeked==4){
+
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPthree(( Ios.getPthree()+Android.getPthree()));
+             news.add(NEWS);
+         }
+         else if(weeked==5){
+
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPfour(( Ios.getPfour()+Android.getPfour()));
+             news.add(NEWS);
+         }
+         else if(weeked==6){
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPfive(( Ios.getPfive()+Android.getPfive()));
+             news.add(NEWS);
+         }
+         else if(weeked==7){
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPsat(( Ios.getPsat()+Android.getPsat()));
+             news.add(NEWS);
+
+         }else if(weeked==1){
+             NEWS.setGoodid(Ios.getGoodid());
+             NEWS.setPsunday(( Ios.getPsunday()+Android.getPsunday()));
+             news.add(NEWS);
+         }
+         iterList.remove();
+         iterList2.remove();
+
+      }
             }
-        });
-        s.addAll(ios);
-        uvpv= new ArrayList<Goodspvdata>(s);
 
+        }
 
-
-        //两个list对象当id相等的时候进行属性值相加,两边没有相同id的时候保存这个对象
-
+        android.addAll(news);
         android.addAll(ios);
-        for (Goodspvdata  Android:uvpv){
 
-            Android.getGoodid();
-            for (Goodspvdata Ios: ios){
-                if(Android.getGoodid()==Ios.getGoodid()){
+        System.out.println("总的-----------------"+android.toString());
+
+
+
+        return android;
+    }
+    /**
+     * Description：当天得到产品总的uv
+     * @author boyang
+     * @date 2019/3/27 16:35
+     * @param
+     * @return java.util.List
+     */
+    public static List<Goodsuvdata> getUv(){
+
+        //得到Android pv
+        JSONObject obj = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidEventParamGetValueList().get(0)));
+        obj.get("paramInfos");
+        JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")));
+        System.out.println( ( JSON.toJSONString(obj.get("paramInfos"))));
+        List<Goodsuvdata> android =new ArrayList<>() ;
+        int weeked= DateUtil.getWeeked();
+        //得到Android pv 的集合
+        for (Object i: JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")))){
+            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(i));
+            Goodsuvdata goodsuvdata=new Goodsuvdata();
+
+
+            goodsuvdata.setGoodsid(Integer.parseInt(j.get("name").toString()));
+            if (weeked==2){
+                goodsuvdata.setUone((Integer) j.get("count"));
+            }else if(weeked==3){
+                goodsuvdata.setUtwo((Integer) j.get("count"));
+            }
+            else if(weeked==4){
+                goodsuvdata.setUthree((Integer) j.get("count"));
+            }
+            else if(weeked==5){
+                goodsuvdata.setUfour((Integer) j.get("count"));
+            }
+            else if(weeked==6){
+                goodsuvdata.setUfive((Integer) j.get("count"));
+            }
+            else if(weeked==7){
+                goodsuvdata.setUsat((Integer) j.get("count"));
+            }else if(weeked==1){
+                goodsuvdata.setUsunday((Integer) j.get("count"));
+            }
+            System.out.println("Android--"+goodsuvdata.toString());
+            android.add(goodsuvdata);
+        }
+
+
+        //Ios pv
+        JSONObject iosPv = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengIosEventParamGetValueList().get(0)));
+        iosPv.get("paramInfos");
+        JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")));
+        System.out.println( ( JSON.toJSONString(iosPv.get("paramInfos"))));
+        List<Goodsuvdata> ios =new ArrayList<>() ;
+
+        for (Object io: JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")))){
+
+            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(io));
+            Goodsuvdata goodsuvdata=new Goodsuvdata();
+            goodsuvdata.setGoodsid(Integer.parseInt(j.get("name").toString()));
+            if (weeked==2){
+                goodsuvdata.setUone((Integer) j.get("count"));
+            }else if(weeked==3){
+                goodsuvdata.setUtwo((Integer) j.get("count"));
+            }
+            else if(weeked==4){
+                goodsuvdata.setUthree((Integer) j.get("count"));
+            }
+            else if(weeked==5){
+                goodsuvdata.setUfour((Integer) j.get("count"));
+            }
+            else if(weeked==6){
+                goodsuvdata.setUfive((Integer) j.get("count"));
+            }
+            else if(weeked==7){
+                goodsuvdata.setUsat((Integer) j.get("count"));
+            }else if(weeked==1){
+                goodsuvdata.setUsunday((Integer) j.get("count"));
+            }
+            System.out.println("ios---"+goodsuvdata.toString());
+            ios.add(goodsuvdata);
+
+        }
+
+        //循环id相同的增加，到新的集合
+        List<Goodsuvdata> news=new ArrayList<>();
+        Iterator iterList=android.iterator();
+        while( iterList.hasNext()){
+            Goodsuvdata Android= (Goodsuvdata) iterList.next();
+            Iterator iterList2=ios.iterator();
+            while( iterList2.hasNext()){
+                Goodsuvdata Ios= (Goodsuvdata) iterList2.next();
+
+                if( Android.getGoodsid()==Ios.getGoodsid()){
+                    Goodsuvdata NEWS=new Goodsuvdata();
                     if (weeked==2){
-                        Android.setPone(( Ios.getPone()+Android.getPone()));
+
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUone(( Ios.getUone()+Android.getUone()));
+                        news.add(NEWS);
                     }else if(weeked==3){
-                        System.out.println( Ios.getPtwo()+"--"+Android.getPtwo());
-                        Android.setPtwo(( Ios.getPtwo()+Android.getPtwo()));
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUtwo(( Ios.getUtwo()+Android.getUtwo()));
+                        news.add(NEWS);
                     }
                     else if(weeked==4){
-                        Android.setPthree(( Ios.getPthree()+Android.getPthree()));
+
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUthree(( Ios.getUthree()+Android.getUthree()));
+                        news.add(NEWS);
                     }
                     else if(weeked==5){
-                        Android.setPfour(( Ios.getPfour()+Android.getPfour()));
+
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUfour(( Ios.getUfour()+Android.getUfour()));
+                        news.add(NEWS);
                     }
                     else if(weeked==6){
-                        Android.setPfive(( Ios.getPfive()+Android.getPfive()));
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUfive(( Ios.getUfive()+Android.getUfive()));
+                        news.add(NEWS);
                     }
                     else if(weeked==7){
-                        Android.setPsat(( Ios.getPsat()+Android.getPsat()));
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUsat(( Ios.getUsat()+Android.getUsat()));
+                        news.add(NEWS);
 
                     }else if(weeked==1){
-                        Android.setPsunday(( Ios.getPsunday()+Android.getPsunday()));
-
+                        NEWS.setGoodsid(Ios.getGoodsid());
+                        NEWS.setUsunday(( Ios.getUsunday()+Android.getUsunday()));
+                        news.add(NEWS);
                     }
-
-
-
-                }else {
-                    //如果他的id第一个不匹配，后面的匹配怎么进行判断
+                    iterList.remove();
+                    iterList2.remove();
 
                 }
             }
 
-
-
         }
-        System.out.println("去重-----------------"+uvpv.toString());
+
+        android.addAll(news);
+        android.addAll(ios);
+
+        System.out.println("总的-----------------"+android.toString());
 
 
 
-
-        return uvpv;
+        return android;
     }
-/**
- * Description： 得到每天的pvuv
- * @author boyang
- * @date 2019/3/26 16:22
- * @param
- * @return
- */
-
-public static List getDatePvUv(){
-
-    return null;
-}
 
 /**
  * Description：得到所有的月活，周活

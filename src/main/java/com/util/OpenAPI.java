@@ -217,6 +217,7 @@ public class OpenAPI {
             return lst;
         }
     }
+
     //获取安卓今日uv参数值事件列表
     public static List umengAndroidEventParamGetValueList() {
         ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);

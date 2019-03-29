@@ -85,7 +85,7 @@ public String getpvuv(Model model,Integer goodsid){
 
 
 /**
- * Description：得到总的pvuv
+ * Description：定时更新总的pvuv
  * @author boyang
  * @date 2019/3/26 18:55
  * @param
@@ -94,7 +94,10 @@ public String getpvuv(Model model,Integer goodsid){
 @Scheduled(cron= "0/10 * * * * ? ")
 public void getpvuv(){
     logger.info("测试定时任务");
-    List<Goodspvdata> list= getCountPv.getPv();
+  // goodsPvDataService.unCountPv();
+    goodsUvDataService.unCountUv();
+
+
 }
 
 }

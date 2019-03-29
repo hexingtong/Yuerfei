@@ -2,6 +2,7 @@ package com.springmvc.controller;
 
 import com.springmvc.pojo.Fund;
 import com.springmvc.pojo.LoanTerm;
+import com.springmvc.service.GoodsPvDataService;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.FundService;
 import com.springmvc.service.kn_adminservice;
@@ -25,6 +26,8 @@ public class Test1 {
     private kn_adminservice knAdminservice;
 @Autowired
 private kn_goodsservice knGoodsservice;
+@Autowired
+    GoodsPvDataService goodsPvDataService;
 
     @Autowired
     private FundService fundService;
@@ -67,6 +70,11 @@ private kn_goodsservice knGoodsservice;
         kn_goods kn_goods=   kngoodsservice.queryById(id);
         model.addAttribute("kn_goods", kn_goods);
         return "supermarkData";
+    //测试puuv
+    @RequestMapping("/uv")
+    public void puuv(HttpServletRequest request){
+        System.out.println("ninini");
+        goodsPvDataService.unCountPv();
     }
 
 }

@@ -250,4 +250,19 @@ public class Goodsuvdata {
     public void setUsunday(Integer usunday) {
         this.usunday = usunday;
     }
+
+    @Override
+    public String toString() {
+        return "Goodsuvdata{" +
+                "id=" + id +
+                ", goodsid=" + goodsid +
+                ", uone=" + uone +
+                ", utwo=" + utwo +
+                ", uthree=" + uthree +
+                ", ufour=" + ufour +
+                ", ufive=" + ufive +
+                ", usat=" + usat +
+                ", usunday=" + usunday +
+                '}';
+    }
 }
