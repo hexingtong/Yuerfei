@@ -29,7 +29,7 @@ public class UrlConnect {
     private FriendService friendService;
 
     @Autowired
-    private KnTagService knTagService;
+    private KnTagService kntagService;
     //首页
     @RequestMapping("/indexUrl")
     public String index(){return "index";}
@@ -50,11 +50,12 @@ public class UrlConnect {
     //标签编辑页面
     @RequestMapping("/TagEditor")
     public String labelEditor(Model model,Integer id){
-        kn_tag kntag=knTagService.selectByidTag(id);
-         System.out.println("控制台的值"+kntag.getTitle());
-        System.out.println("id==="+kntag.getId());
+//        System.out.println("id的值是"+id);
+            kn_tag kntag=kntagService.selectByidTag(id);
+//        System.out.println("xxx"+kntag.getTitle());
         model.addAttribute("kntag",kntag);
         return "labelEditor";}
+
         //标签增加页面
     @RequestMapping("/TagAdd")
     public String addEditor(){

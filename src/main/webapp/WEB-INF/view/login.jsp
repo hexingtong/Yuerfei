@@ -122,12 +122,6 @@
     </div>
 <script>
 
-    $(function () {
-        $("#Signin").click(function () {
-            sign();
-        })
-    });
-
     function sign(){
         var user_account=document.getElementById("code").value;
         var user_password=document.getElementById("pwd1").value;

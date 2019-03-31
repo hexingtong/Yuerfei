@@ -14,7 +14,7 @@
   </select>
 
   <insert id="insertAndmin"  parameterType="kn_admin">
-    INSERT INTO kn_admin (phone,add_time,login_time) VALUES(#{phone},#{addTime},#{loginTime});
+    INSERT INTO kn_admin (phone,add_time,login_time,registered_source) VALUES(#{phone},#{addTime},#{loginTime},#{registeredSource});
   </insert>
 
   <!--删除商家账号-->

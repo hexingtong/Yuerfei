@@ -43,7 +43,7 @@ public class kn_admintestController {
 
 
     //发送验证码接口
-    @RequestMapping(value = "/smsPhone", method = RequestMethod.POST)
+    @RequestMapping(value = "/smsPhone")
     @ResponseBody
     public void test(HttpServletResponse response, String Phone) {
         List<kn_admin> lst = new ArrayList();
@@ -95,7 +95,7 @@ public class kn_admintestController {
         }
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     @ResponseBody
     public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request) {
         ListObject listObject = new ListObject();

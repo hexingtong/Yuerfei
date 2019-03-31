@@ -166,7 +166,6 @@
                     //数据框的值
                     var sousuo2="";
                     //
-                    var imgd2="http://47.92.53.177:8080/Yuerfei/"
                     var imgd='<%=basePath %>';
                     //点击按钮
                     $('#button').click(function(){

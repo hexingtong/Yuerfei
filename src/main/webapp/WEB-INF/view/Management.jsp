@@ -183,7 +183,7 @@
                         list:".ul",//列表标识
                         currentPage:1,//初始页（选传，默认1）
                         pageSize:5,//每页列表数
-                        //listTotal:5,//列表总数（选传），不传为list总数
+                        //listTotal:2,//列表总数（选传），不传为list总数
                         callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
 
                             loadData2(ajaxDemo2(currentPage))

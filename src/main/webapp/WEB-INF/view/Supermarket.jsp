@@ -184,7 +184,7 @@
                                             <li>产品图片</li>
                                             <li>产品名称</li>
                                             <li>所属属性</li>
-                                            <li>上架状态</li>
+                                            <%--<li>上架状态</li>--%>
                                             <li>添加时间</li>
                                             <li>PV</li>
                                             <li>UV</li>
@@ -279,7 +279,7 @@
                                         '</li>' +
                                         '<li>'+result.rows[G].title+'</li>' +
                                         '<li>'+result.rows[G].ptitle+'</li>' +
-                                        '<li>'+result.rows[G].pstatus+'</li>' +
+                                        // '<li>'+result.rows[G].pstatus+'</li>' +
                                         '<li>'+result.rows[G].addTime+'</li>' +
                                         '<li>'+result.rows[G].pv+'</li>' +
                                         '<li>'+result.rows[G].uv+'</li>' +
@@ -333,7 +333,7 @@
                                         '</li>' +
                                         '<li>'+result.rows[G].title+'</li>' +
                                         '<li>'+result.rows[G].ptitle+'</li>' +
-                                        '<li>'+result.rows[G].pstatus+'</li>' +
+                                        // '<li>'+result.rows[G].pstatus+'</li>' +
                                         '<li>'+result.rows[G].addTime+'</li>' +
                                         '<li>'+result.rows[G].pv+'</li>' +
                                         '<li>'+result.rows[G].uv+'</li>' +
@@ -400,7 +400,7 @@
                                 '</li>' +
                                 '<li>'+data.rows[G].title+'</li>' +
                                 '<li>'+data.rows[G].ptitle+'</li>' +
-                                '<li>'+data.rows[G].pstatus+'</li>' +
+                                // '<li>'+data.rows[G].pstatus+'</li>' +
                                 '<li>'+data.rows[G].addTime+'</li>' +
                                 '<li>'+data.rows[G].pv+'</li>' +
                                 '<li>'+data.rows[G].uv+'</li>' +
@@ -446,7 +446,7 @@
                                         '</li>'+
                                         '<li>'+result.rows[G].title+'</li>' +
                                         '<li>'+result.rows[G].ptitle+'</li>' +
-                                        '<li>'+result.rows[G].pstatus+'</li>' +
+                                        // '<li>'+result.rows[G].pstatus+'</li>' +
                                         '<li>'+result.rows[G].addTime+'</li>' +
                                         '<li>'+result.rows[G].pv+'</li>' +
                                         '<li>'+result.rows[G].uv+'</li>' +

@@ -70,7 +70,7 @@ public class KnTagServiceImpl extends BaseServiceImpl<KnTag> implements KnTagSer
     @Override
     public kn_tag selectByidTag(Integer id) {
         kn_tag kn_tag=knTagMapper.selectByidTag(id);
-        return null;
+        return kn_tag;
     }
 
 }

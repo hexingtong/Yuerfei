@@ -39,8 +39,8 @@
   </delete>
 
   <!--查询标签信息-->
-  <select id="selectByidTag" parameterType="int" resultType="kn_tag">
-    SELECT * FROM kn_tag WHERE id=#{id}
+  <select id="selectByidTag" parameterType="int" resultType="com.springmvc.pojo.kn_tag">
+    SELECT id,title FROM kn_tag WHERE id=#{id}
    </select>
 
 </mapper>
