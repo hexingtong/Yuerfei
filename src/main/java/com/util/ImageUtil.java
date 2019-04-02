@@ -83,12 +83,12 @@ public class ImageUtil {
                     }
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如： c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
-                    filename = filename.substring(filename.lastIndexOf("\\")+1);
+                    filename = filename.substring(filename.lastIndexOf(System.getProperty("file.separator"))+1);
                     //获取item中的上传文件的输入流
                     InputStream in = item.getInputStream();
                     //创建一个文件输出流
                     int st=(int)(Math.random()*9999)+100000;
-                    String newpath = savePath + "\\"+DateUtil.getDateString() +st + filename;
+                    String newpath = savePath + System.getProperty("file.separator")+DateUtil.getDateString() +st + filename;
                     FileOutputStream out = new FileOutputStream(newpath);
                     String type=pageUtils.getPicType(new FileInputStream(new File(newpath)));
                     System.out.println(type);
@@ -114,7 +114,7 @@ public class ImageUtil {
                         System.out.println("判断的图片格式是******"+type);
                         int begin=newpath.indexOf("img");
                         int last=newpath.length();
-                        String i=newpath.substring(begin,last).replace("\\","/");
+                        String i=newpath.substring(begin,last).replace(System.getProperty("file.separator"),"/");
                         return i;
 //                    }else{
 //                        return "error";

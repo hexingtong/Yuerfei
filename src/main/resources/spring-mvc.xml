@@ -12,13 +12,24 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
  http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.springmvc.controller" />
+    <bean class="com.util.Swagger.MySwagger"/>
+	<context:component-scan base-package="springfox"/>
+	<!-- don't handle the static resource -->
+	<mvc:default-servlet-handler />
 
+	<!-- if you use annotation you must configure following setting -->
+	<mvc:annotation-driven />
+	<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
+	<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
 
+	<!-- &lt;!&ndash; 定时器开关&ndash;&gt;
+      -->
+	<task:annotation-driven />
 
-
-    <!-- 配置注解驱动 -->
+	<!-- 配置注解驱动 -->
     <mvc:annotation-driven />
     <mvc:default-servlet-handler/>
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
@@ -87,7 +98,10 @@
 			<mvc:exclude-mapping path="/Test/**"/>
 			<mvc:exclude-mapping path="/admin/**"/>
             <mvc:exclude-mapping path="/Testt/**"/>
-
+            <mvc:exclude-mapping path="/swagger-resources/**"/>
+            <mvc:exclude-mapping path="/webjars/**"/>
+            <mvc:exclude-mapping path="/v2/**"/>
+            <mvc:exclude-mapping path="/swagger-ui.html/**"/>
 			<bean class="com.util.LoginHandlerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

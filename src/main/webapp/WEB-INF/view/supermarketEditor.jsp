@@ -523,12 +523,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var url=$("input[name='url']").val();//详请描述
         var img = imgaddress;//图片上传
         var id=${goods.id};
+        alert(img)
         var indexx=$('input:radio[name="indexx"]:checked').val();
         var detailsId=$("#detailsId").val();
         var Deadline1 = document.getElementById("index").value;
         var status=$("input[name='status']").val();
 
-        if(img==''||img.valueOf("")||img==undefined){
+        if(img==''||img.valueOf("")){
             img=$("#Imgx").val();
         }
 
