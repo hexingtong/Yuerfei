@@ -123,7 +123,7 @@ public class MerchantController {
      *
      * @param
      * @param
-     * @return
+     * @return enctype="multipart/form-data"
      */
     @RequestMapping("/addUserInfo")
     public void addUserInfo(HttpServletResponse response,HttpServletRequest request) throws IOException {

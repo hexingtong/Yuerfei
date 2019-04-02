@@ -107,7 +107,9 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
     <if test="click!=null and click!='' ">
       ORDER BY click DESC
     </if>
-
+    <if test="level!=null and level!='' ">
+      ORDER BY k.level DESC
+    </if>
   </select>
 
   <!--

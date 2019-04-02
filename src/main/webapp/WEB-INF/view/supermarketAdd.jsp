@@ -368,7 +368,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
     var imgaddress='';
 
-    //打一个期限点击事件
+    //第一个期限点击事件
     $(".date1").click(function(){
         var options=$("#index option:selected");
        var dat= options.val()
@@ -385,10 +385,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 //第二个点击事件
     $(".date2").click(function(){
         var options2=$("#index2 option:selected");
-        var dat2= options2.val()
+        var dat2= options2.val();
 
         var options3=$("#index3 option:selected");
-        var dat3= options3.val()
+        var dat3= options3.val();
         if(dat2!=0&&dat3!=0){
             $("#index").hide();
 

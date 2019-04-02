@@ -8,6 +8,8 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
+import java.util.Random;
+
 /**
  * @Auther: ZouLF
  * @Date: 2018/5/29 10:49
@@ -66,19 +68,19 @@ public class SmsPhone {
     }
 
 
-    private static int newcode;
+    private static String newcode;
 
-    public static int getNewcode() {
+    public static String getNewcode() {
         return newcode;
     }
 
     public static void setNewcode(){
-        newcode = (int)(Math.random()*999999)+100000;  //每次调用生成一次六位数的随机数
+        newcode  =String.valueOf(new Random().nextInt(899999) + 100000);  //每次调用生成一次六位数的随机数
     }
 
     public static void main(String[] args) throws Exception {
         setNewcode();
-        String code = Integer.toString(getNewcode());
+        String code = getNewcode();
         SendSmsResponse sendSms =sendSms("13022061304",code);//填写你需要测试的手机号码
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + sendSms.getCode());

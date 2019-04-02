@@ -67,7 +67,6 @@ public class SupermarketController {
             logger.info("控制层期限有没有值传进来"+goodsSupermarketDvo.getDeadline());
             logger.info("控制层期限区域有没有值传进来"+goodsSupermarketDvo.getPaceLending());
             int i=kn_goodsservice.insertSupermarket(goodsSupermarketDvo);
-            //还要配置事务
             if(i>0){
                 listObject.setMsg("增加操作成功");
                 listObject.setCode(StatusCode.CODE_SUCCESS);
@@ -94,7 +93,6 @@ public class SupermarketController {
         ListObject listObject=new ListObject();
         try {
             int i=kn_goodsservice.updateSupermarket(goodsSupermarketDvo);
-            //还要配置事务
             if(i>0){
                 listObject.setMsg("编辑操作成功!");
                 listObject.setCode(StatusCode.CODE_SUCCESS);
@@ -119,7 +117,6 @@ public class SupermarketController {
 
 
             int i = kn_goodsservice.deleteSupermarket(goodsSupermarketDvo);
-            //还要配置事务
             if (i > 0) {
                 listObject.setMsg("删除操作成功!");
                 listObject.setCode(StatusCode.CODE_SUCCESS);

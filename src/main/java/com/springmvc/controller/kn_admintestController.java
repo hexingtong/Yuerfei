@@ -56,7 +56,7 @@ public class kn_admintestController {
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
             SmsPhone.setNewcode();
-            String code = Integer.toString(SmsPhone.getNewcode());
+            String code = SmsPhone.getNewcode();
             SendSmsResponse sendSms = sendSms(Phone, code);
             logger.info("短信接口返回的数据----------------");
             logger.info("Code=" + sendSms.getCode());

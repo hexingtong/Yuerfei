@@ -91,13 +91,13 @@ public String getpvuv(Model model,Integer goodsid){
  * @param
  * @return
  */
-@Scheduled(cron= "0/10 * * * * ? ")
-public void getpvuv(){
-    logger.info("测试定时任务");
-  // goodsPvDataService.unCountPv();
-    goodsUvDataService.unCountUv();
-
-
-}
+//@Scheduled(cron= "0/10 * * * * ? ")
+//public void getpvuv(){
+//    logger.info("测试定时任务");
+//  // goodsPvDataService.unCountPv();
+//    goodsUvDataService.unCountUv();
+//
+//
+//}
 
 }

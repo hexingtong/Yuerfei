@@ -202,10 +202,9 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
             knGoods.setStatus(status);
         }
         if (Index1 != null && !Index1.equals("0") && !Index1.equals(0)) {
-            logger.info("进入按时间排序");
             if (Index1 == 1 || Index1.equals(1) || Index1.equals("1")) {
                 logger.info("进入进入按时间排序1");
-                    if(propertyId!=null&&!propertyId.equals(0)&&!propertyId.equals(0)){
+                    if(propertyId!=null&&!propertyId.equals(0)){
                         logger.info("进入按时间按产品属性排序");
                         knGoods.setAddTime(new Date());
                         logger.info("propertyId转换后的String值"+propertyId.toString());
@@ -222,26 +221,47 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                 return resultInfo;
-            } else if (Index1 == 2 || Index1.equals(2) || Index1.equals("2")) {
-                    logger.info("进入点击量排序");
-                    logger.info("进入点击量排序");
+            } if (Index1 == 2 || Index1.equals(2) || Index1.equals("2")) {
+                    logger.info("进入推荐级别排序");
                     if(propertyId!=null&&!propertyId.equals(0)&&!propertyId.equals(0)){
-                        logger.info("进入按点击量和按属性排序");
-                        knGoods.setClick(2);
+                        logger.info("进入按推荐级别和按属性排序");
+                        knGoods.setLevel(2);
                         logger.info("propertyId转换后的String值"+propertyId.toString());
                         knGoods.setPropertyIds(propertyId.toString());
+                        logger.info("level的值"+knGoods.getLevel());
                         agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                         PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
                         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                         logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                         return resultInfo;
                     }
+                knGoods.setLevel(1);
+                agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
+                PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
+                logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
+                return resultInfo;
+            }
+            if(Index1==3||Index1.equals(3) || Index1.equals("3")){
+                logger.info("进入点击量排序");
+                if(propertyId!=null&&!propertyId.equals(0)&&!propertyId.equals(0)){
+                    logger.info("进入按点击量和按属性排序");
+                    knGoods.setClick(2);
+                    logger.info("propertyId转换后的String值"+propertyId.toString());
+                    knGoods.setPropertyIds(propertyId.toString());
+                    agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
+                    PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
+                    PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
+                    logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
+                    return resultInfo;
+                }
                 knGoods.setClick(2);
                 agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                 PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                 return resultInfo;
+
             }
         } else {
             logger.info("不进入index1");

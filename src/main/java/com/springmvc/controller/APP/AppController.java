@@ -57,7 +57,8 @@ public class AppController {
     }
 
 
-    @RequestMapping(value = "/selectUser", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/selectUser")
     @ResponseBody
     public void selectUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map map = new HashMap();
@@ -65,6 +66,7 @@ public class AppController {
         List lst=new ArrayList();
         try{
             String token2 = request.getHeader("Authorization");
+            System.out.println();
             String token = token2.substring(7);
             logger.info("token截取后的值是：" + token);
             kn_admin kn_admin = new kn_admin();
@@ -93,7 +95,6 @@ public class AppController {
             listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-
 
     }
 

@@ -24,20 +24,13 @@
 <!--标签展示右边-->
             <div class="indexcontent-right4" style="display: block;">
                 <div class="indexcontent-right-main">
-                    <div class="indexcontent-right-top">
-                        <img src="${ctx }/images/Full screen button.svg">
-                        <div class="indexcontent-right-top-right">
-                            <img src="${ctx }/images/quit.svg">
-                            <p>退出</p>
-                        </div>
-                    </div>
+                    <%@ include file="top.jsp" %>
                     <div id="container" style="min-width:800px;height:800px"></div>
-                    <div id="container2" style="min-width: 340px; height: 600px; margin: 0 auto"></div>
+                    <%--<div id="container2" style="min-width: 340px; height: 600px; margin: 0 auto"></div>--%>
                         </div>
                     </div>
                 </div>
             </div>
-
             <script>
                 <%--$(document).ready(function() {--%>
                     <%--var chart = {--%>

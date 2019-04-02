@@ -57,7 +57,7 @@ public class ImageUtil {
      * @creatTime：2017年9月1日下午2:15:50
      */
     public static String upload(HttpServletRequest request,List<FileItem> list){
-        String savePath = request.getServletContext().getRealPath("/img");
+        String savePath = request.getServletContext().getRealPath(System.getProperty("file.separator")+"img");
 //		String savePath = "D:\\workspace\\WoniuxyLearn\\WebRoot\\page\\image";
 //		String savePath = "\\usr\\local\\tomcat\\webapps\\WoniuxyLearn\\page\\image";
         System.out.println(savePath);

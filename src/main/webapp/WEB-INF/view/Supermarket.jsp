@@ -159,8 +159,8 @@
                                             <div class="selectDiv">
                                                 <p>排序方式</p>
                                                 <select id="Index1" class="select">
-                                                    <option value="1">推荐级别</option>
-                                                    <option value="2">添加时间</option>
+                                                    <option value="1">添加时间</option>
+                                                    <option value="2">推荐级别</option>
                                                     <option value="3">点击量</option>
                                                 </select>
                                             </div>
