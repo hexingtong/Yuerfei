@@ -50,6 +50,12 @@
 
   </insert>
 
+  <update id="upPv" parameterType="Integer">
+UPDATE goodspvdata SET pone=0,ptwo=0,pthree=0,pfour=0,pfive=0,psat=0,psunday=0 WHERE 1=1
+
+
+  </update>
+
   <!-- Description： 查询所有的产品pv通过传入id
  * @author boyang
  * @date 2019/3/28 17:22
@@ -60,10 +66,5 @@
 SELECT g.* FROM `goodspvdata` g WHERE goodsId=#{goodsId}
   </select>
 
-
-  <!--<select id="count" resultType="java.lang.Integer" parameterType="Integer">-->
-    <!--SELECT COUNT (*) FROM goodspvdata WHERE goodId=#{goodId}-->
-
-  <!--</select>-->
 
 </mapper>

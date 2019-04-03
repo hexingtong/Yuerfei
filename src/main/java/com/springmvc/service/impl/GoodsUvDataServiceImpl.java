@@ -34,4 +34,10 @@ public class GoodsUvDataServiceImpl  extends  BaseServiceImpl<Goodsuvdata> imple
         }
         return 0;
     }
+
+    @Override
+    public Integer deleUv() {
+      int i=  goodsuvdataMapper.deleUv();
+        return i;
+    }
 }

@@ -49,4 +49,12 @@ public class GoodsPvDataServiceImpl  extends BaseServiceImpl<Goodspvdata> implem
         }
         return 0;
     }
+
+    @Override
+    public Integer delePv() {
+
+       int i= goodspvdataMapper.upPv();
+
+        return i;
+    }
 }

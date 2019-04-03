@@ -22,5 +22,12 @@ public interface GoodsPvDataService extends BaseService<Goodspvdata> {
 
        Integer unCountPv();
 
-
+       /**  
+        * Description：定时清空总的pv
+        * @author boyang
+        * @date 2019/4/2 13:45
+        * @param 
+        * @return 
+        */
+       Integer delePv();
 }

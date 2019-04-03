@@ -50,5 +50,9 @@
     uone = values(uone),utwo=values(utwo),uthree = values(uthree),ufour=values(ufour),ufive = values(ufive),usat=values(usat),usunday=values(usunday)
 
   </insert>
+    <update id="deleUv" parameterType="Integer">
+      UPDATE goodsuvdata SET uone=0,utwo=0,uthree=0,ufour=0,usat=0,ufive=0,usunday=0 WHERE 1=1
+
+    </update>
 
 </mapper>

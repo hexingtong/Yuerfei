@@ -29,4 +29,14 @@ public interface GoodspvdataMapper extends Mapper<Goodspvdata> {
  */
     Goodspvdata getGoodspvdata(Integer id);
 
+    /**
+     * Description：定时清空Pv
+     * @author boyang
+     * @date 2019/4/2 13:45
+     * @param
+     * @return
+     */
+    Integer upPv();
+
+
 }

@@ -17,11 +17,12 @@ public interface GoodsuvdataMapper extends Mapper<Goodsuvdata> {
      * @return
      */
     Integer inUV(@Param(value = "list")List<Goodsuvdata> list);
-    /**  
-     * Description：
+    /**
+     * Description：定时清空Uv
      * @author boyang
-     * @date 2019/3/28 17:31
-     * @param 
-     * @return 
+     * @date 2019/4/2 13:45
+     * @param
+     * @return
      */
+    Integer deleUv();
 }

@@ -1,7 +1,10 @@
 package com.springmvc.controller.APP;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.springmvc.pojo.KnProperty;
 import com.springmvc.pojo.Notice;
+import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.NoticeService;
 import com.springmvc.service.PropertyService;
@@ -11,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -109,6 +113,27 @@ NoticeService noticeService;
 
 
     }
+/**
+ * Description：分页得到产品列表
+ * @author boyang
+ * @date 2019/4/2 10:26
+ * @param
+ * @return
+ */
+@RequestMapping("/getPageGoodsList")
+@ResponseBody
+public PageResultInfo getDataList(Model model, HttpServletResponse response,
+                                  @RequestParam(value = "pageNo", defaultValue = "1",
+                                          required = false)
+                                          Integer pageNo,
+                                  @RequestParam(value = "pageSize", defaultValue = "8", required = false)
+                                          Integer pageSize
+) {
+    logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize);
+    PageResultInfo resultInfo = knGoodsservice.pagegoodslist(pageNo,pageSize);
+
+    return  resultInfo;
 
 
+}
 }

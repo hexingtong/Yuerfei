@@ -14,4 +14,12 @@ public interface GoodsUvDataService  extends  BaseService<Goodsuvdata>{
      */
 
     Integer unCountUv();
+    /**
+     * Description：定时清空uv
+     * @author boyang
+     * @date 2019/4/2 13:45
+     * @param
+     * @return
+     */
+    Integer deleUv();
 }

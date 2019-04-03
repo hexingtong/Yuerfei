@@ -503,6 +503,23 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
 
 
     }
+    /**
+     * Description：得到pagegoodslist
+     * @author boyang
+     * @date 2019/4/2 11:36
+     * @param
+     * @return
+     */
+    @Override
+    public PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<kn_goods> agentLevelSettings;
+        agentLevelSettings= knGoodsMapper.getGoodsList();
+        PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+
+        return resultInfo;
+    }
 
 
 }
