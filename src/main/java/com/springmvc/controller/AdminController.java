@@ -6,6 +6,7 @@ import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_adminservice;
 import com.util.*;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -68,6 +69,7 @@ public class AdminController {
      * @return
      * @return JsonModel
      */
+    @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
 @RequestMapping("/loginhoutai")
 @ResponseBody
     public JsonModel login(String userName, String pwd, HttpSession session) {
@@ -208,6 +210,7 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
  * @param
  * @return
  */
+@ApiOperation(value = "退出登录", httpMethod = "POST", response = StatusCode.class, notes = "退出登录")
 @RequestMapping("/loginOut")
 public String deleSesson(Model model, HttpSession session, HttpServletRequest request) {
 

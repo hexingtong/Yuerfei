@@ -264,12 +264,14 @@
                                 var jsonData=JSON.parse(result);
                                 var urlx=jsonData.items[0].url;
                                 if(jsonData.code=="200"){
-                                    $.getJSON('https://12i.cn/api.ashx?format=del&userId='+userId+'&key='+key+'&url='+urlx+'', function(data) {
-                                        if(data.success=="ok"){
+
+                                    $.post('${ctx }/FriendAPI/DelectFriendApi'+'?url='+urlx+'', function(data) {
+                                        if(data=="200"){
                                             layer.msg('删除成功', {icon: 1,time: 5000});
                                             window.location.reload();
                                         }
                                     });
+
                                 }else{
                                     layer.msg("删除失败")
                                 }

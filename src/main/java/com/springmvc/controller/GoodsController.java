@@ -108,7 +108,6 @@ public class GoodsController {
      * @param
      * @return
      */
-    @ApiOperation(value = "产品上架状态接口", httpMethod = "GET", response = StatusCode.class, notes = "根据用户名获取用户对象")
     @RequestMapping("getStatuslist")
     @ResponseBody
     public Map<String,List<Statusputaway>> getPutawayList( HttpServletResponse response

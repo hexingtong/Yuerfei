@@ -6,6 +6,7 @@ import com.springmvc.pojo.kn_tag;
 import com.springmvc.service.KnTagService;
 import com.springmvc.service.MemberService;
 import com.util.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class TagController {
     private KnTagService knTagService;
 
     //标签展示页面and查询
+    @ApiOperation(value = "获取标签页面和查询", httpMethod = "POST", response = StatusCode.class, notes = "获取标签页面和查询")
     @RequestMapping("/MercjatTagList")
     @ResponseBody
     public void MercjatTag(Mode model, HttpServletResponse response, @RequestParam(value = "pageNo",
@@ -53,6 +55,7 @@ public class TagController {
     }
 
     //标签增加页面
+    @ApiOperation(value = "标签增加页面", httpMethod = "POST", response = StatusCode.class, notes = "标签增加页面")
     @RequestMapping("/MercjatTagListIncrease")
     @ResponseBody()
     public void MercjatTagListIncrease(HttpServletResponse response, String title) {
@@ -83,6 +86,7 @@ public class TagController {
 
 
     //编辑标签页面
+    @ApiOperation(value = "标签编辑页面", httpMethod = "POST", response = StatusCode.class, notes = "标签编辑页面")
     @RequestMapping("/MercjatTagListUpadete")
     @ResponseBody
     public void MercjatTagListIncrease(HttpServletResponse response, Integer id, String title) {
@@ -111,6 +115,7 @@ public class TagController {
     //标签删除页面
     @RequestMapping("/TagDelete")
     @ResponseBody
+    @ApiOperation(value = "标签页面删除", httpMethod = "POST", response = StatusCode.class, notes = "标签页面删除")
     public void TagDelete(HttpServletResponse response, Integer id) {
         ListObject listObject = new ListObject();
         int i = knTagService.MercjatTagDelete(id);

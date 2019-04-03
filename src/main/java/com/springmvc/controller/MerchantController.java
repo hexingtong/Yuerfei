@@ -7,6 +7,7 @@ import com.springmvc.pojo.kn_tag;
 import com.springmvc.service.MemberService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.util.*;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ public class MerchantController {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
     //查询商户所有信息
+    @ApiOperation(value = "查询所有商户信息", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
     @RequestMapping("/MerchantList")
     @ResponseBody
     public void MerchantlistModel(Mode model, HttpServletResponse response, @RequestParam(value = "pageNo",
@@ -68,6 +70,7 @@ public class MerchantController {
     }
 
     //商户编辑页面
+    @ApiOperation(value = "商户页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "商户页面编辑")
     @RequestMapping("/Merchantedit")
     @ResponseBody
     public void MerchanteditEdit(Integer id, HttpServletResponse response) {
@@ -91,6 +94,7 @@ public class MerchantController {
     }
 
     //商户页面删除
+    @ApiOperation(value = "商户页面删除", httpMethod = "POST", response = StatusCode.class, notes = "商户页面删除")
     @RequestMapping("/MerchantExamine")
     @ResponseBody
     public void MerchantExamine(Integer id, HttpServletResponse response) {
@@ -125,6 +129,7 @@ public class MerchantController {
      * @param
      * @return enctype="multipart/form-data"
      */
+    @ApiOperation(value = "图片上传", httpMethod = "POST", response = StatusCode.class, notes = "图片上传")
     @RequestMapping("/addUserInfo")
     public void addUserInfo(HttpServletResponse response,HttpServletRequest request) throws IOException {
         try {

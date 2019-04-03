@@ -79,53 +79,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      * */
     $("#sub").click(function(){
         var title=$("input[name='title']").val();
-        var urlx=$("#url").val();
+        var urlx=$("#url").val();//要修改的链接
         var url='';
-        var userId=3100;
-        var key="3E457CECE7CD995CD2672DC76D876EC0";
-        var shortUrl=$("#urlx").val();
+        var shortUrl=$("#urlx").val();//原链接
         var id=$("#knfreiendId").val();
-
+        alert(title)
+        alert(shortUrl)
+        alert(urlx)
         $.ajax({
             type: "post",
             dateType: "json",
-            url: "https://12i.cn/api.ashx?format=txt",
-            data: {userId:userId,key: key,title:title,url:urlx},
+            url: "${ctx }/FriendAPI/UpdateFriendApi",
+            data: {title:title,url:shortUrl,urlTo:urlx},
             success: function (result) {
-                url = result;
+                if(result!="error"){
+                    url = result;
+                }
                 if(url!=null&&url!=''){
-
                     $.post('${ctx }/friend/updateFriend',{id:id,title: title,url:url},function (res) {
                             var jsonData=JSON.parse(res);
                             if(jsonData.code=="200") {
-                                $.getJSON('https://12i.cn/api.ashx?format=del&userId='+userId+'&key='+key+'&url='+urlx+'', function(data) {
-                                     if(data.success=="ok"){
-                                         layer.msg("成功了！")
-                                     }
-                                });
-
-
-                                // $.ajax({
-                                //     url: 'https://12i.cn/api.ashx?format=del',
-                                //     type: 'post',
-                                //     dataType: 'jsonp',  // 请求方式为jsonp
-                                //     data: {userId:userId,key: key,url:urlx},
-                                //     success: function(data) {if(data.success=="ok"){layer.msg("编辑成功!"); window.history.go(-1);}},
-                                //
-                                // });
-
-
+                                layer.msg("成功了！")
+                                window.history.go(-1);
                             }else{
                                 layer.msg("修改失败！")
                             }
                         }
-
-
-
                     )
                 }
+                layer.msg("上传格式错误！")
             }
         });
+
     });
 
 

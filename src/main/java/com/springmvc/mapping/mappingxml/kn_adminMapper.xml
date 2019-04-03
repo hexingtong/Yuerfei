@@ -28,6 +28,7 @@
     <select id="queryByid" resultType="kn_admin" parameterType="String">
       SELECT id FROM kn_admin where phone=#{phone}
     </select>
+
   <select id="queryByPhone" resultType="com.springmvc.pojo.kn_admin" parameterType="String">
 
     select * from kn_admin WHERE phone=#{phone};

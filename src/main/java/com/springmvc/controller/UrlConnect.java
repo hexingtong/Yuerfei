@@ -73,8 +73,9 @@ public class UrlConnect {
     @RequestMapping("/SupermarketUpdate")
     public String SupermarketUpdate(Model model, Integer id){
         kn_goods goods=kn_goodsservice.selectGoodsSK(id);
-
         model.addAttribute("goods", goods);
+        GoodsDetail goodsDetail=kn_goodsservice.selectGoodsOne(goods.getDetailsId());
+        model.addAttribute("goodsDetail", goodsDetail);
         System.out.println(goods.getImg());
         System.out.println(goods.getTitle());
         return "supermarketEditor";}

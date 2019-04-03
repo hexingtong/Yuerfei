@@ -521,5 +521,12 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
         return resultInfo;
     }
 
+    @Override
+    public GoodsDetail selectGoodsOne(int id) {
+        GoodsDetail goodsDetail=new GoodsDetail();
+            goodsDetail = knGoodsMapper.selectGoodsOne(id);
+            return goodsDetail;
+    }
+
 
 }

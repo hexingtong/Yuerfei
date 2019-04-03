@@ -43,9 +43,11 @@ public class kn_admintestController {
 
 
     //发送验证码接口
+    @ApiOperation(value = "根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
     @RequestMapping(value = "/smsPhone")
     @ResponseBody
     public void test(HttpServletResponse response, String Phone) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
         Jedis jedis = new Jedis("47.92.53.177", 6379);
@@ -79,7 +81,6 @@ public class kn_admintestController {
                 logger.info("redis里的验证码为：" + jedis.get(rc));
                 logger.info("redis的手机号为：" + jedis.get(rp));
                 jedis.pexpire("SmsPhone" + Phone + "", 1800000);
-                kn_admin kns = knAdminservice.queryByid(Phone);
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 listObject.setMsg("发送成功！");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
@@ -95,9 +96,11 @@ public class kn_admintestController {
         }
     }
 
+    @ApiOperation(value = "根据手机号和验证码登录", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号和验证码登录")
     @RequestMapping(value = "/login")
     @ResponseBody
     public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         ListObject listObject = new ListObject();
         Jedis jedis = new Jedis("47.92.53.177", 6379);
         List<kn_admin> lst = new ArrayList();

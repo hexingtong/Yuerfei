@@ -77,14 +77,13 @@
         var title=$("#title").val();
         var urlx=$("#url").val();
         var url='';
-        var userId=3100;
-        var key="3E457CECE7CD995CD2672DC76D876EC0";
         alert("title"+title);
         alert("urlx"+urlx);
 
-        $.post('https://12i.cn/api.ashx?format=txt',{userId:userId,key: key, url:urlx},function (res) {
+        $.post('${ctx }/FriendAPI/AddFriendApi',{title:title,url:urlx},function (res) {
             url=res;
             alert("url的值"+url)
+            if(url!="error"){
             if(url!=''&&url!=undefined){
                 $.post('${ctx }/friend/insertFriend',{title:title, url:url},function (res) {
                         var jsonData=JSON.parse(res);
@@ -96,6 +95,10 @@
                         }
                     })
             }//if结束
+            }
+            else {
+                layer.msg("失败!")
+            }
         })
 
     }),
@@ -107,7 +110,6 @@
         var Height = $(window).height();//
         var Height1 = $(window).height() - 60;//
         var Width = $(window).width();
-        console.log(Height + '+' + Width);
         $('#indexBox').css('width', Width);
         $('#indexBox').css('height', Height);
         $('.indexcontent-right-bottom').css('height', Height1);

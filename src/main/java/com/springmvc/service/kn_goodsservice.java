@@ -1,5 +1,6 @@
 package com.springmvc.service;
 
+import com.springmvc.pojo.GoodsDetail;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
 import com.springmvc.pojo.kn_goods;
@@ -85,21 +86,32 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * 根据id查询超市名称
      */
     kn_goods selectGoodsSK(int id);
-/**
- * Description：更新goods胡pv uv
- * @author boyang
- * @date 2019/3/25 17:34
- * @param
- * @return com.springmvc.pojo.kn_goods
- */
-  int  upgoodsPvUv();
+    /**
+     * Description：更新goods胡pv uv
+     * @author boyang
+     * @date 2019/3/25 17:34
+     * @param
+     * @return com.springmvc.pojo.kn_goods
+     */
+      int  upgoodsPvUv();
 
-/**
- * Description：得到pagegoodslist
- * @author boyang
- * @date 2019/4/2 11:36
- * @param
- * @return
- */
-PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize);
+    /**
+     * Description：得到pagegoodslist
+     * @author boyang
+     * @date 2019/4/2 11:36
+     * @param
+     * @return
+     */
+        PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize);
+
+        /**
+         * @Author 苏俊杰
+         * @Description //TODO 根据goods Id 得到详情表数据
+         * @Date 14:49 2019/4/3
+         * @Param
+         * @return
+         **/
+        GoodsDetail selectGoodsOne(int id);
+
+
 }

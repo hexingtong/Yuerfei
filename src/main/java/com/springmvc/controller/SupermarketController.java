@@ -8,6 +8,7 @@ import com.util.JsonUtils;
 import com.util.ListObject;
 import com.util.ResponseUtils;
 import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class SupermarketController {
      * @author boyang
      * @date 11:21
      */
+    @ApiOperation(value = "得到超市列表", httpMethod = "POST", response = StatusCode.class, notes = "得到超市列表")
     @RequestMapping("/getSupermarket")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -60,6 +62,7 @@ public class SupermarketController {
     }
 
     //超市增加
+    @ApiOperation(value = "超市页面增加", httpMethod = "POST", response = StatusCode.class, notes = "超市页面增加")
     @RequestMapping("/insertSupermarket")
     public void insertSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         ListObject listObject=new ListObject();
@@ -86,6 +89,7 @@ public class SupermarketController {
     }
 
     //超市编辑
+    @ApiOperation(value = "超市页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "超市页面编辑")
     @RequestMapping("updateSupermarket")
     @ResponseBody
     public void updateSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
@@ -111,6 +115,7 @@ public class SupermarketController {
 
     }
     //超市删除
+    @ApiOperation(value = "超市页面删除", httpMethod = "POST", response = StatusCode.class, notes = "超市页面删除")
     public void deleteSuprmarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         ListObject listObject=new ListObject();
         try {

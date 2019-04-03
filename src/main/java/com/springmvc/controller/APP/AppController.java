@@ -42,7 +42,7 @@ public class AppController {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
 
-    @ApiOperation(value = "根据用户名获取用户对象", httpMethod = "GET", response = StatusCode.class, notes = "根据用户名获取用户对象")
+    @ApiOperation(value = "获得筛选框", httpMethod = "GET", response = StatusCode.class, notes = "获得筛选框")
     @RequestMapping("/MoneyList")
     @ResponseBody
     public Map selectMoneyList() {
@@ -60,7 +60,7 @@ public class AppController {
     }
 
 
-
+    @ApiOperation(value = "根据token获取用户信息", httpMethod = "POST", response = StatusCode.class, notes = "根据token获取用户信息")
     @RequestMapping(value = "/selectUser")
     @ResponseBody
     public void selectUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -102,6 +102,7 @@ public class AppController {
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
     }
+
 
 
 }

@@ -65,11 +65,8 @@
     </select>
     <!--模糊查找含有精选的商品-->
     <select id="queryByTagid" resultType="com.springmvc.pojo.kn_goods">
-select g.* from kn_goods g WHERE tag_id LIKE '%4%'
-
-
-
-  </select>
+    select g.* from kn_goods g WHERE tag_id LIKE '%4%'
+    </select>
 
     <select id="queryGoodes" resultType="com.springmvc.pojo.kn_goods" parameterType="String">
       SELECT g.*
@@ -329,9 +326,12 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
   DELETE  FROM goods_detail where id=#{id}
   </delete>
 
-
   <select id="selectGoodsSK" parameterType="int" resultType="com.springmvc.pojo.kn_goods">
     select * FROM kn_goods where id=#{id}
+  </select>
+
+  <select id="selectGoodsOne" parameterType="int" resultType="GoodsDetail">
+    SELECT * FROM goods_detail where id=#{id}
   </select>
 
 </mapper>

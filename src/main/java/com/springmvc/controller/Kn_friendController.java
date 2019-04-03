@@ -8,6 +8,7 @@ import com.util.JsonUtils;
 import com.util.ListObject;
 import com.util.ResponseUtils;
 import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,7 @@ public class Kn_friendController {
     private FriendService FriendService;
 
     //推广页面展示
+    @ApiOperation(value = "获取推广页面数据", httpMethod = "POST", response = StatusCode.class, notes = "获取推广页面数据")
     @RequestMapping("/friendList")
     @ResponseBody
     public void friendList(@RequestParam(
@@ -54,6 +56,7 @@ public class Kn_friendController {
     }
 
     //推广页面删除
+    @ApiOperation(value = "推广页面数据删除", httpMethod = "POST", response = StatusCode.class, notes = "推广页面数据删除")
     @RequestMapping("/deleteFriend")
     @ResponseBody
     public void deletefriend(HttpServletResponse response,int id){
@@ -75,6 +78,7 @@ public class Kn_friendController {
     }
 
     //推广页面编辑
+    @ApiOperation(value = "推广页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "推广页面编辑")
     @RequestMapping("/updateFriend")
     @ResponseBody
     public void updateFrilend(HttpServletResponse response,String title,Integer id,String url){
@@ -99,6 +103,7 @@ public class Kn_friendController {
     }
 
     //推广页面增加
+    @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = StatusCode.class, notes = "推广页面增加")
     @RequestMapping("/insertFriend")
     @ResponseBody
     public void insertFriend(HttpServletResponse response,kn_friend kn_friend){

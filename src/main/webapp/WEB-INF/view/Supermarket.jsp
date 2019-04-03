@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>超市展示</title>
+    <title>产品展示</title>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
     <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
@@ -142,7 +142,7 @@
                     <div class="indexcontent-right-bottom" style="height: 884px;">
                         <div class="indexcontent-right-bottom-main">
                             <div class="indexcontent-right-bottom-main-header">
-                                <div class="indexcontent-header-title">超市展示列表</div>
+                                <div class="indexcontent-header-title">产品展示列表</div>
                                 <div class="indexcontent-header-search">
                                     <input placeholder="请输入搜索关键词">
                                     <div class="search-img">

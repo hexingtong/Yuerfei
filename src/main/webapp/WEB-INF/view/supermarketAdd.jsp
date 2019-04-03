@@ -159,13 +159,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 </div>
                                             </div>
                                             <div class="members-form-top-adds">
-                                                <div class="members-form-top-add-lefts">
-                                                    <div class="members-form-top-text-adds">申请人数</div>
-                                                    <div class="linesInput">
-                                                        <input name="applyCount" placeholder="请输入人数" />
-                                                    </div>
-                                                    <span>人</span>
-                                                </div>
+                                                <%--<div class="members-form-top-add-lefts">--%>
+                                                    <%--<div class="members-form-top-text-adds">申请人数</div>--%>
+                                                    <%--<div class="linesInput">--%>
+                                                        <%--<input name="applyCount" placeholder="请输入人数" />--%>
+                                                    <%--</div>--%>
+                                                    <%--<span>人</span>--%>
+                                                <%--</div>--%>
                                                 <div class="members-form-top-add-right">
                                                     <div class="lines">
                                                         <p>产品利率</p>
@@ -216,8 +216,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             </select>
                                                         </div>
                                                         <div class="date_">
-
-
                                                         </div>
                                                         <div class="date" onclick="onclickss()" >
                                                             <select name="month" id="index3">
@@ -283,7 +281,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="describe-clooses">
                                                         <input name="details" placeholder="请输入相关产品描述(16个字以内)" />
                                                     </div>
-
+                                                </div>
+                                            </div>
+                                            <div class="describeAttribute">
+                                                <div class="shopDate-lefts">
+                                                    <div class="describeDate-title">激活流程</div>
+                                                    <div class="describe-clooses">
+                                                        <input  value="" name="activation_processs" placeholder="请输入相关激活流程" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="productDetails">
@@ -291,32 +296,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="describeDate-title">产品详情</div>
                                                     <div class="product-texts" style="background:#fff;">
                                                         <div class="product-labelss">
-                                                            <label class="bui-radios-label">
-                                                                <input type="radio" value="1" name="indexx"><i id="show" class="bui-radios"></i>是
-                                                            </label>
-                                                            <label class="bui-radios-label" style="margin-left:30px;">
-                                                                <input type="radio" value="0" name="indexx"><i id="hide" class="bui-radios"></i>否
-                                                            </label>
-
                                                         </div>
                                                         <div class="product-texts">
                                                             <div class="product-texts-main">
                                                                 <div class="product-texts-item">
-                                                                    <p>相关描述</p>
-                                                                    <div><input name="description" placeholder="请输入相关描述" /></div>
+                                                                    <div><input name="application_conditions"   placeholder="请输入相关详情" /></div>
                                                                 </div>
-                                                                <div class="product-texts-item">
-                                                                    <p>申请条件</p>
-                                                                    <div><input name="application_conditions" placeholder="请输入申请条件" /></div>
-                                                                </div>
-                                                                <div class="product-texts-item">
-                                                                    <p>循环额度</p>
-                                                                    <div><input name="loop_liness" placeholder="请输入循环额度" /></div>
-                                                                </div>
-                                                                <div class="product-texts-item">
-                                                                    <p>激活流程</p>
-                                                                    <div><input name="activation_processs" placeholder="请输入激活流程" /></div>
-                                                                </div>
+                                                                <%--<div class="product-texts-item">--%>
+                                                                    <%--<p>申请条件</p>--%>
+                                                                    <%--<div><input name="application_conditions" placeholder="请输入申请条件" /></div>--%>
+                                                                <%--</div>--%>
+                                                                <%--<div class="product-texts-item">--%>
+                                                                    <%--<p>循环额度</p>--%>
+                                                                    <%--<div><input name="loop_liness" placeholder="请输入循环额度" /></div>--%>
+                                                                <%--</div>--%>
+                                                                <%--<div class="product-texts-item">--%>
+                                                                    <%--<p>激活流程</p>--%>
+                                                                    <%--<div><input name="activation_processs" placeholder="请输入激活流程" /></div>--%>
+                                                                <%--</div>--%>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -346,14 +344,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     <div class="describe-clooses">
                                                         <input name="url" placeholder="请输入相关网站链接" />
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <div class="members-form-bottoms">
                                                 <div id="sub">提交</div>
                                                 <div class="back">返回</div>
                                             </div>
-
                                         </div>
                                     </form>
                                 </div>
@@ -415,16 +411,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         }
     }
-    $("#hide").click(function(){
-        $(".product-texts-main").hide();
-
-    });
-
-    $("#show").click(function(){
-        $(".product-texts-main").show();
-
-    });
-
 
     layui.use(['upload','jquery'], function(){
         var $ = layui.$,
@@ -470,7 +456,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      * */
     $("#sub").click(function(){
         var title=$("input[name='title']").val();
-        var applyCount=$("input[name='applyCount']").val();
+        // var applyCount=$("input[name='applyCount']").val();
         var Limit=$("input[name='Limit']").val();
         var Deadline1 = document.getElementById("index").value;
         if(Deadline1!=0){
@@ -497,13 +483,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var propertyIds=$("#propertyIds").val();
         var tagId=$("#tagId").val();
         var details=$("input[name='details']").val();
-        var description=$("input[name='description']").val();//相关描述
-        var applicationConditions=$("input[name='application_conditions']").val();//申请条件
-        var loopLiness=$("input[name='loop_liness']").val();//循环额度
+        // var description=$("input[name='description']").val();//公司名字
+        var applicationConditions=$("input[name='application_conditions']").val();//产品详情
+        // var loopLiness=$("input[name='loop_liness']").val();//循环额度
         var activationProcesss=$("input[name='activation_processs']").val();//激活流程
         var url=$("input[name='url']").val();//详请描述
         img = imgaddress;
-        var indexx=$('input:radio[name="indexx"]:checked').val();
+        var indexx=1;
         var status=$("#status").val();
         var adminIdx=adminId;
         // var adminId=$("#adminId").val();
@@ -520,12 +506,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         // alert("img的值"+img);
         // alert("indexx的值"+indexx);
         // alert("Deadline的值是"+Deadlines);
-        if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
+        if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||property  Ids==null||propertyIds==undefined||noDead==1
         ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
         ){
             layer.msg("选择错误！")
         }else{
-            $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx
+            $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, activationProcesss:activationProcesss, applicationConditions:applicationConditions,url:url, img: img, indexx:indexx
                     ,Pace_lending:Pace_lending,status:status,adminId:adminIdx},function (res) {
                     var jsonData=JSON.parse(res);
                     if(jsonData.code=="200") {
@@ -546,7 +532,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   });
 
     $('.back').on('click',function(){
-        window.location.href="index.jsp";
+        window.history.go(-1);
     })
 
 

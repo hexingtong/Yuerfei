@@ -156,13 +156,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 </div>
                                             </div>
                                             <div class="members-form-top-adds">
-                                                <div class="members-form-top-add-lefts">
-                                                    <div class="members-form-top-text-adds">申请人数</div>
-                                                    <div class="linesInput">
-                                                        <input name="applyCount" value="${goods.applyCount}" placeholder="请输入人数" />
-                                                    </div>
-                                                    <span>人</span>
-                                                </div>
+                                                <%--<div class="members-form-top-add-lefts">--%>
+                                                    <%--<div class="members-form-top-text-adds">申请人数</div>--%>
+                                                    <%--<div class="linesInput">--%>
+                                                        <%--<input name="applyCount" value="${goods.applyCount}" placeholder="请输入人数" />--%>
+                                                    <%--</div>--%>
+                                                    <%--<span>人</span>--%>
+                                                <%--</div>--%>
                                                 <div class="members-form-top-add-right">
                                                     <div class="lines">
                                                         <p>产品利率</p>
@@ -287,40 +287,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                                                 </div>
                                             </div>
+
+                                            <div class="describeAttribute">
+                                                <div class="shopDate-lefts">
+                                                    <div class="describeDate-title">激活流程</div>
+                                                    <div class="describe-clooses">
+                                                        <input  value="${goodsDetail.activationProcess}" name="activation_processs" placeholder="请输入相关激活流程" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="productDetails">
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">产品详情</div>
                                                     <div class="product-texts" style="background:#fff;">
-                                                        <div class="product-labelss">
-                                                            <label class="bui-radios-label">
-                                                                <input type="radio" checked="true" id="show" name="indexx" value="1" ><i  value="1"  class="bui-radios"></i>是
-                                                            </label>
-                                                            <label class="bui-radios-label" style="margin-left:30px;">
-                                                                <input type="radio"id="hide" name="indexx" value="0"><i  value="0" class="bui-radios"></i>否
-                                                            </label>
-                                                        </div>
+
+
                                                         <input type="hidden" value="${goods.detailsId}" id="detailsId">
                                                         <div class="product-texts">
                                                             <div class="product-texts-main">
                                                                 <div class="product-texts-item">
-                                                                    <p>详情描述</p>
-                                                                    <div><input name="description" placeholder="请输入详情描述" /></div>
+                                                                    <%--<p>详情描述</p>--%>
+                                                                    <div><input name="application_conditions" value="${goodsDetail.applicationCondition}" placeholder="请输入详情描述" /></div>
                                                                 </div>
-                                                                <div class="product-texts-item">
-                                                                    <p>申请条件</p>
-                                                                    <div><input name="application_conditions"  placeholder="请输入申请条件" /></div>
-                                                                </div>
-                                                                <div class="product-texts-item">
-                                                                    <p>循环额度</p>
-                                                                    <div><input name="loop_liness" placeholder="请输入循环额度" /></div>
-                                                                </div>
-                                                                <div class="product-texts-item">
-                                                                    <p>激活流程</p>
-                                                                    <div><input name="activation_processs" placeholder="请输入激活流程" /></div>
-                                                                </div>
+                                                                <%--<div class="product-texts-item">--%>
+                                                                    <%--<p>申请条件</p>--%>
+                                                                    <%--<div><input name="application_conditions"  placeholder="请输入申请条件" /></div>--%>
+                                                                <%--</div>--%>
+                                                                <%--<div class="product-texts-item">--%>
+                                                                    <%--<p>循环额度</p>--%>
+                                                                    <%--<div><input name="loop_liness" placeholder="请输入循环额度" /></div>--%>
+                                                                <%--</div>--%>
+                                                                <%--<div class="product-texts-item">--%>
+                                                                    <%--<p>激活流程</p>--%>
+                                                                    <%--<div><input name="activation_processs" placeholder="请输入激活流程" /></div>--%>
+                                                                <%--</div>--%>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -509,7 +512,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      * */
     $("#sub").click(function(){
         var title=$("input[name='title']").val();
-        var applyCount=$("input[name='applyCount']").val();
+        // var applyCount=$("input[name='applyCount']").val();
         var Limit=$("input[name='Limit']").val();
         var Deadline = document.getElementById("index").value;
         var interestrate=$("input[name='interestrate']").val();
@@ -517,19 +520,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var tagId=$("#tagId").val();
         var details=$("input[name='details']").val();
         var description=$("input[name='description']").val();//详请描述
-        var applicationConditions=$("input[name='application_conditions']").val();//申请条件
-        var loopLiness=$("input[name='loop_liness']").val();//循环额度
-        var activationProcesss=$("input[name='activation_processs']").val();//激活流程
+        var applicationConditions=$("input[name='application_conditions']").val();//产品详情
+        // var loopLiness=$("input[name='loop_liness']").val();//循环额度
+        var activationProcesss=$("input[name=' ']").val();//激活流程
         var url=$("input[name='url']").val();//详请描述
         var img = imgaddress;//图片上传
         var id=${goods.id};
         alert(img)
-        var indexx=$('input:radio[name="indexx"]:checked').val();
+        var indexx=1;
         var detailsId=$("#detailsId").val();
         var Deadline1 = document.getElementById("index").value;
         var status=$("input[name='status']").val();
-
-        if(img==''||img.valueOf("")){
+        if(img==''){
             img=$("#Imgx").val();
         }
 
@@ -553,10 +555,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
         if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||propertyIds==null||propertyIds==undefined||noDead==1
             ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||url==null||url==undefined||url == ''||indexx==null||indexx==undefined||indexx==''
+            ||applicationConditions == ''||applicationConditions==null||applicationConditions==undefined||activationProcesss == ''||activationProcesss==null||activationProcesss==undefined
         ){
             layer.msg("选择错误！")
         }else{
-        $.post('${ctx }/Supermarke/updateSupermarket',{id:id, title: title, applyCount:applyCount, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, description:description, applicationConditions:applicationConditions, loopLiness:loopLiness, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx,detailsId:detailsId
+        $.post('${ctx }/Supermarke/updateSupermarket',{id:id, title: title,Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details,applicationConditions:applicationConditions, activationProcesss:activationProcesss, url:url, img: img, indexx:indexx,detailsId:detailsId
             ,PaceLending:Pace_lending
             },function (res) {
                 var jsonData=JSON.parse(res);
