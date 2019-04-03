@@ -49,13 +49,13 @@ public class kn_goods {
     @Column(name = "Review_way")
     private String ReviewWay;
     //到账方式
-    @Column(name = "Platform_name")
+    @Column(name = "Account_way")
     private String AccountWay;
     //征信要求
     @Column(name = "Credit_required")
     private String Creditrequired;
     //平台名称
-    @Column(name = "Account_way")
+    @Column(name = "Platform_name")
     private String Platformname;
     //产品详情申请条件
     @Column(name = "application_requirement")

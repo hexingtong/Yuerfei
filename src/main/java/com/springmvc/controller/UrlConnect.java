@@ -95,11 +95,8 @@ public class UrlConnect {
     public String GenerallzeUpdate( Model model, Integer id){
         kn_friend kn_friend=friendService.selectFrilend(id);
         model.addAttribute("knfriend", kn_friend);
-        kn_property kn_property=propertyService.selectProperty();
-        model.addAttribute("property", kn_property);
         System.out.println(kn_friend.getClick());
         System.out.println(kn_friend.getTitle());
-
         return "promoteEditor";
     }
     @RequestMapping("/GenerallzeInsert")

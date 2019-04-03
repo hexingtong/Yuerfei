@@ -9,6 +9,7 @@ import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_adminservice;
 import com.util.*;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class AppController {
 
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
+
+    @ApiOperation(value = "根据用户名获取用户对象", httpMethod = "GET", response = StatusCode.class, notes = "根据用户名获取用户对象")
     @RequestMapping("/MoneyList")
     @ResponseBody
     public Map selectMoneyList() {
@@ -71,9 +74,12 @@ public class AppController {
             logger.info("token截取后的值是：" + token);
             kn_admin kn_admin = new kn_admin();
             String id = TokenTest.ValidToken(token);
-            Integer ids = Integer.parseInt(id);
+            Integer ids=0;
+            if(!id.equals("error")){
+                 ids= Integer.parseInt(id);
+            }
             logger.info("ids有没有值" + ids);
-            if (StringUtil.isNotEmpty(id) && !id.equals("")) {
+            if (StringUtil.isNotEmpty(id) && !id.equals("")&&!id.equals("error")) {
                 kn_admin = knAdminservice.selectUser(ids);
                 lst.add(kn_admin);
                 listObject.setItems(lst);
@@ -95,7 +101,7 @@ public class AppController {
             listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-
     }
+
 
 }

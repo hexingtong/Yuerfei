@@ -12,6 +12,7 @@ import com.util.JsonUtils;
 import com.util.ListObject;
 import com.util.ResponseUtils;
 import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ public class GoodsController {
         }
 
     }
+
     /**
      * Description：产品属性接口
      * @author boyang
@@ -106,6 +108,7 @@ public class GoodsController {
      * @param
      * @return
      */
+    @ApiOperation(value = "产品上架状态接口", httpMethod = "GET", response = StatusCode.class, notes = "根据用户名获取用户对象")
     @RequestMapping("getStatuslist")
     @ResponseBody
     public Map<String,List<Statusputaway>> getPutawayList( HttpServletResponse response
