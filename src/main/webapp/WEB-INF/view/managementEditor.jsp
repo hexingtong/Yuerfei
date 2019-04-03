@@ -19,6 +19,7 @@
     <script type="text/javascript" src="${ctx }/js/paging.js"></script>
     <script type="text/javascript" src="${ctx }/js/layui/layui.js"></script>
 
+
     <style>
         /*å¤´åƒ*/
         /**************账户设置**********************/
@@ -136,10 +137,19 @@
                                         <div class="members-form-bottom">
 
                                             <div id="add">提交</div>
-                                            <div class="back" onclick="javascript :history.back(-1);">返回</div>
+                                            <%--<div class="back" id="back">返回</div>--%>
+                                            <a href="#" onClick="javascript :history.back(-1);" style="display: block; width: 100px;
+    height: 40px;
+    background: #2290FF;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;margin-left: 50px;
+    font-size: 14px;">返回</a>
+
                                         </div>
                                     </div>
                                 </form>
+
 
                             </div>
                         </div>
@@ -151,6 +161,7 @@
 </div>
 <script type="text/javascript" src="${ctx }/js/upload/upload.js"></script>
 <script>
+
     $(document).ready(function () {
         var imgaddress = ''
 
@@ -175,7 +186,7 @@
                         return layer.msg('上传失败');
                     } else if (res.code == 200) {
 
-                        alert(res.items[0])
+
                         imgaddress = res.items[0]
                         return layer.msg('上传成功');
                     }
@@ -199,17 +210,17 @@
             var pwd = $("#pwd").val();
             var img = ''
             if (imgaddress == '') {
-                alert("图片没有改变")
+
                 //图片没有改变
                 img = $("#img").val();
             } else if (imgaddress != '') {
                 //图片改变
                 img = imgaddress
-                alert("图片改变")
-            }
-            alert(title+phone+pwd+img)
 
-            if (title == ''||title==null||title==undefined && phone == ''||phone==null||phone==undefined &&  pwd == ''||pwd==null||pwd==undefined) {
+            }
+
+
+            if (title == '' || title == null || title == undefined && phone == '' || phone == null || phone == undefined && pwd == '' || pwd == null || pwd == undefined) {
                 alert("请填完成信息编辑");
             } else {
                 $.ajax({
@@ -232,8 +243,8 @@
                         } else {
                             alert("系统繁忙")
                         }
-                    },error:function(XMLhttpServlet){
-                        if (XMLhttpServlet.status==401){
+                    }, error: function (XMLhttpServlet) {
+                        if (XMLhttpServlet.status == 401) {
                             $(location).attr('href', '<%=basePath %>/admin2/toLogin')
                         }
                     }
@@ -242,11 +253,7 @@
             }
 
 
-
-
         });
-
-
 
 
     });
@@ -257,15 +264,15 @@
         var Height1 = $(window).height() - 60;//
         var Width = $(window).width();
         <%--var indexData = [--%>
-            <%--{icon: "${ctx }/images/home-1.svg", text: "欢迎来到首页"},--%>
-            <%--{icon: "${ctx }/images/member-1.svg", text: "会员管理列表"},--%>
-            <%--{icon: "${ctx }/images/commercial tenant-1.svg", text: "商户管理列表"},--%>
-            <%--{icon: "${ctx }/images/attributa-1.svg", text: "产品属性列表"},--%>
-            <%--{icon: "${ctx }/images/label-1.svg", text: "标签展示列表"},--%>
-            <%--{icon: "${ctx }/images/merchant display-1.svg", text: "商户展示列表"},--%>
-            <%--{icon: "${ctx }/images/supermarket-1.svg", text: "超市展示列表"},--%>
-            <%--{icon: "${ctx }/images/referral  link.svg", text: "推广链接列表"},--%>
-            <%--{icon: "${ctx }/images/merchant display.svg", text: "管理人员列表"},--%>
+        <%--{icon: "${ctx }/images/home-1.svg", text: "欢迎来到首页"},--%>
+        <%--{icon: "${ctx }/images/member-1.svg", text: "会员管理列表"},--%>
+        <%--{icon: "${ctx }/images/commercial tenant-1.svg", text: "商户管理列表"},--%>
+        <%--{icon: "${ctx }/images/attributa-1.svg", text: "产品属性列表"},--%>
+        <%--{icon: "${ctx }/images/label-1.svg", text: "标签展示列表"},--%>
+        <%--{icon: "${ctx }/images/merchant display-1.svg", text: "商户展示列表"},--%>
+        <%--{icon: "${ctx }/images/supermarket-1.svg", text: "超市展示列表"},--%>
+        <%--{icon: "${ctx }/images/referral  link.svg", text: "推广链接列表"},--%>
+        <%--{icon: "${ctx }/images/merchant display.svg", text: "管理人员列表"},--%>
         <%--];--%>
         console.log(Height + '+' + Width);
         $('#indexBox').css('width', Width);
@@ -309,10 +316,6 @@
         })
 
     });
-
-    $('.back').on('click', function () {
-        window.location.href = "index.jsp";
-    })
 
 
 </script>

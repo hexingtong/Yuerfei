@@ -125,8 +125,11 @@ public class GoodsDataController {
  * @param
  * @return
  */
+@RequestMapping("/upPvUv")
  public void upPvUv(){
      //
+
+     kngoodsservice.updateGoodspvuv();
 
 
  }

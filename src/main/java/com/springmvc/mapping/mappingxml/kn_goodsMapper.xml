@@ -333,5 +333,24 @@ select g.* from kn_goods g WHERE tag_id LIKE '%4%'
   <select id="selectGoodsSK" parameterType="int" resultType="com.springmvc.pojo.kn_goods">
     select * FROM kn_goods where id=#{id}
   </select>
+<!--统计产品的pvuv-->
+  <update id="updateGoodspvuv" parameterType="java.util.List">
+
+    <foreach separator="," index="index" item="item" collection="list" close=")" open="(">
+      update kn_goods
+      <set>
+      <if test="item.pv!=null and item.pv!='' ">
+        pv =(select pv from kn_goods where id=#{item.id})+#{item.pv},
+      </if>
+      <if test="item.uv!=null and item.uv!='' ">
+        uv=(select uv from kn_goods where id=#{item.id})+#{item.uv}
+      </if>
+      </set>
+      <where>
+        id=#{item.id}
+      </where>
+    </foreach>
+
+  </update>
 
 </mapper>

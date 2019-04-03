@@ -4,13 +4,12 @@ import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.kn_goodsMapper;
+import com.springmvc.pojo.*;
 import com.springmvc.pojo.DTO.GoodsAttributeDto;
-import com.springmvc.pojo.GoodsDetail;
-import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
 import com.springmvc.pojo.VO.paramInfos;
-import com.springmvc.pojo.kn_goods;
-import com.springmvc.pojo.kn_goodsSupper;
+import com.springmvc.service.GoodsPvDataService;
+import com.springmvc.service.GoodsUvDataService;
 import com.springmvc.service.kn_goodsservice;
 import com.util.OpenAPI;
 import org.slf4j.Logger;
@@ -36,7 +35,10 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 @Autowired
   private kn_goodsMapper knGoodsMapper;
-
+@Autowired
+private GoodsPvDataService godsPvDataService;
+@Autowired
+private GoodsUvDataService goodsUvDataService;
 
 
     /**
@@ -520,6 +522,42 @@ public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements k
 
         return resultInfo;
     }
+    /**
+     * Description： 定时更新产品胡pvuv
+     * @author boyang
+     * @date 2019/4/3 9:55
+     * @param
+     * @return
+     */
+    @Override
+    public Integer updateGoodspvuv() {
+        //得到所有的pv,uv
+        List<Goodspvdata> Pv=godsPvDataService.queryAll();
+        List<Goodsuvdata> Uv=goodsUvDataService.queryAll();
+        //
+        List<kn_goods> goods = new ArrayList<>();;
+        for(Goodsuvdata u:Uv){ logger.info("静茹uv");
+
+            kn_goods goods1=new kn_goods();
+            goods1.setUv((u.getUone()+u.getUtwo()+u.getUthree()+u.getUfour()+u.getUfive()+u.getUsat()+u.getUsunday()));
+            goods1.setId(u.getGoodsid());
+            goods.add(goods1);
+
+        }
+        for (Goodspvdata p:Pv){
+            logger.info("静茹pv");
+            kn_goods goods2=new kn_goods();
+            goods2.setPv(p.getPone()+p.getPtwo()+p.getPthree()+p.getPfour()+p.getPfive()+p.getPsat()+p.getPsunday());
+            goods2.setId(p.getGoodid());
+            goods.add(goods2);
+        }
+        Integer i= knGoodsMapper.updateGoodspvuv(goods);
+        if (i>0){
+            return 1;
+        }
+        return -1;
+    }
+
 
 
 }

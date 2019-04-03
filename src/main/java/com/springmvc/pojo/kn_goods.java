@@ -48,12 +48,12 @@ public class kn_goods {
     //审核方式
     @Column(name = "Review_way")
     private String ReviewWay;
-    //到账方式
-    @Column(name = "Account_way")
-    private String AccountWay;
     //征信要求
     @Column(name = "Credit_required")
     private String Creditrequired;
+    //平台名称AccountWay
+    @Column(name = "Account_way")
+    private String AccountWay;
     //平台名称
     @Column(name = "Platform_name")
     private String Platformname;
@@ -88,9 +88,9 @@ public class kn_goods {
     //cpa
     private String cpa;
     //点击
-    private String pv;
+    private Integer pv;
     //独立访客
-    private String uv;
+    private Integer uv;
     //uv收益
     @Column(name = "uv_earnings")
     private String uvEarnings;
@@ -329,19 +329,19 @@ public class kn_goods {
         this.cpa = cpa;
     }
 
-    public String getPv() {
+    public Integer getPv() {
         return pv;
     }
 
-    public void setPv(String pv) {
+    public void setPv(Integer pv) {
         this.pv = pv;
     }
 
-    public String getUv() {
+    public Integer getUv() {
         return uv;
     }
 
-    public void setUv(String uv) {
+    public void setUv(Integer uv) {
         this.uv = uv;
     }
 

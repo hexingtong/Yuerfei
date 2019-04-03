@@ -68,7 +68,7 @@
 
                                             <div class="members-form-bottom">
                                                 <div id="add">提交</div>
-                                                <div class="back" onclick="javascript :history.back(-1);">返回</div>
+                                                <div class="back" onclick="window.history.go(-1)">返回</div>
                                             </div>
                                         </div>
                                     </form>
@@ -110,7 +110,6 @@
                       return layer.msg('上传失败');
                   } else if (res.code == 200) {
 
-                      alert(res.items[0])
                       imgaddress = res.items[0]
                       return layer.msg('上传成功');
                   }
@@ -134,7 +133,6 @@
           if (imgaddress != '') {
               //图片改变
               img = imgaddress
-              alert("图片改变")
           }
 
 

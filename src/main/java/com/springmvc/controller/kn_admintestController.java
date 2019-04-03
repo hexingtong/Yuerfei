@@ -79,7 +79,6 @@ public class kn_admintestController {
                 logger.info("redis里的验证码为：" + jedis.get(rc));
                 logger.info("redis的手机号为：" + jedis.get(rp));
                 jedis.pexpire("SmsPhone" + Phone + "", 1800000);
-                kn_admin kns = knAdminservice.queryByid(Phone);
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 listObject.setMsg("发送成功！");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));

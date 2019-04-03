@@ -3,6 +3,7 @@ package com.springmvc.service;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
 import com.springmvc.pojo.kn_goods;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -102,4 +103,12 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
  * @return
  */
 PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize);
+    /**
+     * Description： 更新产品胡pvuv
+     * @author boyang
+     * @date 2019/4/3 9:55
+     * @param
+     * @return
+     */
+    Integer updateGoodspvuv();
 }

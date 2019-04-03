@@ -9,7 +9,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>超市展示</title>
+    <title>产品展示</title>
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <link rel="stylesheet" type="text/css" href="${ctx }/css/common.css">
     <link rel="stylesheet" type="text/css" href="${ctx }/css/font/iconfont.css">
@@ -235,7 +235,7 @@
                             data:{id:id},
                             success:function(result){
                                 var imgs='${ctx }';
-                                if(jsonData.code=="200"){
+                                if(result.code=="200"){
                                     layer.msg('删除成功', {icon: 1,time: 5000});
                                     window.location.reload();
                                 }else{
