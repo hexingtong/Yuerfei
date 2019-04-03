@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             return layer.msg('上传失败');
                         } else if (res.code == 200) {
 
-                            alert(res.items[0])
+
                             imgaddress = res.items[0]
                             return layer.msg('上传成功');
                         }
@@ -177,22 +177,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $("#add").click(function () {
                 //获取选择的值
                 var options=$(".select-1 option:selected"); //获取选中的项
-                alert(options.val()); //拿到选中项的值
+
                 var level=options.val();
                 var title = $("#title").val();
                 var phone = $("#phone").val();
                 var pwd = $("#pwd").val();
                 var img = ''
                 if (imgaddress == '') {
-                    alert("图片没有改变")
+
                     //图片没有改变
                     img = $("#img").val();
                 } else if (imgaddress != '') {
                     //图片改变
                     img = imgaddress
-                    alert("图片改变")
+
                 }
-                alert(title+"---"+phone+"---"+pwd+"---"+img+"---"+level+"---")
+
 
                 if (title == ''||title==null||title==undefined || phone == ''||phone==null||phone==undefined ||  pwd == ''||pwd==null||pwd==undefined||level == 0||level==null||level==undefined) {
                     alert("请填完成信息编辑");

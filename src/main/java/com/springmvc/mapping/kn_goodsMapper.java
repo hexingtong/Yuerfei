@@ -112,13 +112,23 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
     
     //超市回显根据id查询对应的产品
     kn_goods selectGoodsSK(int id);
-    
+
+    /**
+     * Description： 更新产品胡pvuv
+     * @author boyang
+     * @date 2019/4/3 9:55
+     * @param
+     * @return
+     */
+    Integer updateGoodspvuv(@Param(value = "list")List<kn_goods> list);
+
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 根据id查询详情表的数据
      * @Date 14:44 2019/4/3
-     * @Param 
-     * @return 
+     * @Param
+     * @return
      **/
     GoodsDetail selectGoodsOne(int id);
 

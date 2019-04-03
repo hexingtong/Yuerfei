@@ -87,12 +87,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <p>图片需小于100Kb,推荐宽高比为1:1，支持png.gif.png格式</p>
                                             </div>
 
-                                            <div class="members-form-bottom">
+
                                             <div class="members-form-bottom">
                                                 <div id="add">提交</div>
                                                 <div class="back" onclick="javascript :history.back(-1);">返回</div>
                                             </div>
-                                        </div></form>
+
+                                        </div>
+
+                                    </form>
 
                                 </div>
                             </div>

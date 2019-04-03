@@ -235,7 +235,7 @@
                             data:{id:id},
                             success:function(result){
                                 var imgs='${ctx }';
-                                if(jsonData.code=="200"){
+                                if(result.code=="200"){
                                     layer.msg('删除成功', {icon: 1,time: 5000});
                                     window.location.reload();
                                 }else{
