@@ -94,4 +94,12 @@
     </trim>
   </insert>
 
+
+  <!--推广链接注册埋点+1-->
+  <update id="updateFriendZhuce" parameterType="String">
+   update `kn_friend` set enrollment=enrollment+1 where url = #{url}
+  </update>
+
+
+
 </mapper>
