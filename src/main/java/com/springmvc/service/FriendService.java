@@ -44,4 +44,14 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @return com.springmvc.pojo.kn_friend
      **/
     kn_friend selectAlllAndFriend();
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广链接注册埋点
+     * @Date 9:45 2019/4/4
+     * @Param
+     * @return
+     **/
+    int updateFriendZhuce(String url);
+
 }

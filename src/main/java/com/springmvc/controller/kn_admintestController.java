@@ -5,6 +5,8 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.github.pagehelper.StringUtil;
 import com.springmvc.pojo.kn_admin;
+import com.springmvc.pojo.kn_friend;
+import com.springmvc.service.FriendService;
 import com.springmvc.service.MemberService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_adminservice;
@@ -14,6 +16,7 @@ import com.util.token.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +44,14 @@ public class kn_admintestController {
 
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
+    @Autowired
+    private FriendService friendService;
 
     //发送验证码接口
     @ApiOperation(value = "根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
     @RequestMapping(value = "/smsPhone")
     @ResponseBody
     public void test(HttpServletResponse response, String Phone) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
         Jedis jedis = new Jedis("47.92.53.177", 6379);
@@ -99,9 +103,11 @@ public class kn_admintestController {
     @ApiOperation(value = "根据手机号和验证码登录", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号和验证码登录")
     @RequestMapping(value = "/login")
     @ResponseBody
-    public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request,String url,String index) {
+        logger.info("index的值是:"+index);
+        logger.info("url的值是"+url);
         ListObject listObject = new ListObject();
+        ListObjectSuper listObjectSuper = new ListObjectSuper();
         Jedis jedis = new Jedis("47.92.53.177", 6379);
         List<kn_admin> lst = new ArrayList();
         String rc = "SmsCode" + Phone;
@@ -110,20 +116,7 @@ public class kn_admintestController {
         String rp = "SmsPhone" + Phone;
         String redisPhone = jedis.get(rp);
         logger.info("redis验证码为:" + redisCode + "redis手机号为:" + redisPhone);
-//        if(StringUtil.isEmpty(redisPhone)) {
-//            listObject.setCode(StatusCode.CODE_ERROR);
-//            listObject.setMsg("手机号错误");
-//            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-//        }
-//        if (StringUtil.isEmpty(redisCode)) {
-//            listObject.setCode(StatusCode.CODE_ERROR);
-//            listObject.setMsg("验证码已过期");
-//            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-//        }
         logger.info("PhoneCode" + PhoneCode + "Phone" + Phone);
-//            String code = session.getAttribute("SmsCode").toString();
-//            String Phones = session.getAttribute("Smsphones").toString();
-//            System.out.println("code" + code + "phone" + Phones);
         logger.info(redisPhone);
         if (StringUtil.isEmpty(PhoneCode) || PhoneCode.equals("")) {
             listObject.setMsg("验证码为空！");
@@ -143,11 +136,34 @@ public class kn_admintestController {
             if (redisCode.equals(PhoneCode) && redisPhone.equals(Phone)) {
                 //判断是否注册
                 int i = knAdminservice.countAndmin(Phone);
+                if(index.equals("1")){
+                    //推广链接进入的
+                    logger.info("进入埋点!");
+                    List<kn_friend> list=friendService.queryAll();
+                    kn_friend[] kn_friends=new kn_friend[list.size()];
+                    for(int c=0;c<list.size();c++){
+                        kn_friends[c] = list.get(c);
+                        logger.info("数据库的url"+kn_friends[c].getUrl());
+                        if(kn_friends[c].getUrl().equals(url)){
+                        //当前url的注册+1
+                            //update `kn_friend` set enrollment=enrollment+1 where url = 'https://12i.cn/00Sebf'
+                            int q=friendService.updateFriendZhuce(kn_friends[c].getUrl());
+                            if(q>0){
+                                logger.info("埋点成功啦！");
+                            }else {
+                                logger.info("埋点失败了! QAQ");
+                                listObjectSuper.setMsg("发生未知错误,请重新注册！");
+                                listObjectSuper.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                                ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
+                            }
+                        }
+
+                    }
+                }
                 if (i > 0) {
                     //已经注册
                     kn_admin kns = knAdminservice.queryByid(Phone);
                     List lsx = new ArrayList();
-//                kn=knAdminservice.queryByid(Phone);
                     logger.info("已注册:" + Phone);
                     logger.info("测试数据");
                     kn_admin knAdmin2 = new kn_admin();
@@ -165,12 +181,8 @@ public class kn_admintestController {
                     kn_admin kna = new kn_admin();
                     kna.setLoginTime(utilDate);
                     kna.setId(Integer.parseInt(id));
-                    //logger.info(""+knAdminservice.queryListPhone(Phone));
                     kn_admin knx = new kn_admin();
                     lsx = knAdminservice.queryListByWhere(knAdmin2);
-                    ListObjectSuper listObjectSuper = new ListObjectSuper();
-                    /* map.put("lis",kn);
-                    map.put("token",token);*/
                     listObjectSuper.setMsg("登录成功！");
                     listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
                     listObjectSuper.setItems(lsx);
@@ -211,7 +223,6 @@ public class kn_admintestController {
                         kn_admin knAdmin2 = new kn_admin();
                         knAdmin2.setPhone(Phone);
                         lst = knAdminservice.queryListByWhere(knAdmin2);
-                        ListObjectSuper listObjectSuper = new ListObjectSuper();
                         listObjectSuper.setItems(knAdminservice.queryListPhone(Phone));
                         listObjectSuper.setItems(lst);
                         listObjectSuper.setToken(token);
@@ -232,7 +243,6 @@ public class kn_admintestController {
                         ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
                     }
                 }
-
             } else {
                 listObject.setItems(lst);
                 listObject.setMsg("验证码不正确或手机号不正确");
