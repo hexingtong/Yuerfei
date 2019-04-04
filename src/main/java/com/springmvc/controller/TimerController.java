@@ -27,9 +27,8 @@ public class TimerController {
      * @Param []
      * @return void
      **/
-    @Scheduled(cron="0 30 23 * * ? *")   //每天晚上11.30执行一次
+    @Scheduled(cron="0 0 0 * * ?" )   //每10秒执行一次
     public void test(){
-
         System.out.println("-----------------进入定时器-----------------");
         String format="visitor";
         kn_friend kn_friend=new kn_friend();
