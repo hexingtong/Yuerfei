@@ -85,7 +85,8 @@ public String toAdd(Model model, Integer id) {
                                               Integer pageSize
                                                     ) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<KnProperty> pageInfo = new PageInfo<KnProperty>(propertyService.queryListByPage(pageNo,pageSize));
+        PageInfo<KnProperty> pageInfo = new PageInfo<KnProperty>(propertyService.queryAll());
+
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
         logger.info("传入的pageno,pagesize"+pageNo+":"+pageSize);
         return  resultInfo;

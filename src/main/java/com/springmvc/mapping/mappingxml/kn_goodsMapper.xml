@@ -336,10 +336,10 @@
       update kn_goods
       <set>
       <if test="item.pv!=null and item.pv!='' ">
-        pv =(select pv from kn_goods where id=#{item.id})+#{item.pv},
+        pv =((select pv from kn_goods where id=#{item.id})+#{item.pv}),
       </if>
       <if test="item.uv!=null and item.uv!='' ">
-        uv=(select uv from kn_goods where id=#{item.id})+#{item.uv}
+        uv=((select uv from kn_goods where id=#{item.id})+#{item.uv})
       </if>
       </set>
       <where>
