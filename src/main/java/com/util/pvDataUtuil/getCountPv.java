@@ -3,10 +3,7 @@ package com.util.pvDataUtuil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.springmvc.pojo.GoodsMonthLiucun;
-import com.springmvc.pojo.Goodspvdata;
-import com.springmvc.pojo.Goodsuvdata;
-import com.springmvc.pojo.Person;
+import com.springmvc.pojo.*;
 import com.util.DateUtil;
 import com.util.OpenAPI;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -170,6 +167,98 @@ List<Goodspvdata> news=new ArrayList<>();
 
         return android;
     }
+
+    /**
+     * Description：得到产品总的pv ，从运行时间开始
+     * @author boyang
+     * @date 2019/4/10 11:22
+     * @param
+     * @return
+     */
+
+    public static List<kn_goods> getPv2(){
+
+        //得到Android pv
+        JSONObject obj = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidPvEventParamGetValueList2().get(0)));
+        obj.get("paramInfos");
+        JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")));
+        System.out.println( ( JSON.toJSONString(obj.get("paramInfos"))));
+        // List<Goodsuvdata> android =new ArrayList<>() ;
+        List<kn_goods> android =new ArrayList<>() ;
+
+        int weeked= DateUtil.getWeeked();
+        //得到Android pv 的集合
+        for (Object i: JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")))){
+            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(i));
+            //  Goodsuvdata goodsuvdata=new Goodsuvdata();
+            kn_goods knGoods=new kn_goods();
+            knGoods.setId(Integer.parseInt(j.get("name").toString()));
+            knGoods.setPv((Integer) j.get("count"));
+            System.out.println("AndroidknGoodsPV--"+knGoods.toString());
+            android.add(knGoods);
+
+        }
+
+
+
+        //Ios pv
+        JSONObject iosPv = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengIosPvEventParamGetValueList2().get(0)));
+        iosPv.get("paramInfos");
+        JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")));
+        System.out.println( ( JSON.toJSONString(iosPv.get("paramInfos"))));
+        //  List<Goodsuvdata> ios =new ArrayList<>() ;
+        List<kn_goods> ios =new ArrayList<>() ;
+        for (Object io: JSONArray.parseArray( JSON.toJSONString(iosPv.get("paramInfos")))){
+
+            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(io));
+            kn_goods knGoods=new kn_goods();
+
+            knGoods.setId(Integer.parseInt(j.get("name").toString()));
+            knGoods.setPv((Integer) j.get("count"));
+            System.out.println("iosknGoodsPV---"+knGoods.toString());
+            ios.add(knGoods);
+        }
+
+        //循环id相同的增加，到新的集合
+        //   List<Goodsuvdata> news=new ArrayList<>();
+        List<kn_goods> news=new ArrayList<>();
+        Iterator iterList=android.iterator();
+        while( iterList.hasNext()){
+            kn_goods Android= (kn_goods) iterList.next();
+
+            Iterator iterList2=ios.iterator();
+            while( iterList2.hasNext()){
+                kn_goods Ios= (kn_goods) iterList2.next();
+
+                if( Android.getId()==Ios.getId()){
+                    kn_goods NEWS=new kn_goods();
+
+                    NEWS.setId(Ios.getId());
+                    NEWS.setPv(( Ios.getPv()+Android.getPv()));
+                    news.add(NEWS);
+
+                    iterList.remove();
+                    iterList2.remove();
+
+                }
+            }
+
+        }
+        System.out.println("news-----------------"+news.toString());
+        System.out.println("ios-----------------"+ios.toString());
+        System.out.println("android-----------------"+android.toString());
+
+        android.addAll(news);
+        android.addAll(ios);
+
+        System.out.println("总的-----------------"+android.toString());
+
+
+
+        return android;
+    }
+
+
     /**
      * Description：当天得到产品总的uv
      * @author boyang
@@ -319,6 +408,98 @@ List<Goodspvdata> news=new ArrayList<>();
         return android;
     }
 
+
+
+    /**
+     * Description：得到产品总的uv，从运行时间开始计算
+     * @author boyang
+     * @date 2019/3/27 16:35
+     * @param
+     * @return java.util.List
+     */
+    public static List<kn_goods> getUv2(){
+
+        //得到Android Uv
+        JSONObject obj = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengAndroidEventParamGetValueList2().get(0)));
+        obj.get("paramInfos");
+        JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")));
+        System.out.println( ( JSON.toJSONString(obj.get("paramInfos"))));
+       // List<Goodsuvdata> android =new ArrayList<>() ;
+        List<kn_goods> android =new ArrayList<>() ;
+
+        int weeked= DateUtil.getWeeked();
+        //得到Android Uv 的集合
+        for (Object i: JSONArray.parseArray( JSON.toJSONString(obj.get("paramInfos")))){
+            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(i));
+          //  Goodsuvdata goodsuvdata=new Goodsuvdata();
+            kn_goods knGoods=new kn_goods();
+            knGoods.setId(Integer.parseInt(j.get("name").toString()));
+            knGoods.setUv((Integer) j.get("count"));
+            System.out.println("AndroidknGoods--"+knGoods.toString());
+            android.add(knGoods);
+
+        }
+
+
+        //Ios Uv
+        JSONObject iosUv = JSONObject.parseObject( JSON.toJSONString(OpenAPI.umengIosEventParamGetValueList2().get(0)));
+        iosUv.get("paramInfos");
+        JSONArray.parseArray( JSON.toJSONString(iosUv.get("paramInfos")));
+        System.out.println( ( JSON.toJSONString(iosUv.get("paramInfos"))));
+      //  List<Goodsuvdata> ios =new ArrayList<>() ;
+        List<kn_goods> ios =new ArrayList<>() ;
+        for (Object io: JSONArray.parseArray( JSON.toJSONString(iosUv.get("paramInfos")))){
+
+            JSONObject  j=  JSONObject.parseObject(JSON.toJSONString(io));
+            kn_goods knGoods=new kn_goods();
+
+            knGoods.setId(Integer.parseInt(j.get("name").toString()));
+            knGoods.setUv((Integer) j.get("count"));
+            System.out.println("iosknGoods---"+knGoods.toString());
+            ios.add(knGoods);
+        }
+
+        //循环id相同的增加，到新的集合
+     //   List<Goodsuvdata> news=new ArrayList<>();
+        List<kn_goods> news=new ArrayList<>();
+        Iterator iterList=android.iterator();
+        while( iterList.hasNext()){
+            kn_goods Android= (kn_goods) iterList.next();
+
+            Iterator iterList2=ios.iterator();
+            while( iterList2.hasNext()){
+                kn_goods Ios= (kn_goods) iterList2.next();
+
+                if( Android.getId()==Ios.getId()){
+                    kn_goods NEWS=new kn_goods();
+
+                        NEWS.setId(Ios.getId());
+                        NEWS.setUv(( Ios.getUv()+Android.getUv()));
+                        news.add(NEWS);
+
+                    iterList.remove();
+                    iterList2.remove();
+
+                }
+            }
+
+        }
+
+        System.out.println("news-----------------"+news.toString());
+        System.out.println("android-----------------"+ios.toString());
+        System.out.println("android-----------------"+android.toString());
+
+        android.addAll(news);
+        android.addAll(ios);
+
+        System.out.println("总的-----------------"+android.toString());
+
+
+
+        return android;
+    }
+
+
 /**
  * Description：得到所有的月活，周活
  * @author su
@@ -350,14 +531,6 @@ List<Goodspvdata> news=new ArrayList<>();
     }
 
 
-
-/**
- * Description：得到新增用户
- * @author boyang
- * @date 2019/3/26 16:24
- * @param
- * @return
- */
 
 /**
  * Description：用户总的3日留存
@@ -420,6 +593,9 @@ List<Goodspvdata> news=new ArrayList<>();
         }
         return  Sevenliucun;
     }
-
+    public static void main(String[] args) {
+     //  getPv2();
+        //getUv2();
+    }
 
 }

@@ -127,13 +127,9 @@ public PageResultInfo getDataList(Model model, HttpServletResponse response,
                                           required = false)
                                           Integer pageNo,
                                   @RequestParam(value = "pageSize", defaultValue = "8", required = false)
-                                          Integer pageSize
-) {
+                                          Integer pageSize) {
     logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize);
     PageResultInfo resultInfo = knGoodsservice.pagegoodslist(pageNo,pageSize);
-
     return  resultInfo;
-
-
 }
 }

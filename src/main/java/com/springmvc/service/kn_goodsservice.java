@@ -96,6 +96,14 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      */
       int  upgoodsPvUv();
 
+    /**
+     * Description：得到pagegoodslist
+     * @author boyang
+     * @date 2019/4/2 11:36
+     * @param
+     * @return
+     */
+        PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize);
 
         /**
          * @Author 苏俊杰
@@ -107,14 +115,6 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
         GoodsDetail selectGoodsOne(int id);
 
 
-/**
- * Description：得到pagegoodslist
- * @author boyang
- * @date 2019/4/2 11:36
- * @param
- * @return
- */
-PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize);
     /**
      * Description： 更新产品胡pvuv
      * @author boyang

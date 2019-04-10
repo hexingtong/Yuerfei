@@ -68,7 +68,13 @@
 
                                             <div class="members-form-bottom">
                                                 <div id="add">提交</div>
-                                                <div class="back" onclick="window.history.go(-1)">返回</div>
+                                                <a href="#" onClick="javascript :history.back(-1);" style="display: block; width: 100px;
+    height: 40px;
+    background: #2290FF;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;margin-left: 50px;
+    font-size: 14px;">返回</a>
                                             </div>
                                         </div>
                                     </form>

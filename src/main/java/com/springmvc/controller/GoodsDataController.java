@@ -93,7 +93,7 @@ public class GoodsDataController {
      * @author boyang
      * @date 2019/3/26 18:55
      */
-//@Scheduled(cron= "0/10 * * * * ? ")
+//@Scheduled(cron= "0 0/1 * * * ? ")
     public void getpvuv() {
         logger.info("更新pvuv定时任务");
         goodsPvDataService.unCountPv();
@@ -109,6 +109,7 @@ public class GoodsDataController {
      * @author boyang
      * @date 2019/4/2 11:47
      */
+ //   @Scheduled(cron= "* 55 23 * * 1")
     @RequestMapping("/delepvuv")
     public void delepvuv() {
         logger.info("删除pvuv定时任务");
@@ -125,11 +126,13 @@ public class GoodsDataController {
  * @param
  * @return
  */
+@Scheduled(cron= "30 0/1 * * * ? ")
 @RequestMapping("/upPvUv")
  public void upPvUv(){
-     //
 
-     kngoodsservice.updateGoodspvuv();
+    logger.info("进入更新产品pvuv");
+    //getCountPv.getUv2();
+    kngoodsservice.updateGoodspvuv();
 
 
  }

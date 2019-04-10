@@ -15,7 +15,7 @@ public class StatusCode {
 
 
     public static String SUCCESSFULLY = "1";//返回成功
-    public static String FAILED = "0";//返回成功
+    public static String FAILED = "0";//返回失败
 
 
 

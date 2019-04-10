@@ -121,7 +121,14 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @return
      */
     Integer updateGoodspvuv(@Param(value = "list")List<kn_goods> list);
-
+/**
+ * Description：单个更新产品的pvuv
+ * @author boyang
+ * @date 2019/4/9 22:48
+ * @param
+ * @return
+ */
+Integer updateOnepvuv(kn_goods kn_goods);
 
     /**
      * @Author 苏俊杰
