@@ -39,38 +39,6 @@ public class OpenAPI {
     //鱼儿飞安卓APPkey
     final static String YuerfeiAndroid="5c8320d80cafb29e02000f2b";
 
-    //
-    //                            _ooOoo_
-    //                           o8888888o
-    //                           88" . "88
-    //                           (| -_- |)
-    //                            O\ = /O
-    //                        ____/`---'\____
-    //                      .   ' \\| |// `.
-    //                       / \\||| : |||// \
-    //                     / _||||| -:- |||||- \
-    //                       | | \\\ - /// | |
-    //                     | \_| ''\---/'' | |
-    //                      \ .-\__ `-` ___/-. /
-    //                   ___`. .' /--.--\ `. . __
-    //                ."" '< `.___\_<|>_/___.' >'"".
-    //               | | : `- \`.;`\ _ /`;.`/ - ` : | |
-    //                 \ \ `-. \_ __\ /__ _/ .-` / /
-    //         ======`-.____`-.___\_____/___.-`____.-'======
-    //                            `=---='
-    //
-    //         .............................................
-    //                  佛祖镇楼                  BUG辟易
-    //          佛曰:
-    //                  写字楼里写字间，写字间里程序员；
-    //                  程序人员写程序，又拿程序换酒钱。
-    //                  酒醒只在网上坐，酒醉还来网下眠；
-    //                  酒醉酒醒日复日，网上网下年复年。
-    //                  但愿老死电脑间，不愿鞠躬老板前；
-    //                  奔驰宝马贵者趣，公交自行程序员。
-    //                  别人笑我忒疯癫，我笑自己命太贱；
-    //                  不见满街漂亮妹，哪个归得程序员？
-
 
         //成功的
         //安卓总的点击量pv
@@ -563,6 +531,114 @@ public class OpenAPI {
         }return "";
     }
 
+    //获取安卓总pv参数值事件列表 从运营时间开始
+    public static   List umengAndroidPvEventParamGetValueList2() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        List lst=new ArrayList();
+        UmengUappEventParamGetValueListParam param = new UmengUappEventParamGetValueListParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiAndroid);
+        param.setStartDate("2019-04-09");
+        param.setEndDate(DateUtils2.currDay());
+        param.setEventName("id_goodspv");
+        param.setEventParamName("goods_id");
+        try {
+            UmengUappEventParamGetValueListResult result = apiExecutor.execute(param);
+            lst.add(result);
+            lst.add(DateUtils2.currDay());
+            System.out.println(JSONObject.toJSONString(lst));
+            return lst;
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+            lst.add(e.getErrorCode());
+            lst.add(e.getErrorMessage());
+            return lst;
+        }
+    }
+
+    //获取安卓总uv参数值事件列表 从运营时间开始
+    public static List umengAndroidEventParamGetValueList2() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        List lst=new ArrayList();
+        UmengUappEventParamGetValueListParam param = new UmengUappEventParamGetValueListParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiAndroid);
+        param.setStartDate("2019-04-09");
+        param.setEndDate(DateUtils2.currDay());
+        param.setEventName("id_goodsuv");
+        param.setEventParamName("goods_id");
+        try {
+            UmengUappEventParamGetValueListResult result = apiExecutor.execute(param);
+            lst.add(result);
+            lst.add(DateUtils2.currDay());
+            System.out.println(JSONObject.toJSONString(lst));
+            return lst;
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+            lst.add(e.getErrorCode());
+            lst.add(e.getErrorMessage());
+            return lst;
+        }
+    }
+
+    //获取苹果总pv参数值事件列表 从运营时间开始
+    public static List umengIosPvEventParamGetValueList2() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        List lst=new ArrayList();
+        UmengUappEventParamGetValueListParam param = new UmengUappEventParamGetValueListParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiIosAppkey);
+        param.setStartDate("2019-04-09");
+        param.setEndDate(DateUtils2.currDay());
+        param.setEventName("id_goodspv");
+        param.setEventParamName("goods_id");
+        try {
+            UmengUappEventParamGetValueListResult result = apiExecutor.execute(param);
+            lst.add(result);
+            lst.add(DateUtils2.currDay());
+            System.out.println(JSONObject.toJSONString(lst));
+            return lst;
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+            lst.add(e.getErrorCode());
+            lst.add(e.getErrorMessage());
+            return lst;
+        }
+    }
+
+    //获取苹果总uv参数值事件列表 从运营时间开始
+    public static List umengIosEventParamGetValueList2() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        List lst=new ArrayList();
+        UmengUappEventParamGetValueListParam param = new UmengUappEventParamGetValueListParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiIosAppkey);
+        param.setStartDate("2019-04-09");
+        param.setEndDate(DateUtils2.currDay());
+        param.setEventName("id_goodsuv");
+        param.setEventParamName("goods_id");
+        try {
+            UmengUappEventParamGetValueListResult result = apiExecutor.execute(param);
+            lst.add(result);
+            lst.add(DateUtils2.currDay());
+            System.out.println(JSONObject.toJSONString(lst));
+            return lst;
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+            lst.add(e.getErrorCode());
+            lst.add(e.getErrorMessage());
+            return lst;
+        }
+    }
+
     public static void main(String[] args) {
 //        String Andrien=OpenAPI.umengAndrienUappGetActiveUsers();//安卓周活跃
 //         String ios=OpenAPI.umengIosUappGetActiveUsers();//苹果周活跃
@@ -576,7 +652,9 @@ public class OpenAPI {
 //            OpenAPI.umengIosUappGetRetentions();//苹果3日留存
 //            OpenAPI.umengSevenDayAndrienUappGetRetentions();//安卓7日留存
 //            OpenAPI.umengSevenDayIosUappGetRetentions();//苹果7日留存
-
+       umengAndroidEventParamGetValueList2();
+        //苹果胡uv
+        umengIosEventParamGetValueList2();
 
     }
 

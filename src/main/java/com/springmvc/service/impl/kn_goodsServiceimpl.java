@@ -12,6 +12,7 @@ import com.springmvc.service.GoodsPvDataService;
 import com.springmvc.service.GoodsUvDataService;
 import com.springmvc.service.kn_goodsservice;
 import com.util.OpenAPI;
+import com.util.pvDataUtuil.getCountPv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -523,35 +524,46 @@ private GoodsUvDataService goodsUvDataService;
         return resultInfo;
     }
     /**
-     * Description： 定时更新产品胡pvuv
+     * Description：实时更新pvuv数据
      * @author boyang
      * @date 2019/4/3 9:55
      * @param
      * @return
      */
     @Override
+    @Transactional
     public Integer updateGoodspvuv() {
         //得到所有的pv,uv
-        List<Goodspvdata> Pv=godsPvDataService.queryAll();
-        List<Goodsuvdata> Uv=goodsUvDataService.queryAll();
-        //
-        List<kn_goods> goods = new ArrayList<>();;
-        for(Goodsuvdata u:Uv){ logger.info("静茹uv");
-
-            kn_goods goods1=new kn_goods();
-            goods1.setUv((u.getUone()+u.getUtwo()+u.getUthree()+u.getUfour()+u.getUfive()+u.getUsat()+u.getUsunday()));
-            goods1.setId(u.getGoodsid());
-            goods.add(goods1);
+//        List<Goodspvdata> Pv=godsPvDataService.queryAll();
+//        List<Goodsuvdata> Uv=goodsUvDataService.queryAll();
+        //得到总的pv：getPv2
+        List<kn_goods> goodpv= getCountPv.getPv2();
+        List<kn_goods> goodUv=getCountPv.getUv2();
+//        List<kn_goods> goods = new ArrayList<>();;
+//
+//        for(Goodsuvdata u:Uv){
+//            logger.info("uv"+u.toString());
+//            kn_goods goods1=new kn_goods();
+//            goods1.setUv((u.getUone()+u.getUtwo()+u.getUthree()+u.getUfour()+u.getUfive()+u.getUsat()+u.getUsunday()));
+//            goods1.setId(u.getGoodsid());
+//            goods.add(goods1);
+//        }
+//        for (Goodspvdata p:Pv){
+//            logger.info("pv"+p.toString());
+//            kn_goods goods2=new kn_goods();
+//            goods2.setPv(p.getPone()+p.getPtwo()+p.getPthree()+p.getPfour()+p.getPfive()+p.getPsat()+p.getPsunday());
+//            goods2.setId(p.getGoodid());
+//            goods.add(goods2);
+//        }
+      Integer i=0;
+        for ( kn_goods gos:goodpv){
+             i=knGoodsMapper.updateOnepvuv(gos);
 
         }
-        for (Goodspvdata p:Pv){
-            logger.info("静茹pv");
-            kn_goods goods2=new kn_goods();
-            goods2.setPv(p.getPone()+p.getPtwo()+p.getPthree()+p.getPfour()+p.getPfive()+p.getPsat()+p.getPsunday());
-            goods2.setId(p.getGoodid());
-            goods.add(goods2);
+        for ( kn_goods gose:goodUv){
+           knGoodsMapper.updateOnepvuv(gose);
+
         }
-        Integer i= knGoodsMapper.updateGoodspvuv(goods);
         if (i>0){
             return 1;
         }

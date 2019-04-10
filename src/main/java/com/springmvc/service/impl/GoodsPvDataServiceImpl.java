@@ -40,6 +40,16 @@ public class GoodsPvDataServiceImpl  extends BaseServiceImpl<Goodspvdata> implem
         //更新数据
         int i;
         if (list!=null){
+            for (Goodspvdata lis:list){
+
+                lis.setPone(lis.getPone()==null?0:lis.getPone()) ;
+                lis.setPtwo(lis.getPtwo()==null?0:lis.getPtwo()); ;
+                lis.setPthree(lis.getPthree()==null?0:lis.getPthree()); ;
+                lis.setPfour(lis.getPfour()==null?0:lis.getPfour()); ;
+                lis.setPfive(lis.getPfive()==null?0:lis.getPfive()); ;
+                lis.setPsat(lis.getPsat()==null?0:lis.getPsat()); ;
+                lis.setPsunday(lis.getPsunday()==null?0:lis.getPsunday());
+            }
            i= goodspvdataMapper.INPV(list);
             if (i>0){
                 return 1;

@@ -3,7 +3,7 @@
 <mapper namespace="com.springmvc.mapping.kn_goodsMapper" >
   <!--by-->
   <select id="getGoodsList" resultType="com.springmvc.pojo.kn_goods">
-    select * FROM kn_goods ORDER  BY uv+0 DESC
+   select * FROM kn_goods  WHERE status=4 ORDER  BY uv+0 DESC
   </select>
 
     <select id="queryMerchantId" resultType="java.lang.Integer" parameterType="kn_goods">
@@ -331,21 +331,38 @@
   </select>
 <!--统计产品的pvuv-->
   <update id="updateGoodspvuv" parameterType="java.util.List">
+BEGIN;
+    <foreach collection="list" item="item" index= "index" open="" close="" separator =";">
 
-    <foreach separator="," index="index" item="item" collection="list" close=")" open="(">
       update kn_goods
       <set>
       <if test="item.pv!=null and item.pv!='' ">
-        pv =((select pv from kn_goods where id=#{item.id})+#{item.pv}),
+        pv =pv+#{item.pv},
       </if>
       <if test="item.uv!=null and item.uv!='' ">
-        uv=((select uv from kn_goods where id=#{item.id})+#{item.uv})
+        uv=uv+#{item.uv}
       </if>
       </set>
       <where>
         id=#{item.id}
       </where>
     </foreach>
+    ;end;
+  </update>
+  <!--统计产品的pvuv-->
+  <update id="updateOnepvuv"  parameterType="com.springmvc.pojo.kn_goods">
+    update kn_goods
+    <set>
+      <if test="pv!=null and pv!='' ">
+        pv =#{pv},
+      </if>
+      <if test="uv!=null and uv!='' ">
+        uv=#{uv}
+      </if>
+    </set>
+    <where>
+      id=#{id}
+    </where>
 
   </update>
 
