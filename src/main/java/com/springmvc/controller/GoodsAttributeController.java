@@ -10,6 +10,8 @@ import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.PropertyService;
 import com.util.ImageUtil;
+import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.slf4j.Logger;
@@ -161,8 +163,13 @@ public JsonModel updateAdmin(Integer id, String img,String title) {
     }
 }
     /**
-     * 图片文件上传
-     */
+     * @Author 苏俊杰
+     * @Description //TODO  t
+     * @Date 14:02 2019/4/8
+     * @Param
+     * @return
+     **/
+
     @ResponseBody
     @RequestMapping("/uploadImg.xhtml")
     public JsonModel uploadPicture(@RequestParam(value="file",required=false)MultipartFile file,HttpServletRequest request,HttpServletResponse response){
@@ -214,6 +221,7 @@ public JsonModel updateAdmin(Integer id, String img,String title) {
      * @param
      * @return
      */
+    @ApiOperation(value = "图片上传", httpMethod = "POST", response = StatusCode.class, notes = "图片上传")
     @RequestMapping("/addUserInfo")
     public void addUserInfo(HttpServletResponse response,HttpServletRequest request) throws IOException {
         try {

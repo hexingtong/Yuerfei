@@ -3,6 +3,8 @@ package com.springmvc.service;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_friend;
 
+import java.util.List;
+
 public interface FriendService extends  BaseService<kn_friend> {
 
     /**
@@ -54,4 +56,12 @@ public interface FriendService extends  BaseService<kn_friend> {
      **/
     int updateFriendZhuce(String url);
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 查询所有推广链接
+     * @Date 2:34 2019/4/10
+     * @Param
+     * @return
+     **/
+    List<kn_friend> selectFriendAll();
 }

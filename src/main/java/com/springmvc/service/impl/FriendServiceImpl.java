@@ -122,6 +122,15 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         int i=knFriendMapper.updateFriendZhuce(url);
         return i;
     }
-
-
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 查询所有推广链接
+     * @Date 2:33 2019/4/10
+     * @Param
+     * @return
+     **/
+    public List<kn_friend> selectFriendAll(){
+        List<kn_friend> kn_friend=knFriendMapper.selectFriendAll();
+        return kn_friend;
+    }
 }

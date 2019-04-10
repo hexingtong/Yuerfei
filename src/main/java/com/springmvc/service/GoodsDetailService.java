@@ -11,4 +11,6 @@ import com.springmvc.pojo.GoodsDetail;
  */
 
 public interface GoodsDetailService extends BaseService<GoodsDetail> {
+
+    GoodsDetail selectDetail(int id);
 }

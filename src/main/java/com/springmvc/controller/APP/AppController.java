@@ -42,7 +42,7 @@ public class AppController {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
 
-    @ApiOperation(value = "获得筛选框", httpMethod = "GET", response = StatusCode.class, notes = "获得筛选框")
+
     @RequestMapping("/MoneyList")
     @ResponseBody
     public Map selectMoneyList() {

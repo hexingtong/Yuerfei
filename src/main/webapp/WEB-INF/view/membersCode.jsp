@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language=    "java" %>
 <%@include file="/common/taglibs.jsp" %>
 <%--<% String path = request.getContextPath(); %>--%>
 <%
@@ -28,14 +28,8 @@
                 <!--会员管理右边-->
                 <div class="indexcontent-right1">
                     <div class="indexcontent-right-main">
-                        <div class="indexcontent-right-top">
-                            <img src="${ctx }/images/Full screen button.svg">
-                            <div class="indexcontent-right-top-right">
-                                <img src="${ctx }/images/quit.svg">
-                                <p>退出</p>
-                            </div>
-                        </div>
-                        <div class="indexcontent-right-bottom" style="height: 837px;">
+                                <%@ include file="top.jsp" %>
+                                <div class="indexcontent-right-bottom" style="height: 837px;">
                             <div class="indexcontent-right-bottom-main">
                                 <div class="indexcontent-right-bottom-main-header">
                                     <div class="indexcontent-header-title">会员管理列表</div>
@@ -69,8 +63,6 @@
     function Tagtijiao(){
         var title=$("input[name='title']").val();
         var id=${param.id }
-        alert("title的值"+title)
-        alert("id的值"+id)
         if(title!=null&&title!=""){
             $.ajax({
                 type:"post",

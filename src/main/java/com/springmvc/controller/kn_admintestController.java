@@ -103,9 +103,11 @@ public class kn_admintestController {
     @ApiOperation(value = "根据手机号和验证码登录", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号和验证码登录")
     @RequestMapping(value = "/login")
     @ResponseBody
-    public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request,String url,String index) {
-        logger.info("index的值是:"+index);
-        logger.info("url的值是"+url);
+    public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request,
+                      @RequestParam(value = "index",
+                              defaultValue = "0", required = false)String index,
+                      @RequestParam(value = "url",
+            defaultValue = "", required = false)String url) {
         ListObject listObject = new ListObject();
         ListObjectSuper listObjectSuper = new ListObjectSuper();
         Jedis jedis = new Jedis("47.92.53.177", 6379);
@@ -139,6 +141,8 @@ public class kn_admintestController {
                 if(index.equals("1")){
                     //推广链接进入的
                     logger.info("进入埋点!");
+//                    String url=request.getHeader("Referer");
+                    logger.info("url的值是"+url);
                     List<kn_friend> list=friendService.queryAll();
                     kn_friend[] kn_friends=new kn_friend[list.size()];
                     for(int c=0;c<list.size();c++){

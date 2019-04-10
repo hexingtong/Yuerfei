@@ -20,22 +20,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
     <div id="indexBox">
         <div class="indexcontent">
-            <div class="indexcontent-left">
-                <div class="indexcontent-left-header">
-                    <img class="left-img1" src="${ctx }/images/logo.svg"/>
-                </div>
-                <div class="indexcontent-left-face">
-                    <div>
-                        <img class="left-img1" src="${ctx }/images/head portrait.svg"/>
-                    </div>
-                </div>
-                <div class="indexcontent-left-list">
-                    <div class="indexcontent-left-list-main">
+            <%@ include file="left.jsp" %>
+            <!--超市展示右边-->
+            <div class="indexcontent-right6" style="display: block;">
+                <div class="indexcontent-right-main">
 
-                    </div>
-                </div>
-            </div>
-            <div class="right-collection">
+                    <%@ include file="top.jsp" %>
+
+                    <div class="right-collection">
                 <!--商户管理右边-->
                 <div class="indexcontent-right1">
                     <div class="indexcontent-right-main">

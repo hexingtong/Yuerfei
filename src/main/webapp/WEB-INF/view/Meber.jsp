@@ -121,7 +121,6 @@
                     //点击按钮
                     $('#button').click(function(){
                         sousuo2=$("input[name='placeholder2']").val();
-                        alert("获取搜索的值"+sousuo2)
                         $(".indexcontent-tbody").empty();
                         $.ajax({
                             type:"post",

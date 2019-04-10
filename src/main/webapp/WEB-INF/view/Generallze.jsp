@@ -152,7 +152,7 @@
                             </div>
                             <div class="indexcontent-right-bottom-main-content">
                                 <div class="refresh">
-                                    <div style="border:1px solid  rgb(239,242,250);" class="label-editor" onclick="window.location.reload();">刷新</div>
+                                    <div style="border:1px solid  rgb(239,242,250);color:#fff;background:#2290FF;" onclick="TimeFriden()">刷新</div>
                                     <div class="promote-add" onclick="friendinset()" style="margin-left:-30px;background: rgb(255,141,47);color:#fff;">新增</div>
                                     <div class="labelSelet" style="width:80%;height:90px;margin-left:20px;margin-top:10px;padding:0px;">
                                         <div class="labelSelet-main">
@@ -191,6 +191,22 @@
                 </div>
             </div>
             <script>
+                function TimeFriden() {
+                    $.ajax({
+                        type: "post",
+                        dateType: "json",
+                        url: "<%=basePath %>/TimerFride/friend",
+                        data: {},
+                        success: function (result) {
+                            var jsonData=JSON.parse(result);
+                            if(jsonData.code=="200"){
+                                layer.msg("刷新成功", {icon: 1,time: 5000});
+                                window.location.reload();
+                            }
+                        }
+                    });
+
+                }
 
                 $('#ok').click(function(){
                     var Index = document.getElementById("index").value;

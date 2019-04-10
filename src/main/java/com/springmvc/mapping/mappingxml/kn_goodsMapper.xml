@@ -3,7 +3,7 @@
 <mapper namespace="com.springmvc.mapping.kn_goodsMapper" >
   <!--by-->
   <select id="getGoodsList" resultType="com.springmvc.pojo.kn_goods">
-    select * FROM kn_goods ORDER  BY uv+0 DESC
+    select * FROM kn_goods  WHERE status=4 ORDER  BY uv+0 DESC
   </select>
 
     <select id="queryMerchantId" resultType="java.lang.Integer" parameterType="kn_goods">
@@ -88,7 +88,7 @@
     end )pstatus,k.add_time,k.pv,k.uv,p.title AS ptitle from kn_goods k,kn_property p
     <where>
       <if test="title!=null and title!='' ">
-        AND  title  LIKE '%${title}%'
+        AND  k.title  LIKE '%${title}%'
       </if>
       <if test="propertyIds!=null and propertyIds!='' ">
         AND  k.property_ids=#{propertyIds}

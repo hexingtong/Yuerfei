@@ -134,13 +134,7 @@
 <!--标签展示右边-->
             <div class="indexcontent-right4" style="display: block;">
                 <div class="indexcontent-right-main">
-                    <div class="indexcontent-right-top">
-                        <img src="${ctx }/images/Full screen button.svg">
-                        <div class="indexcontent-right-top-right">
-                            <img src="${ctx }/images/quit.svg">
-                            <p>退出</p>
-                        </div>
-                    </div>
+                    <%@ include file="top.jsp" %>
                     <div class="indexcontent-right-bottom" style="height: 875px;">
                         <div class="indexcontent-right-bottom-main">
                             <div class="indexcontent-right-bottom-main-header">

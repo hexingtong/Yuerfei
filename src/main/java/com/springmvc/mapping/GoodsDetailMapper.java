@@ -11,6 +11,13 @@ public interface GoodsDetailMapper extends Mapper<GoodsDetail>{
      */
     int insertGoodsDetailMapper(GoodsDetail goodsDetail);
 
-
+    /*
+     * @Author 苏俊杰
+     * @Description //TODO 查询详情信息
+     * @Date 15:38 2019/4/4
+     * @Param
+     * @return
+     **/
+    GoodsDetail selectDetail(int id);
 
 }

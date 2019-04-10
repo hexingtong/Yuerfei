@@ -1,7 +1,9 @@
 package com.springmvc.service.impl;
 
+import com.springmvc.mapping.GoodsDetailMapper;
 import com.springmvc.pojo.GoodsDetail;
 import com.springmvc.service.GoodsDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,5 +14,14 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class GoodsDetailServiceImpl extends BaseServiceImpl<GoodsDetail> implements GoodsDetailService {
+
+    @Autowired
+    GoodsDetailMapper goodsDetailMapper;
+
+    @Override
+    public GoodsDetail selectDetail(int id) {
+        GoodsDetail goodsDetail=goodsDetailMapper.selectDetail(id);
+        return goodsDetail;
+    }
 
 }

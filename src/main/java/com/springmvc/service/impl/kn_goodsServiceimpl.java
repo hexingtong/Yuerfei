@@ -268,9 +268,10 @@ private GoodsUvDataService goodsUvDataService;
         } else {
             logger.info("不进入index1");
             try {
+                knGoods.setTitle(title);
                 agentLevelSettings = knGoodsMapper.queryGoods(knGoods);
                 PageInfo<kn_goodsSupper> pageInfo = new PageInfo<>(agentLevelSettings);
-                logger.info("传入的status"+status);
+                logger.info("传入的title"+title);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                 logger.info("传出的pageno,pagesize,title,Index1,propertyId,statusId" + pageNo + ":" + pageSize + ":" + title + ":" + Index1 + ":" + propertyId + ":" + status);
                 return resultInfo;
@@ -458,26 +459,34 @@ private GoodsUvDataService goodsUvDataService;
     public int deleteSupermarket(GoodsSupermarketDvo goodsSupermarketDvo) {
         kn_goods knGoods=new kn_goods();
         GoodsDetail goodsDetail=new GoodsDetail();
+        logger.info("id值是:"+goodsSupermarketDvo.getDetailsId());
         goodsDetail.setId(goodsSupermarketDvo.getDetailsId());
         knGoods.setId(goodsSupermarketDvo.getId());
         //删除产品表
         int i=knGoodsMapper.deleteGoodsSk(knGoods);
         if(i>0) {
             logger.info("产品表删除成功");
+
             //删除详情表
-            int z = knGoodsMapper.deleteGoodsDetailSK(goodsDetail);
-            if(z>0){
-                logger.info("详情表删除成功");
-                return 1;
-            }else {
-                logger.info("详情表删除失败");
-                throw new RuntimeException("抛出异常,事务回滚");
-            }
+
+//            int z = knGoodsMapper.deleteGoodsDetailSK(goodsDetail);
+//            if(z>0){
+//                logger.info("详情表删除成功");
+//                return 1;
+//            }else {
+//                logger.info("详情表删除失败");
+//                throw new RuntimeException("抛出异常,事务回滚");
+//            }
+            return 1;
         }else{
             logger.info("产品表删除失败");
             throw new RuntimeException("抛出异常,事务回滚");
         }
+
+
     }
+
+
     @Override
     public kn_goods selectGoodsSK(int id) {
         kn_goods knGoods=knGoodsMapper.selectGoodsSK(id);

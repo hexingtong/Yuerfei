@@ -48,5 +48,13 @@ public interface KnFriendMapper extends Mapper<kn_friend> {
      * @return
      **/
     int updateFriendZhuce(String url);
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 查询所有推广链接
+     * @Date 2:32 2019/4/10
+     * @Param
+     * @return
+     **/
+     List<kn_friend> selectFriendAll();
 
 }

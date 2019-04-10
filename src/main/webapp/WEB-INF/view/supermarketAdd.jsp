@@ -283,43 +283,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="describeAttribute">
-                                                <div class="shopDate-lefts">
-                                                    <div class="describeDate-title">激活流程</div>
-                                                    <div class="describe-clooses">
-                                                        <input  value="" name="activation_processs" placeholder="请输入相关激活流程" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="productDetails">
-                                                <div class="shopDate-lefts">
-                                                    <div class="describeDate-title">产品详情</div>
-                                                    <div class="product-texts" style="background:#fff;">
-                                                        <div class="product-labelss">
-                                                        </div>
-                                                        <div class="product-texts">
-                                                            <div class="product-texts-main">
-                                                                <div class="product-texts-item">
-                                                                    <div><input name="application_conditions"   placeholder="请输入相关详情" /></div>
-                                                                </div>
-                                                                <%--<div class="product-texts-item">--%>
-                                                                    <%--<p>申请条件</p>--%>
-                                                                    <%--<div><input name="application_conditions" placeholder="请输入申请条件" /></div>--%>
-                                                                <%--</div>--%>
-                                                                <%--<div class="product-texts-item">--%>
-                                                                    <%--<p>循环额度</p>--%>
-                                                                    <%--<div><input name="loop_liness" placeholder="请输入循环额度" /></div>--%>
-                                                                <%--</div>--%>
-                                                                <%--<div class="product-texts-item">--%>
-                                                                    <%--<p>激活流程</p>--%>
-                                                                    <%--<div><input name="activation_processs" placeholder="请输入激活流程" /></div>--%>
-                                                                <%--</div>--%>
+                                            <%--<div class="describeAttribute">--%>
+                                                <%--<div class="shopDate-lefts">--%>
+                                                    <%--<div class="describeDate-title">公司名字</div>--%>
+                                                    <%--<div class="describe-clooses">--%>
+                                                        <%--<input  value="" name="description" placeholder="请输入公司名字" />--%>
+                                                    <%--</div>--%>
+                                                <%--</div>--%>
+                                            <%--</div>--%>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <%--<div class="describeAttribute">--%>
+                                                <%--<div class="shopDate-lefts">--%>
+                                                    <%--<div class="describeDate-title">激活流程</div>--%>
+                                                    <%--<div class="describe-clooses">--%>
+                                                        <%--<input  value="" name="activation_processs" placeholder="请输入相关激活流程" />--%>
+                                                    <%--</div>--%>
+                                                <%--</div>--%>
+                                            <%--</div>--%>
+
+                                            <%--<div class="productDetails">--%>
+                                                <%--<div class="shopDate-lefts">--%>
+                                                    <%--<div class="describeDate-title">产品详情</div>--%>
+                                                    <%--<div class="product-texts" style="background:#fff;">--%>
+                                                        <%--<div class="product-labelss">--%>
+                                                        <%--</div>--%>
+                                                        <%--<div class="product-texts">--%>
+                                                            <%--<div class="product-texts-main">--%>
+                                                                <%--&lt;%&ndash;<div class="product-texts-item">&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<div><input name="application_conditions"   placeholder="请输入相关详情" /></div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;<div class="product-texts-item">&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<p>申请条件</p>&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<div><input name="application_conditions" placeholder="请输入申请条件" /></div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;<div class="product-texts-item">&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<p>循环额度</p>&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<div><input name="loop_liness" placeholder="请输入循环额度" /></div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;<div class="product-texts-item">&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<p>激活流程</p>&ndash;%&gt;--%>
+                                                                    <%--&lt;%&ndash;<div><input name="activation_processs" placeholder="请输入激活流程" /></div>&ndash;%&gt;--%>
+                                                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+
+                                                            <%--</div>--%>
+                                                        <%--</div>--%>
+                                                    <%--</div>--%>
+                                                <%--</div>--%>
+                                            <%--</div>--%>
                                             <div class="sorting">
                                                 <div class="sorting-lefts">
                                                     <div class="sorting-title">产品描述</div>
@@ -367,7 +377,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     //第一个期限点击事件
     $(".date1").click(function(){
         var options=$("#index option:selected");
-       var dat= options.val()
+       var dat= options.val();
   if(dat!=0){
       $("#index2").hide();
       $("#index3").hide();
@@ -465,31 +475,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             var Deadline2 = document.getElementById("index2").value;
             var Deadline3 = document.getElementById("index3").value;
             if(Deadline2!=null&&Deadline3!=null){
-    if((Deadline3-Deadline2)>0){
-    var Pace_lending=Deadline2+"--"+Deadline3
-    Deadline=(Deadline3-Deadline2)
-        alert("获取的期限值2："+Deadline)
-    }else {
-        alert("选择有误")
-     var noDead=1;
-    }
+         if((Deadline3-Deadline2)>0){
+             var Pace_lending=Deadline2+"--"+Deadline3
+        Deadline=(Deadline3-Deadline2)
+        // alert("获取的期限值2："+Deadline)
+      }else {
+
+      var noDead=1;
+            }
 
 
             }
         }
-
+        var folat=true;
         var Deadlines='';
         var interestrate=$("input[name='interestrate']").val();
         var propertyIds=$("#propertyIds").val();
         var tagId=$("#tagId").val();
         var details=$("input[name='details']").val();
         // var description=$("input[name='description']").val();//公司名字
-        var applicationConditions=$("input[name='application_conditions']").val();//产品详情
+        // var applicationConditions=$("input[name='application_conditions']").val();//产品详情
         // var loopLiness=$("input[name='loop_liness']").val();//循环额度
-        var activationProcesss=$("input[name='activation_processs']").val();//激活流程
-        var url=$("input[name='url']").val();//详请描述
-        img = imgaddress;
-        var indexx=1;
+       // var activationProcesss=$("input[name='activation_processs']").val();//激活流程
+        var url=$("input[name='url']").val();//网址链接
+        var img = imgaddress;
+        var indexx=0;
         var status=$("#status").val();
         var adminIdx=adminId;
         // var adminId=$("#adminId").val();
@@ -506,13 +516,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         // alert("img的值"+img);
         // alert("indexx的值"+indexx);
         // alert("Deadline的值是"+Deadlines);
-        if(interestrate == ''||interestrate==null||interestrate==undefined ||  propertyIds == ''||property  Ids==null||propertyIds==undefined||noDead==1
-        ||tagId == ''||tagId==null||tagId==undefined|| tagId == ''||details==null||details==undefined||  details == ''||url==null||url==undefined||url == ''||img==null||img==undefined||img == ''||indexx==null||indexx==undefined||indexx==''
-        ){
-            layer.msg("选择错误！")
-        }else{
-            $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details, activationProcesss:activationProcesss, applicationConditions:applicationConditions,url:url, img: img, indexx:indexx
-                    ,Pace_lending:Pace_lending,status:status,adminId:adminIdx},function (res) {
+        if(interestrate == ''||interestrate==null||interestrate==undefined){
+            layer.msg("请输入利率!");
+            folat=false
+        }
+        if(interestrate == ''||interestrate==null||interestrate==undefined){
+            layer.msg("请输入利率!");
+            folat=false
+        }
+        // if(applicationConditions == ''||applicationConditions==null||applicationConditions==undefined){
+        //     layer.msg("请输入产品详情!");
+        //     folat=false
+        // }
+        if(propertyIds == ''||propertyIds==null||propertyIds==undefined){
+            layer.msg("请选择产品属性!");
+            folat=false
+        }
+        if(tagId == ''||tagId==null||tagId==undefined){
+            layer.msg("请选择标签名称!");
+            folat=false
+        }
+        if(details==null||details==undefined||  details == ''){
+            layer.msg("请输入产品描述!");
+            folat=false
+        }
+        if(url==null||url==undefined||url == ''){
+            layer.msg("请输入相关网站链接!");
+            folat=false
+        }
+        if(img==null||img==undefined||img == ''){
+            layer.msg("请上传图片!");
+            folat=false
+        }
+        // if(activationProcesss == ''||activationProcesss==null||activationProcesss==undefined){
+        //     layer.msg("请输入激活流程!");
+        //     folat=false
+        // }
+        if(noDead==1){
+            layer.msg("请选择期限！");
+            folat=false
+        }
+        if(Limit == ''||Limit==null||Limit==undefined){
+            layer.msg("请选择额度！");
+            folat=false
+        }
+        if(title == ''||title==null||title==undefined){
+            layer.msg("请选择产品名称！");
+            folat=false
+        }if(folat==true){
+            $.post('${ctx }/Supermarke/insertSupermarket',{ title: title, Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details,url:url, img: img, indexx:indexx
+                    ,PaceLending:Pace_lending,status:status,adminId:adminIdx},function (res) {
                     var jsonData=JSON.parse(res);
                     if(jsonData.code=="200") {
                         layer.msg("上传成功!")

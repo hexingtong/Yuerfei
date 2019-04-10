@@ -27,13 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--标签修改右边-->
                     <div class="indexcontent-right1">
                         <div class="indexcontent-right-main">
-                            <div class="indexcontent-right-top">
-                                <img src="${ctx }/images/Full screen button.svg">
-                                <div class="indexcontent-right-top-right">
-                                    <img src="${ctx }/images/quit.svg">
-                                    <p>退出</p>
-                                </div>
-                            </div>
+                                        <%@ include file="top.jsp" %>
                             <div class="indexcontent-right-bottom" style="height: 884px;">
                                 <div class="label-right-bottom-main">
                                     <div class="indexcontent-right-bottom-main-header">
@@ -90,7 +84,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                },
                error:function(){
                    layer.msg("错误！")
-               }
+               },error:function(XMLhttpServlet){
+                if (XMLhttpServlet.status==401){
+                    $(location).attr('href', '<%=basePath %>/admin2/toLogin')
+                }
+            }
            });
         }else{
             layer.msg("请输入值！")

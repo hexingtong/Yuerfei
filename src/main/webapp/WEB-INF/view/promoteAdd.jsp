@@ -39,16 +39,16 @@
                                     <div class="members-form">
 
                                         <div class="members-form-top">
-                                            <div class="members-form-top-text">产品名称</div>
+                                            <div class="members-form-top-text">渠道名称</div>
                                             <div class="members-form-top-inputs">
                                                 <input id="title" placeholder="请输入产品名称(20字以内)">
                                             </div>
                                         </div>
 
                                         <div class="members-form-top" style="margin-top:80px;">
-                                            <div class="members-form-top-text">短链接</div>
+                                            <div class="members-form-top-text">网址链接</div>
                                             <div class="members-form-top-input">
-                                                <input id="url"  placeholder="请输入网址链接(文字60字以内)">
+                                                <input id="url"  placeholder="请输入要生成短链接的网址链接(文字60字以内)">
                                             </div>
                                         </div>
 

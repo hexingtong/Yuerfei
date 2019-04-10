@@ -144,7 +144,7 @@
                             <div class="indexcontent-right-bottom-main-header">
                                 <div class="indexcontent-header-title">产品展示列表</div>
                                 <div class="indexcontent-header-search">
-                                    <input placeholder="请输入搜索关键词">
+                                    <input name="placeholder2" placeholder="请输入搜索关键词">
                                     <div class="search-img">
                                         <img id="buttont" src="${ctx }/images/SEARCH.svg">
                                     </div>
@@ -192,11 +192,8 @@
                                         </ul>
                                     </div>
                                     <div class="shopping-tbody1">
-
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -231,11 +228,12 @@
                         $.ajax({
                             type:"post",
                             dateType:"json",
-                            url:"${ctx }/Supermarke/getSupermarket",
+                            url:"${ctx }/Supermarke/delectSupermarket",
                             data:{id:id},
                             success:function(result){
                                 var imgs='${ctx }';
-                                if(result.code=="200"){
+                                var jsonData=JSON.parse(result);
+                                if(jsonData.code=="200"){
                                     layer.msg('删除成功', {icon: 1,time: 5000});
                                     window.location.reload();
                                 }else{
@@ -250,178 +248,179 @@
                     });
                 }
 
-                var total2=0;
-                //数据框的值
-                var sousuo2="";
-                var propertyIds="";
-                var Index="";
-                //
-                //点击按钮
-                $('#buttont').click(function(){
-                    sousuo2=$("input[name='placeholder2']").val();
-                    $(".shopping-tbody1").empty();
-                    $.ajax({
-                        type:"post",
-                        dateType:"json",
-                        url:"<%=basePath %>/Supermarke/getSupermarket",
-                        data:{title:sousuo2},
-                        success: function(result){
-                            total2=result.total;
-                            var  I=result.rows.length;
-                            var o = $(".shopping-tbody1");
-                            var imgs='<%=basePath %>';
-                            if (result.length!==0) {
-                                for(var G=0;G<I;G++){
-                                    var D ='<div class="shopping-tbody-item">' +
-                                        '<ul class="ul">' +
-                                        '<li>'+
-                                        '<img src="'+imgs+''+result.rows[G].img+'">' +
-                                        '</li>' +
-                                        '<li>'+result.rows[G].title+'</li>' +
-                                        '<li>'+result.rows[G].ptitle+'</li>' +
-                                        // '<li>'+result.rows[G].pstatus+'</li>' +
-                                        '<li>'+result.rows[G].addTime+'</li>' +
-                                        '<li>'+result.rows[G].pv+'</li>' +
-                                        '<li>'+result.rows[G].uv+'</li>' +
-                                        '<li>'+
-                                        '<div class="sets">'+
-                                        '<div onclick="supermarkshowData(this.id)" id="' + result.rows[G].id + '"  class="supermarketgraphics">图形数据</div>' +
-                                        '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
-                                        '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
-                                        ' </div>' +
-                                        '</li>' +
-                                        '</ul>' +
-                                        '</div>'
-                                    var K=$(D);
-                                    o.append(K);
 
-                                }
-                            }
-                            $(".shopping-tbody1").paging(options)
-                        },
-                        error:function(){
-                            alert("错误")
-                        }
-                    });
-                    //ajax结束
-
-
-                })
-
-                //点击确定
-                $('#ok').click(function(){
-                    Index = document.getElementById("Index1").value;
-                    propertyIds = document.getElementById("propertyId").value;
-                    // var status = document.getElementById("status").value;
-                    $(".shopping-tbody1").empty();
-                    $.ajax({
-                        type:"post",
-                        dateType:"json",
-                        url:"<%=basePath %>/Supermarke/getSupermarket",
-                        data:{Index1:Index,propertyId:propertyIds},
-                        success: function(result) {
-                            total2=result.total;
-                            var  I=result.rows.length;
-                            var o = $(".shopping-tbody1");
-                            var imgs='<%=basePath %>';
-                            if (result.length!==0) {
-                                for(var G=0;G<I;G++){
-                                    var D ='<div class="shopping-tbody-item">' +
-                                        '<ul class="ul">' +
-                                        '<li>'+
-                                        '<img src="'+imgs+''+result.rows[G].img+'">' +
-                                        '</li>' +
-                                        '<li>'+result.rows[G].title+'</li>' +
-                                        '<li>'+result.rows[G].ptitle+'</li>' +
-                                        // '<li>'+result.rows[G].pstatus+'</li>' +
-                                        '<li>'+result.rows[G].addTime+'</li>' +
-                                        '<li>'+result.rows[G].pv+'</li>' +
-                                        '<li>'+result.rows[G].uv+'</li>' +
-                                        '<li>'+
-                                        '<div class="sets">'+
-                                        '<div onclick="supermarkshowData(this.id)" id="' + result.rows[G].id + '"  class="supermarketgraphics">图形数据</div>' +
-                                        '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
-                                        '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
-                                        ' </div>' +
-                                        '</li>' +
-                                        '</ul>' +
-                                        '</div>'
-                                    var K=$(D);
-                                    o.append(K);
-
-                                }
-                            }
-                            $(".shopping-tbody1").paging(options)
-                        }
-                    })
-
-                });
-
-
-
-                var options = {
-                    list:".ul",//列表标识
-                    currentPage:1,//初始页（选传，默认1）
-                    pageSize:5,//每页列表数
-                    // listTotal:5,//列表总数（选传），不传为list总数
-                    callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
-                        ajaxDemo2(currentPage)
-                    }
-                }
-
-                //会员得到数据
-                function ajaxDemo2(page,pageSize){
-                    if(!pageSize)var pageSize = 5;
-                    if(sousuo2!=""||!sousuo2.valueOf("")){
-                        //搜索有值的时候
-                        $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize},function(data){
-                            loadData2(data);
-                        })
-                    }if(propertyIds!=''||!propertyIds.valueOf("")){
-                        $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize,propertyId:propertyIds,Index1:Index},function(data){
-                            loadData2(data);
-                        })
-                    }
-                }
-                //会员拼接数据
-                function loadData2(data){
-                    //var jsonData=JSON.parse(data);
-                    // var jsonData=JSON.parse(data);
-                    $(".shopping-tbody1").empty();
-                    var I=data.rows.length;
-                    var o = $(".shopping-tbody1");
-                    var imgs='<%=basePath %>';
-                    if (data.length!==0) {
-                        for(var G=0;G<I;G++){
-                            var D ='<div class="shopping-tbody-item">' +
-                                '<ul class="ul">' +
-                                '<li>'+
-                                '<img src="'+imgs+''+data.rows[G].img+'">' +
-                                '</li>' +
-                                '<li>'+data.rows[G].title+'</li>' +
-                                '<li>'+data.rows[G].ptitle+'</li>' +
-                                // '<li>'+data.rows[G].pstatus+'</li>' +
-                                '<li>'+data.rows[G].addTime+'</li>' +
-                                '<li>'+data.rows[G].pv+'</li>' +
-                                '<li>'+data.rows[G].uv+'</li>' +
-                                '<li>'+
-                                '<div class="sets">'+
-                                '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
-                                '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + data.rows[G].id + '">编辑</div>' +
-                                '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + data.rows[G].id  + '">删除</div>' +
-                                ' </div>' +
-                                '</li>' +
-                                '</ul>' +
-                                '</div>'
-                            var K=$(D);
-                            o.append(K);
-
-                        }
-                    }
-                }
 
 
                 $(document).ready(function(){
+                    var total2=0;
+                    //数据框的值
+                    var sousuo2="";
+                    var propertyIds="";
+                    var Index="";
+                    //
+                    //点击按钮
+                    $('#buttont').click(function(){
+                        sousuo2=$("input[name='placeholder2']").val();
+                        $(".shopping-tbody1").empty();
+                        $.ajax({
+                            type:"post",
+                            dateType:"json",
+                            url:"<%=basePath %>/Supermarke/getSupermarket",
+                            data:{title:sousuo2},
+                            success: function(result){
+                                total2=result.total;
+                                var  I=result.rows.length;
+                                var o = $(".shopping-tbody1");
+                                var imgs='<%=basePath %>';
+                                if (result.length!==0) {
+                                    for(var G=0;G<I;G++){
+                                        var D ='<div class="shopping-tbody-item">' +
+                                            '<ul class="ul">' +
+                                            '<li>'+
+                                            '<img src="'+imgs+''+result.rows[G].img+'">' +
+                                            '</li>' +
+                                            '<li>'+result.rows[G].title+'</li>' +
+                                            '<li>'+result.rows[G].ptitle+'</li>' +
+                                            // '<li>'+result.rows[G].pstatus+'</li>' +
+                                            '<li>'+result.rows[G].addTime+'</li>' +
+                                            '<li>'+result.rows[G].pv+'</li>' +
+                                            '<li>'+result.rows[G].uv+'</li>' +
+                                            '<li>'+
+                                            '<div class="sets">'+
+                                            '<div onclick="supermarkshowData(this.id)" id="' + result.rows[G].id + '"  class="supermarketgraphics">图形数据</div>' +
+                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
+                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
+                                            ' </div>' +
+                                            '</li>' +
+                                            '</ul>' +
+                                            '</div>'
+                                        var K=$(D);
+                                        o.append(K);
+
+                                    }
+                                }
+                                $(".shopping-tbody1").paging(options)
+                            },
+                            error:function(){
+                                layer.msg("错误")
+                            }
+                        });
+                        //ajax结束
+
+
+                    })
+
+                    //点击确定
+                    $('#ok').click(function(){
+                        Index = document.getElementById("Index1").value;
+                        propertyIds = document.getElementById("propertyId").value;
+                        // var status = document.getElementById("status").value;
+                        $(".shopping-tbody1").empty();
+                        $.ajax({
+                            type:"post",
+                            dateType:"json",
+                            url:"<%=basePath %>/Supermarke/getSupermarket",
+                            data:{Index1:Index,propertyId:propertyIds},
+                            success: function(result) {
+                                total2=result.total;
+                                var  I=result.rows.length;
+                                var o = $(".shopping-tbody1");
+                                var imgs='<%=basePath %>';
+                                if (result.length!==0) {
+                                    for(var G=0;G<I;G++){
+                                        var D ='<div class="shopping-tbody-item">' +
+                                            '<ul class="ul">' +
+                                            '<li>'+
+                                            '<img src="'+imgs+''+result.rows[G].img+'">' +
+                                            '</li>' +
+                                            '<li>'+result.rows[G].title+'</li>' +
+                                            '<li>'+result.rows[G].ptitle+'</li>' +
+                                            // '<li>'+result.rows[G].pstatus+'</li>' +
+                                            '<li>'+result.rows[G].addTime+'</li>' +
+                                            '<li>'+result.rows[G].pv+'</li>' +
+                                            '<li>'+result.rows[G].uv+'</li>' +
+                                            '<li>'+
+                                            '<div class="sets">'+
+                                            '<div onclick="supermarkshowData(this.id)" id="' + result.rows[G].id + '"  class="supermarketgraphics">图形数据</div>' +
+                                            '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + result.rows[G].id + '">编辑</div>' +
+                                            '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + result.rows[G].id  + '">删除</div>' +
+                                            ' </div>' +
+                                            '</li>' +
+                                            '</ul>' +
+                                            '</div>'
+                                        var K=$(D);
+                                        o.append(K);
+
+                                    }
+                                }
+                                $(".shopping-tbody1").paging(options)
+                            }
+                        })
+
+                    });
+
+
+
+                    var options = {
+                        list:".ul",//列表标识
+                        currentPage:1,//初始页（选传，默认1）
+                        pageSize:5,//每页列表数
+                        // listTotal:5,//列表总数（选传），不传为list总数
+                        callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
+                            ajaxDemo2(currentPage)
+                        }
+                    }
+
+                    //会员得到数据
+                    function ajaxDemo2(page,pageSize){
+                        if(!pageSize)var pageSize = 5;
+                        if(sousuo2!=""||!sousuo2.valueOf("")){
+                            //搜索有值的时候
+                            $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize},function(data){
+                                loadData2(data);
+                            })
+                        }if(propertyIds!=''||!propertyIds.valueOf("")){
+                            $.post('<%=basePath %>/Supermarke/getSupermarket',{pageNo:page,pageSize:pageSize,propertyId:propertyIds,Index1:Index},function(data){
+                                loadData2(data);
+                            })
+                        }
+                    }
+                    //会员拼接数据
+                    function loadData2(data){
+                        //var jsonData=JSON.parse(data);
+                        // var jsonData=JSON.parse(data);
+                        $(".shopping-tbody1").empty();
+                        var I=data.rows.length;
+                        var o = $(".shopping-tbody1");
+                        var imgs='<%=basePath %>';
+                        if (data.length!==0) {
+                            for(var G=0;G<I;G++){
+                                var D ='<div class="shopping-tbody-item">' +
+                                    '<ul class="ul">' +
+                                    '<li>'+
+                                    '<img src="'+imgs+''+data.rows[G].img+'">' +
+                                    '</li>' +
+                                    '<li>'+data.rows[G].title+'</li>' +
+                                    '<li>'+data.rows[G].ptitle+'</li>' +
+                                    // '<li>'+data.rows[G].pstatus+'</li>' +
+                                    '<li>'+data.rows[G].addTime+'</li>' +
+                                    '<li>'+data.rows[G].pv+'</li>' +
+                                    '<li>'+data.rows[G].uv+'</li>' +
+                                    '<li>'+
+                                    '<div class="sets">'+
+                                    '<div onclick="Img(this.id)" class="supermarketgraphics">图形数据</div>' +
+                                    '<div class="promoteEditor"  onclick="supermarUpadete(this.id)" id="' + data.rows[G].id + '">编辑</div>' +
+                                    '<div class="promoteidelete" onclick="supermardelect(this.id)" id="' + data.rows[G].id  + '">删除</div>' +
+                                    ' </div>' +
+                                    '</li>' +
+                                    '</ul>' +
+                                    '</div>'
+                                var K=$(D);
+                                o.append(K);
+
+                            }
+                        }
+                    }
 
                     var flot=false;
                     if(flot==false){
@@ -468,7 +467,7 @@
                             flot=true;
                         },
                         error:function(){
-                            alert("错误")
+                            layer.msg("错误")
                         }
                     });
                     //ajax结束

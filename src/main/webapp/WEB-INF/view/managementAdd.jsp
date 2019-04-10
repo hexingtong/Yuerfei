@@ -169,6 +169,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         demoText.find('.demo-reload').on('click', function () {
                             uploadInst.upload();
                         });
+                    },error:function(XMLhttpServlet){
+                        if (XMLhttpServlet.status==401){
+                            $(location).attr('href', '<%=basePath %>/admin2/toLogin')
+                        }
                     }
                 });
             });
@@ -244,61 +248,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       var Height=$(window).height();//
       var Height1=$(window).height()-60;//
       var Width=$(window).width();
-      var indexData=[
-          {icon:"&#xe604",text:"欢迎来到首页"},
-          {icon:"&#xe60d",text:"会员管理列表"},
-          {icon:"&#xe60f",text:"商户管理列表"},
-          {icon:"&#xe602",text:"产品属性列表"},
-          {icon:"&#xe603",text:"标签展示列表"},
-          {icon:"&#xe610",text:"商户展示列表"},
-          {icon:"&#xe615",text:"超市展示列表"},
-          {icon:"&#xe605",text:"推广链接列表"},
-          {icon:"&#xe608",text:"管理人员列表"},
-      ];
-      console.log(Height+'+'+Width);
+
       $('#indexBox').css('width',Width);
       $('#indexBox').css('height',Height);
       $('.indexcontent-right-bottom').css('height',Height1);
-      var h1 = '';
-      for(var i=0;i<indexData.length;i++){
-          if(i==8){
-              h1 += '<div class="indexcontent-left-item active">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          }else{
-              h1 += '<div class="indexcontent-left-item grey">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          };
 
-      };
-      $('.indexcontent-left-list-main').append(h1);
-
-
-      /*点击左边切换右边*/
-      $('.indexcontent-left-list-main>div').on('click',function(){
-          var index=$(this).index();
-          console.log(index);
-          window.location.href="index.html?id="+index;
-      })
-
-  });
-
-    $('.back').on('click',function(){
-        window.location.href="index.jsp";
-    })
 
 
 </script>

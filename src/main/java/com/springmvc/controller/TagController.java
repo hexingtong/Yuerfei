@@ -25,7 +25,13 @@ public class TagController {
     @Autowired
     private KnTagService knTagService;
 
-    //标签展示页面and查询
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 标签展示页面and查询
+     * @Date 14:02 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "获取标签页面和查询", httpMethod = "POST", response = StatusCode.class, notes = "获取标签页面和查询")
     @RequestMapping("/MercjatTagList")
     @ResponseBody
@@ -54,7 +60,14 @@ public class TagController {
 
     }
 
-    //标签增加页面
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO  标签增加页面
+     * @Date 14:02 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "标签增加页面", httpMethod = "POST", response = StatusCode.class, notes = "标签增加页面")
     @RequestMapping("/MercjatTagListIncrease")
     @ResponseBody()
@@ -85,7 +98,13 @@ public class TagController {
     }
 
 
-    //编辑标签页面
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO  编辑标签页面
+     * @Date 14:02 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "标签编辑页面", httpMethod = "POST", response = StatusCode.class, notes = "标签编辑页面")
     @RequestMapping("/MercjatTagListUpadete")
     @ResponseBody

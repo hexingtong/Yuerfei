@@ -100,6 +100,9 @@
    update `kn_friend` set enrollment=enrollment+1 where url = #{url}
   </update>
 
-
+  <!--查询所有推广链接-->
+  <select id="selectFriendAll" resultType="kn_friend">
+  SELECT * FROM kn_friend
+  </select>
 
 </mapper>

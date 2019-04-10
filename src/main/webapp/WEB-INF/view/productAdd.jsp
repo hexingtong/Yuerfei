@@ -92,7 +92,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <div id="add">提交</div>
                                                 <div class="back" onclick="javascript :history.back(-1);">返回</div>
                                             </div>
-
                                         </div>
 
                                     </form>
@@ -133,7 +132,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             return layer.msg('上传失败');
                         } else if (res.code == 200) {
 
-                            alert(res.items[0])
                             imgaddress = res.items[0]
                             return layer.msg('上传成功');
                         }
@@ -159,11 +157,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 if (imgaddress != '') {
                     //图片改变
                     img = imgaddress
-                    alert("图片改变")
                 }
 
                 if (title == ''||title==null||title==undefined ||  img == ''||img==null||img==undefined) {
-                    alert("请填完成信息编辑");
+                   layer.msg("请填完成信息编辑");
                 } else {
                     $.ajax({
                         url: "<%=basePath %>/GoodsAttribute/addAttribute",
@@ -178,9 +175,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             if (data == 1) {
                                 $(location).attr('href', '<%=basePath %>/url/goodsAuthbuteUrl')
                             } else if (data == 0) {
-                                alert("修改失败")
+                                layer.msg("修改失败")
                             } else {
-                                alert("系统繁忙")
+                                layer.msg("系统繁忙")
                             }
                         }
                     });
@@ -220,47 +217,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       var Height=$(window).height();//
       var Height1=$(window).height()-60;//
       var Width=$(window).width();
-      var indexData=[
-          {icon:"&#xe604",text:"欢迎来到首页"},
-          {icon:"&#xe60d",text:"会员管理列表"},
-          {icon:"&#xe60f",text:"商户管理列表"},
-          {icon:"&#xe602",text:"产品属性列表"},
-          {icon:"&#xe603",text:"标签展示列表"},
-          {icon:"&#xe610",text:"商户展示列表"},
-          {icon:"&#xe615",text:"超市展示列表"},
-          {icon:"&#xe605",text:"推广链接列表"},
-          {icon:"&#xe608",text:"管理人员列表"},
-      ];
-      console.log(Height+'+'+Width);
+
       $('#indexBox').css('width',Width);
       $('#indexBox').css('height',Height);
       $('.indexcontent-right-bottom').css('height',Height1);
-      var h1 = '';
-      for(var i=0;i<indexData.length;i++){
-          if(i==3){
-              h1 += '<div class="indexcontent-left-item active">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          }else{
-              h1 += '<div class="indexcontent-left-item grey">'+
-                      '<div class="indexcontent-left-item-left">'+
-                      '<i class="iconfont">'+indexData[i].icon+'</i>'+
-                      '</div>'+
-                      '<div class="indexcontent-left-item-middle">'+indexData[i].text+'</div>'+
-                      '<div class="indexcontent-left-item-right">'+
-                      '<i class="iconfont">&#xe912</i>'+
-                      '</div>'+
-                      '</div>';
-          };
 
-      };
-      $('.indexcontent-left-list-main').append(h1);
 
 
       /*点击左边切换右边*/
@@ -272,9 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   });
 
-    $('.back').on('click',function(){
-        window.location.href="index.jsp";
-    })
+
 
 
 </script>

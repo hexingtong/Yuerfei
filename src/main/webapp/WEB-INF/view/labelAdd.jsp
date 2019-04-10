@@ -28,11 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="indexcontent-right-main">
                             <div class="indexcontent-right-top">
                                 <img src="${ctx }/images/Full screen button.svg">
-                                <div class="indexcontent-right-top-right">
-                                    <img src="${ctx }/images/quit.svg">
-                                    <p>退出</p>
-                                </div>
-                            </div>
+                                <!--超市展示右边-->
+                                        <%@ include file="top.jsp" %>
+                                    </div>
                             <div class="indexcontent-right-bottom" style="height: 884px;">
                                 <div class="label-right-bottom-main">
                                     <div class="indexcontent-right-bottom-main-header">
@@ -97,6 +95,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 error:function (result) {
                     layer.msg("增加失败！");
                     window.history.go(-1);
+                },error:function(XMLhttpServlet){
+                    if (XMLhttpServlet.status==401){
+                        $(location).attr('href', '<%=basePath %>/admin2/toLogin')
+                    }
                 }
             });
 

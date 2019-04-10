@@ -563,7 +563,7 @@
         height:30px;
         border:none;
         background:#EFF3FA;
-        color:#B2D8FF;
+        color:#2290FF;
     }
     .members-form-bottom{
         position: absolute;
@@ -645,7 +645,7 @@
         height:30px;
         border:none;
         background:#EFF3FA;
-        color:#B2D8FF;
+        color:#2290FF;
     }
 
     .members-form-tops{
@@ -1246,7 +1246,7 @@
         border:none;
         padding:0px 10px;
         background:#EFF3FA;;
-        color:#B2D8FF;
+        color:#2290FF;
     }
     .lines>span{
         margin-left:10px;
@@ -1262,7 +1262,7 @@
     }
     .shopDate{
         width:100%;
-        margin-top:90px;
+        margin-top:0px;
         height:30px;
         display: flex;
     }
@@ -1342,7 +1342,7 @@
         border:none;
         font-size: 14px;
         background:#EFF3FA;
-        color:#B2D8FF;
+        color:#2290FF;
     }
     .productDetails{
         width:100%;

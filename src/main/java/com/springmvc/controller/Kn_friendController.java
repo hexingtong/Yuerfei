@@ -27,7 +27,13 @@ public class Kn_friendController {
     @Autowired
     private FriendService FriendService;
 
-    //推广页面展示
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页面展示
+     * @Date 14:12 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "获取推广页面数据", httpMethod = "POST", response = StatusCode.class, notes = "获取推广页面数据")
     @RequestMapping("/friendList")
     @ResponseBody
@@ -55,7 +61,13 @@ public class Kn_friendController {
 
     }
 
-    //推广页面删除
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页面删除
+     * @Date 14:12 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "推广页面数据删除", httpMethod = "POST", response = StatusCode.class, notes = "推广页面数据删除")
     @RequestMapping("/deleteFriend")
     @ResponseBody
@@ -77,7 +89,13 @@ public class Kn_friendController {
         }
     }
 
-    //推广页面编辑
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页面编辑
+     * @Date 14:13 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "推广页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "推广页面编辑")
     @RequestMapping("/updateFriend")
     @ResponseBody
@@ -102,7 +120,13 @@ public class Kn_friendController {
         }
     }
 
-    //推广页面增加
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页面增加
+     * @Date 14:13 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = StatusCode.class, notes = "推广页面增加")
     @RequestMapping("/insertFriend")
     @ResponseBody
@@ -122,4 +146,5 @@ public class Kn_friendController {
         }
 
     }
+
 }

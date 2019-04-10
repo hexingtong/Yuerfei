@@ -131,7 +131,7 @@
 <div id="indexBox">
     <div class="indexcontent">
         <%@ include file="left.jsp" %>
-<!--商户管理右边-->
+            <!--商户管理右边-->
             <div class="indexcontent-right2" style="display: block;">
                 <div class="indexcontent-right-main">
                     <div class="indexcontent-right-top">
@@ -209,6 +209,10 @@
 
                             },error:function(result){
                                 layer.msg('错误');
+                            },error:function(XMLhttpServlet){
+                                if (XMLhttpServlet.status==401){
+                                    $(location).attr('href', '<%=basePath %>/admin2/toLogin')
+                                }
                             }
                         })
                     }, function(){

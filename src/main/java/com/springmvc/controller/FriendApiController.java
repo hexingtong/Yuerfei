@@ -1,11 +1,19 @@
 package com.springmvc.controller;
 
 import com.util.Https.HttpUtil;
+import com.util.JsonUtils;
+import com.util.ListObject;
+import com.util.ResponseUtils;
+import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.RequestWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +35,7 @@ public class FriendApiController {
      * @Param 
      * @return 
      **/
+    @ApiOperation(value = "修改推广链接的地址然后删除掉原地址", httpMethod = "POST", response = StatusCode.class, notes = "根据token获取用户信息修改推广链接的地址然后删除掉原地址")
     @RequestMapping("/UpdateFriendApi")
     @ResponseBody
     public String UpdateFriendApi(String title,String url,String urlTo){
@@ -60,6 +69,41 @@ public class FriendApiController {
             return "error";
         }return "error";
         }
+        
+        /**
+         * @Author 苏俊杰
+         * @Description //TODO 修改推广链接
+         * @Date 11:53 2019/4/10
+         * @Param 
+         * @return 
+         **/
+        @RequestMapping("/UpdateFriendApi2")
+        public static   void UpdateFriendApi2(HttpServletResponse response,String title, String urlx, String urlTo){
+            ListObject listObject=new ListObject();
+            Map createMap=new HashMap();
+            String format1="revise";
+            createMap.put("format",format1);
+            createMap.put("userId",userId);
+            createMap.put("key",key);
+            createMap.put("title",title);
+            createMap.put("shortUrl",urlTo);
+            createMap.put("title",title);
+            createMap.put("url",urlx);
+            System.out.println("传入的原链接"+urlTo);
+            String result=HttpUtil.doPostSSL(Url,createMap,null);
+            JSONObject jsonData = JSONObject.fromObject(result);
+            String success=jsonData.get("success").toString();
+            if(success.equals("ok")){
+                listObject.setContent(StatusCode.CODE_SUCCESS,"成功");
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }else{
+                listObject.setContent(StatusCode.CODE_ERROR_PARAMETER,"失败");
+                listObject.setMsg("失败！");
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }
+        }
+        
+        
         /**
          * @Author 苏俊杰
          * @Description //TODO 增加API推广链接
@@ -67,11 +111,11 @@ public class FriendApiController {
          * @Param [url, title]
          * @return java.lang.String
          **/
+        @ApiOperation(value = "增加API推广链接", httpMethod = "POST", response = StatusCode.class, notes = "增加API推广链接")
         @RequestMapping("/AddFriendApi")
         @ResponseBody
         public String AddFriendApi(String url,String title){
             Map createMap=new HashMap();
-
             createMap.put("format",format);
             createMap.put("userId",userId);
             createMap.put("key",key);
@@ -91,6 +135,7 @@ public class FriendApiController {
          * @Param 
          * @return 
          **/
+        @ApiOperation(value = "删除API推广链接", httpMethod = "POST", response = StatusCode.class, notes = "删除API推广链接")
         @RequestMapping("/DelectFriendApi")
         @ResponseBody
         public String DelectFriendApi(String url){

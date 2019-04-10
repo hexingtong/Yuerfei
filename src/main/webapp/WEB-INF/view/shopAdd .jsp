@@ -80,14 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--会员管理右边-->
                 <div class="indexcontent-right1">
                     <div class="indexcontent-right-main">
-                        <div class="indexcontent-right-top">
-                            <img  src="./images/Full screen button.svg"/>
-                            <div class="indexcontent-right-top-right">
-                                <img  src="./images/quit.svg"/>
-                                <p>退出</p>
-                            </div>
-                        </div>
-                        <div class="indexcontent-right-bottom" style="height:1400px;">
+                                <%@ include file="top.jsp" %>
+                                <div class="indexcontent-right-bottom" style="height:1400px;">
                             <div class="indexcontent-right-bottom-main">
                                 <div class="indexcontent-right-bottom-main-header">
                                     <div class="indexcontent-header-title">编辑商户展示列表</div>

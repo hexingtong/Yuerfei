@@ -3,6 +3,7 @@ package com.springmvc.controller;
 import com.springmvc.pojo.KnProperty;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
+import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.kn_goodsservice;
 import com.util.JsonUtils;
 import com.util.ListObject;
@@ -31,14 +32,14 @@ public class SupermarketController {
     @Autowired
     private kn_goodsservice kn_goodsservice;
 
+   
     /**
-     * Description：得到超市列表
-     *
-     * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态
+     * @Author 苏俊杰
+     * @Description //TODO 得到超市列表
+     * @Date 14:15 2019/4/8
+     * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
      * @return com.springmvc.pojo.PageResultInfo
-     * @author boyang
-     * @date 11:21
-     */
+     **/
     @ApiOperation(value = "得到超市列表", httpMethod = "POST", response = StatusCode.class, notes = "得到超市列表")
     @RequestMapping("/getSupermarket")
     @ResponseBody
@@ -61,7 +62,13 @@ public class SupermarketController {
         return resultInfo;
     }
 
-    //超市增加
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 超市列表增加
+     * @Date 14:15 2019/4/8
+     * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
+     * @return com.springmvc.pojo.PageResultInfo
+     **/
     @ApiOperation(value = "超市页面增加", httpMethod = "POST", response = StatusCode.class, notes = "超市页面增加")
     @RequestMapping("/insertSupermarket")
     public void insertSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
@@ -88,8 +95,14 @@ public class SupermarketController {
 
     }
 
-    //超市编辑
-    @ApiOperation(value = "超市页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "超市页面编辑")
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 超市列表编辑
+     * @Date 14:15 2019/4/8
+     * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
+     * @return com.springmvc.pojo.PageResultInfo
+     **/
+    @ApiOperation(value = "超市页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "根据接收的参数编辑产品和产品详情")
     @RequestMapping("updateSupermarket")
     @ResponseBody
     public void updateSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
@@ -114,12 +127,21 @@ public class SupermarketController {
         }
 
     }
-    //超市删除
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 超市列表删除
+     * @Date 14:15 2019/4/8
+     * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
+     * @return com.springmvc.pojo.PageResultInfo
+     **/
     @ApiOperation(value = "超市页面删除", httpMethod = "POST", response = StatusCode.class, notes = "超市页面删除")
+    @RequestMapping("/delectSupermarket")
     public void deleteSuprmarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
+        kn_goods kn_goods=kn_goodsservice.selectGoodsSK(goodsSupermarketDvo.getId());
+        goodsSupermarketDvo.setDetailsId(kn_goods.getDetailsId());
+        logger.info("控制器传进来的值是+"+goodsSupermarketDvo.getDetailsId());
         ListObject listObject=new ListObject();
         try {
-
 
             int i = kn_goodsservice.deleteSupermarket(goodsSupermarketDvo);
             if (i > 0) {

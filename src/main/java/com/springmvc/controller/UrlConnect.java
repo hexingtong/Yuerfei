@@ -2,16 +2,12 @@ package com.springmvc.controller;
 
 import com.springmvc.pojo.*;
 import com.springmvc.service.*;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -74,8 +70,8 @@ public class UrlConnect {
     public String SupermarketUpdate(Model model, Integer id){
         kn_goods goods=kn_goodsservice.selectGoodsSK(id);
         model.addAttribute("goods", goods);
-        GoodsDetail goodsDetail=kn_goodsservice.selectGoodsOne(goods.getDetailsId());
-        model.addAttribute("goodsDetail", goodsDetail);
+//        GoodsDetail goodsDetail=kn_goodsservice.selectGoodsOne(goods.getDetailsId());
+//        model.addAttribute("goodsDetail", goodsDetail);
         System.out.println(goods.getImg());
         System.out.println(goods.getTitle());
         return "supermarketEditor";}
@@ -85,7 +81,10 @@ public class UrlConnect {
 
     //超市删除列表
     @RequestMapping("/SupermarketDelete")
-    public String SupermarketDelete(){return "supermarketAdd";}
+    public void SupermarketDelete(Model model,Integer id){
+        kn_goods goods=kn_goodsservice.selectGoodsSK(id);
+        model.addAttribute("goods", goods);
+        }
 
 
     //推广链接列表

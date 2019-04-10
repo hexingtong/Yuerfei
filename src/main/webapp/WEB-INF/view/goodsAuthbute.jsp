@@ -142,7 +142,6 @@
                             url:"${ctx }/GoodsAttribute/delete",
                             data:{id:id},
                             success:function(result){
-
                                 if(result==1){
                                     layer.msg('删除成功', {icon: 1,time: 5000});
                                     window.location.reload();
@@ -222,7 +221,6 @@
                         pageSize:5,//每页列表数
                         //listTotal:5,//列表总数（选传），不传为list总数
                         callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
-
                             loadData2(ajaxDemo2(currentPage))
                         }
                     }

@@ -127,12 +127,12 @@
         var user_password=document.getElementById("pwd1").value;
        // alert("<%=basePath %>/admin/loginhoutai");
         if (user_account==""||user_account==null) {
-            alert("账号不能为空")
+            alert("账号不能为空");
             return;
         }
 
         if (user_password==""||user_password==null) {
-            alert("密码不能为空")
+            alert("密码不能为空");
             return;
         }
   if(user_account!=null&&user_password!=null){
@@ -156,29 +156,18 @@
                   else if(jsonData=="suse"){
                       window.location.href=("<%=basePath %>/admin2/index");
                   }
-
-
               },
               error:{
-
               }
-
-
           });
-
-
-
-
   }
-
-
-
-
     }
 
 
 
   $(document).ready(function(){
+
+
     var Height=$(window).height();//浏览器当前窗口可视区域高度;
     var Width=$(window).width();
       console.log(Height+'+'+Width);
