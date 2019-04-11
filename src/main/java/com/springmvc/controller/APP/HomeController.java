@@ -10,6 +10,8 @@ import com.springmvc.service.NoticeService;
 import com.springmvc.service.PropertyService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
+import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
+    @ApiOperation(value = "APP产品属性接口", httpMethod = "POST", response = StatusCode.class, notes = "APP产品属性接口")
     @RequestMapping("/getAttributelist")
     @ResponseBody
     public Map<String,List<KnProperty>> getPropertyList(HttpServletResponse response
@@ -65,6 +68,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
+    @ApiOperation(value = "精选列表接口", httpMethod = "POST", response = StatusCode.class, notes = "精选列表接口")
     @RequestMapping("/getGoodList")
     @ResponseBody
     public Map<String,List<kn_goods>> getGoods(HttpServletResponse response
@@ -81,6 +85,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
+    @ApiOperation(value = "得到公告", httpMethod = "POST", response = StatusCode.class, notes = "得到公告")
     @RequestMapping("/getNoticelist")
     @ResponseBody
     public Map<String,List<Notice>> getNotice(HttpServletResponse response
@@ -97,6 +102,7 @@ NoticeService noticeService;
      * @param
      * @return
      */
+    @ApiOperation(value = "首页搜索接口", httpMethod = "POST", response = StatusCode.class, notes = "首页搜索接口")
     @RequestMapping("/getGoodesName")
     @ResponseBody
     public Map<String,List<kn_goods>> getGoodesName(@RequestParam(value = "name", required = false)String name
@@ -113,6 +119,40 @@ NoticeService noticeService;
 
 
     }
+    /**
+     * Description：首页搜索接口android
+     * @author boyang
+     * @date 2019/4/11 17:29
+     * @param
+     * @return
+     */
+    @ApiOperation(value = "首页搜索接口", httpMethod = "POST", response = StatusCode.class, notes = "首页搜索接口")
+    @RequestMapping("/getGoodesNameAndroid")
+    @ResponseBody
+    public PageResultInfo getGoodesNameAndroid(Model model, HttpServletResponse response,
+                                               @RequestParam(value = "pageNo", defaultValue = "1",
+                                                       required = false)
+                                                       Integer pageNo,
+                                               @RequestParam(value = "pageSize", defaultValue = "8", required = false)
+                                                           Integer pageSize,
+                                               @RequestParam(value = "name", required = false)String name
+    ) {
+        logger.info("传入产品名称"+name);
+        PageHelper.startPage(pageNo, pageSize);
+        if (com.aliyuncs.utils.StringUtils.isNotEmpty(name)){
+            PageInfo<kn_goods> pageInfo = new PageInfo<kn_goods>(knGoodsservice.queryGoodes(name));
+            PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+            return  resultInfo;
+        }else {
+            PageInfo<kn_goods> pageInfo = new PageInfo<kn_goods>(knGoodsservice.getGoodsList());
+            PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+            return  resultInfo;
+
+        }
+
+
+    }
+
 /**
  * Description：分页得到产品列表
  * @author boyang
@@ -120,6 +160,7 @@ NoticeService noticeService;
  * @param
  * @return
  */
+@ApiOperation(value = "分页得到产品列表", httpMethod = "POST", response = StatusCode.class, notes = "分页得到产品列表")
 @RequestMapping("/getPageGoodsList")
 @ResponseBody
 public PageResultInfo getDataList(Model model, HttpServletResponse response,
