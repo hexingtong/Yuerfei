@@ -7,6 +7,7 @@ import com.springmvc.mapping.KnFriendMapper;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
+import com.util.shortUrl.shortUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,7 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         int i=knFriendMapper.updateFriendZhuce(url);
         return i;
     }
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 查询所有推广链接
@@ -133,4 +135,24 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         List<kn_friend> kn_friend=knFriendMapper.selectFriendAll();
         return kn_friend;
     }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 8
+     * @Date 17:44 2019/4/11
+     * @Param [long_url]
+     * @return java.lang.String
+     **/
+    public String getShortUrl(String long_url) {
+        String[] shortUrlzhuan=shortUrl.getShortUrl(long_url);
+        //生成短链接 然后判断数据库有没有值
+        for(int i=0;i<shortUrlzhuan.length;i++){
+            
+        }
+        //没有这个值就加进去 然后返回
+
+        return null;
+    }
+
+
 }

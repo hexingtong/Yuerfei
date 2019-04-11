@@ -77,6 +77,7 @@ public String toAdd(Model model, Integer id) {
      * @param response, pageNo, pageSize, 不做查询分页]
      * @return com.springmvc.pojo.PageResultInfo
      */
+    @ApiOperation(value = "获得产品列表", httpMethod = "POST", response = StatusCode.class, notes = "更新推广页面链接的数据（pv uv）")
     @RequestMapping("/getGoodsList")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -123,6 +124,7 @@ public String toAdd(Model model, Integer id) {
      * @param
      * @return
      */
+
     @RequestMapping("/delete")
     @ResponseBody
     public int delete(Integer id) {
@@ -138,8 +140,8 @@ public String toAdd(Model model, Integer id) {
     }
 /**
  * Description：编辑产品属性接口
- * @author boyang
- * @date 2019/3/18 11:28
+ * @author boyan
+ * @date 2019g/3/18 11:28
  * @param
  * @return
  */

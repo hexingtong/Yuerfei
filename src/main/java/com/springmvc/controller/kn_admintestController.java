@@ -54,7 +54,7 @@ public class kn_admintestController {
     public void test(HttpServletResponse response, String Phone) {
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
-        Jedis jedis = new Jedis("47.92.53.177", 6379);
+        Jedis jedis = new Jedis();
         try {
             if (StringUtil.isEmpty(Phone)&&Phone.equals("")) {
                 listObject.setCode(StatusCode.CODE_ERROR);
@@ -110,7 +110,7 @@ public class kn_admintestController {
             defaultValue = "", required = false)String url) {
         ListObject listObject = new ListObject();
         ListObjectSuper listObjectSuper = new ListObjectSuper();
-        Jedis jedis = new Jedis("47.92.53.177", 6379);
+        Jedis jedis = new Jedis();
         List<kn_admin> lst = new ArrayList();
         String rc = "SmsCode" + Phone;
         //拿取redis里的值
@@ -165,38 +165,40 @@ public class kn_admintestController {
                     }
                 }
                 if (i > 0) {
-                    //已经注册
-                    kn_admin kns = knAdminservice.queryByid(Phone);
-                    List lsx = new ArrayList();
-                    logger.info("已注册:" + Phone);
-                    logger.info("测试数据");
-                    kn_admin knAdmin2 = new kn_admin();
-                    knAdmin2.setPhone(Phone);
-                    session.setAttribute("id", kns.getId());
-                    Object ids = session.getAttribute("id");
-                    String id = ids.toString();
-                    String token = TokenTest.TokenTest(id);
-                    //token 解析方法
-                    //TokenTest.ValidToken(token);
-                    //date日期转换
-                    String dateUtil = DateUtil.getNowDate();
-                    Date utilDate = DateUtil.stringToDate(dateUtil);
-                    //修改最后一次登录时间
-                    kn_admin kna = new kn_admin();
-                    kna.setLoginTime(utilDate);
-                    kna.setId(Integer.parseInt(id));
-                    kn_admin knx = new kn_admin();
-                    lsx = knAdminservice.queryListByWhere(knAdmin2);
-                    listObjectSuper.setMsg("登录成功！");
-                    listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
-                    listObjectSuper.setItems(lsx);
-                    listObjectSuper.setToken(token);
-                    //存入token
-                    jedis.set("token" + id + "", token);
-                    //设置时间为毫秒
-                    jedis.pexpire("token", 1296000000);
-                    logger.info("登录成功：已注册用户");
-                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
+                        //已经注册
+                        kn_admin kns = knAdminservice.queryByid(Phone);
+                        List lsx = new ArrayList();
+                        logger.info("已注册:" + Phone);
+                        logger.info("测试数据");
+                        kn_admin knAdmin2 = new kn_admin();
+                        knAdmin2.setPhone(Phone);
+                        session.setAttribute("id", kns.getId());
+                        Object ids = session.getAttribute("id");
+                        String id = ids.toString();
+                        String tokens=jedis.get("token"+id);
+                        String token = TokenTest.TokenTest(id);
+                        //token 解析方法
+                        //TokenTest.ValidToken(token);
+                        //date日期转换
+                        String dateUtil = DateUtil.getNowDate();
+                        Date utilDate = DateUtil.stringToDate(dateUtil);
+                        //修改最后一次登录时间
+                        kn_admin kna = new kn_admin();
+                        kna.setLoginTime(utilDate);
+                        kna.setId(Integer.parseInt(id));
+                        kn_admin knx = new kn_admin();
+                        lsx = knAdminservice.queryListByWhere(knAdmin2);
+                        listObjectSuper.setMsg("登录成功！");
+                        listObjectSuper.setCode(StatusCode.CODE_SUCCESS);
+                        listObjectSuper.setItems(lsx);
+                        listObjectSuper.setToken(token);
+                        //存入token
+                        jedis.set("token" + id + "", token);
+                        //设置时间为毫秒
+                        jedis.pexpire("token", 1296000000);
+                        logger.info("登录成功：已注册用户");
+                        ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
+
                 } else {
                     //没有注册
                     logger.info("未注册:");

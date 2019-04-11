@@ -131,9 +131,11 @@ public class MerchantController {
      */
     @ApiOperation(value = "图片上传", httpMethod = "POST", response = StatusCode.class, notes = "图片上传")
     @RequestMapping("/addUserInfo")
-    public void addUserInfo(HttpServletResponse response,HttpServletRequest request) throws IOException {
+    public void addUserInfo(HttpSession session,HttpServletResponse response,HttpServletRequest request) throws IOException {
+        ListObject listObject = new ListObject();
         try {
-            ListObject listObject = new ListObject();
+            if(session.getAttribute("user")!=null){
+                logger.info("进入上传");
             List lstt=new ArrayList();
             List<FileItem> lst=ImageUtil.getRequeat(request);
             String i=ImageUtil.upload(request,lst);
@@ -153,9 +155,15 @@ public class MerchantController {
                 listObject.setItems(lstt);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
+            }else{
+                response.setHeader("refresh","1;URL=index.jsp");
+            }
         } catch (FileUploadException e) {
             e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
+
     }
 
 

@@ -2,12 +2,20 @@ package com.springmvc.controller;
 
 import com.springmvc.pojo.*;
 import com.springmvc.service.*;
+import com.util.JsonUtils;
+import com.util.ListObject;
+import com.util.ResponseUtils;
+import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -139,5 +147,38 @@ public class UrlConnect {
         }
         return "knFriendImg";
     }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广链接图表跳转页面
+     * @Date 13:54 2019/3/26
+     * @Param
+     * @return
+     **/
+    @ApiOperation(value = "获取推广链接图表数据接口", httpMethod = "POST", response = StatusCode.class, notes = "获取推广链接图表数据接口")
+    @RequestMapping("/FriendImg")
+    public void FriendImg2(HttpServletResponse response,Integer id){
+        System.out.println("id的值是"+id);
+        ListObject listObject=new ListObject();
+        if(id!=0||!id.equals("")) {
+            kn_friend kn_friend = friendService.selectFrilend(id);
+            Map map=new HashMap();
+            String format = "day";
+            Person[] person=FriendTimer.DatePvUv(kn_friend.getUrl(),format);
+            List<Person> lst=new ArrayList<>();
+            for(int i=0;i<person.length;i++){
+                lst.add(person[i]);
+            }
+            listObject.setItems(lst);
+            listObject.setMsg("查询成功");
+            listObject.setCode(StatusCode.CODE_SUCCESS);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }else {
+            listObject.setMsg("查询失败");
+            listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }
+    }
+
 
 }

@@ -31,8 +31,8 @@ import java.util.Map;
 /**
  * @ClassName GoodsController
  * @Description:
- * @Author by
- * @Date: 2019/2/27 15:28
+ * @Author 苏俊杰
+ * @Date:
  **/
 @Controller
 @RequestMapping("/Goods")
@@ -53,12 +53,13 @@ public class GoodsController {
 
     @Autowired
     KnTagService knTagService;
+
     /**
-     * Description：得到所有的产品
+     * Description：得到商家所有的产品
      *
      * @param
      * @return
-     * @author boyang
+     * @author 苏俊杰
      * @date 2019/2/27 16:53
      */
     @RequestMapping("getGoodsList")
@@ -85,8 +86,8 @@ public class GoodsController {
     }
 
     /**
-     * Description：产品属性接口
-     * @author boyang
+     * Description：商家产品属性接口
+     * @author 苏俊杰
      * @date 2019/3/8 15:19
      * @param
      * @return
@@ -102,8 +103,8 @@ public class GoodsController {
     }
 
     /**
-     * Description：产品上架状态接口
-     * @author boyang
+     * Description：商家产品上架状态接口
+     * @author 苏俊杰
      * @date 2019/3/8 15:19
      * @param
      * @return
@@ -117,8 +118,8 @@ public class GoodsController {
         return map;
     }
     /**
-     * Description：产品标签接口
-     * @author boyang
+     * Description：商家产品标签接口
+     * @author 苏俊杰
      * @date 2019/3/8 15:19
      * @param
      * @return

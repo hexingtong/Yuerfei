@@ -4,6 +4,7 @@ import com.springmvc.pojo.DTO.GoodsAttributeDto;
 import com.springmvc.pojo.GoodsDetail;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.pojo.kn_goodsSupper;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 

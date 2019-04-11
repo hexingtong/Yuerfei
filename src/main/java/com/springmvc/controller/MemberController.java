@@ -4,6 +4,8 @@ import com.springmvc.pojo.JsonModel;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.MemberService;
+import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +52,7 @@ public class MemberController {
      * @author boyang
      * @date 11:21
      */
+    @ApiOperation(value = "得到会员接口", httpMethod = "POST", response = StatusCode.class, notes = "得到会员接口")
     @RequestMapping("/getList")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -75,6 +78,7 @@ public class MemberController {
      * @date 2019/3/6 11:50
      * @param: 传入会的id
      */
+    @ApiOperation(value = "删除会员信息", httpMethod = "POST", response = StatusCode.class, notes = "通过用户id删除会员信息")
     @RequestMapping("/deleteAdmin")
     @ResponseBody
     public JsonModel delete(Integer id) {
@@ -100,6 +104,7 @@ public class MemberController {
      * @author boyang
      * @date 2019/3/6 14:43
      */
+    @ApiOperation(value = "编辑会员接口", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号编辑会员手机号码")
     @RequestMapping("/updateAdmin")
     @ResponseBody
     public JsonModel updateAdmin(Integer id, String phone) {

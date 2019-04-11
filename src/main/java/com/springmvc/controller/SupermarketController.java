@@ -134,7 +134,7 @@ public class SupermarketController {
      * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
      * @return com.springmvc.pojo.PageResultInfo
      **/
-    @ApiOperation(value = "超市页面删除", httpMethod = "POST", response = StatusCode.class, notes = "超市页面删除")
+    @ApiOperation(value = "超市页面删除", httpMethod = "POST", response = GoodsSupermarketDvo.class, notes = "根据封装类的数据删除详情表或者超市表")
     @RequestMapping("/delectSupermarket")
     public void deleteSuprmarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         kn_goods kn_goods=kn_goodsservice.selectGoodsSK(goodsSupermarketDvo.getId());

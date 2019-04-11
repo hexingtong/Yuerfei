@@ -68,7 +68,7 @@ public class TagController {
      * @Param
      * @return
      **/
-    @ApiOperation(value = "标签增加页面", httpMethod = "POST", response = StatusCode.class, notes = "标签增加页面")
+    @ApiOperation(value = "标签增加页面", httpMethod = "POST", response = StatusCode.class, notes = "根据title增加标签")
     @RequestMapping("/MercjatTagListIncrease")
     @ResponseBody()
     public void MercjatTagListIncrease(HttpServletResponse response, String title) {
@@ -105,7 +105,7 @@ public class TagController {
      * @Param
      * @return
      **/
-    @ApiOperation(value = "标签编辑页面", httpMethod = "POST", response = StatusCode.class, notes = "标签编辑页面")
+    @ApiOperation(value = "标签编辑页面", httpMethod = "POST", response = StatusCode.class, notes = "根据id和title编辑")
     @RequestMapping("/MercjatTagListUpadete")
     @ResponseBody
     public void MercjatTagListIncrease(HttpServletResponse response, Integer id, String title) {
@@ -134,7 +134,7 @@ public class TagController {
     //标签删除页面
     @RequestMapping("/TagDelete")
     @ResponseBody
-    @ApiOperation(value = "标签页面删除", httpMethod = "POST", response = StatusCode.class, notes = "标签页面删除")
+    @ApiOperation(value = "标签页面删除", httpMethod = "POST", response = StatusCode.class, notes = "根据Id删除标签")
     public void TagDelete(HttpServletResponse response, Integer id) {
         ListObject listObject = new ListObject();
         int i = knTagService.MercjatTagDelete(id);

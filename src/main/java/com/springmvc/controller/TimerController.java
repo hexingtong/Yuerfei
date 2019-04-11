@@ -4,6 +4,7 @@ import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
 import com.springmvc.service.FriendTimer;
 import com.util.*;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,6 +32,7 @@ public class TimerController {
      * @Param []
      * @return void
      **/
+    @ApiOperation(value = "更新推广页面链接的数据（pv uv）", httpMethod = "POST", response = StatusCode.class, notes = "更新推广页面链接的数据（pv uv）")
     @RequestMapping("/friend")
     @ResponseBody
     public void TimerFriend(HttpServletResponse response){

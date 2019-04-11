@@ -56,5 +56,15 @@ public interface KnFriendMapper extends Mapper<kn_friend> {
      * @return
      **/
      List<kn_friend> selectFriendAll();
+     
+     /**
+      * @Author 苏俊杰
+      * @Description //TODO 查询短链接数据
+      * @Date 16:23 2019/4/11
+      * @Param 
+      * @return 
+      **/
+    List<kn_friend> selectShortUrl();
+
 
 }

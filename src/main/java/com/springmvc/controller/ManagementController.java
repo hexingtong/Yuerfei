@@ -10,6 +10,8 @@ import com.springmvc.service.ManagementService;
 import com.springmvc.service.RoleInfoService;
 import com.springmvc.service.kn_adminservice;
 import com.util.IPutil;
+import com.util.StatusCode;
+import io.swagger.annotations.ApiOperation;
 import org.jsoup.helper.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +92,7 @@ return "managementAdd";
      * @param response, pageNo, pageSize, 不做查询分页]
      * @return com.springmvc.pojo.PageResultInfo
      */
+    @ApiOperation(value = "获取管理人员数据", httpMethod = "POST", response = StatusCode.class, notes = "获取管理人员数据")
     @RequestMapping("/getManageList")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -113,6 +116,7 @@ return "managementAdd";
  * @param
  * @return
  */
+@ApiOperation(value = "新增管理员接口", httpMethod = "POST", response = StatusCode.class, notes = "新增管理员接口")
 @RequestMapping("/AddManage")
 @ResponseBody
 public int saveManagement(@RequestBody kn_admin knAdmin, HttpServletRequest request){
@@ -148,6 +152,7 @@ public int saveManagement(@RequestBody kn_admin knAdmin, HttpServletRequest requ
  * @param 
  * @return 
  */
+@ApiOperation(value = "编辑管理人员列表", httpMethod = "POST", response = StatusCode.class, notes = "编辑管理人员列表")
 @RequestMapping("/saveManagement")
     @ResponseBody()
     public int updateManagement(@RequestBody kn_admin knAdmin, HttpServletRequest request){
@@ -162,9 +167,7 @@ public int saveManagement(@RequestBody kn_admin knAdmin, HttpServletRequest requ
     }else {
         return -1;
     }
-
-
-}
+    }
 
 
 }

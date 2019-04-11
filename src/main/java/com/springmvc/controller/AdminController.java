@@ -70,8 +70,8 @@ public class AdminController {
      * @return JsonModel
      */
     @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
-@RequestMapping("/loginhoutai")
-@ResponseBody
+    @RequestMapping("/loginhoutai")
+    @ResponseBody
     public JsonModel login(String userName, String pwd, HttpSession session) {
 
     logger.info("传入用户名+密码"+userName+pwd);
@@ -124,9 +124,6 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
            }
            if(user!=null&&user.getLevel()!=2){
                logger.info("传入密码"+pwd+"数据库密码"+user.getPwd());
-
-
-
                if (pwd.equals(user.getPwd())){
                    session.setAttribute("user",user);
                    kn_admin user2=new kn_admin();

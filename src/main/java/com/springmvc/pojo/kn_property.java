@@ -17,6 +17,7 @@ public class kn_property  implements Serializable{
     //排序级别（1最高级别）
     private  int level;
     //添加时间
+
     private Date add_time;
 
     @Override

@@ -379,6 +379,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
    var dId2=${goods.tagId}
        $("#tagId").val(dId2).trigger("change");
+
+       var dstata=${goods.status}
+           $("#status").val(dstata).trigger("change");
    //期限
 
    <%--&lt;%&ndash;//${goods.Deadline}&ndash;%&gt;--%>

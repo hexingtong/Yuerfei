@@ -105,4 +105,10 @@
   SELECT * FROM kn_friend
   </select>
 
+  <!--查询短链接-->
+  <select id="selectShortUrl" resultType="kn_friend">
+    select  id,short_url FROM kn_friend
+  </select>
+
+
 </mapper>

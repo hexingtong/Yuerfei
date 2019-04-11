@@ -5,7 +5,7 @@
          version="3.0">
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <!-- Spring和mybatis的配置文件 -->
   <context-param>
@@ -71,6 +71,18 @@
     </init-param>
 
   </filter>
+  <filter>
+    <filter-name>HeaderFilter</filter-name>
+    <filter-class>com.util.Filter.filter</filter-class><!--你过滤器的包 -->
+  </filter>
+  <filter-mapping>
+    <filter-name>HeaderFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern><!-- 你开放的接口前缀  -->
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>HeaderFilter</filter-name>
+    <url-pattern>/*</url-pattern><!-- 你开放的接口前缀  -->
+  </filter-mapping>
 
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
