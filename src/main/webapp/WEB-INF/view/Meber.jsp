@@ -74,6 +74,10 @@
 
             <script>
 
+                var total2=0;
+                //数据框的值
+                var sousuo2="";
+
                 function TagUpadete(id) {
                     $(location).attr('href', '<%=basePath %>/Member/toEdit?id='+id+'')
                 }
@@ -113,9 +117,6 @@
                 }
                 $(document).ready(function(){
 
-                    var total2=0;
-                    //数据框的值
-                    var sousuo2="";
                     //
 
                     //点击按钮
@@ -175,12 +176,12 @@
                     type:"post",
                     dateType:"json",
                     url:"<%=basePath %>/Member/getList",
-                    data:{pageNo:1,pageSize:7},
+                    data:{pageNo:1},
                     success: function(result){
 
 
                         total2=result.total;
-                        var  I=result.rows.length;
+                        var  I=result.  rows.length;
                         var o = $(".indexcontent-tbody");
                         if (result.length!==0) {
                             for(var G=0;G<I;G++){
@@ -206,6 +207,8 @@
 
                             }
                         }
+                        alert("总页数"+total2+'a20')
+                        localStorage.setItem('tota',total2)
                         $(".indexcontent-tbody").paging(options)
                     },
                     error:function(XMLhttpServlet){
@@ -215,17 +218,18 @@
                     }
                 });
                 //ajax结束
+                //     var asdf = localStorage.getItem('tola')
+                //     console.log(asdf)
                 var options = {
                     list:".ul",//列表标识
                     currentPage:1,//初始页（选传，默认1）
-                    pageSize:5,//每页列表数
-                    //listTotal:5,//列表总数（选传），不传为list总数
+                    pageSize:7,//每页列表数
+                     listTotal:localStorage.getItem('tota'),//列表总数（选传），不传为list总数
                     callback:function(currentPage){//翻页回调（可填，可做ajax请求）,不传为纯html切换
 
                         loadData2(ajaxDemo2(currentPage))
                     }
                 }
-
                 //会员得到数据
                 function ajaxDemo2(page,pageSize){
                     if(!pageSize)var pageSize = 7;
