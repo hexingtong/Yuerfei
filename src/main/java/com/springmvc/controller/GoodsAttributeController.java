@@ -11,6 +11,7 @@ import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.PropertyService;
 import com.util.ImageUtil;
 import com.util.StatusCode;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +38,8 @@ import java.util.*;
  * @Author by
  * @Date: 2019/3/6 18:22
  **/
+
+@Api(value="产品controller",tags={"产品操作接口"})
 @Controller
 @RequestMapping("/GoodsAttribute")
 public class GoodsAttributeController {
@@ -53,10 +57,12 @@ public class GoodsAttributeController {
  * @param
  * @return
  */
+@ApiIgnore()
 @RequestMapping("toAdd")
 public String toAdd(Model model, Integer id) {
     return "productAdd";
 }
+
     /**
      * Description：跳到产品属性编辑
      * @author boyang
@@ -64,12 +70,14 @@ public String toAdd(Model model, Integer id) {
      * @param
      * @return
      */
+    @ApiIgnore()
     @RequestMapping("/toEdit")
     public String toEdit(Model model, Integer id){
         KnProperty property=  propertyService.queryById(id);
         model.addAttribute("property", property);
         return "productEditor";
     }
+
     /**
      * Description：, pageNo：当前页, pageSize：页容量,传入的手机号
      * @author boyang
@@ -104,6 +112,7 @@ public String toAdd(Model model, Integer id) {
      * @param 
      * @return 
      */
+    @ApiOperation(value = "增加产品属性", httpMethod = "POST", response = StatusCode.class, notes = "增加产品属性")
     @RequestMapping("/addAttribute")
     @ResponseBody
     public int save(@RequestBody KnProperty property) {
@@ -124,7 +133,7 @@ public String toAdd(Model model, Integer id) {
      * @param
      * @return
      */
-
+    @ApiOperation(value = "删除产品属性", httpMethod = "POST", response = StatusCode.class, notes = "删除产品属性")
     @RequestMapping("/delete")
     @ResponseBody
     public int delete(Integer id) {
@@ -145,6 +154,7 @@ public String toAdd(Model model, Integer id) {
  * @param
  * @return
  */
+@ApiOperation(value = "编辑产品属性接口", httpMethod = "POST", response = StatusCode.class, notes = "编辑产品属性接口")
 @RequestMapping("/updateAttribute")
 @ResponseBody
 public JsonModel updateAdmin(Integer id, String img,String title) {
@@ -172,7 +182,7 @@ public JsonModel updateAdmin(Integer id, String img,String title) {
      * @Param
      * @return
      **/
-
+    @ApiIgnore()
     @ResponseBody
     @RequestMapping("/uploadImg.xhtml")
     public JsonModel uploadPicture(@RequestParam(value="file",required=false)MultipartFile file,HttpServletRequest request,HttpServletResponse response){

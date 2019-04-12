@@ -5,6 +5,7 @@ import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.MemberService;
 import com.util.StatusCode;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ import java.util.Map;
  * @Author by
  * @Date: 2019/3/6 9:15
  **/
+
+@Api(value="会员controller",tags={"会员操作接口"})
 @Controller
 @RequestMapping("/Member")
 public class MemberController {

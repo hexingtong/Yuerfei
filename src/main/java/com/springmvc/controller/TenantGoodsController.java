@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author by
  * @Date: 2019/3/7 17:25
  **/
+@ApiIgnore()
 @Controller
 @RequestMapping("/tenantGoods")
 public class TenantGoodsController {

@@ -6,6 +6,7 @@ import com.springmvc.pojo.kn_tag;
 import com.springmvc.service.KnTagService;
 import com.springmvc.service.MemberService;
 import com.util.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Api(value="标签controller",tags={"标签操作接口"})
 @Controller
 @RequestMapping("/Tag")
 public class TagController {

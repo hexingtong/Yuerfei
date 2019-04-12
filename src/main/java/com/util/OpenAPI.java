@@ -427,7 +427,7 @@ public class OpenAPI {
     }
     /**
      * @Author 苏俊杰
-     * @Description //TODO 安卓3日留存
+     * @Description //TODO 安卓月留存
      * @Date 19:26 2019/3/26
      * @Param [args]
      * @return void
@@ -439,7 +439,7 @@ public class OpenAPI {
         // 测试环境只支持http
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiAndroid);
-        param.setStartDate(DateUtils2.ThreeDay());
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
         param.setEndDate(DateUtils2.befoDay());
         param.setPeriodType("daily");
         try {
@@ -453,7 +453,7 @@ public class OpenAPI {
 
     /**
      * @Author 苏俊杰
-     * @Description //TODO 苹果3日留存
+     * @Description //TODO 苹果月留存
      * @Date 19:26 2019/3/26
      * @Param [args]
      * @return void
@@ -465,7 +465,7 @@ public class OpenAPI {
         // 测试环境只支持http
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiIosAppkey);
-        param.setStartDate(DateUtils2.ThreeDay());
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
         param.setEndDate(DateUtils2.befoDay());
         param.setPeriodType("daily");
 
@@ -639,6 +639,142 @@ public class OpenAPI {
         }
     }
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO IOS月pv
+     * @Date 16:43 2019/3/26
+     * @Param [apiExecutor]
+     * @return void
+     **/
+    public static String umengIOSMonth() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        UmengUappGetActiveUsersParam param = new UmengUappGetActiveUsersParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiIosAppkey);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setPeriodType("daily");
+        try {
+            UmengUappGetActiveUsersResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+        return "";
+    }
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 安卓30天的pv
+     * @Date 12:06 2019/4/12
+     * @Param [apiExecutor]
+     * @return void
+     **/
+    public static String umengUappEventGetData() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        UmengUappEventGetDataParam param = new UmengUappEventGetDataParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiAndroid);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setEventName("id_goodspv");
+
+        try {
+            UmengUappEventGetDataResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+    return "";
+    }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 苹果30天的pv
+     * @Date 12:06 2019/4/12
+     * @Param [apiExecutor]
+     * @return void
+     **/
+    public static String umengUIosEventGetData() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        UmengUappEventGetDataParam param = new UmengUappEventGetDataParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiIosAppkey);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setEventName("id_goodspv");
+
+        try {
+            UmengUappEventGetDataResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+        return "";
+    }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 苹果30天的uv
+     * @Date 12:06 2019/4/12
+     * @Param [apiExecutor]
+     * @return void
+     **/
+    public static String umengUIosEventGetDataUv() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        UmengUappEventGetDataParam param = new UmengUappEventGetDataParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiIosAppkey);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setEventName("id_goodsuv");
+
+        try {
+            UmengUappEventGetDataResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+        return "";
+    }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 安卓30天的uv
+     * @Date 12:06 2019/4/12
+     * @Param [apiExecutor]
+     * @return void
+     **/
+    public static String umengUAppEventGetDataUv() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        UmengUappEventGetDataParam param = new UmengUappEventGetDataParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiAndroid);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setEventName("id_goodsuv");
+
+        try {
+            UmengUappEventGetDataResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+        return "";
+    }
+
+
+
     public static void main(String[] args) {
 //        String Andrien=OpenAPI.umengAndrienUappGetActiveUsers();//安卓周活跃
 //         String ios=OpenAPI.umengIosUappGetActiveUsers();//苹果周活跃
@@ -652,9 +788,7 @@ public class OpenAPI {
 //            OpenAPI.umengIosUappGetRetentions();//苹果3日留存
 //            OpenAPI.umengSevenDayAndrienUappGetRetentions();//安卓7日留存
 //            OpenAPI.umengSevenDayIosUappGetRetentions();//苹果7日留存
-       umengAndroidEventParamGetValueList2();
-        //苹果胡uv
-        umengIosEventParamGetValueList2();
+             OpenAPI.umengUappEventGetData();
 
     }
 

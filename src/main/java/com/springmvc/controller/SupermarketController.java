@@ -9,6 +9,7 @@ import com.util.JsonUtils;
 import com.util.ListObject;
 import com.util.ResponseUtils;
 import com.util.StatusCode;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@Api(value="产品展示controller",tags={"产品展示操作接口"})
 @Controller
 @RequestMapping("/Supermarke")
 public class SupermarketController {
@@ -40,7 +42,7 @@ public class SupermarketController {
      * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
      * @return com.springmvc.pojo.PageResultInfo
      **/
-    @ApiOperation(value = "得到超市列表", httpMethod = "POST", response = StatusCode.class, notes = "得到超市列表")
+    @ApiOperation(value = "得到产品列表", httpMethod = "POST", response = StatusCode.class, notes = "得到产品列表")
     @RequestMapping("/getSupermarket")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -69,7 +71,7 @@ public class SupermarketController {
      * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
      * @return com.springmvc.pojo.PageResultInfo
      **/
-    @ApiOperation(value = "超市页面增加", httpMethod = "POST", response = StatusCode.class, notes = "超市页面增加")
+    @ApiOperation(value = "产品页面增加", httpMethod = "POST", response = StatusCode.class, notes = "产品页面增加")
     @RequestMapping("/insertSupermarket")
     public void insertSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         ListObject listObject=new ListObject();
@@ -102,7 +104,7 @@ public class SupermarketController {
      * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
      * @return com.springmvc.pojo.PageResultInfo
      **/
-    @ApiOperation(value = "超市页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "根据接收的参数编辑产品和产品详情")
+    @ApiOperation(value = "产品页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "根据接收的参数编辑产品和产品详情")
     @RequestMapping("updateSupermarket")
     @ResponseBody
     public void updateSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
@@ -134,7 +136,7 @@ public class SupermarketController {
      * @Param [model, response, pageNo, pageSize, title, Index1, propertyId, status]
      * @return com.springmvc.pojo.PageResultInfo
      **/
-    @ApiOperation(value = "超市页面删除", httpMethod = "POST", response = GoodsSupermarketDvo.class, notes = "根据封装类的数据删除详情表或者超市表")
+    @ApiOperation(value = "产品页面删除", httpMethod = "POST", response = GoodsSupermarketDvo.class, notes = "根据封装类的数据删除详情表或者产品表")
     @RequestMapping("/delectSupermarket")
     public void deleteSuprmarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         kn_goods kn_goods=kn_goodsservice.selectGoodsSK(goodsSupermarketDvo.getId());

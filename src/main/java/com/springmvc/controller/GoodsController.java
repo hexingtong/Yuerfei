@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.Map;
  * @Author 苏俊杰
  * @Date:
  **/
+@ApiIgnore()
 @Controller
 @RequestMapping("/Goods")
 public class GoodsController {

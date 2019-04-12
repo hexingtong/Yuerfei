@@ -8,6 +8,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @ClassName shrioTest
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author by
  * @Date: 2019/3/4 17:24
  **/
+@ApiIgnore()
 @Controller
 @RequestMapping("/shrio")
 public class shrioTest {

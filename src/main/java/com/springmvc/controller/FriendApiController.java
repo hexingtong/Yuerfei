@@ -11,13 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.RequestWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@ApiIgnore()
 @Controller
 @RequestMapping("/FriendAPI")
 public class FriendApiController {
@@ -35,6 +36,7 @@ public class FriendApiController {
      * @Param 
      * @return 
      **/
+
     @ApiOperation(value = "修改推广链接的地址然后删除掉原地址", httpMethod = "POST", response = StatusCode.class, notes = "根据token获取用户信息修改推广链接的地址然后删除掉原地址")
     @RequestMapping("/UpdateFriendApi")
     @ResponseBody

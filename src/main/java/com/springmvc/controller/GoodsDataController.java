@@ -8,6 +8,7 @@ import com.springmvc.service.GoodsPvDataService;
 import com.springmvc.service.GoodsUvDataService;
 import com.springmvc.service.kn_goodsservice;
 import com.util.pvDataUtuil.getCountPv;
+import io.swagger.annotations.ApiImplicitParam;
 import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -20,6 +21,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ import java.util.Map;
  * @Author by
  * @Date: 2019/3/22 15:21
  **/
+@ApiIgnore()
 @Controller
 @RequestMapping("/data")
 public class GoodsDataController {
@@ -126,7 +129,7 @@ public class GoodsDataController {
  * @param
  * @return
  */
-@Scheduled(cron= "30 0/1 * * * ? ")
+@Scheduled(cron= "0 0/6 * * * ? ")
 @RequestMapping("/upPvUv")
  public void upPvUv(){
 

@@ -25,6 +25,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.util.SmsPhone.sendSms;
-
+@ApiIgnore()
 @Controller
 @RequestMapping("/admin")
 public class kn_admintestController {
@@ -54,7 +55,7 @@ public class kn_admintestController {
     public void test(HttpServletResponse response, String Phone) {
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
-        Jedis jedis = new Jedis();
+        Jedis jedis = new Jedis("39.98.53.253",6379);
         try {
             if (StringUtil.isEmpty(Phone)&&Phone.equals("")) {
                 listObject.setCode(StatusCode.CODE_ERROR);
@@ -110,7 +111,7 @@ public class kn_admintestController {
             defaultValue = "", required = false)String url) {
         ListObject listObject = new ListObject();
         ListObjectSuper listObjectSuper = new ListObjectSuper();
-        Jedis jedis = new Jedis();
+        Jedis jedis = new Jedis("39.98.53.253",6379);
         List<kn_admin> lst = new ArrayList();
         String rc = "SmsCode" + Phone;
         //拿取redis里的值
@@ -186,6 +187,7 @@ public class kn_admintestController {
                         kn_admin kna = new kn_admin();
                         kna.setLoginTime(utilDate);
                         kna.setId(Integer.parseInt(id));
+                        knAdminservice.UpdateLoginTime(kna);
                         kn_admin knx = new kn_admin();
                         lsx = knAdminservice.queryListByWhere(knAdmin2);
                         listObjectSuper.setMsg("登录成功！");
@@ -262,7 +264,6 @@ public class kn_admintestController {
             listObject.setMsg("验证码已失效或手机号失效");
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-
 
     }
 

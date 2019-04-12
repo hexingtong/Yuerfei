@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@ApiIgnore()
 @Controller
 @RequestMapping("/url")
 public class UrlConnect {
@@ -156,7 +157,7 @@ public class UrlConnect {
      * @return
      **/
     @ApiOperation(value = "获取推广链接图表数据接口", httpMethod = "POST", response = StatusCode.class, notes = "获取推广链接图表数据接口")
-    @RequestMapping("/FriendImg")
+    @RequestMapping("/FriendImgx")
     public void FriendImg2(HttpServletResponse response,Integer id){
         System.out.println("id的值是"+id);
         ListObject listObject=new ListObject();

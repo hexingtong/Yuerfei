@@ -139,7 +139,7 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
     /**
      * @Author 苏俊杰
      * @Description //TODO 8
-     * @Date 17:44 2019/4/11
+     * @Date 18:10 2019/4/11
      * @Param [long_url]
      * @return java.lang.String
      **/

@@ -6,6 +6,7 @@ import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_adminservice;
 import com.util.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,7 @@ import java.util.List;
  * @Author by
  * @Date: 2019/3/1 11:36
  **/
+@Api(value="登录类",tags={"登录退出接口"})
 @Controller
 @RequestMapping("/admin2")
 public class AdminController {
@@ -54,6 +57,7 @@ public class AdminController {
      * @return
      * @return String
      */
+    @ApiIgnore()
     @RequestMapping("/toLogin")
     public String toLogin(HttpSession session) {
 
@@ -69,7 +73,7 @@ public class AdminController {
      * @return
      * @return JsonModel
      */
-    @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
+    @ApiIgnore()
     @RequestMapping("/loginhoutai")
     @ResponseBody
     public JsonModel login(String userName, String pwd, HttpSession session) {
@@ -107,7 +111,7 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
     return new JsonModel(JsonModel.SUCCESS);
     }
 
-
+    @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
     @RequestMapping("/login2")
     public void ogin2(String userName, String pwd, HttpSession session,HttpServletResponse response,HttpServletRequest request) {
     logger.info("进入控制器");
@@ -176,6 +180,7 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
      * @return
      * @return String
      */
+    @ApiIgnore()
     @RequestMapping("/welcome")
     public String welcome(Model model) {
         return "welcome";
@@ -190,11 +195,13 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
      * @return
      * @return String
      */
+    @ApiIgnore()
     @RequestMapping("/index")
     public String toIndex(Model model) {
         return "index";
     }
 
+    @ApiIgnore()
     @RequestMapping("/toUpdatePassword")
     public String toUpdatePassword(Model model) {
         return "admin/updatePassword";

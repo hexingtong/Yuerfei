@@ -4,6 +4,7 @@ import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
 import com.springmvc.service.FriendTimer;
 import com.util.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Api(value="推广页面数据刷新controller",tags={"推广操作接口"})
 @Controller
 @RequestMapping("/TimerFride")
 public class TimerController {

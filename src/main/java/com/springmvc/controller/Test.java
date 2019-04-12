@@ -12,14 +12,16 @@ import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.util.DateUtil;
 import com.util.MysqlUtils;
 import com.util.OpenAPI;
+import com.util.shortUrl.shortUrl;
 import net.sf.json.JsonConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.*;
 
-
+@ApiIgnore()
 public class Test {
     final static String Url="https://12i.cn/api.ashx";
     //?
@@ -149,7 +151,17 @@ public class Test {
 //            Threeliucun.add(goodsMonthLiucuns1[i]);
 //        }
 
+//
+//        for(int i=0;i<1000;i++){
+//            String t=String.valueOf(new Random().nextInt(899999) + 100000);
+//
+//            System.out.println(t);
+//        }
+
+
+
     }
+
 
 
 

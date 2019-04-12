@@ -207,7 +207,6 @@
 
                             }
                         }
-                        alert("总页数"+total2+'a20')
                         localStorage.setItem('tota',total2)
                         $(".indexcontent-tbody").paging(options)
                     },

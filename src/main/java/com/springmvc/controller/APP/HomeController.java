@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import java.util.Map;
  * @Author by
  * @Date: 2019/3/11 18:05
  **/
+@ApiIgnore()
 @RequestMapping("/APP")
 @Controller
 public class HomeController {

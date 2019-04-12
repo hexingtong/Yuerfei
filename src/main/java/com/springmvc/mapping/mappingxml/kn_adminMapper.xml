@@ -36,7 +36,7 @@
   </select>
 
     <update id="UpdateLoginTime"  parameterType="kn_admin">
-      UPDATE kn_admin SET login_time=#{login_time} WHERE id=#{id}
+      UPDATE kn_admin SET login_time=#{loginTime} WHERE id=#{id}
     </update>
 
   <!--自定义用户信息表分页.boyang-->
