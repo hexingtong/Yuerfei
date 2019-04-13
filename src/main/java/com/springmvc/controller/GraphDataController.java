@@ -4,6 +4,7 @@ import com.springmvc.pojo.kn_goods;
 import com.util.JsonResult;
 import com.util.StatusCode;
 import com.util.pvDataUtuil.getCountPv;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class GraphDataController {
  * @param 
  * @return 
  */
+@ApiOperation(value = "得到留存", httpMethod = "POST", response = StatusCode.class, notes = "得到留存")
 @RequestMapping("/Showkeep")
 @ResponseBody
 public JsonResult Showkeep() {
@@ -59,10 +61,19 @@ public JsonResult Showkeep() {
  * @param
  * @return
  */
+@ApiOperation(value = "新增用户", httpMethod = "POST", response = StatusCode.class, notes = "新增用户")
 @RequestMapping("/Showadduser")
+@ResponseBody
 public JsonResult Showadduser() {
     JsonResult jsonResult=new JsonResult();
 
+    try {
+        jsonResult.setData(getCountPv.getMonthnewUser());
+    } catch (Exception e) {
+        jsonResult.setResult(JsonResult.ResultStatus.fail);
+        e.printStackTrace();
+    }
+    jsonResult.setResult(JsonResult.ResultStatus.success);
     return jsonResult;
 }
 
@@ -73,6 +84,7 @@ public JsonResult Showadduser() {
  * @param
  * @return
  */
+@ApiOperation(value = "用户活跃数", httpMethod = "POST", response = StatusCode.class, notes = "用户活跃数")
 @RequestMapping("/Showativeruser")
 @ResponseBody
 public JsonResult Showativeruser() {

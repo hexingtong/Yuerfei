@@ -774,7 +774,59 @@ public class OpenAPI {
     }
 
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 安卓30今日新增用户
+     * @Date 19:14 2019/3/26
+     * @Param [args]
+     * @return void
+     **/
+    public static String umengAndrienMothUappGetNewUsers() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        UmengUappGetNewUsersParam param = new UmengUappGetNewUsersParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiAndroid);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setPeriodType("daily");
+        try {
+            UmengUappGetNewUsersResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+        return "";
+    }
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 苹果30日新增用户
+     * @Date 19:14 2019/3/26
+     * @Param [args]
+     * @return void
+     **/
+    public static String umengIosMothUappGetNewUsers() {
+        ApiExecutor apiExecutor=new ApiExecutor(apiKey,apiSecurity);
+        apiExecutor.setServerHost(ServerHost);
+        UmengUappGetNewUsersParam param = new UmengUappGetNewUsersParam();
+        // 测试环境只支持http
+        // param.getOceanRequestPolicy().setUseHttps(false);
+        param.setAppkey(YuerfeiIosAppkey);
+        param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
+        param.setEndDate(DateUtils2.befoDay());
+        param.setPeriodType("daily");
+        try {
+            UmengUappGetNewUsersResult result = apiExecutor.execute(param);
+            System.out.println(JSONObject.toJSONString(result));
+            return JSONObject.toJSONString(result);
+        } catch (OceanException e) {
+            System.out.println("errorCode=" + e.getErrorCode() + ", errorMessage=" + e.getErrorMessage());
+        }
+        return "";
+    }
     public static void main(String[] args) {
 //        String Andrien=OpenAPI.umengAndrienUappGetActiveUsers();//安卓周活跃
 //         String ios=OpenAPI.umengIosUappGetActiveUsers();//苹果周活跃
@@ -789,7 +841,7 @@ public class OpenAPI {
 //            OpenAPI.umengSevenDayAndrienUappGetRetentions();//安卓7日留存
 //            OpenAPI.umengSevenDayIosUappGetRetentions();//苹果7日留存
              OpenAPI.umengUappEventGetData();
-
+        OpenAPI.umengUIosEventGetDataUv();
     }
 
 }
