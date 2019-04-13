@@ -347,7 +347,6 @@ public class OpenAPI {
         }
         return "";
     }
-
     /**
      * @Author 苏俊杰
      * @Description //TODO 苹果今日新增用户
@@ -843,8 +842,8 @@ public class OpenAPI {
 //            OpenAPI.umengIosUappGetRetentions();//苹果3日留存
 //            OpenAPI.umengSevenDayAndrienUappGetRetentions();//安卓7日留存
 //            OpenAPI.umengSevenDayIosUappGetRetentions();//苹果7日留存
-//             OpenAPI.umengUappEventGetData();
-                OpenAPI.umengAndrienMothUappGetNewUsers();
+             OpenAPI.umengUappEventGetData();
+
     }
 
 }

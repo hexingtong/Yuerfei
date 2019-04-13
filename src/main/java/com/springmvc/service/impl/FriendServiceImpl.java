@@ -159,7 +159,7 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         }
         return shorturl;
     }
-    
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 根据传进来的短链接查找真实路径
