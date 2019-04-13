@@ -160,6 +160,9 @@
       <if test="adminId !=null and adminId!='' ">
         admin_id,
       </if>
+      <if test="shortUrl!=null and shortUrl!='' ">
+        short_url
+      </if>
     </trim>
 
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -207,6 +210,9 @@
       </if>
       <if test="adminId !=null and adminId!='' ">
         #{adminId},
+      </if>
+      <if test="shortUrl !=null and shortUrl!='' ">
+        #{shortUrl},
       </if>
     </trim>
 
@@ -329,6 +335,7 @@
   <select id="selectGoodsSK" parameterType="int" resultType="com.springmvc.pojo.kn_goods">
     select * FROM kn_goods where id=#{id}
   </select>
+
 <!--统计产品的pvuv-->
   <update id="updateGoodspvuv" parameterType="java.util.List">
 BEGIN;

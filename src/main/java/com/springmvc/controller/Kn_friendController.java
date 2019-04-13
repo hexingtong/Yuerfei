@@ -4,27 +4,37 @@ package com.springmvc.controller;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
+import com.util.Https.HttpUtil;
 import com.util.JsonUtils;
 import com.util.ListObject;
 import com.util.ResponseUtils;
 import com.util.StatusCode;
+import com.util.shortUrl.FriendApiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(value="推广页面controller",tags={"推广操作接口"})
 @Controller
 @RequestMapping("/friend")
 public class Kn_friendController {
+
+    final static String format="txt";
+    final static String Url="https://12i.cn/api.ashx";
+    //?
+    final static String userId="3100";
+    final static String key="3E457CECE7CD995CD2672DC76D876EC0";
 
     @Autowired
     private FriendService FriendService;
@@ -77,18 +87,34 @@ public class Kn_friendController {
         ListObject listObject=new ListObject();
         List lst=new ArrayList();
         kn_friend kn_friend=FriendService.selectFrilend(id);
-        int i=FriendService.deleteFriend(id);
-        if(i>0){
-            listObject.setMsg("删除成功!");
-            lst.add(kn_friend);
-            listObject.setItems(lst);
-            listObject.setCode(StatusCode.CODE_SUCCESS);
-            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        Map createMap=new HashMap();
+        String format2="del";
+        createMap.put("format",format2);
+        createMap.put("userId",userId);
+        createMap.put("key",key);
+        createMap.put("url",kn_friend.getUrl());
+        String result=HttpUtil.doPostSSL(Url,createMap,null);
+        JSONObject jsonData = JSONObject.fromObject(result);
+        String success=jsonData.get("success").toString();
+        if(success.equals("ok")){
+            int i=FriendService.deleteFriend(id);
+            if(i>0){
+                listObject.setMsg("删除成功!");
+                listObject.setCode(StatusCode.CODE_SUCCESS);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }else{
+                listObject.setMsg("删除失败!");
+                listObject.setCode(StatusCode.CODE_ERROR);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }
         }else{
-            listObject.setMsg("删除失败!");
+            listObject.setMsg("短链接删除失败!");
             listObject.setCode(StatusCode.CODE_ERROR);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
+
+
+
     }
 
     /**
@@ -101,25 +127,26 @@ public class Kn_friendController {
     @ApiOperation(value = "推广页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "推广页面编辑")
     @RequestMapping("/updateFriend")
     @ResponseBody
-    public void updateFrilend(HttpServletResponse response,String title,Integer id,String url){
+    public void updateFrilend(HttpServletResponse response,String title,Integer id,String longUrl){
         System.out.println("进入接口");
-        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+url+"-->");
+        //只需要编辑自己的真实路径
+        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+longUrl+"-->");
         ListObject listObject=new ListObject();
         kn_friend kn_friend=new kn_friend();
         kn_friend.setTitle(title);
-        kn_friend.setUrl(url);
+        kn_friend.setLongUrl(longUrl);
         kn_friend.setId(id);
-        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+url+"-->");
-        int i=FriendService.updateFrilend(kn_friend);
-        if(i>0){
-            listObject.setMsg("编辑成功!");
-            listObject.setCode(StatusCode.CODE_SUCCESS);
-            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-        }else{
-            listObject.setMsg("编辑失败!");
-            listObject.setCode(StatusCode.CODE_ERROR);
-            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-        }
+        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+longUrl+"-->");
+            int i = FriendService.updateFrilend(kn_friend);
+            if (i > 0) {
+                listObject.setMsg("编辑成功!");
+                listObject.setCode(StatusCode.CODE_SUCCESS);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            } else {
+                listObject.setMsg("编辑失败!");
+                listObject.setCode(StatusCode.CODE_ERROR);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }
     }
 
     /**
@@ -134,19 +161,59 @@ public class Kn_friendController {
     @ResponseBody
     public void insertFriend(HttpServletResponse response,kn_friend kn_friend){
         ListObject listObject=new ListObject();
+        //先生成自己的短链接
+        String shortshortUrl=FriendService.getShortUrl();
         System.out.println("推广名字"+kn_friend.getTitle());
-        System.out.println("推广链接"+kn_friend.getUrl());
-        int i=FriendService.insertFrilend(kn_friend);
-        if(i>0){
-            listObject.setMsg("增加成功!");
-            listObject.setCode(StatusCode.CODE_SUCCESS);
-            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-        }else {
-            listObject.setMsg("增加失败!");
+        System.out.println("传入的网址"+kn_friend.getLongUrl());
+        System.out.println("生成的6位短链接"+shortshortUrl);
+        StringBuilder sb=new StringBuilder(shortshortUrl);
+        sb.insert(0, "http://localhost:8080/friend/");
+        System.out.println("转换后的网址"+sb.toString());
+        String folat=FriendApiUtils.AddFriendApi(sb.toString(),kn_friend.getTitle());
+        if(!folat.equals("error")) {
+            kn_friend.setShortUrl(shortshortUrl);
+            kn_friend.setUrl(folat);
+            int i = FriendService.insertFrilend(kn_friend);
+            if (i > 0) {
+                listObject.setMsg("增加成功!");
+                listObject.setCode(StatusCode.CODE_SUCCESS);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            } else {
+                listObject.setMsg("增加失败!");
+                listObject.setCode(StatusCode.CODE_ERROR);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }
+        }else{
+            listObject.setMsg("生成API短链接失败!");
             listObject.setCode(StatusCode.CODE_ERROR);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
+    }
 
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据短链接转发到真实路径
+     * @Date 18:13 2019/4/12
+     * @Param [request, mav, shortUrl]
+     * @return org.springframework.web.servlet.ModelAndView
+     **/
+    @RequestMapping("/{shortUrl}")
+    public ModelAndView jumpLongLink(HttpServletRequest request, ModelAndView mav, @PathVariable("shortUrl")String shortUrl) {
+        kn_friend kn_friend=new kn_friend();
+        String longUrl = "";
+        kn_friend.setShortUrl(shortUrl);
+        System.out.println("short的值是*"+shortUrl);
+        String longurl = FriendService.restoreUrl(kn_friend);
+        if (longUrl!=null) {
+            longUrl = longurl;
+        }else{
+            //返回错误页面404
+            mav.setViewName("redirect:" + 404);
+            return mav;
+        }
+        mav.setViewName("redirect:" + longUrl+"?short="+shortUrl+"");
+        return mav;
     }
 
 }

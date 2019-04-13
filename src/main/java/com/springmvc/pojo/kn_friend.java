@@ -36,10 +36,34 @@ public class kn_friend {
     private int status;
     //注册人数
     private int enrollment;
+    //6短链接
+    @Column(name = "short_url")
+    private String shortUrl;
+    //真实链接
+    @Column(name = "long_url")
+    private String longUrl;
+
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
+    public void setLongUrl(String longUrl) {
+        this.longUrl = longUrl;
+    }
+
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    public String getLongUrl() {
+        return longUrl;
+    }
 
     public void setImg(String img) {
         this.img = img;
     }
+
+
 
     public String getImg() {
 
@@ -60,6 +84,8 @@ public class kn_friend {
                 ", click=" + click +
                 ", status=" + status +
                 ", enrollment=" + enrollment +
+                ", shortUrl='" + shortUrl + '\'' +
+                ", longUrl='" + longUrl + '\'' +
                 '}';
     }
 

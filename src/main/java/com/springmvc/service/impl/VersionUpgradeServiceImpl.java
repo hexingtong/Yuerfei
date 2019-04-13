@@ -14,7 +14,7 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
 
 
     @Autowired
-    private VersionUpgradeMapper versionUpgradeMapper;
+    VersionUpgradeMapper versionupgrademapper;
     
     /**
      * @Author 苏俊杰
@@ -25,7 +25,7 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
      **/
     @Override
     public VersionUpgrade selectVersionAll() {
-        List<VersionUpgrade> lst=versionUpgradeMapper.selectVersionAll();
+        List<VersionUpgrade> lst=versionupgrademapper.selectVersionAll();
         VersionUpgrade versionUpgrade=new VersionUpgrade();
         for(int i=0;i<lst.size();i++){
             versionUpgrade=lst.get(i);
@@ -35,7 +35,8 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
                     int number = versionUpgrade.getVersionMini();
                     if (number < versionUpgrade.getVersionMini()) {
                         number = versionUpgrade.getVersionMini();
-                        
+
+
                     }
                 }else{
                     //大版本号小于版本号

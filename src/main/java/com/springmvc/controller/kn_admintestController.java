@@ -91,7 +91,7 @@ public class kn_admintestController {
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             } else {
                 logger.info("失败");
-                listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                listObject.setCode("9527");
                 listObject.setMsg(sendSms.getMessage());
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
@@ -107,8 +107,8 @@ public class kn_admintestController {
     public void login(HttpSession session, HttpServletResponse response, String PhoneCode, String Phone, HttpServletRequest request,
                       @RequestParam(value = "index",
                               defaultValue = "0", required = false)String index,
-                      @RequestParam(value = "url",
-            defaultValue = "", required = false)String url) {
+                      @RequestParam(value = "shortUrl",
+            defaultValue = "", required = false)String shortUrl) {
         ListObject listObject = new ListObject();
         ListObjectSuper listObjectSuper = new ListObjectSuper();
         Jedis jedis = new Jedis("39.98.53.253",6379);
@@ -143,13 +143,13 @@ public class kn_admintestController {
                     //推广链接进入的
                     logger.info("进入埋点!");
 //                    String url=request.getHeader("Referer");
-                    logger.info("url的值是"+url);
+                    logger.info("url的值是"+shortUrl);
                     List<kn_friend> list=friendService.queryAll();
                     kn_friend[] kn_friends=new kn_friend[list.size()];
                     for(int c=0;c<list.size();c++){
                         kn_friends[c] = list.get(c);
                         logger.info("数据库的url"+kn_friends[c].getUrl());
-                        if(kn_friends[c].getUrl().equals(url)){
+                        if(kn_friends[c].getUrl().equals(shortUrl)){
                         //当前url的注册+1
                             //update `kn_friend` set enrollment=enrollment+1 where url = 'https://12i.cn/00Sebf'
                             int q=friendService.updateFriendZhuce(kn_friends[c].getUrl());

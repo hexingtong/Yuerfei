@@ -66,10 +66,18 @@ public interface FriendService extends  BaseService<kn_friend> {
     List<kn_friend> selectFriendAll();
     /**
      * @Author 苏俊杰
-     * @Description //TODO 生成所有推广链接
+     * @Description //TODO 生成6位推广链接
      * @Date 16:44 2019/4/11
      * @Param 
      * @return 
      **/
-    String getShortUrl(String long_url);
+    String getShortUrl();
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据短链接查询真实路径
+     * @Date 17:27 2019/4/12
+     * @Param
+     * @return
+     **/
+    String restoreUrl(kn_friend kn_friend);
 }

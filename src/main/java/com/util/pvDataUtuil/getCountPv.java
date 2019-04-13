@@ -624,6 +624,7 @@ List<Goodspvdata> news=new ArrayList<>();
         return  Sevenliucun;
     }
 
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 获得所有30日新增用户
@@ -654,9 +655,10 @@ List<Goodspvdata> news=new ArrayList<>();
         return yuehuo;
     }
 
-    public static void main(String[] args) {
-        getCountUv();
 
+    public static void main(String[] args) {
+     //  getPv2();
+        //getUv2();
     }
 
 }

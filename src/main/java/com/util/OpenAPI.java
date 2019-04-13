@@ -425,6 +425,8 @@ public class OpenAPI {
         }
         return "";
     }
+
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 安卓月留存
@@ -773,7 +775,6 @@ public class OpenAPI {
         return "";
     }
 
-
     /**
      * @Author 苏俊杰
      * @Description //TODO 安卓30今日新增用户
@@ -827,6 +828,7 @@ public class OpenAPI {
         }
         return "";
     }
+
     public static void main(String[] args) {
 //        String Andrien=OpenAPI.umengAndrienUappGetActiveUsers();//安卓周活跃
 //         String ios=OpenAPI.umengIosUappGetActiveUsers();//苹果周活跃
@@ -841,7 +843,7 @@ public class OpenAPI {
 //            OpenAPI.umengSevenDayAndrienUappGetRetentions();//安卓7日留存
 //            OpenAPI.umengSevenDayIosUappGetRetentions();//苹果7日留存
              OpenAPI.umengUappEventGetData();
-        OpenAPI.umengUIosEventGetDataUv();
+
     }
 
 }
