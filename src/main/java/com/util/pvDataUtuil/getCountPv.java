@@ -501,7 +501,7 @@ List<Goodspvdata> news=new ArrayList<>();
 
 
 /**
- * Description：得到所有的月活，周活
+ * Description：得到所有的月活
  * @author su
  * @date 2019/3/26 16:23
  * @param
@@ -593,9 +593,42 @@ List<Goodspvdata> news=new ArrayList<>();
         }
         return  Sevenliucun;
     }
+    /**
+     * Description： 得到三十天总的 Uv
+     * @author boyang
+     * @date 2019/4/13 11:33
+     * @param
+     * @return void
+     */
+    public static List getCountUv(){
+        JSONObject obj = JSONObject.parseObject(OpenAPI.umengUappEventGetData());
+        obj.get("eventData");
+        JSONObject obj1 = JSONObject.parseObject(OpenAPI.umengUIosEventGetDataUv());
+        net.sf.json.JSONArray jsonArray = net.sf.json.JSONArray.fromObject(JSONArray.parseArray( JSON.toJSONString(obj1.get("eventData"))));
+        net.sf.json.JSONArray jsonArray1 = net.sf.json.JSONArray.fromObject(JSONArray.parseArray(  JSON.toJSONString(obj.get("eventData"))));
+        List<?> list = net.sf.json.JSONArray.toList(jsonArray, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        List<?> list2 = net.sf.json.JSONArray.toList(jsonArray1, new GoodsMonthLiucun(), new JsonConfig());//参数1为要转换的JSONArray数据，参数2为要转换的目标数据，即List盛装的数据
+        GoodsMonthLiucun[] goodsMonthLiucuns1=new GoodsMonthLiucun[list.size()];
+        GoodsMonthLiucun[] goodsMonthLiucuns2=new GoodsMonthLiucun[list2.size()];
+        List<GoodsMonthLiucun> Sevenliucun =new ArrayList<>() ;
+        for (int i=0;i<list.size();i++){
+            goodsMonthLiucuns1[i]=(GoodsMonthLiucun)list.get(i);
+            goodsMonthLiucuns2[i]=(GoodsMonthLiucun)list2.get(i);
+            if(goodsMonthLiucuns1[i].getDate().equals(goodsMonthLiucuns2[i].getDate())){
+                goodsMonthLiucuns1[i].setTotalInstallUser(goodsMonthLiucuns1[i].getTotalInstallUser()+goodsMonthLiucuns2[i].getTotalInstallUser());
+            }
+            System.out.println("Ios的数据是"+goodsMonthLiucuns2[i].getDate()+"---"+goodsMonthLiucuns2[i].getTotalInstallUser());
+            System.out.println("总数据"+goodsMonthLiucuns1[i].getDate()+"--"+goodsMonthLiucuns1[i].getTotalInstallUser());
+            Sevenliucun.add(goodsMonthLiucuns1[i]);
+        }
+        return  Sevenliucun;
+    }
+
+
+
     public static void main(String[] args) {
-     //  getPv2();
-        //getUv2();
+        getCountUv();
+
     }
 
 }
