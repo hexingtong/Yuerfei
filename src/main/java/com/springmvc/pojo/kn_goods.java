@@ -111,6 +111,16 @@ public class kn_goods {
     //已申请人数
     @Column(name = "apply_count")
     private Integer applyCount;
+    @Column(name="short_url")
+    private String shortUrl;
+
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
+    public String getShortUrl() {
+        return shortUrl;
+    }
 
     public Integer getId() {
         return id;
@@ -403,7 +413,7 @@ public class kn_goods {
 
     @Override
     public String toString() {
-        return "KnGoods{" +
+        return "kn_goods{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", categoryId=" + categoryId +
@@ -416,8 +426,8 @@ public class kn_goods {
                 ", Interestrate='" + Interestrate + '\'' +
                 ", PaceLending='" + PaceLending + '\'' +
                 ", ReviewWay='" + ReviewWay + '\'' +
-                ", AccountWay='" + AccountWay + '\'' +
                 ", Creditrequired='" + Creditrequired + '\'' +
+                ", AccountWay='" + AccountWay + '\'' +
                 ", Platformname='" + Platformname + '\'' +
                 ", applicationrequirement='" + applicationrequirement + '\'' +
                 ", details='" + details + '\'' +
@@ -432,8 +442,8 @@ public class kn_goods {
                 ", homepicture='" + homepicture + '\'' +
                 ", statusCode=" + statusCode +
                 ", cpa='" + cpa + '\'' +
-                ", pv='" + pv + '\'' +
-                ", uv='" + uv + '\'' +
+                ", pv=" + pv +
+                ", uv=" + uv +
                 ", uvEarnings='" + uvEarnings + '\'' +
                 ", cpaPrice='" + cpaPrice + '\'' +
                 ", adminId=" + adminId +
@@ -441,6 +451,7 @@ public class kn_goods {
                 ", detailsId=" + detailsId +
                 ", auditfailed='" + auditfailed + '\'' +
                 ", applyCount=" + applyCount +
+                ", shortUrl='" + shortUrl + '\'' +
                 '}';
     }
 
