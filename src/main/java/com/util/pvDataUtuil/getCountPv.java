@@ -533,7 +533,7 @@ List<Goodspvdata> news=new ArrayList<>();
 
 
 /**
- * Description：用户总的3日留存
+ * Description：用户总的近三十天留存
  * @author su
  * @date 2019/3/26 16:25
  * @param
