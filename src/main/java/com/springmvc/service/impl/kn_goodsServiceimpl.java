@@ -7,7 +7,7 @@ import com.springmvc.mapping.kn_goodsMapper;
 import com.springmvc.pojo.*;
 import com.springmvc.pojo.DTO.GoodsAttributeDto;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
-import com.springmvc.pojo.VO.paramInfos;
+
 import com.springmvc.service.GoodsPvDataService;
 import com.springmvc.service.GoodsUvDataService;
 import com.springmvc.service.kn_goodsservice;
@@ -317,6 +317,7 @@ private GoodsUvDataService goodsUvDataService;
             knGoods.setImg(goodsSupermarketDvo.getImg());
             knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
             knGoods.setAdminId(goodsSupermarketDvo.getAdminId());
+            knGoods.setShortUrl(goodsSupermarketDvo.getShortUrl());
             logger.info("service期限区域有没有加入去值+"+knGoods.getPaceLending());
             knGoods.setAddTime(new Date());
             int i=knGoodsMapper.insertGoodsSk(knGoods);
@@ -397,6 +398,7 @@ private GoodsUvDataService goodsUvDataService;
             knGoods.setUrl(goodsSupermarketDvo.getUrl());
             knGoods.setImg(goodsSupermarketDvo.getImg());
             knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
+
             knGoods.setAddTime(new Date());
             int i=knGoodsMapper.updateGoodsSk(knGoods);
             logger.info("i的值"+i);

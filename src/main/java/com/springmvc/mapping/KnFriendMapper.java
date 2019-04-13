@@ -66,5 +66,5 @@ public interface KnFriendMapper extends Mapper<kn_friend> {
       **/
     List<kn_friend> selectShortUrl();
 
-
+    String restoreUrl(kn_friend kn_friend);
 }

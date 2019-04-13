@@ -75,17 +75,10 @@
 
     $("#sub").click(function() {
         var title=$("#title").val();
-        var urlx=$("#url").val();
-        var url='';
+        var url=$("#url").val();
         alert("title"+title);
-        alert("urlx"+urlx);
-
-        $.post('${ctx }/FriendAPI/AddFriendApi',{title:title,url:urlx},function (res) {
-            url=res;
-            alert("url的值"+url)
-            if(url!="error"){
-            if(url!=''&&url!=undefined){
-                $.post('${ctx }/friend/insertFriend',{title:title, url:url},function (res) {
+            alert("url的值"+url);
+                $.post('${ctx }/friend/insertFriend',{title:title, longUrl:url},function (res) {
                         var jsonData=JSON.parse(res);
                         if(jsonData.code=="200") {
                             layer.msg("上传成功!")
@@ -94,14 +87,11 @@
                             layer.msg("上传失败！")
                         }
                     })
-            }//if结束
-            }
-            else {
-                layer.msg("失败!")
-            }
+
+
+
         })
 
-    }),
 
 
 

@@ -5,12 +5,14 @@ import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
 import com.springmvc.pojo.kn_goods;
 import com.springmvc.service.kn_goodsservice;
+import com.util.Https.HttpUtil;
 import com.util.JsonUtils;
 import com.util.ListObject;
 import com.util.ResponseUtils;
 import com.util.StatusCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(value="产品展示controller",tags={"产品展示操作接口"})
 @Controller
@@ -34,6 +38,12 @@ public class SupermarketController {
     @Autowired
     private kn_goodsservice kn_goodsservice;
 
+
+    final static String format="txt";
+    final static String Url="https://12i.cn/api.ashx";
+    //?
+    final static String userId="3100";
+    final static String key="3E457CECE7CD995CD2672DC76D876EC0";
    
     /**
      * @Author 苏俊杰
@@ -78,19 +88,34 @@ public class SupermarketController {
         try {
             logger.info("控制层期限有没有值传进来"+goodsSupermarketDvo.getDeadline());
             logger.info("控制层期限区域有没有值传进来"+goodsSupermarketDvo.getPaceLending());
-            int i=kn_goodsservice.insertSupermarket(goodsSupermarketDvo);
-            if(i>0){
-                listObject.setMsg("增加操作成功");
-                listObject.setCode(StatusCode.CODE_SUCCESS);
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-            }else {
-                listObject.setMsg("增加操作失败");
-                listObject.setCode(StatusCode.CODE_ERROR);
+            Map createMap=new HashMap();
+            createMap.put("format",format);
+            createMap.put("userId",userId);
+            createMap.put("key",key);
+            createMap.put("url",goodsSupermarketDvo.getUrl());
+            createMap.put("title",goodsSupermarketDvo.getTitle());
+            System.out.println("传入的链接"+goodsSupermarketDvo.getUrl());
+            String urlx= HttpUtil.doPostSSL(Url,createMap,null);
+            if(!urlx.equals("网址格式错误,必须以http或者https开头的完整网址")) {
+                goodsSupermarketDvo.setShortUrl(urlx);
+                int i=kn_goodsservice.insertSupermarket(goodsSupermarketDvo);
+                if(i>0){
+                    listObject.setMsg("增加操作成功");
+                    listObject.setCode(StatusCode.CODE_SUCCESS);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                }else {
+                    listObject.setMsg("增加操作失败");
+                    listObject.setCode(StatusCode.CODE_ERROR);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                }
+            }else{
+                listObject.setMsg("网址格式错误,必须以http或者https开头的完整网址");
+                listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
         }catch (Exception  e){
             listObject.setMsg("发生异常,事务回滚！");
-            listObject.setCode(StatusCode.CODE_ERROR);
+            listObject.setCode("603");
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             logger.info("增加超市接口事务发生异常,数据已回滚");
         }
@@ -111,14 +136,35 @@ public class SupermarketController {
         logger.info("进入控制器"+goodsSupermarketDvo.getTitle());
         ListObject listObject=new ListObject();
         try {
-            int i=kn_goodsservice.updateSupermarket(goodsSupermarketDvo);
-            if(i>0){
-                listObject.setMsg("编辑操作成功!");
-                listObject.setCode(StatusCode.CODE_SUCCESS);
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-            }else {
-                listObject.setMsg("编辑操作失败");
-                listObject.setCode(StatusCode.CODE_ERROR);
+            Map createMap=new HashMap();
+            String shourtUrl=goodsSupermarketDvo.getShortUrl().substring(goodsSupermarketDvo.getShortUrl().length()- 6);
+            String format1="revise";
+            createMap.put("format",format1);
+            createMap.put("userId",userId);
+            createMap.put("key",key);
+            createMap.put("title",goodsSupermarketDvo.getTitle());
+            createMap.put("shortUrl",shourtUrl);
+            createMap.put("url",goodsSupermarketDvo.getUrl());
+            logger.info("传入的原短链接"+goodsSupermarketDvo.getShortUrl());
+            logger.info("截取的短链接"+shourtUrl);
+            logger.info("传入的原链接"+goodsSupermarketDvo.getUrl());
+            String result=HttpUtil.doPostSSL(Url,createMap,null);
+            JSONObject jsonData = JSONObject.fromObject(result);
+            String success=jsonData.get("success").toString();
+            if(success.equals("ok")){
+                int i=kn_goodsservice.updateSupermarket(goodsSupermarketDvo);
+                if(i>0){
+                    listObject.setMsg("编辑操作成功!");
+                    listObject.setCode(StatusCode.CODE_SUCCESS);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                } else {
+                    listObject.setMsg("编辑操作失败");
+                    listObject.setCode(StatusCode.CODE_ERROR);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                }
+            }else{
+                listObject.setContent(StatusCode.CODE_ERROR_PARAMETER,"失败");
+                listObject.setMsg("失败！");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
         }catch (NullPointerException e){
@@ -144,16 +190,28 @@ public class SupermarketController {
         logger.info("控制器传进来的值是+"+goodsSupermarketDvo.getDetailsId());
         ListObject listObject=new ListObject();
         try {
-
-            int i = kn_goodsservice.deleteSupermarket(goodsSupermarketDvo);
-            if (i > 0) {
-                listObject.setMsg("删除操作成功!");
-                listObject.setCode(StatusCode.CODE_SUCCESS);
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-            } else {
-                listObject.setMsg("删除操作失败");
-                listObject.setCode(StatusCode.CODE_ERROR);
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            Map createMap=new HashMap();
+            String format2="del";
+            createMap.put("format",format2);
+            createMap.put("userId",userId);
+            createMap.put("key",key);
+            createMap.put("url",kn_goods.getShortUrl());
+            String result=HttpUtil.doPostSSL(Url,createMap,null);
+            JSONObject jsonData = JSONObject.fromObject(result);
+            String success=jsonData.get("success").toString();
+            logger.info("进入删除短链接");
+            if(success.equals("ok")){
+                System.out.println("最后结果成功");
+                int i = kn_goodsservice.deleteSupermarket(goodsSupermarketDvo);
+                if (i > 0) {
+                    listObject.setMsg("删除操作成功!");
+                    listObject.setCode(StatusCode.CODE_SUCCESS);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                } else {
+                    listObject.setMsg("删除操作失败");
+                    listObject.setCode(StatusCode.CODE_ERROR);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                }
             }
         }catch (Exception e){
             logger.info("发生异常");

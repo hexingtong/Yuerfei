@@ -34,7 +34,7 @@ import java.util.Map;
 @Api(value="会员controller",tags={"会员操作接口"})
 @Controller
 @RequestMapping("/Member")
-public class MemberController {
+public class    MemberController {
     final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     @Autowired

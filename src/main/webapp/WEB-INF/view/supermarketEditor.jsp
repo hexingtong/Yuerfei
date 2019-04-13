@@ -342,16 +342,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
-                                            </div>
                                             <div class="describeAttribute">
                                                 <div class="shopDate-lefts">
                                                     <div class="describeDate-title">网站链接</div>
                                                     <div class="describe-clooses">
                                                         <input name="url" value="${goods.url}" placeholder="请输入相关网站链接" />
                                                     </div>
-
+                                                    <<input type="hidden" id="ulx" value="${goods.shortUrl}">
                                                 </div>
                                             </div>
                                             <div class="members-form-bottoms">
@@ -522,6 +520,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         var interestrate=$("input[name='interestrate']").val();
         var propertyIds=$("#propertyIds").val();
         var tagId=$("#tagId").val();
+        var shortUrl=$("#ulx").val();
         var details=$("input[name='details']").val();
         // var description=$("input[name='description']").val();//公司名字
         // var applicationConditions=$("input[name='application_conditions']").val();//产品详情
@@ -601,13 +600,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
         if(folat==true){
         $.post('${ctx }/Supermarke/updateSupermarket',{id:id, title: title,Limit: Limit, Deadline:Deadline, interestrate:interestrate, propertyIds:propertyIds, tagId:tagId, details:details,  url:url, img: img, indexx:indexx
-            ,status:status,PaceLending:Pace_lending
+            ,status:status,PaceLending:Pace_lending,shortUrl:shortUrl
             },function (res) {
                 var jsonData=JSON.parse(res);
             if(jsonData.code=="200") {
                 layer.msg("编辑成功!")
                 window.history.go(-1);
             }else{
+
                 layer.msg("编辑失败！")
             }
                 }

@@ -69,13 +69,14 @@ public class ImageUtil {
             file.mkdir();
             //System.out.println("-----MK DIR----"+file.mkdir());
         }
+        System.out.println("文件大小是"+file.length());
         //消息提示
         String message = "";
         try{
             for(FileItem item : list){
                 //如果fileitem中封装的是普通输入项的数据
                 if(!item.isFormField()){//如果fileitem中封装的是上传文件
-                    //得到上传的文件名称，
+                    //得到上传的文件名称,
                     String filename = item.getName();
                     System.out.println(filename);
                     if(filename==null || filename.trim().equals("")){
@@ -91,6 +92,11 @@ public class ImageUtil {
                     String newpath = savePath + System.getProperty("file.separator")+DateUtil.getDateString() +st + filename;
                     FileOutputStream out = new FileOutputStream(newpath);
                     String type=pageUtils.getPicType(new FileInputStream(new File(newpath)));
+                    if(pageUtils.checkSuffix(newpath)==true){
+                        System.out.println("格式是对的");
+                    }else {
+                        System.out.println("格式不正确");
+                    }
                     System.out.println(type);
 //                    if(type.equals("jpg")||type.equals("gif")||type.equals("png")){
                         //创建一个缓冲区
@@ -98,7 +104,6 @@ public class ImageUtil {
                         //判断输入流中的数据是否已经读完的标识
                         int len = 0;
                         //循环将输入流读入到缓冲区当中，(len=in.read(buffer))>0就表示in里面还有数据
-                        System.out.println("是输入流越界吗？");
                         while((len=in.read(buffer))>0){
                             //使用FileOutputStream输出流将缓冲区的数据写入到指定的目录(savePath + "\\" + filename)当中
                             out.write(buffer, 0, len);

@@ -60,6 +60,9 @@
       <if test="uv!=null and uv!='' ">
         uv=#{uv},
       </if>
+      <if test="longUrl!=null and longUrl!= ''">
+      long_url=#{longUrl}
+      </if>
     </trim>
     WHERE id=#{id}
   </update>
@@ -80,6 +83,12 @@
     <if test="addTime!=null and addTime!='' ">
       add_time,
     </if>
+    <if test="shortUrl!=null and shortUrl!='' ">
+      short_url,
+    </if>
+    <if test="longUrl!=null and longUrl!='' ">
+      long_url,
+    </if>
   </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
     <if test="title!=null and title!='' ">
@@ -90,6 +99,12 @@
       </if>
       <if test="addTime!=null and addTime!='' ">
         #{addTime},
+      </if>
+      <if test="shortUrl!=null and shortUrl!='' ">
+        #{shortUrl},
+      </if>
+      <if test="longUrl!=null and longUrl!='' ">
+        #{longUrl},
       </if>
     </trim>
   </insert>
@@ -110,5 +125,9 @@
     select  id,short_url FROM kn_friend
   </select>
 
+    <!--根据短链接查询真实路径-->
+    <select id="restoreUrl" resultType="String">
+        SELECT long_url FROM  kn_friend WHERE short_url=#{shortUrl}
+    </select>
 
 </mapper>

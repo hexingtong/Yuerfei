@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div class="members-form-top" style="margin-top:80px;">
                                                 <div class="members-form-top-text">网址链接</div>
                                                 <div class="members-form-top-input">
-                                                    <input id="url"  placeholder="请输入要生成短链接的网址链接(文字60字以内)">
+                                                    <input id="url" value="${knfriend.longUrl}" placeholder="请输入要生成短链接的网址链接(文字60字以内)">
                                                 </div>
                                             </div>
                                             <input type="hidden" id="knfreiendId" value="${knfriend.id}">
@@ -79,20 +79,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      * */
     $("#sub").click(function(){
         var title=$("input[name='title']").val();
-        var urlx=$("#url").val();//要修改的链接
-        var shortUrl=$("#urlx").val();//短链接
+        var url=$("#url").val();//要修改的链接
         var id=$("#knfreiendId").val();
         alert(title);
-        alert(shortUrl);
-        alert(urlx);
-        $.ajax({
-            type: "post",
-            dateType: "json",
-            url: "${ctx }/FriendAPI/UpdateFriendApi2",
-            data: {title:title,url:urlx,urlTo:shortUrl},
-            success: function (result) {
-                if(result.code=="200"){
-                    $.post('${ctx }/friend/updateFriend',{id:id,title: title,url:shortUrl},function (res) {
+        alert(url);
+                    $.post('${ctx }/friend/updateFriend',{id:id,title: title,longUrl:url},function (res) {
                             var jsonData=JSON.parse(res);
                             if(jsonData.code=="200") {
                                 layer.msg("成功了！")
@@ -102,10 +93,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             }
                         }
                     )
-                }
-                layer.msg("上传格式错误！")
-            }
-        });
+                layer.msg("上传错误！")
+
 
     });
 

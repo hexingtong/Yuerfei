@@ -3,6 +3,7 @@ package com.springmvc.pojo;
 public class GoodsMonthLiucun {
     private String date;
 
+
     private Integer value;
 
     private  Integer totalInstallUser;

@@ -143,15 +143,38 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
      * @Param [long_url]
      * @return java.lang.String
      **/
-    public String getShortUrl(String long_url) {
-        String[] shortUrlzhuan=shortUrl.getShortUrl(long_url);
+    public String getShortUrl() {
+        String shorturl=shortUrl.getShortUrlx();
         //生成短链接 然后判断数据库有没有值
-        for(int i=0;i<shortUrlzhuan.length;i++){
-            
+        List<kn_friend> lst=knFriendMapper.selectFriendAll();
+        kn_friend knFriend=new kn_friend();
+        for(int i=0;i<lst.size();i++){
+            knFriend=lst.get(i);
+            if(knFriend.getShortUrl().equals(shorturl)){
+                System.out.println("有重复链接");
+                shorturl=shortUrl.getShortUrlx();
+                System.out.println("生成的链接"+shorturl);
+                i=0;
+            }
         }
-        //没有这个值就加进去 然后返回
-
-        return null;
+        return shorturl;
+    }
+    
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据传进来的短链接查找真实路径
+     * @Date 17:36 2019/4/12
+     * @Param [kn_friend]
+     * @return java.lang.String
+     **/
+    @Override
+    public String restoreUrl(kn_friend kn_friend) {
+        if(StringUtils.isNotEmpty(kn_friend.getShortUrl())){
+            String i=knFriendMapper.restoreUrl(kn_friend);
+            return i;
+        }else{
+            return "404";
+        }
     }
 
 
