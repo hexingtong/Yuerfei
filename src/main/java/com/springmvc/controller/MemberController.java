@@ -67,10 +67,9 @@ public class    MemberController {
                                       @RequestParam(value = "phone", required = false)
                                                   String phone) {
         logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
+
         PageResultInfo resultInfo = memberService.queryListAdmin(pageNo, pageSize,phone);
         return resultInfo;
-
-
     }
 
     /**

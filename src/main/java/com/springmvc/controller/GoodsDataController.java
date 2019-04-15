@@ -90,13 +90,12 @@ public class GoodsDataController {
 
     /**
      * Description：定时更新总的pvuv
-     *
      * @param
      * @return
      * @author boyang
      * @date 2019/3/26 18:55
      */
-//@Scheduled(cron= "0 0/1 * * * ? ")
+@Scheduled(cron= "0 0/5 * * * ? ")
     public void getpvuv() {
         logger.info("更新pvuv定时任务");
         goodsPvDataService.unCountPv();
