@@ -3,8 +3,8 @@
 <mapper namespace="com.springmvc.mapping.VersionUpgradeMapper">
 
 
-  <select id="selectVersionAll" resultType="VersionUpgrade">
-    SELECT * FROM version_upgrade
+  <select id="selectVersionAll" resultType="VersionUpgrade" parameterType="Integer">
+    SELECT * FROM version_upgrade WHERE app_id=#{AppId}
   </select>
 
 </mapper>

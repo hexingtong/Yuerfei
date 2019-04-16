@@ -113,12 +113,12 @@ public class GoodsController {
      */
     @RequestMapping("getStatuslist")
     @ResponseBody
-    public Map<String,List<Statusputaway>> getPutawayList( HttpServletResponse response
-    ) {
+    public Map<String,List<Statusputaway>> getPutawayList( HttpServletResponse response){
         Map<String,List<Statusputaway>>map=new HashMap<String,List<Statusputaway>>();
         map.put("Statusputaway",statusputawayService.queryAll());
         return map;
     }
+
     /**
      * Description：商家产品标签接口
      * @author 苏俊杰
@@ -128,8 +128,7 @@ public class GoodsController {
      */
     @RequestMapping("getTaglist")
     @ResponseBody
-    public Map<String,List<KnTag>> getTaglist( HttpServletResponse response
-    ) {
+    public Map<String,List<KnTag>> getTaglist( HttpServletResponse response){
         Map<String,List<KnTag>>map=new HashMap<String,List<KnTag>>();
         map.put("KnTag",knTagService.queryAll());
         return map;

@@ -132,12 +132,10 @@ public class GoodsDataController {
 @Scheduled(cron= "0 0/6 * * * ? ")
 @RequestMapping("/upPvUv")
  public void upPvUv(){
-
     logger.info("进入更新产品pvuv");
     //getCountPv.getUv2();
     kngoodsservice.updateGoodspvuv();
-
-
  }
+
 
 }

@@ -96,13 +96,12 @@ public class TimerController {
      * @return 
      */
     @ApiOperation(value = "定时更新产品总的pvuv", httpMethod = "POST", response = StatusCode.class, notes = "定时更新产品总的pvuv")
-    @RequestMapping("/unpvuv")
-    @ResponseBody
-    public void unpvuv(HttpServletResponse response){
+    @Scheduled(cron= "0 0/6 * * * ? ")
+    @RequestMapping("/uvpvx")
+    public void unpvuvx(){
         ListObject listObject=new ListObject();
         System.out.println("拿取数据");
         String format="visitor";
-
         List<kn_goods> lst=knGoodsservice.getGoodsList();
         Map map=new HashMap();
         for(int i=0;i<lst.size();i++){
@@ -127,23 +126,17 @@ public class TimerController {
                     knGoodsMapper.updateOnepvuv(kn_friend);
                 } catch (Exception e) {
                     System.out.println("编辑失败");
-                    listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
-                    listObject.setMsg("编辑失败");
-                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
                     e.printStackTrace();
                 }
-
             }else{
                 listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
                 listObject.setMsg("上传链接失败");
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+
             }
         }
         listObject.setCode(StatusCode.CODE_SUCCESS);
         listObject.setMsg("编辑成功");
-        ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         System.out.println("-----------------拿取结束-----------------");
-
     }
 
 }

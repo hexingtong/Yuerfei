@@ -35,7 +35,7 @@ import java.util.Map;
 public  class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn_goodsservice {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 @Autowired
-  private kn_goodsMapper knGoodsMapper;
+private kn_goodsMapper knGoodsMapper;
 @Autowired
 private GoodsPvDataService godsPvDataService;
 @Autowired
@@ -378,12 +378,7 @@ private GoodsUvDataService goodsUvDataService;
         //增加超市
         if(goodsSupermarketDvo.getIndexx()==0){
             logger.info("进入（只用增加goods表）");
-            logger.info("传进来的值：title" + goodsSupermarketDvo.getTitle() + "apply_count`" + goodsSupermarketDvo.getApplyCount() + "Limit`" + goodsSupermarketDvo.getLimit() + "Deadline"
-                    + goodsSupermarketDvo.getDeadline()
-                    + "Interest_rate" + goodsSupermarketDvo.getInterestrate() +
-                    "property_ids" + goodsSupermarketDvo.getPropertyIds() + "tag_id" + goodsSupermarketDvo.getTagId() + "details" +
-                    goodsSupermarketDvo.getDetails() + "status" + goodsSupermarketDvo.getStatus()
-                    + "url" + goodsSupermarketDvo.getUrl());
+            logger.info(goodsSupermarketDvo.toString());
             kn_goods knGoods=new kn_goods();
             knGoods.setTitle(goodsSupermarketDvo.getTitle());
             knGoods.setId(goodsSupermarketDvo.getId());
@@ -398,8 +393,8 @@ private GoodsUvDataService goodsUvDataService;
             knGoods.setUrl(goodsSupermarketDvo.getUrl());
             knGoods.setImg(goodsSupermarketDvo.getImg());
             knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
-
             knGoods.setAddTime(new Date());
+
             int i=knGoodsMapper.updateGoodsSk(knGoods);
             logger.info("i的值"+i);
             if(i>0){

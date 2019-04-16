@@ -112,7 +112,7 @@
 
   <!--推广链接注册埋点+1-->
   <update id="updateFriendZhuce" parameterType="String">
-   update `kn_friend` set enrollment=enrollment+1 where url = #{url}
+   update `kn_friend` set enrollment=enrollment+1 where short_url = #{shortUrl}
   </update>
 
   <!--查询所有推广链接-->

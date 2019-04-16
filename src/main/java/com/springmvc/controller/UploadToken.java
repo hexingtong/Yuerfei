@@ -24,4 +24,5 @@ public class UploadToken {
        return Auth.create(AccountMgr.ACCESS_KEY,AccountMgr.SECRET_KEY).uploadToken(bucket);
 
     }
+
 }

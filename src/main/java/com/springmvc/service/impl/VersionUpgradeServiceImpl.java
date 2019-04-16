@@ -4,9 +4,12 @@ package com.springmvc.service.impl;
 import com.springmvc.mapping.VersionUpgradeMapper;
 import com.springmvc.pojo.VersionUpgrade;
 import com.springmvc.service.VersionUpgradeService;
+import com.util.DateUtil;
+import com.util.VersionUpgradeUtil.VersionUpgradeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,7 +17,7 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
 
 
     @Autowired
-    VersionUpgradeMapper versionupgrademapper;
+     VersionUpgradeMapper versionupgrademapper;
     
     /**
      * @Author 苏俊杰
@@ -24,29 +27,9 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
      * @return com.springmvc.pojo.VersionUpgrade
      **/
     @Override
-    public VersionUpgrade selectVersionAll() {
-        List<VersionUpgrade> lst=versionupgrademapper.selectVersionAll();
-        VersionUpgrade versionUpgrade=new VersionUpgrade();
-        for(int i=0;i<lst.size();i++){
-            versionUpgrade=lst.get(i);
+    public VersionUpgrade selectVersionAll(VersionUpgrade version) {
 
-            if(versionUpgrade.getVersionId()==null||versionUpgrade.getVersionId()==0){
-                if(versionUpgrade.getVersionId()>versionUpgrade.getVersionMini()) {
-                    int number = versionUpgrade.getVersionMini();
-                    if (number < versionUpgrade.getVersionMini()) {
-                        number = versionUpgrade.getVersionMini();
-
-
-                    }
-                }else{
-                    //大版本号小于版本号
-                }
-            }else{
-
-            }
-
-        }
-        return versionUpgrade;
+        return version;
     }
     
     

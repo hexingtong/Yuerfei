@@ -14,5 +14,5 @@ import java.util.List;
 public interface VersionUpgradeService {
 
 
-    VersionUpgrade selectVersionAll();
+    VersionUpgrade selectVersionAll(VersionUpgrade version);
 }
