@@ -1,14 +1,21 @@
 package com.springmvc.controller;
 
+import com.springmvc.mapping.kn_goodsMapper;
 import com.springmvc.pojo.Goodspvdata;
 import com.springmvc.pojo.Goodsuvdata;
 
 import com.springmvc.pojo.kn_goods;
+import com.springmvc.service.FriendTimer;
 import com.springmvc.service.GoodsPvDataService;
 import com.springmvc.service.GoodsUvDataService;
 import com.springmvc.service.kn_goodsservice;
+import com.util.JsonUtils;
+import com.util.ListObject;
+import com.util.ResponseUtils;
+import com.util.StatusCode;
 import com.util.pvDataUtuil.getCountPv;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -23,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,7 +49,10 @@ import java.util.Map;
 @RequestMapping("/data")
 public class GoodsDataController {
     final Logger logger = LoggerFactory.getLogger(GoodsController.class);
-
+    @Autowired
+    private kn_goodsservice knGoodsservice;
+    @Autowired
+    private kn_goodsMapper knGoodsMapper;
 
     @Autowired
     GoodsPvDataService goodsPvDataService;
@@ -95,7 +106,7 @@ public class GoodsDataController {
      * @author boyang
      * @date 2019/3/26 18:55
      */
-@Scheduled(cron= "0 0/5 * * * ? ")
+//@Scheduled(cron= "0 0/5 * * * ? ")
     public void getpvuv() {
         logger.info("更新pvuv定时任务");
         goodsPvDataService.unCountPv();
@@ -111,7 +122,7 @@ public class GoodsDataController {
      * @author boyang
      * @date 2019/4/2 11:47
      */
- //   @Scheduled(cron= "* 55 23 * * 1")
+   //@Scheduled(cron= "* 55 23 * * 1")
     @RequestMapping("/delepvuv")
     public void delepvuv() {
         logger.info("删除pvuv定时任务");
@@ -128,15 +139,70 @@ public class GoodsDataController {
  * @param
  * @return
  */
-@Scheduled(cron= "0 0/6 * * * ? ")
+//@Scheduled(cron= "0 0/6 * * * ? ")
 @RequestMapping("/upPvUv")
  public void upPvUv(){
-
     logger.info("进入更新产品pvuv");
     //getCountPv.getUv2();
     kngoodsservice.updateGoodspvuv();
 
-
  }
 
+    /**
+     * Description： 定时更新产品总的pvuv
+     * @author boyang
+     * @date 2019/4/13 15:34
+     * @param
+     *
+     * @return
+     * @return
+     */
+    @Scheduled(cron= "0 0/2 * * * ? ")
+    public void unpvuvdfdf(){
+        ListObject listObject=new ListObject();
+        System.out.println("拿取数据");
+        String format="visitor";
+
+        List<kn_goods> lst=knGoodsservice.getGoodsList();
+        Map map=new HashMap();
+        for(int i=0;i<lst.size();i++){
+            kn_goods kn_friend=new kn_goods();
+            kn_friend=lst.get(i);
+            System.out.println("查询的id"+kn_friend.getId());
+            System.out.println("查询的url"+kn_friend.getShortUrl());
+            map= FriendTimer.Totalpvuv(kn_friend.getShortUrl(),format);
+            String success=(String) map.get("success");
+            System.out.println("success的值"+success);
+            if(success.equals("ok")) {
+                System.out.println("进入update");
+                Integer pv=Integer.parseInt(map.get("pv").toString());
+                Integer uv=Integer.parseInt(map.get("uv").toString());
+                System.out.println("转换后的uv值"+uv);
+                System.out.println("转换后的pv值"+pv);
+                kn_friend.setUv(uv);
+                kn_friend.setPv(pv);
+                kn_friend.setId(lst.get(i).getId());
+                System.out.println("对象里有没有id值"+kn_friend.toString());
+                try {
+                    knGoodsMapper.updateOnepvuv(kn_friend);
+                } catch (Exception e) {
+                    System.out.println("编辑失败");
+                    listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                    listObject.setMsg("编辑失败");
+
+                    e.printStackTrace();
+                }
+
+            }else{
+                listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                listObject.setMsg("上传链接失败");
+
+            }
+        }
+        listObject.setCode(StatusCode.CODE_SUCCESS);
+        listObject.setMsg("编辑成功");
+
+        System.out.println("-----------------拿取结束-----------------");
+
+    }
 }
