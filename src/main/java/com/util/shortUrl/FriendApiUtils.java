@@ -20,10 +20,8 @@ public class FriendApiUtils {
     final static String Url="https://12i.cn/api.ashx";
     //?
     final static String userId="3100";
-    final static String key="3E457CECE7CD995CD2672DC76D876EC0";
-
-        
-        /**
+    final static String key="C11169DBDADC37FC19260F150F2287C3";
+    /**
          * @Author 苏俊杰
          * @Description //TODO 修改推广链接
          * @Date 11:53 2019/4/10
@@ -46,7 +44,7 @@ public class FriendApiUtils {
             JSONObject jsonData = JSONObject.fromObject(result);
             String success=jsonData.get("success").toString();
             if(success.equals("ok")){
-               return "ok";
+               return "200";
             }else{
                 return "error";
             }
@@ -90,7 +88,6 @@ public class FriendApiUtils {
                 return "200";
             }
             return "error";
-
-
         }
+
 }

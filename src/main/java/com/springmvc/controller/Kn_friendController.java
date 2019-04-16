@@ -2,8 +2,10 @@ package com.springmvc.controller;
 
 
 import com.springmvc.pojo.PageResultInfo;
+import com.springmvc.pojo.Person;
 import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
+import com.springmvc.service.FriendTimer;
 import com.util.Https.HttpUtil;
 import com.util.JsonUtils;
 import com.util.ListObject;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,14 +30,8 @@ import java.util.Map;
 
 @Api(value="推广页面controller",tags={"推广操作接口"})
 @Controller
-@RequestMapping("/friend")
+    @RequestMapping("/friendx")
 public class Kn_friendController {
-
-    final static String format="txt";
-    final static String Url="https://12i.cn/api.ashx";
-    //?
-    final static String userId="3100";
-    final static String key="3E457CECE7CD995CD2672DC76D876EC0";
 
     @Autowired
     private FriendService FriendService;
@@ -83,20 +80,14 @@ public class Kn_friendController {
     @ApiOperation(value = "推广页面数据删除", httpMethod = "POST", response = StatusCode.class, notes = "推广页面数据删除")
     @RequestMapping("/deleteFriend")
     @ResponseBody
-    public void deletefriend(HttpServletResponse response,int id){
+    public void deletefriend(HttpServletResponse response,Integer id){
         ListObject listObject=new ListObject();
+        System.out.println("id的值是："+id);
         List lst=new ArrayList();
         kn_friend kn_friend=FriendService.selectFrilend(id);
-        Map createMap=new HashMap();
-        String format2="del";
-        createMap.put("format",format2);
-        createMap.put("userId",userId);
-        createMap.put("key",key);
-        createMap.put("url",kn_friend.getUrl());
-        String result=HttpUtil.doPostSSL(Url,createMap,null);
-        JSONObject jsonData = JSONObject.fromObject(result);
-        String success=jsonData.get("success").toString();
-        if(success.equals("ok")){
+
+        String foalt=FriendApiUtils.DelectFriendApi(kn_friend.getUrl());
+        if(foalt.equals("200")){
             int i=FriendService.deleteFriend(id);
             if(i>0){
                 listObject.setMsg("删除成功!");
@@ -112,9 +103,6 @@ public class Kn_friendController {
             listObject.setCode(StatusCode.CODE_ERROR);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-
-
-
     }
 
     /**
@@ -149,6 +137,7 @@ public class Kn_friendController {
             }
     }
 
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 推广页面增加
@@ -156,7 +145,7 @@ public class Kn_friendController {
      * @Param
      * @return
      **/
-    @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = StatusCode.class, notes = "推广页面增加")
+    @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = kn_friend.class, notes = "推广页面增加")
     @RequestMapping("/insertFriend")
     @ResponseBody
     public void insertFriend(HttpServletResponse response,kn_friend kn_friend){
@@ -198,6 +187,7 @@ public class Kn_friendController {
      * @Param [request, mav, shortUrl]
      * @return org.springframework.web.servlet.ModelAndView
      **/
+    @ApiIgnore()
     @RequestMapping("/{shortUrl}")
     public ModelAndView jumpLongLink(HttpServletRequest request, ModelAndView mav, @PathVariable("shortUrl")String shortUrl) {
         kn_friend kn_friend=new kn_friend();
@@ -215,5 +205,40 @@ public class Kn_friendController {
         mav.setViewName("redirect:" + longUrl+"?short="+shortUrl+"");
         return mav;
     }
+
+
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广链接图表跳转页面
+     * @Date 13:54 2019/3/26
+     * @Param
+     * @return
+     **/
+    @ApiOperation(value = "获取推广链接图表数据接口", httpMethod = "POST", response = StatusCode.class, notes = "获取推广链接图表数据接口")
+    @RequestMapping("/FriendImgx")
+    public void FriendImg2(HttpServletResponse response,Integer id){
+        System.out.println("id的值是"+id);
+        ListObject listObject=new ListObject();
+        if(id!=0||!id.equals("")) {
+            kn_friend kn_friend = FriendService.selectFrilend(id);
+            Map map=new HashMap();
+            String format = "day";
+            Person[] person= FriendTimer.DatePvUv(kn_friend.getUrl(),format);
+            List<Person> lst=new ArrayList<>();
+            for(int i=0;i<person.length;i++){
+                lst.add(person[i]);
+            }
+            listObject.setItems(lst);
+            listObject.setMsg("查询成功");
+            listObject.setCode(StatusCode.CODE_SUCCESS);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }else {
+            listObject.setMsg("查询失败");
+            listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }
+    }
+
 
 }

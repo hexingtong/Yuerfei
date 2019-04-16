@@ -1,10 +1,13 @@
 package com.springmvc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 //app版本号
 @Repository
@@ -20,11 +23,11 @@ public class VersionUpgrade {
 
     //大版本号Id
     @Column(name="version_id")
-    private Integer VersionId;
+    private String VersionId;
 
     //小版本号Id
     @Column(name="version_mini")
-    private Integer VersionMini;
+    private String VersionMini;
 
     //代码版本标识
     @Column(name="version_code")
@@ -43,11 +46,15 @@ public class VersionUpgrade {
 
     //创建时间
     @Column(name="create_time")
-    private Integer CreateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date CreateTime;
 
     //更新时间
     @Column(name="update_time")
-    private Integer UpdateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date UpdateTime;
 
 
     public Integer getId() {
@@ -58,11 +65,11 @@ public class VersionUpgrade {
         return AppId;
     }
 
-    public Integer getVersionId() {
+    public String getVersionId() {
         return VersionId;
     }
 
-    public Integer getVersionMini() {
+    public String getVersionMini() {
         return VersionMini;
     }
 
@@ -82,11 +89,11 @@ public class VersionUpgrade {
         return UpgradePrompt;
     }
 
-    public Integer getCreateTime() {
+    public Date getCreateTime() {
         return CreateTime;
     }
 
-    public Integer getUpdateTime() {
+    public Date getUpdateTime() {
         return UpdateTime;
     }
 
@@ -98,11 +105,11 @@ public class VersionUpgrade {
         AppId = appId;
     }
 
-    public void setVersionId(Integer versionId) {
+    public void setVersionId(String versionId) {
         VersionId = versionId;
     }
 
-    public void setVersionMini(Integer versionMini) {
+    public void setVersionMini(String versionMini) {
         VersionMini = versionMini;
     }
 
@@ -122,11 +129,11 @@ public class VersionUpgrade {
         UpgradePrompt = upgradePrompt;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Date createTime) {
         CreateTime = createTime;
     }
 
-    public void setUpdateTime(Integer updateTime) {
+    public void setUpdateTime(Date updateTime) {
         UpdateTime = updateTime;
     }
 

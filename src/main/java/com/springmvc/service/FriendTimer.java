@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 public class FriendTimer {
+    final static String format="txt";
     final static String Url="https://12i.cn/api.ashx";
     //?
     final static String userId="3100";
-    final static String key="3E457CECE7CD995CD2672DC76D876EC0";
-    //final static String format="visitor";
+    final static String key="C11169DBDADC37FC19260F150F2287C3";
 
     private static String charset = "utf-8";
 

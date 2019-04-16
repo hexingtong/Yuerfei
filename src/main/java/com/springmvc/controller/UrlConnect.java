@@ -135,19 +135,28 @@ public class UrlConnect {
      * @return
      **/
     @RequestMapping("/FriendImg")
-    public String FriendImg(Model model,Integer id){
+    public void FriendImg(HttpServletResponse response,Model model,Integer id){
         System.out.println("id的值是"+id);
+        ListObject listObject=new ListObject();
         if(id!=0||!id.equals("")) {
             kn_friend kn_friend = friendService.selectFrilend(id);
             Map map=new HashMap();
+            List<Person[]> lst=new ArrayList<>();
             String format = "day";
             Person[] person=FriendTimer.DatePvUv(kn_friend.getUrl(),format);
             System.out.println("person数组有没有对象"+person[10].getDay());
-            model.addAttribute("jsonData",person);
-            return "knFriendImg";
+            lst.add(person);
+            listObject.setItems(lst);
+            listObject.setMsg("查询成功!");
+            listObject.setCode(StatusCode.CODE_SUCCESS);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }else {
+            listObject.setMsg("查询失败,id是空!");
+            listObject.setCode(StatusCode.CODE_SUCCESS);
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-        return "knFriendImg";
     }
+
 
     /**
      * @Author 苏俊杰

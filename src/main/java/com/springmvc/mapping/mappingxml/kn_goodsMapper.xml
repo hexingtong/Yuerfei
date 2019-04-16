@@ -13,6 +13,7 @@
     <delete id="delectMerchant">
         DELETE FROM kn_goods WHERE admin_id=#{id}
     </delete>
+
   <!--* Description：得到商家产品列表
      *
      * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyIds产品属性，statusId审核状态-->
@@ -79,7 +80,9 @@
  *
  * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态-->
   <select id="queryGoods" parameterType="kn_goodsSupper" resultType="com.springmvc.pojo.kn_goodsSupper">
-    select k.id,k.img,k.title,k.status,(case
+    select k.id,k.img,k.title,k.short_url,k.category_id,k.property_ids,k.Limit,k.Deadline,k.Interest_rate,k.Pace_lending
+    ,k.details,k.application_requirement,k.level,k.info,k.url,k.loogLine,k.activation,k.tag_id,k.homepicture,k.statusCode
+    ,k.status,(case
     when k.status = 1  then '审核中'
     when k.status = 2 then '审核失败'
     when k.status = 3  then '审核通过'
@@ -340,7 +343,6 @@
   <update id="updateGoodspvuv" parameterType="java.util.List">
 BEGIN;
     <foreach collection="list" item="item" index= "index" open="" close="" separator =";">
-
       update kn_goods
       <set>
       <if test="item.pv!=null and item.pv!='' ">
@@ -370,7 +372,6 @@ BEGIN;
     <where>
       id=#{id}
     </where>
-
   </update>
 
   <select id="selectGoodsOne" parameterType="int" resultType="GoodsDetail">

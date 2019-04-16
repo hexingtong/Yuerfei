@@ -148,11 +148,11 @@ public class kn_admintestController {
                     kn_friend[] kn_friends=new kn_friend[list.size()];
                     for(int c=0;c<list.size();c++){
                         kn_friends[c] = list.get(c);
-                        logger.info("数据库的url"+kn_friends[c].getUrl());
-                        if(kn_friends[c].getUrl().equals(shortUrl)){
+                        logger.info("数据库的url"+kn_friends[c].getShortUrl());
+                        if(kn_friends[c].getShortUrl().equals(shortUrl)){
                         //当前url的注册+1
                             //update `kn_friend` set enrollment=enrollment+1 where url = 'https://12i.cn/00Sebf'
-                            int q=friendService.updateFriendZhuce(kn_friends[c].getUrl());
+                            int q=friendService.updateFriendZhuce(shortUrl);
                             if(q>0){
                                 logger.info("埋点成功啦！");
                             }else {
@@ -198,6 +198,7 @@ public class kn_admintestController {
                         jedis.set("token" + id + "", token);
                         //设置时间为毫秒
                         jedis.pexpire("token", 1296000000);
+                        jedis.close();
                         logger.info("登录成功：已注册用户");
                         ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
 
@@ -239,6 +240,7 @@ public class kn_admintestController {
                         logger.info(jedis.get(token + id));
                         //设置时间为毫秒
                         jedis.pexpire("token" + id + "", 1296000000);
+                        jedis.close();
                         logger.info("注册登录成功:未注册用户");
                         listObjectSuper.setMsg("注册成功!");
                         listObjectSuper.setCode(StatusCode.CODE_SUCCESS);

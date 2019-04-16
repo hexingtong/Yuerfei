@@ -85,7 +85,7 @@ public String toAdd(Model model, Integer id) {
      * @param response, pageNo, pageSize, 不做查询分页]
      * @return com.springmvc.pojo.PageResultInfo
      */
-    @ApiOperation(value = "获得产品列表", httpMethod = "POST", response = StatusCode.class, notes = "更新推广页面链接的数据（pv uv）")
+    @ApiOperation(value = "获得产品列表", httpMethod = "POST", response = StatusCode.class, notes = "获得产品列表")
     @RequestMapping("/getGoodsList")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -97,7 +97,6 @@ public String toAdd(Model model, Integer id) {
                                                     ) {
         PageHelper.startPage(pageNo, pageSize);
         PageInfo<KnProperty> pageInfo = new PageInfo<KnProperty>(propertyService.queryAll());
-
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
         logger.info("传入的pageno,pagesize"+pageNo+":"+pageSize);
         return  resultInfo;
