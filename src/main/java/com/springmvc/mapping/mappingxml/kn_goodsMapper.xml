@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.springmvc.mapping.kn_goodsMapper" >
   <!--by-->
-  <select id="getGoodsList" resultType="com.springmvc.pojo.kn_goods">
-   select * FROM kn_goods  WHERE status=4 ORDER  BY uv+0 DESC
+  <select id="getGoodsList" resultType="com.springmvc.pojo.kn_goods" parameterType="integer" >
+   select * FROM kn_goods  WHERE status=4 AND id!=#{adid} ORDER  BY uv+0 DESC
   </select>
 
     <select id="queryMerchantId" resultType="java.lang.Integer" parameterType="kn_goods">
@@ -376,6 +376,9 @@ BEGIN;
 
   <select id="selectGoodsOne" parameterType="int" resultType="GoodsDetail">
     SELECT * FROM goods_detail where id=#{id}
+  </select>
+  <select id="getGoodsList2" resultType="com.springmvc.pojo.kn_goods" parameterType="integer">
+     select * FROM kn_goods  WHERE status=4 AND id!=#{adid} ORDER  BY uv+0 DESC
   </select>
 
 </mapper>

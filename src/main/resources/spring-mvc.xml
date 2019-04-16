@@ -74,33 +74,33 @@
 
 
 	<!--配置拦截登录拦截器-->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<!-- 拦截所有的请求，这个必须写在前面，也就是写在【不拦截】的上面 -->
-			<mvc:mapping path="/**/*"/>
-			<!-- 但是排除下面这些，也就是不拦截请求 -->
-			<mvc:exclude-mapping path="/APP/**"/>
-			<mvc:exclude-mapping path="/app/**"/>
-			<mvc:exclude-mapping path="/admin2/**"/>
-			<mvc:exclude-mapping path="/url/**"/>
-			<mvc:exclude-mapping path="/Supermarke/getSupermarket"/>
-			<mvc:exclude-mapping path="/data/**"/>
-			<mvc:exclude-mapping path="/Goods/**"/>
-			<mvc:exclude-mapping path="/Test/**"/>
-			<mvc:exclude-mapping path="/data/**"/>
-			<mvc:exclude-mapping path="/APP/**"/>
-			<mvc:exclude-mapping path="/app/**"/>
-			<mvc:exclude-mapping path="/admin/**"/>
-			<mvc:exclude-mapping path="/Testt/**"/>
-			<mvc:exclude-mapping path="/swagger-resources/**"/>
-			<mvc:exclude-mapping path="/webjars/**"/>
-			<mvc:exclude-mapping path="/v2/**"/>
-			<mvc:exclude-mapping path="/admin/login"/>
-			<mvc:exclude-mapping path="/swagger-ui.html/**"/>
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--&lt;!&ndash; 拦截所有的请求，这个必须写在前面，也就是写在【不拦截】的上面 &ndash;&gt;-->
+			<!--<mvc:mapping path="/**/*"/>-->
+			<!--&lt;!&ndash; 但是排除下面这些，也就是不拦截请求 &ndash;&gt;-->
+			<!--<mvc:exclude-mapping path="/APP/**"/>-->
+			<!--<mvc:exclude-mapping path="/app/**"/>-->
+			<!--<mvc:exclude-mapping path="/admin2/**"/>-->
+			<!--<mvc:exclude-mapping path="/url/**"/>-->
+			<!--<mvc:exclude-mapping path="/Supermarke/getSupermarket"/>-->
+			<!--<mvc:exclude-mapping path="/data/**"/>-->
+			<!--<mvc:exclude-mapping path="/Goods/**"/>-->
+			<!--<mvc:exclude-mapping path="/Test/**"/>-->
+			<!--<mvc:exclude-mapping path="/data/**"/>-->
+			<!--<mvc:exclude-mapping path="/APP/**"/>-->
+			<!--<mvc:exclude-mapping path="/app/**"/>-->
+			<!--<mvc:exclude-mapping path="/admin/**"/>-->
+			<!--<mvc:exclude-mapping path="/Testt/**"/>-->
+			<!--<mvc:exclude-mapping path="/swagger-resources/**"/>-->
+			<!--<mvc:exclude-mapping path="/webjars/**"/>-->
+			<!--<mvc:exclude-mapping path="/v2/**"/>-->
+			<!--<mvc:exclude-mapping path="/admin/login"/>-->
+			<!--<mvc:exclude-mapping path="/swagger-ui.html/**"/>-->
 
-			<bean class="com.util.LoginHandlerInterceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+			<!--<bean class="com.util.LoginHandlerInterceptor"></bean>-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
 
     <!--&lt;!&ndash; 配置启用Shiro的注解功能 &ndash;&gt;-->
     <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"-->

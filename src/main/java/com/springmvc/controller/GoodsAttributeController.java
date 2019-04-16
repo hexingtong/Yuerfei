@@ -127,7 +127,7 @@ public String toAdd(Model model, Integer id) {
     }
     /**
      * Description：删除产品属性
-     * @author boyang(未测）
+     * @author boyang
      * @date 2019/3/7 14:54
      * @param
      * @return

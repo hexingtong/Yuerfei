@@ -11,6 +11,8 @@ import com.springmvc.service.PropertyService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
 import com.util.StatusCode;
+import com.util.redis.RedisService;
+import com.util.redis.impl.RedisPoolService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
@@ -75,9 +79,15 @@ NoticeService noticeService;
     @ResponseBody
     public Map<String,List<kn_goods>> getGoods(HttpServletResponse response
     ) {
-        Map<String,List<kn_goods>>map=new HashMap<String,List<kn_goods>>();
+        Jedis jedis=new Jedis("39.98.53.253",6379);
 
-        map.put("goods",knGoodsservice.queryByTagid());
+        Map<String,List<kn_goods>>map=new HashMap<String,List<kn_goods>>();
+        knGoodsservice.queryByTagid().get(0).getId();
+       int id= knGoodsservice.queryByTagid().get(0).getId();
+        jedis.set("adId",id+"");
+       //id存redis里
+
+       map.put("goods",knGoodsservice.queryByTagid());
         return map;
     }
     /**

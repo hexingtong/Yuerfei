@@ -77,7 +77,11 @@
   </filter>
   <filter-mapping>
     <filter-name>HeaderFilter</filter-name>
-    <url-pattern>/admin/*</url-pattern><!-- 你开放的接口前缀  -->
+    <url-pattern>/*</url-pattern><!-- 你开放的接口前缀  -->
+    <url-pattern>/admin2/*</url-pattern><!-- 你开放的接口前缀  -->
+
+    <url-pattern>/homeData/*</url-pattern><!-- 你开放的接口前缀  -->
+    <url-pattern>/TimerFride/*</url-pattern><!-- 你开放的接口前缀  -->
   </filter-mapping>
   <filter-mapping>
     <filter-name>HeaderFilter</filter-name>
@@ -126,7 +130,7 @@
 
   <!-- 配置SESSION超时，单位是分钟 -->
   <session-config>
-    <session-timeout>15</session-timeout>
+    <session-timeout>60</session-timeout>
   </session-config>
 
 
@@ -163,6 +167,7 @@
 
   <!--配置定时器监听器-->
   <!-- TimerDataTaskListener 监听器 -->
+<!--跨域-->
 
   <!--<listener>-->
     <!--<listener-class>com.util.timeUtil.TimerDataTaskListener</listener-class>-->

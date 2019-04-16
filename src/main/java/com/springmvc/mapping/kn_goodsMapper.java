@@ -25,8 +25,18 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @author boyang
      * @date 2019/2/27 14:27
      */
+    List<kn_goods> getGoodsList2(Integer adid);
+    /**
+     * Description：
+     * 查询商品详情接口
+     * 通过排序级别排序
+     *
+     * @param , pageSize, id]
+     * @return java.util.List<com.springmvc.pojo.kn_goods>
+     * @author boyang
+     * @date 2019/2/27 14:27
+     */
     List<kn_goods> getGoodsList();
-
     /**
      * Description：得到商家产品列表
      *
@@ -139,5 +149,14 @@ Integer updateOnepvuv(kn_goods kn_goods);
      * @return
      **/
     GoodsDetail selectGoodsOne(int id);
+
+
+    /**
+     * Description：通过id来更新pvuv
+     * @author boyang
+     * @date 2019/4/13 16:33
+     * @param
+     * @return
+     */
 
 }

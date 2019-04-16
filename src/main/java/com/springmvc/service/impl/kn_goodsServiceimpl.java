@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -521,9 +522,17 @@ private GoodsUvDataService goodsUvDataService;
      */
     @Override
     public PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize) {
+        Jedis jedis=new Jedis("39.98.53.253",6379);
+       String id= jedis.get("adId");
+       int id2;
+       if (StringUtils.isNotEmpty(id)){
+           id2= Integer.parseInt(id);
+       }else {
+           id2=0;
+       }
         PageHelper.startPage(pageNo, pageSize);
         List<kn_goods> agentLevelSettings;
-        agentLevelSettings= knGoodsMapper.getGoodsList();
+        agentLevelSettings= knGoodsMapper.getGoodsList2(id2);
         PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
 
