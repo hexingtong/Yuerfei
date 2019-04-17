@@ -1,14 +1,26 @@
 package com.springmvc.controller;
 
+import com.springmvc.mapping.kn_goodsMapper;
+import com.springmvc.pojo.Person;
 import com.springmvc.pojo.kn_goods;
+import com.springmvc.service.FriendTimer;
+import com.springmvc.service.PvUvDataService;
+import com.springmvc.service.kn_goodsservice;
 import com.util.JsonResult;
 import com.util.StatusCode;
 import com.util.pvDataUtuil.getCountPv;
+import com.util.redis.impl.RedisPoolService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * @ClassName GraphDataController
@@ -19,6 +31,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/homeData")
 @Controller
 public class GraphDataController {
+
+    @Autowired
+    private PvUvDataService pa;
 /**
  * Description： 得到产品总的pvuv
  * @author boyang
@@ -98,7 +113,28 @@ public JsonResult Showativeruser() {
     jsonResult.setResult(JsonResult.ResultStatus.success);
     return jsonResult;
 }
+/**
+ * Description：从短链接中拉取近三十天产品总的pv uv
+ * @author boyang
+ * @date 2019/4/15 10:33
+ * @param
+ * @return void
+ */
+@ApiOperation(value = "得到产品总三十天的pvuv", httpMethod = "POST", response = StatusCode.class, notes = "得到产品总三十天的pvuv数")
+@RequestMapping("/ShowPvUv2")
+@ResponseBody
+public JsonResult getMonthpvuv() {
+    JsonResult jsonResult=new JsonResult();
+    try {
+        jsonResult.setData(pa.getcountPvUv());
+    } catch (Exception e) {
+        jsonResult.setResult(JsonResult.ResultStatus.fail);
+        e.printStackTrace();
+    }
+    jsonResult.setResult(JsonResult.ResultStatus.success);
+    return jsonResult;
 
+}
 
 
 }

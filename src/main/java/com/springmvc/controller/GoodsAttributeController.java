@@ -3,11 +3,9 @@ package com.springmvc.controller;
 import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.springmvc.mapping.KnPropertyMapper;
 import com.springmvc.pojo.JsonModel;
 import com.springmvc.pojo.KnProperty;
 import com.springmvc.pojo.PageResultInfo;
-import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.PropertyService;
 import com.util.ImageUtil;
 import com.util.StatusCode;
@@ -26,7 +24,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -49,7 +46,6 @@ public class GoodsAttributeController {
 
     final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-
 /**
  * Description：跳到新增
  * @author boyang
@@ -62,7 +58,6 @@ public class GoodsAttributeController {
 public String toAdd(Model model, Integer id) {
     return "productAdd";
 }
-
     /**
      * Description：跳到产品属性编辑
      * @author boyang
@@ -94,7 +89,7 @@ public String toAdd(Model model, Integer id) {
                                               Integer pageNo,
                                         @RequestParam(value = "pageSize", defaultValue = "90", required = false)
                                               Integer pageSize
-                                                    ) {
+                              ) {
         PageHelper.startPage(pageNo, pageSize);
         PageInfo<KnProperty> pageInfo = new PageInfo<KnProperty>(propertyService.queryAll());
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());

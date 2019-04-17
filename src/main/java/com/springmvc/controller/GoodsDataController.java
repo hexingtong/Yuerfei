@@ -135,16 +135,15 @@ public class GoodsDataController {
     }
 
 /**
- * Description：定时把pvuv加到对应的产品
+ * Description：定时把短链接pvuv加到对应的产品
  * @author boyang
  * @date 2019/4/2 11:52
  * @param
  * @return
  */
-@Scheduled(cron= "0 0/6 * * * ? ")
+//@Scheduled(cron= "0 0/6 * * * ? ")
 @RequestMapping("/upPvUv")
  public void upPvUv() {
-
     logger.info("进入更新产品pvuv");
     //getCountPv.getUv2();
     kngoodsservice.updateGoodspvuv();

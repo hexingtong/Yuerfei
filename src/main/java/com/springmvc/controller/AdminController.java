@@ -46,7 +46,6 @@ import java.util.List;
 @RequestMapping("/admin2")
 public class AdminController {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
-
     @Autowired
     private kn_adminservice adminService;
     /**
@@ -114,6 +113,7 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
     @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
     @RequestMapping("/login2")
     public void ogin2(String userName, String pwd, HttpSession session,HttpServletResponse response,HttpServletRequest request) {
+        logger.info("userName"+userName+"pwd"+pwd);
     logger.info("进入控制器");
         ListObject listObject=new ListObject();
        if (StringUtils.isNotEmpty(userName)&&StringUtils.isNotEmpty(pwd)){
@@ -216,14 +216,16 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
  */
 @ApiOperation(value = "退出登录", httpMethod = "POST", response = StatusCode.class, notes = "退出登录")
 @RequestMapping("/loginOut")
-public String deleSesson(Model model, HttpSession session, HttpServletRequest request) {
-
+@ResponseBody
+public Integer deleSesson(Model model, HttpSession session, HttpServletRequest request) {
+logger.info(String.valueOf(session.getAttribute("user")));
     if (session.getAttribute("user")!=null){
         request.getSession().removeAttribute("user");//清空session信息
         request.getSession().invalidate();//清除 session 中的所有信息
-        return "login";
+        return 1;
     }else {
-        return "";
+        return 0;
+
     }
 }
 

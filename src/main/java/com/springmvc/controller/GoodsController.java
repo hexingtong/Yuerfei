@@ -70,7 +70,7 @@ public class GoodsController {
     ) {
         List lis = new ArrayList();
         ListObject listObject=new ListObject();
-        lis = knGoodsservice.getGoodsList();
+        lis = knGoodsservice.getGoodsList2();
         if (lis != null) {
             listObject.setItems(lis);
             listObject.setCode(StatusCode.CODE_SUCCESS);

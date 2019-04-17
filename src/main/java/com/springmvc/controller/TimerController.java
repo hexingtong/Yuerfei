@@ -40,7 +40,7 @@ public class TimerController {
      * @Param []
      * @return void
      **/
-    @ApiOperation(value = "更新推广页面链接的数据（pv uv）", httpMethod = "POST", response = StatusCode.class, notes = "更新推广页面链接的数据（pv uv）")
+    @ApiOperation(value = "更新推广页面链接的数据pv uv", httpMethod = "POST", response = StatusCode.class, notes = "更新推广页面链接的数据（pv uv）")
     @RequestMapping("/friend")
     @ResponseBody
     public void TimerFriend(HttpServletResponse response){
@@ -88,55 +88,6 @@ public class TimerController {
         System.out.println("-----------------拿取结束-----------------");
 
     }
-    /**
-     * Description： 定时更新产品总的pvuv
-     * @author boyang
-     * @date 2019/4/13 15:34
-     * @param 
-     * @return 
-     */
-    @ApiOperation(value = "定时更新产品总的pvuv", httpMethod = "POST", response = StatusCode.class, notes = "定时更新产品总的pvuv")
-    @Scheduled(cron= "0 0/6 * * * ? ")
-    @RequestMapping("/uvpvx")
-    public void unpvuvx(){
-        ListObject listObject=new ListObject();
-        System.out.println("拿取数据");
-        String format="visitor";
-        List<kn_goods> lst=knGoodsservice.getGoodsList();
-        Map map=new HashMap();
-        for(int i=0;i<lst.size();i++){
-            kn_goods kn_friend=new kn_goods();
-            kn_friend=lst.get(i);
-            System.out.println("查询的id"+kn_friend.getId());
-            System.out.println("查询的url"+kn_friend.getShortUrl());
-            map=FriendTimer.Totalpvuv(kn_friend.getShortUrl(),format);
-            String success=(String) map.get("success");
-            System.out.println("success的值"+success);
-            if(success.equals("ok")) {
-                System.out.println("进入update");
-                Integer pv=Integer.parseInt(map.get("pv").toString());
-                Integer uv=Integer.parseInt(map.get("uv").toString());
-                System.out.println("转换后的uv值"+uv);
-                System.out.println("转换后的pv值"+pv);
-                kn_friend.setUv(uv);
-                kn_friend.setPv(pv);
-                kn_friend.setId(lst.get(i).getId());
-                System.out.println("对象里有没有id值"+kn_friend.toString());
-                try {
-                    knGoodsMapper.updateOnepvuv(kn_friend);
-                } catch (Exception e) {
-                    System.out.println("编辑失败");
-                    e.printStackTrace();
-                }
-            }else{
-                listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
-                listObject.setMsg("上传链接失败");
 
-            }
-        }
-        listObject.setCode(StatusCode.CODE_SUCCESS);
-        listObject.setMsg("编辑成功");
-        System.out.println("-----------------拿取结束-----------------");
-    }
 
 }

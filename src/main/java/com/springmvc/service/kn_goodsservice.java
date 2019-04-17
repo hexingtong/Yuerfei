@@ -21,7 +21,7 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
     /**
      * Description：
      * 查询商品详情接口
-     * 通过排序级别排序
+     * 不包括广位
      *
      * @param , pageSize, id]
      * @return java.util.List<com.springmvc.pojo.kn_goods>
@@ -29,7 +29,17 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * @date 2019/2/27 14:27
      */
     List<kn_goods> getGoodsList();
-
+    /**
+     * Description：
+     * 查询商品详情接口
+     *
+     *
+     * @param , pageSize, id]
+     * @return java.util.List<com.springmvc.pojo.kn_goods>
+     * @author boyang
+     * @date 2019/2/27 14:27
+     */
+    List<kn_goods> getGoodsList2();
     /**
      * Description：得到商家产品列表
      *
