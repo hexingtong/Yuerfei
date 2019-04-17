@@ -52,9 +52,17 @@ private GoodsUvDataService goodsUvDataService;
      */
     @Override
     public List<kn_goods> getGoodsList() {
-       logger.info("沒有參數");
+       logger.info("沒有參數");        Jedis jedis=new Jedis("39.98.53.253",6379);
+        String id= jedis.get("adId");
+        int id2;
+        if (StringUtils.isNotEmpty(id)){
+            id2= Integer.parseInt(id);
+        }else {
+            id2=0;
+        }
+
              List<kn_goods> lis=new ArrayList();
-             lis=knGoodsMapper.getGoodsList();
+             lis=knGoodsMapper.getGoodsList2(id2);
                if (lis!=null){
                    logger.info("參數為："+lis);
                    return lis;
