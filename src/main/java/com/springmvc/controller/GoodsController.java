@@ -61,7 +61,7 @@ public class GoodsController {
      *
      * @param
      * @return
-     * @author 苏俊杰
+     * @author by
      * @date 2019/2/27 16:53
      */
     @RequestMapping("getGoodsList")
