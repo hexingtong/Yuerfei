@@ -225,9 +225,53 @@ public void saveQQ(String qq){
         jedis.set("qq",qq);
     }else {
         jedis.set("qq","null");
+
     }
 
 }
+    /**
+     * Description：返回微信号的接口,可以返回为空
+     * @author boyang
+     * @date 2019/4/19 13:43
+     * @param
+     * @return
+     */
+    @RequestMapping("/getWeixin")
+    @ResponseBody
+    public JsonResult getWeixing(){
+        Jedis jedis=new Jedis("39.98.53.253",6379);
+        JsonResult jsonResult=new JsonResult();
+        try {
+            jsonResult.setData(jedis.get("weixin"));
 
+        } catch (Exception e) {
+            jsonResult.setMessage("获取出错");
+            jsonResult.setResult(JsonResult.ResultStatus.fail);
+            e.printStackTrace();
+        }
+        jsonResult.setMessage("获取成功");
+        jsonResult.setResult(JsonResult.ResultStatus.success);
+        return jsonResult;
+    }
+
+    /**
+     * Description：后台传入微信号接口
+     * @author boyang
+     * @date 2019/4/19 13:43
+     * @param
+     * @return
+     */
+    @RequestMapping("/saveWeixin")
+    @ResponseBody
+    public void saveWeixing(String weiXing){
+        Jedis jedis=new Jedis("39.98.53.253",6379);
+        if (StringUtils.isNotEmpty(weiXing)){
+            jedis.set("weixin",weiXing);
+        }else {
+            jedis.set("weixin","null");
+
+        }
+
+    }
 
 }
