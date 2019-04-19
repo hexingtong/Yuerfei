@@ -130,8 +130,6 @@ NoticeService noticeService;
            map.put("goods",knGoodsservice.getGoodsList());
            return  map;
         }
-
-
     }
     /**
      * Description：首页搜索接口android
