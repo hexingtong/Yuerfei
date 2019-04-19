@@ -1,5 +1,6 @@
 package com.springmvc.controller.APP;
 
+import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springmvc.pojo.KnProperty;
@@ -10,6 +11,7 @@ import com.springmvc.service.NoticeService;
 import com.springmvc.service.PropertyService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.springmvc.service.kn_goodsservice;
+import com.util.JsonResult;
 import com.util.StatusCode;
 import com.util.redis.RedisService;
 import com.util.redis.impl.RedisPoolService;
@@ -185,4 +187,49 @@ public PageResultInfo getDataList(Model model, HttpServletResponse response,
     PageResultInfo resultInfo = knGoodsservice.pagegoodslist(pageNo,pageSize);
     return  resultInfo;
 }
+/**
+ * Description：返回qq号的接口,可以返回为空
+ * @author boyang
+ * @date 2019/4/19 13:43
+ * @param
+ * @return
+ */
+@RequestMapping("/getQQ")
+@ResponseBody
+public JsonResult getQQ(){
+    Jedis jedis=new Jedis("39.98.53.253",6379);
+    JsonResult jsonResult=new JsonResult();
+    try {
+        jsonResult.setData(jedis.get("qq"));
+
+    } catch (Exception e) {
+        jsonResult.setMessage("获取出错");
+        jsonResult.setResult(JsonResult.ResultStatus.fail);
+      e.printStackTrace();
+    }
+    jsonResult.setMessage("获取成功");
+    jsonResult.setResult(JsonResult.ResultStatus.success);
+return jsonResult;
+}
+
+/**
+ * Description：后台传入qq号接口
+ * @author boyang
+ * @date 2019/4/19 13:43
+ * @param
+ * @return
+ */
+@RequestMapping("/saveQQ")
+@ResponseBody
+public void saveQQ(String qq){
+    Jedis jedis=new Jedis("39.98.53.253",6379);
+    if (StringUtils.isNotEmpty(qq)){
+        jedis.set("qq",qq);
+    }else {
+        jedis.set("qq","null");
+    }
+
+}
+
+
 }
