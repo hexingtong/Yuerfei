@@ -49,29 +49,6 @@ public class kn_admin  implements Serializable{
     //最近一次登录ip
     private  String loginIp;
 
-    @Override
-    public String toString() {
-        return "kn_admin{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", phone='" + phone + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", level=" + level +
-                ", img='" + img + '\'' +
-                ", addTime=" + addTime +
-                ", loginTime=" + loginTime +
-                ", loginIp='" + loginIp + '\'' +
-                ", registeredSource='" + registeredSource + '\'' +
-                ", adminId=" + adminId +
-                ", authenticationStatus=" + authenticationStatus +
-                ", enterpriseName='" + enterpriseName + '\'' +
-                ", idNumber='" + idNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", businessLicense='" + businessLicense + '\'' +
-                ", authenticationMessage=" + authenticationMessage +
-                '}';
-    }
-
     //注册来源
     @Column(name = "registered_source")
     private String registeredSource;
@@ -94,9 +71,18 @@ public class kn_admin  implements Serializable{
     @Column(name = "business_license")
     private String businessLicense;
     //认证信息
-
     private Integer authenticationMessage;
+    //渠道来源
+    @Column(name ="frend_source")
+    private String frendSource;
 
+    public void setFrendSource(String frendSource) {
+        this.frendSource = frendSource;
+    }
+
+    public String getFrendSource() {
+        return frendSource;
+    }
 
     public String getPwd() {
         return pwd;
@@ -235,4 +221,27 @@ public class kn_admin  implements Serializable{
         return loginIp;
     }
 
+    @Override
+    public String toString() {
+        return "kn_admin{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", phone='" + phone + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", level=" + level +
+                ", img='" + img + '\'' +
+                ", addTime=" + addTime +
+                ", loginTime=" + loginTime +
+                ", loginIp='" + loginIp + '\'' +
+                ", registeredSource='" + registeredSource + '\'' +
+                ", adminId=" + adminId +
+                ", authenticationStatus=" + authenticationStatus +
+                ", enterpriseName='" + enterpriseName + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", businessLicense='" + businessLicense + '\'' +
+                ", authenticationMessage=" + authenticationMessage +
+                ", frendSource='" + frendSource + '\'' +
+                '}';
+    }
 }

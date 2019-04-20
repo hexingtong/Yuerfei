@@ -55,7 +55,7 @@ public class kn_admintestController {
     public void test(HttpServletResponse response, String Phone) {
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
-        Jedis jedis = new Jedis("39.98.53.253",6379);
+        Jedis jedis = new Jedis();
         try {
             if (StringUtil.isEmpty(Phone)&&Phone.equals("")) {
                 listObject.setCode(StatusCode.CODE_ERROR);
@@ -111,7 +111,7 @@ public class kn_admintestController {
             defaultValue = "", required = false)String shortUrl) {
         ListObject listObject = new ListObject();
         ListObjectSuper listObjectSuper = new ListObjectSuper();
-        Jedis jedis = new Jedis("39.98.53.253",6379);
+        Jedis jedis = new Jedis();
         List<kn_admin> lst = new ArrayList();
         String rc = "SmsCode" + Phone;
         //拿取redis里的值
@@ -139,32 +139,6 @@ public class kn_admintestController {
             if (redisCode.equals(PhoneCode) && redisPhone.equals(Phone)) {
                 //判断是否注册
                 int i = knAdminservice.countAndmin(Phone);
-                if(index.equals("1")){
-                    //推广链接进入的
-                    logger.info("进入埋点!");
-//                    String url=request.getHeader("Referer");
-                    logger.info("url的值是"+shortUrl);
-                    List<kn_friend> list=friendService.queryAll();
-                    kn_friend[] kn_friends=new kn_friend[list.size()];
-                    for(int c=0;c<list.size();c++){
-                        kn_friends[c] = list.get(c);
-                        logger.info("数据库的url"+kn_friends[c].getShortUrl());
-                        if(kn_friends[c].getShortUrl().equals(shortUrl)){
-                        //当前url的注册+1
-                            //update `kn_friend` set enrollment=enrollment+1 where url = 'https://12i.cn/00Sebf'
-                            int q=friendService.updateFriendZhuce(shortUrl);
-                            if(q>0){
-                                logger.info("埋点成功啦！");
-                            }else {
-                                logger.info("埋点失败了! QAQ");
-                                listObjectSuper.setMsg("发生未知错误,请重新注册！");
-                                listObjectSuper.setCode(StatusCode.CODE_ERROR_PARAMETER);
-                                ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
-                            }
-                        }
-
-                    }
-                }
                 if (i > 0) {
                         //已经注册
                         kn_admin kns = knAdminservice.queryByid(Phone);
@@ -203,6 +177,32 @@ public class kn_admintestController {
                         ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
 
                 } else {
+                    if(index.equals("1")){
+                        //推广链接进入的
+                        logger.info("进入埋点!");
+//                    String url=request.getHeader("Referer");
+                        logger.info("url的值是"+shortUrl);
+                        List<kn_friend> list=friendService.queryAll();
+                        kn_friend[] kn_friends=new kn_friend[list.size()];
+                        for(int c=0;c<list.size();c++){
+                            kn_friends[c] = list.get(c);
+                            logger.info("数据库的url"+kn_friends[c].getShortUrl());
+                            if(kn_friends[c].getShortUrl().equals(shortUrl)){
+                                //当前url的注册+1
+                                //update `kn_friend` set enrollment=enrollment+1 where url = 'https://12i.cn/00Sebf'
+                                int q=friendService.updateFriendZhuce(shortUrl);
+                                if(q>0){
+                                    logger.info("埋点成功啦！");
+                                }else {
+                                    logger.info("埋点失败了! QAQ");
+                                    listObjectSuper.setMsg("发生未知错误,请重新注册！");
+                                    listObjectSuper.setCode(StatusCode.CODE_ERROR_PARAMETER);
+                                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObjectSuper));
+                                }
+                            }
+
+                        }
+                    }
                     //没有注册
                     logger.info("未注册:");
                     kn.setPhone(Phone);
@@ -214,6 +214,8 @@ public class kn_admintestController {
                     logger.info("注册来源" + bs);
                     //添加注册来源
                     kn.setRegisteredSource(bs);
+                    //添加注册渠道
+                    kn.setFrendSource(shortUrl);
                     logger.info("Date时间:");
                     if (knAdminservice.insertAndmin(kn) > 0) {
                         logger.info("注册成功！");
@@ -268,6 +270,23 @@ public class kn_admintestController {
         }
 
     }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据推广链接查询30天注册人数
+     * @Date 10:35 2019/4/20
+     * @Param
+     * @return
+     **/
+        @RequestMapping("/slectRegistered")
+        public void selectRegistered(HttpServletResponse response,kn_admin kn_admin){
+            ListObject listObject=new ListObject();
+            List lst=knAdminservice.selectMonthRegistered(kn_admin);
+            listObject.setItems(lst);
+            listObject.setCode(StatusCode.CODE_SUCCESS);
+            listObject.setMsg("查询成功");
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+        }
 
 
 }

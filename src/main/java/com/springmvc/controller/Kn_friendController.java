@@ -36,6 +36,7 @@ public class Kn_friendController {
     @Autowired
     private FriendService FriendService;
 
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 推广页面展示
@@ -156,7 +157,7 @@ public class Kn_friendController {
         System.out.println("传入的网址"+kn_friend.getLongUrl());
         System.out.println("生成的6位短链接"+shortshortUrl);
         StringBuilder sb=new StringBuilder(shortshortUrl);
-        sb.insert(0, "http://localhost:8080/friend/");
+        sb.insert(0, "http://yef.miaojiedao.cn/friendx/");
         System.out.println("转换后的网址"+sb.toString());
         String folat=FriendApiUtils.AddFriendApi(sb.toString(),kn_friend.getTitle());
         if(!folat.equals("error")) {

@@ -3,8 +3,51 @@
 <mapper namespace="com.springmvc.mapping.VersionUpgradeMapper">
 
 
-  <select id="selectVersionAll" resultType="VersionUpgrade" parameterType="Integer">
-    SELECT * FROM version_upgrade WHERE app_id=#{AppId}
+  <select id="selectAllVersion" resultType="VersionUpgrade">
+    SELECT * FROM version_upgrade
   </select>
+
+  <select id="selectVersionAll" resultType="VersionUpgrade" parameterType="VersionUpgrade">
+    SELECT * FROM version_upgrade WHERE app_id=#{appId}  ORDER  BY create_time DESC LIMIT 0,1
+  </select>
+
+
+  <!--删除版本号-->
+  <delete id="deleteVersion" parameterType="VersionUpgrade">
+    DELETE FROM version_upgrade WHERE id=#{id}
+  </delete>
+
+
+  <!--上传版本号-->
+  <insert id="insertVersion" parameterType="VersionUpgrade">
+  INSERT INTO version_upgrade (app_id,version_id,type,apk_url,upgrade_prompt,create_time) VALUES
+  (#{AppId},#{VersionId},#{type},#{ApkUrl},#{UpgradePrompt},#{CreateTime})
+  </insert>
+
+  <update id="updateVersion" parameterType="VersionUpgrade">
+    UPDATE version_upgrade
+    <trim prefix="set" suffixOverrides=",">
+      <if test="appId != null and appId!='' ">
+        app_id=#{appId},
+      </if>
+      <if test="versionId!=null and versionId!='' ">
+        version_id=#{versionId},
+      </if>
+      <if test="type!=null and type!='' ">
+        `type`=#{type},
+      </if>
+      <if test="ApkUrl!=null and ApkUrl!='' ">
+        apk_url=#{ApkUrl},
+      </if>
+      <if test="UpgradePrompt!=null and UpgradePrompt!='' ">
+        upgrade_prompt=#{UpgradePrompt},
+      </if>
+      <if test="updateTime!=null and updatetime!='' ">
+        update_time=#{updateTime},
+      </if>
+    </trim>
+    WHERE id=#{id}
+  </update>
+
 
 </mapper>
