@@ -136,7 +136,6 @@ public class HomeController {
             return map;
         }
     }
-
     /**
      * Description：首页搜索接口android
      *
@@ -166,10 +165,7 @@ public class HomeController {
             PageInfo<kn_goods> pageInfo = new PageInfo<kn_goods>(knGoodsservice.getGoodsList());
             PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
             return resultInfo;
-
         }
-
-
     }
     /**
      * Description：分页得到产品列表
@@ -179,7 +175,7 @@ public class HomeController {
      * @author boyang
      * @date 2019/4/2 10:26
      */
-    @ApiOperation(value = "分页得到产品列表", httpMethod = "POST", response = StatusCode.class, notes = "分页得到产品列表")
+    @ApiOperation(value = "分页得到产品列表接口", httpMethod = "POST", response = StatusCode.class, notes = "分页得到产品列表接口")
     @RequestMapping("/getPageGoodsList")
     @ResponseBody
     public PageResultInfo getDataList(Model model, HttpServletResponse response,
@@ -195,12 +191,12 @@ public class HomeController {
 
     /**
      * Description：返回qq号的接口,可以返回为空
-     *
      * @param
      * @return
      * @author boyang
      * @date 2019/4/19 13:43
      */
+    @ApiOperation(value = "得到qq号码接口", httpMethod = "POST", response = StatusCode.class, notes = "得到qq号码接口")
     @RequestMapping("/getQQ")
     @ResponseBody
     public JsonResult getQQ() {
@@ -229,6 +225,7 @@ public class HomeController {
      * @author boyang
      * @date 2019/4/19 13:43
      */
+    @ApiOperation(value = "保存qq号码接口", httpMethod = "POST", response = StatusCode.class, notes = "保存qq号码接口")
     @RequestMapping("/saveQQ")
     @ResponseBody
     public JsonResult saveQQ(String qq) {
@@ -260,6 +257,7 @@ public class HomeController {
      * @author boyang
      * @date 2019/4/19 13:43
      */
+    @ApiOperation(value = "得到微信号码接口", httpMethod = "POST", response = StatusCode.class, notes = "得到微信号码接口")
     @RequestMapping("/getWeixin")
     @ResponseBody
     public JsonResult getWeixing() {
@@ -288,6 +286,7 @@ public class HomeController {
      * @author boyang
      * @date 2019/4/19 13:43
      */
+    @ApiOperation(value = "保存微信号码接口", httpMethod = "POST", response = StatusCode.class, notes = "保存微信号码接口")
     @RequestMapping("/saveWeixin")
     @ResponseBody
     public JsonResult saveWeixing(String weiXing) {
@@ -311,5 +310,4 @@ public class HomeController {
         jsonResult.setResult(JsonResult.ResultStatus.success);
         return jsonResult;
     }
-
 }

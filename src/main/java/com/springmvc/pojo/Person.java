@@ -41,4 +41,14 @@ public class Person {
     public void setUv(String uv) {
         this.uv = uv;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", day='" + day + '\'' +
+                ", visitCount='" + visitCount + '\'' +
+                ", uv='" + uv + '\'' +
+                '}';
+    }
 }

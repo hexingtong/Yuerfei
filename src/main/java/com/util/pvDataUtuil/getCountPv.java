@@ -4,11 +4,18 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.springmvc.pojo.*;
+import com.springmvc.service.FriendTimer;
 import com.util.DateUtil;
 import com.util.OpenAPI;
+import com.util.redis.impl.RedisPoolService;
 import org.springframework.scheduling.annotation.Scheduled;
 import net.sf.json.JsonConfig;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -18,6 +25,7 @@ import java.util.*;
  * @Date: 2019/3/26 14:39
  **/
 public class getCountPv {
+
 /**
  * Description：当天得到产品总的pv
  * @author boyang
@@ -654,11 +662,45 @@ List<Goodspvdata> news=new ArrayList<>();
         }
         return yuehuo;
     }
+/**
+ * Description：从短链接中拉取近三十天产品总的pv uv
+ * @author boyang
+ * @date 2019/4/15 10:33
+ * @param
+ * @return void
+ */
 
 
     public static void main(String[] args) {
-     //  getPv2();
-        //getUv2();
+//        Calendar now = Calendar.getInstance();
+//        now.add(Calendar.DAY_OF_MONTH, -30);
+//        String endDate = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
+//        JedisPool jedisPool=new jedisPool();
+
+Jedis jedis=new Jedis("47.92.53.177",6379);
+//jedis.set("de","se");
+//jedis.set("add","1");
+//jedis.incrBy("30",9);
+//      System.out.println(jedis.get("30"));
+        List<String> lst1=new ArrayList<>();
+        lst1.add("aa");
+        lst1.add("dd");
+        lst1.add("ss");
+        lst1.add("aa");
+        lst1.add("ss");
+
+        //方法 1.
+        for (int i = 0; i <lst1.size()-1; i++) {
+            for (int j = lst1.size()-1; j >i; j--) {
+                if (lst1.get(j).equals(lst1.get(i))) {
+                    
+                 lst1.remove(j);
+                }
+            }
+        }
+        System.out.println(lst1);
+
+
     }
 
 }

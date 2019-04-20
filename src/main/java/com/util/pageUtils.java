@@ -1,5 +1,7 @@
 package com.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -69,6 +71,30 @@ public class pageUtils {
         }
         return null;
     }
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 判断图片格式
+     * @Date 17:44 2019/4/8
+     * @Param [imgPath]
+     * @return boolean
+     **/
+    public static boolean checkSuffix(String imgPath) {
+        Boolean flag =false;
+        //图片格式
+        String[] FILETYPES = new String[]{
+                ".jpg", ".png", ".gif"
+        };
+        if(!StringUtils.isBlank(imgPath)){
+            for (int i = 0; i < FILETYPES.length; i++) {
+                String fileType = FILETYPES[i];
+                if (imgPath.endsWith(fileType)) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
 
+        return flag;
+    }
 
 }

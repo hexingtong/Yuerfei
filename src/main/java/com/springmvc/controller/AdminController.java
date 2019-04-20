@@ -185,7 +185,6 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
     public String welcome(Model model) {
         return "welcome";
     }
-
     /**
      * 首页
      *

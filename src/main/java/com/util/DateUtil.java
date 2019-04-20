@@ -2,6 +2,7 @@ package com.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -191,6 +192,17 @@ public class DateUtil {
 		return df.format(date);
 	}
 
+	/**
+	 * Description：格式化时间
+	 * @author boyang
+	 * @date 2019/4/15 14:11
+	 * @param
+	 * @return
+	 */
+	public static String format2(LocalDateTime  date, String pattern) {
+		SimpleDateFormat df = new SimpleDateFormat(pattern);
+		return df.format(date);
+	}
 	/**
 	 * 获取当前月的第一天时间戳
 	 * 
