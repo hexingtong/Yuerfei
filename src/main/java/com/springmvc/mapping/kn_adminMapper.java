@@ -41,6 +41,15 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @date 2019/3/6 10:48
      */
     List<knadmin2> queryListAdmin(@Param("level") Integer level, @Param("phone") String phone);
+    /**
+     * Description：获取列表（分页）新增通过时间段查询
+     *
+     * @param
+     * @return com.springmvc.pojo.PageResultInfo
+     * @author boyang
+     * @date 2019/3/6 10:48
+     */
+    List<knadmin2> queryListAdmin2(@Param("level") Integer level, @Param("phone") String phone,@Param("startTime")String startTime ,@Param("endTime")String endTime);
 
     /**
      * Description:通过id来更新kn_admin

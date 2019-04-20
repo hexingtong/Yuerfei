@@ -50,7 +50,21 @@
     </where>
   ORDER  BY login_time
   </select>
+  <!--自定义用户信息表分页.boyang 新增时间段查询功能-->
+  <select id="queryListAdmin2" parameterType="knadmin2" resultType="com.springmvc.pojo.DTO.knadmin2">
+    select a.*,a.phone AS adminPhone from kn_admin a
+    <where>
+      `level`=1
+      <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+        AND  add_time Between ${startTime} AND ${endTime}
+      </if>
+      <if test="phone!=null and phone!='' and phone!=0 ">
+        AND  phone  LIKE '%${phone}%'
+      </if>
 
+    </where>
+    ORDER  BY login_time
+  </select>
   <!--更新数据-->
   <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.kn_admin">
     update kn_admin

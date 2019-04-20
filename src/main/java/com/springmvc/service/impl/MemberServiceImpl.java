@@ -56,9 +56,39 @@ public class MemberServiceImpl  extends BaseServiceImpl<kn_admin> implements Mem
         List<knadmin2> agentLevelSettings;
         if (!StringUtils.isEmpty(phone)||!"".equals(phone)){
             knAdmin.setPhone(phone);
+
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
         }else {
             agentLevelSettings = knAdminMapper.queryListAdmin(knAdmin.getLevel(),knAdmin.getPhone());
+        }
+        logger.info("获取admin表中所有数据");
+        PageInfo<knadmin2> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
+        return resultInfo;
+    }
+    /**
+     * Description：新增通过时间段查询
+     * @author boyang
+     * @date 2019/3/6 11:42
+     * @param , pageSize]
+     * @return com.springmvc.pojo.PageResultInfo
+     */
+    @Override
+    public PageResultInfo queryListAdmin2(Integer pageNo, Integer pageSize, String phone,String startTime,String endTime) {
+        logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
+        PageHelper.startPage(pageNo, pageSize);
+        knadmin2 knAdmin=new knadmin2();
+        knAdmin.setLevel(2);
+        knAdmin.setEndTime(endTime);
+        knAdmin.setStartTime(startTime);
+        List<knadmin2> agentLevelSettings;
+        if (!StringUtils.isEmpty(phone)||!"".equals(phone)||StringUtils.isNotEmpty(startTime)||StringUtils.isNotEmpty(endTime)){
+            knAdmin.setPhone(phone);
+            knAdmin.setStartTime(knAdmin.getStartTime()==null?null:knAdmin.getStartTime());
+            knAdmin.setEndTime(knAdmin.getEndTime()==null?null:knAdmin.getEndTime());
+            agentLevelSettings = knAdminMapper.queryListAdmin2(knAdmin.getLevel(),knAdmin.getPhone(),knAdmin.getStartTime(),knAdmin.getEndTime());
+        }else {
+            agentLevelSettings = knAdminMapper.queryListAdmin2(knAdmin.getLevel(),knAdmin.getPhone(),knAdmin.getStartTime(),knAdmin.getEndTime());
         }
         logger.info("获取admin表中所有数据");
         PageInfo<knadmin2> pageInfo = new PageInfo<>(agentLevelSettings);

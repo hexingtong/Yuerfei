@@ -47,6 +47,7 @@ public class    MemberController {
         model.addAttribute("knadmin",knAdmin);
         return "membersCode";
     }
+
     /**
      * Description：得到会列表
      *
@@ -65,13 +66,13 @@ public class    MemberController {
                                       @RequestParam(value = "pageSize", defaultValue = "90", required = false)
                                               Integer pageSize,
                                       @RequestParam(value = "phone", required = false)
-                                                  String phone) {
-        logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone);
-
-        PageResultInfo resultInfo = memberService.queryListAdmin(pageNo, pageSize,phone);
+                                                  String phone,@RequestParam(value = "startTime", required = false)
+                                                  String startTime,@RequestParam(value = "endTime", required = false)
+                                                  String endTime) {
+        logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone+":"+startTime+":"+endTime);
+        PageResultInfo resultInfo = memberService.queryListAdmin2(pageNo, pageSize,phone,startTime,endTime);
         return resultInfo;
     }
-
     /**
      * Description：通过用户id删除会信息
      *
@@ -130,22 +131,22 @@ public class    MemberController {
 //     * @param
 //     * @return
 //     */
-//    @RequestMapping("/selectPhoneList")
-//    @ResponseBody
-//    public List<kn_admin> selectPhoneList(String phone) {
-//        logger.info("传入查询的手机号"+phone);
-//        List list=new ArrayList();
-//         if (phone!=null){
-//             list=  memberService.selectPhoneList(phone);
-//             logger.info("返回数据"+list);
-//             return  list;
-//        }else {
-//             logger.info("没有数据返回");
-//             return null;
-//
-//         }
-//
-//    }
+    @RequestMapping("/selectPhoneList")
+    @ResponseBody
+    public List<kn_admin> selectPhoneList(String phone) {
+        logger.info(""+phone);
+        List list=new ArrayList();
+         if (phone!=null){
+             list=  memberService.selectPhoneList(phone);
+             logger.info(""+list);
+             return  list;
+        }else {
+
+             return null;
+
+         }
+
+    }
 
 
 }

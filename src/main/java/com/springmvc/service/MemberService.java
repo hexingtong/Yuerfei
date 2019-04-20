@@ -24,6 +24,15 @@ public interface MemberService  extends  BaseService<kn_admin>{
  * @return com.springmvc.pojo.PageResultInfo
  */
     PageResultInfo queryListAdmin(Integer pageNo, Integer pageSize, String phone);
+
+    /**
+     * Description：获取列表（分页）新增通过时间段
+     * @author boyang
+     * @date 2019/3/6 10:48
+     * @param
+     * @return com.springmvc.pojo.PageResultInfo
+     */
+    PageResultInfo queryListAdmin2(Integer pageNo, Integer pageSize, String phone,String startTime,String endTime);
     /**
      * Description:通过id来更新kn_admin
      * @author boyang
