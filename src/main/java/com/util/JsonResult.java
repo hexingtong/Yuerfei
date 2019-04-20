@@ -8,7 +8,11 @@ public class JsonResult {
 	public enum ResultStatus {
 		success, fail
 	}
-	
+
+	/**
+	 * Description：返回状态码
+	 */
+private String code;
 	/** 成功：success，失败：fail */
 	private ResultStatus result;
 	
@@ -38,12 +42,13 @@ public class JsonResult {
 		this.errno = errno;
 	}
 
-	public JsonResult(ResultStatus result, String message, int errno, Object data) {
+	public JsonResult(ResultStatus result, String message, int errno, Object data,String code) {
 		super();
 		this.result = result;
 		this.message = message;
 		this.errno = errno;
 		this.data = data;
+		this.code=code;
 	}
 
 	public ResultStatus getResult() {
@@ -86,6 +91,10 @@ public class JsonResult {
 			return "";
 		}
 	}
-	
-	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 }
