@@ -21,13 +21,9 @@ public class VersionUpgrade {
     @Column(name = "app_id")
     private Integer AppId;
 
-    //大版本号Id
+    //版本号Id
     @Column(name="version_id")
     private String VersionId;
-
-    //小版本号Id
-    @Column(name="version_mini")
-    private String VersionMini;
 
     //代码版本标识
     @Column(name="version_code")
@@ -37,23 +33,24 @@ public class VersionUpgrade {
     private Integer type;
 
     //apk下载路径
-    @Column(name="ApkUrl")
-    private String apk_url;
+    @Column(name="apk_url")
+    private String ApkUrl;
 
     //升级提示
     @Column(name="upgrade_prompt")
     private String UpgradePrompt;
 
     //创建时间
-    @Column(name="create_time")
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name="create_time")
     private Date CreateTime;
 
     //更新时间
-    @Column(name="update_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name="update_time")
     private Date UpdateTime;
 
 
@@ -69,10 +66,6 @@ public class VersionUpgrade {
         return VersionId;
     }
 
-    public String getVersionMini() {
-        return VersionMini;
-    }
-
     public String getVersionCode() {
         return VersionCode;
     }
@@ -81,8 +74,8 @@ public class VersionUpgrade {
         return type;
     }
 
-    public String getApk_url() {
-        return apk_url;
+    public String getApkUrl() {
+        return ApkUrl;
     }
 
     public String getUpgradePrompt() {
@@ -109,10 +102,6 @@ public class VersionUpgrade {
         VersionId = versionId;
     }
 
-    public void setVersionMini(String versionMini) {
-        VersionMini = versionMini;
-    }
-
     public void setVersionCode(String versionCode) {
         VersionCode = versionCode;
     }
@@ -121,8 +110,8 @@ public class VersionUpgrade {
         this.type = type;
     }
 
-    public void setApk_url(String apk_url) {
-        this.apk_url = apk_url;
+    public void setApkUrl(String apkUrl) {
+        ApkUrl = apkUrl;
     }
 
     public void setUpgradePrompt(String upgradePrompt) {
@@ -137,16 +126,16 @@ public class VersionUpgrade {
         UpdateTime = updateTime;
     }
 
+
     @Override
     public String toString() {
         return "VersionUpgrade{" +
                 "id=" + id +
                 ", AppId=" + AppId +
-                ", VersionId=" + VersionId +
-                ", Version_mini=" + VersionMini +
+                ", VersionId='" + VersionId + '\'' +
                 ", VersionCode='" + VersionCode + '\'' +
                 ", type=" + type +
-                ", apk_url='" + apk_url + '\'' +
+                ", ApkUrl='" + ApkUrl + '\'' +
                 ", UpgradePrompt='" + UpgradePrompt + '\'' +
                 ", CreateTime=" + CreateTime +
                 ", UpdateTime=" + UpdateTime +

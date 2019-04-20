@@ -1,7 +1,11 @@
 package com.springmvc.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.VersionUpgradeMapper;
+import com.springmvc.pojo.DTO.GoodsAttributeDto;
+import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.VersionUpgrade;
 import com.springmvc.service.VersionUpgradeService;
 import com.util.DateUtil;
@@ -17,8 +21,8 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
 
 
     @Autowired
-     VersionUpgradeMapper versionupgrademapper;
-    
+  VersionUpgradeMapper versionupgrademapper;
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 版本号更新
@@ -26,12 +30,50 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
      * @Param []
      * @return com.springmvc.pojo.VersionUpgrade
      **/
-    @Override
-    public VersionUpgrade selectVersionAll(VersionUpgrade version) {
 
-        return version;
+
+    @Override
+    public VersionUpgrade selectVersionAll(VersionUpgrade versionUpgrade) {
+        VersionUpgrade versionUpgradex=versionupgrademapper.selectVersionAll(versionUpgrade);
+        return versionUpgradex;
+
     }
-    
-    
-    
+
+    @Override
+    public int insertVersion(VersionUpgrade versionUpgrade) {
+        versionUpgrade.setCreateTime(new Date());
+        int i=versionupgrademapper.insertVersion(versionUpgrade);
+        if(i>0){
+            return i;
+        }else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int deleteVersion(VersionUpgrade versionUpgrade) {
+        int i=versionupgrademapper.deleteVersion(versionUpgrade);
+        if(i>0){
+            return i;
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateVersion(VersionUpgrade versionUpgrade) {
+        versionUpgrade.setUpdateTime(new Date());
+        int i=versionupgrademapper.updateVersion(versionUpgrade);
+        return i;
+    }
+
+    @Override
+    public PageResultInfo selectAllVersion(Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<VersionUpgrade> lst=versionupgrademapper.selectAllVersion();
+        PageInfo<VersionUpgrade> pageInfo = new PageInfo<>(lst);
+        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
+
+        return resultInfo;
+    }
+
 }

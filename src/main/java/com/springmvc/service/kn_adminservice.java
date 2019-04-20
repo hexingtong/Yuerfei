@@ -1,6 +1,7 @@
 package com.springmvc.service;
 
 import com.springmvc.pojo.LoanTerm;
+import com.springmvc.pojo.VO.Regustered;
 import com.springmvc.pojo.kn_admin;
 
 import java.util.List;
@@ -59,5 +60,13 @@ public interface kn_adminservice  extends BaseService<kn_admin> {
      */
     kn_admin selectUser(Integer id);
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据短链接查询一个月每天的注册总数
+     * @Date 15:03 2019/4/19
+     * @Param
+     * @return
+     **/
+    List<Regustered> selectMonthRegistered(kn_admin kn_admin);
 
 }

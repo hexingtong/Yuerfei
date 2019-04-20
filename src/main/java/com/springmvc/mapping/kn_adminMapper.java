@@ -1,6 +1,7 @@
 package com.springmvc.mapping;
 
 import com.springmvc.pojo.DTO.knadmin2;
+import com.springmvc.pojo.VO.Regustered;
 import com.springmvc.pojo.kn_admin;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
@@ -94,4 +95,12 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      **/
     kn_admin selectIdOne(Integer id);
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据短链接查询一个月每天的注册总数
+     * @Date 15:03 2019/4/19
+     * @Param
+     * @return
+     **/
+    List<Regustered> selectMonthRegistered(kn_admin kn_admin);
 }
