@@ -56,7 +56,7 @@
     <where>
       `level`=1
       <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
-        AND  add_time Between '${startTime}' AND '${endTime}'
+        AND  add_time Between &apos;${startTime}&apos; AND &apos;${endTime}&apos;
       </if>
       <if test="phone!=null and phone!='' and phone!=0 ">
         AND  phone  LIKE '%${phone}%'
