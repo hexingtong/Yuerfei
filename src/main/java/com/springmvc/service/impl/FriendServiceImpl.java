@@ -176,6 +176,18 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
             return "404";
         }
     }
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页pv点击埋点+1
+     * @Date 11:15 2019/4/23
+     * @Param
+     * @return
+     **/
+    @Override
+    public Integer updateFriendPv(String shorturl){
+        int i=knFriendMapper.updateFriendPv(shorturl);
+        return i;
+    }
 
 
 }

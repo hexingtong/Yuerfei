@@ -42,6 +42,17 @@ public class kn_friend {
     //真实链接
     @Column(name = "long_url")
     private String longUrl;
+    //产品pv
+    @Column(name="goods_pv")
+    private Integer goodsPv;
+
+    public Integer getGoodsPv() {
+        return goodsPv;
+    }
+
+    public void setGoodsPv(Integer goodsPv) {
+        this.goodsPv = goodsPv;
+    }
 
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
@@ -86,6 +97,7 @@ public class kn_friend {
                 ", enrollment=" + enrollment +
                 ", shortUrl='" + shortUrl + '\'' +
                 ", longUrl='" + longUrl + '\'' +
+                ", goodsPv=" + goodsPv +
                 '}';
     }
 

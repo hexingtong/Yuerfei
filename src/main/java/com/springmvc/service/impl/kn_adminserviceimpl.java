@@ -109,11 +109,12 @@ public class kn_adminserviceimpl  extends BaseServiceImpl<kn_admin> implements k
 //                            System.out.println("时间相同");
 //                            map1.put("weeks", lst3.get(x).getWeeks());
 //                            map1.put("count", Integer.parseInt(lst3.get(x).getCount().toString()));
+//                            logger.info("相同的时候的map"+map1.toString());
 //                        }else {
-//                            System.out.println("时间不同就赋值o");
+//                            System.out.println("时间不同就赋值");
 //                            map1.put("weeks", lst1.get(i).toString());
 //                            map1.put("count", 0);
-//                            break;
+//                            logger.info("不相同的时候的map"+map1.toString());
 //                        }
 //                    }
 //                    lst2.add(map1);

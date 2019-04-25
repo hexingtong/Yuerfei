@@ -113,6 +113,17 @@ public class kn_goods {
     private Integer applyCount;
     @Column(name="short_url")
     private String shortUrl;
+    @Column(name="goods_source")
+    private  String goodsSource;
+
+
+    public String getGoodsSource() {
+        return goodsSource;
+    }
+
+    public void setGoodsSource(String goodsSource) {
+        this.goodsSource = goodsSource;
+    }
 
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
@@ -452,6 +463,7 @@ public class kn_goods {
                 ", auditfailed='" + auditfailed + '\'' +
                 ", applyCount=" + applyCount +
                 ", shortUrl='" + shortUrl + '\'' +
+                ", goodsSource='" + goodsSource + '\'' +
                 '}';
     }
 

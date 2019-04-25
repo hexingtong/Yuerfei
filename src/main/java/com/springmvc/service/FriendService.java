@@ -80,4 +80,14 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @return
      **/
     String restoreUrl(kn_friend kn_friend);
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页pv点击埋点+1
+     * @Date 11:15 2019/4/23
+     * @Param
+     * @return
+     **/
+    Integer updateFriendPv(String shorturl);
+
 }

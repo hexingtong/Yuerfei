@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.util.SmsPhone.sendSms;
-@ApiIgnore()
+@Api(value="app注册登录操作类",tags={"登录接口"})
 @Controller
 @RequestMapping("/admin")
 public class kn_admintestController {
@@ -278,6 +278,7 @@ public class kn_admintestController {
      * @Param
      * @return
      **/
+    @ApiOperation(value = "查询最近30天的注册人数", httpMethod = "POST", response = StatusCode.class, notes = "查询最近30天的注册人数")
         @RequestMapping("/slectRegistered")
         public void selectRegistered(HttpServletResponse response,kn_admin kn_admin){
             ListObject listObject=new ListObject();

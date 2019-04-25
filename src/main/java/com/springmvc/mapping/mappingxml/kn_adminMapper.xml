@@ -14,7 +14,7 @@
   </select>
 
   <insert id="insertAndmin"  parameterType="kn_admin">
-    INSERT INTO kn_admin (phone,add_time,login_time,registered_source) VALUES(#{phone},#{addTime},#{loginTime},#{registeredSource});
+    INSERT INTO kn_admin (phone,add_time,login_time,registered_source,frend_source) VALUES(#{phone},#{addTime},#{loginTime},#{registeredSource},#{frendSource});
   </insert>
 
   <!--删除商家账号-->
@@ -56,15 +56,15 @@
     <where>
       `level`=1
       <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
-        AND  add_time Between '${startTime}' AND '${endTime}'
+        AND  add_time Between &apos;${startTime}&apos; AND &apos;${endTime}&apos;
       </if>
       <if test="phone!=null and phone!='' and phone!=0 ">
         AND  phone  LIKE '%${phone}%'
       </if>
-
     </where>
     ORDER  BY login_time
   </select>
+
   <!--更新数据-->
   <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.kn_admin">
     update kn_admin
