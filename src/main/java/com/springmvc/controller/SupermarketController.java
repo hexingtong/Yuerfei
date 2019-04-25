@@ -2,6 +2,7 @@ package com.springmvc.controller;
 
 import com.springmvc.pojo.*;
 import com.springmvc.pojo.VO.GoodsSupermarketDvo;
+import com.springmvc.service.FriendService;
 import com.springmvc.service.FriendTimer;
 import com.springmvc.service.kn_goodsservice;
 import com.util.Https.HttpUtil;
@@ -13,16 +14,18 @@ import com.util.shortUrl.FriendApiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
+import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,12 +42,15 @@ public class SupermarketController {
     @Autowired
     private kn_goodsservice kn_goodsservice;
 
+    @Autowired
+    private FriendService friendService;
+
 
     final static String format="txt";
     final static String Url="https://12i.cn/api.ashx";
     final static String userId="3100";
     final static String key="3E457CECE7CD995CD2672DC76D876EC0";
-   
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 得到超市列表
@@ -86,13 +92,19 @@ public class SupermarketController {
     public void insertSupermarket(HttpServletResponse response,GoodsSupermarketDvo goodsSupermarketDvo){
         ListObject listObject=new ListObject();
         try {
+            //生成6位短链接
+            String frendSourcet=kn_goodsservice.getfrendSourcet();
+            StringBuilder sb=new StringBuilder(frendSourcet);
+            System.out.println("转换后的网址"+sb.toString());
+
             logger.info("控制层期限有没有值传进来"+goodsSupermarketDvo.getDeadline());
             logger.info("控制层期限区域有没有值传进来"+goodsSupermarketDvo.getPaceLending());
             logger.info("title"+goodsSupermarketDvo.getTitle());
             String shortshortUrl=FriendApiUtils.AddFriendApi(goodsSupermarketDvo.getUrl(),goodsSupermarketDvo.getTitle());
             System.out.println("传入的链接"+goodsSupermarketDvo.getUrl());
-            if(!shortshortUrl.equals("error")) {
+            if(!shortshortUrl.equals("error")&&!shortshortUrl.equals("禁止生成IP地址作为域名的网址")) {
                 goodsSupermarketDvo.setShortUrl(shortshortUrl);
+                goodsSupermarketDvo.setGoodsSource(frendSourcet);
                 int i = kn_goodsservice.insertSupermarket(goodsSupermarketDvo);
                 if (i > 0) {
                     listObject.setMsg("增加操作成功");
@@ -105,7 +117,7 @@ public class SupermarketController {
                 }
             }else{
                 listObject.setMsg("生成短链接失败");
-                listObject.setCode(StatusCode.CODE_ERROR);
+                listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
         }catch (Exception  e){
@@ -135,22 +147,22 @@ public class SupermarketController {
             logger.info("截取的短链接"+shourtUrl);
             logger.info("传入的原链接"+goodsSupermarketDvo.getUrl());
             String folat=FriendApiUtils.UpdateFriendApi(goodsSupermarketDvo.getTitle(),goodsSupermarketDvo.getUrl(),shourtUrl);
-                if(folat.equals("200")) {
-                    int i = kn_goodsservice.updateSupermarket(goodsSupermarketDvo);
-                    if (i > 0) {
-                        listObject.setMsg("编辑操作成功!");
-                        listObject.setCode(StatusCode.CODE_SUCCESS);
-                        ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-                    } else {
-                        listObject.setMsg("编辑操作失败");
-                        listObject.setCode(StatusCode.CODE_ERROR);
-                        ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-                    }
-                }else{
-                    listObject.setMsg("编辑短链接失败");
+            if(folat.equals("200")) {
+                int i = kn_goodsservice.updateSupermarket(goodsSupermarketDvo);
+                if (i > 0) {
+                    listObject.setMsg("编辑操作成功!");
+                    listObject.setCode(StatusCode.CODE_SUCCESS);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+                } else {
+                    listObject.setMsg("编辑操作失败");
                     listObject.setCode(StatusCode.CODE_ERROR);
                     ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
                 }
+            }else{
+                listObject.setMsg("编辑短链接失败");
+                listObject.setCode(StatusCode.CODE_ERROR);
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            }
         }catch (Exception e){
             logger.info("发生异常");
             listObject.setMsg("编辑操作失败,发生异常");
@@ -227,7 +239,36 @@ public class SupermarketController {
         }
     }
 
-
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据短链接转发到真实路径
+     * @Date 18:13 2019/4/12
+     * @Param [request, mav, shortUrl]
+     * @return org.springframework.web.servlet.ModelAndView
+     **/
+    @ApiIgnore()
+    @RequestMapping("/{goodsSource}")
+    public ModelAndView jumpLongLink(HttpServletRequest request, ModelAndView mav, @PathVariable("goodsSource")String goodsSource, kn_admin kn_admin){
+        kn_goods kn_goods=new kn_goods();
+        kn_goods.setGoodsSource(goodsSource);
+        System.out.println("frendSource的值是*"+goodsSource);
+        String longurl = kn_goodsservice.GoodsRestoreUrl(kn_goods);
+        String  longUrl =longurl;
+        Jedis jedis=new Jedis();
+        //存入redis 如果没值就存入 然后加点击,有值就不加,
+        String redisFolat=jedis.get(""+ kn_admin.getId()+goodsSource+"");
+        if(StringUtils.isEmpty(redisFolat)){
+            //添加推广链接的产品点击
+            friendService.updateFriendPv(kn_admin.getFrendSource());
+            //存入redis
+            jedis.setex(""+kn_admin.getId()+goodsSource+"",86400,"1");
+            mav.setViewName("redirect:" + longUrl);
+            return mav;
+        }else{
+            mav.setViewName("redirect:" + longUrl);
+            return mav;
+        }
+    }
 
 
 }

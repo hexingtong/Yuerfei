@@ -130,4 +130,9 @@
         SELECT long_url FROM  kn_friend WHERE short_url=#{shortUrl}
     </select>
 
+  <!--产品uv埋点+1-->
+  <update id="updateFriendPv" parameterType="String">
+    update `kn_friend` set goods_pv=goods_pv+1 where short_url = #{shortUrl}
+  </update>
+
 </mapper>

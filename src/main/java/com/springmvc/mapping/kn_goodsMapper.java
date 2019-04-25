@@ -150,13 +150,13 @@ Integer updateOnepvuv(kn_goods kn_goods);
      **/
     GoodsDetail selectGoodsOne(int id);
 
-
     /**
-     * Description：通过id来更新pvuv
-     * @author boyang
-     * @date 2019/4/13 16:33
-     * @param
+     * @Author 苏俊杰
+     * @Description //TODO 根据6位链接查询真实路径
+     * @Date 9:27 2019/4/23
+     * @Param
      * @return
-     */
+     **/
+    String GoodsRestoreUrl(kn_goods kn_goods);
 
 }

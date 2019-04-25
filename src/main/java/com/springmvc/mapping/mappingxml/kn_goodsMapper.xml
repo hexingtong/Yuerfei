@@ -164,8 +164,11 @@
         admin_id,
       </if>
       <if test="shortUrl!=null and shortUrl!='' ">
-        short_url
+        short_url,
       </if>
+        <if test="goodsSource!=null and goodsSource!='' ">
+            goods_source,
+        </if>
     </trim>
 
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -217,6 +220,9 @@
       <if test="shortUrl !=null and shortUrl!='' ">
         #{shortUrl},
       </if>
+        <if test="goodsSource!=null and goodsSource!='' ">
+            #{goodsSource},
+        </if>
     </trim>
 
   </insert>
@@ -377,8 +383,14 @@ BEGIN;
   <select id="selectGoodsOne" parameterType="int" resultType="GoodsDetail">
     SELECT * FROM goods_detail where id=#{id}
   </select>
+
   <select id="getGoodsList2" resultType="com.springmvc.pojo.kn_goods" parameterType="integer">
      select * FROM kn_goods  WHERE status=4 AND id!=#{adid} ORDER  BY uv+0 DESC
   </select>
+
+  <!--根据6位链接查询真实路径-->
+    <select id="GoodsRestoreUrl" resultType="String" parameterType="kn_goods">
+        select short_url FROM kn_goods WHERE goods_source=#{goodsSource}
+    </select>
 
 </mapper>

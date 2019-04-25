@@ -53,7 +53,6 @@ public class VersionUpgrade {
     @Column(name="update_time")
     private Date UpdateTime;
 
-
     public Integer getId() {
         return id;
     }
@@ -125,7 +124,6 @@ public class VersionUpgrade {
     public void setUpdateTime(Date updateTime) {
         UpdateTime = updateTime;
     }
-
 
     @Override
     public String toString() {

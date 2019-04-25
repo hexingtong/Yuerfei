@@ -53,7 +53,7 @@ public class Kn_friendController {
                                    Integer pageNo,
                            @RequestParam(value = "Index",defaultValue = "0", required = false)
                                    Integer Index1,
-                           @RequestParam(value = "pageSize", defaultValue = "3000", required = false)
+                           @RequestParam(value = "pageSize", defaultValue = "5", required = false)
                                    Integer pageSize,HttpServletResponse response,String title,String index) {
         ListObject listObject=new ListObject();
         try {
@@ -160,7 +160,7 @@ public class Kn_friendController {
         sb.insert(0, "http://yef.miaojiedao.cn/friendx/");
         System.out.println("转换后的网址"+sb.toString());
         String folat=FriendApiUtils.AddFriendApi(sb.toString(),kn_friend.getTitle());
-        if(!folat.equals("error")) {
+        if(!folat.equals("error")&&!shortshortUrl.equals("禁止生成IP地址作为域名的网址")) {
             kn_friend.setShortUrl(shortshortUrl);
             kn_friend.setUrl(folat);
             int i = FriendService.insertFrilend(kn_friend);
@@ -175,7 +175,7 @@ public class Kn_friendController {
             }
         }else{
             listObject.setMsg("生成API短链接失败!");
-            listObject.setCode(StatusCode.CODE_ERROR);
+            listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
     }

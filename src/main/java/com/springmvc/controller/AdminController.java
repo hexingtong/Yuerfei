@@ -224,8 +224,8 @@ logger.info(String.valueOf(session.getAttribute("user")));
         return 1;
     }else {
         return 0;
-
     }
+
 }
 
 

@@ -15,6 +15,7 @@ import com.springmvc.service.GoodsUvDataService;
 import com.springmvc.service.kn_goodsservice;
 import com.util.OpenAPI;
 import com.util.pvDataUtuil.getCountPv;
+import com.util.shortUrl.shortUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -361,6 +362,7 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
             knGoods.setPaceLending(goodsSupermarketDvo.getPaceLending());
             knGoods.setAdminId(goodsSupermarketDvo.getAdminId());
             knGoods.setShortUrl(goodsSupermarketDvo.getShortUrl());
+            knGoods.setGoodsSource(goodsSupermarketDvo.getGoodsSource());
             logger.info("service期限区域有没有加入去值+" + knGoods.getPaceLending());
             knGoods.setAddTime(new Date());
             int i = knGoodsMapper.insertGoodsSk(knGoods);
@@ -634,8 +636,42 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
         }
         return -1;
     }
+    
 
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 生成唯一标识
+     * @Date 18:47 2019/4/22
+     * @Param [id]
+     * @return com.springmvc.pojo.GoodsDetail
+     **/
+    @Override
+    public String getfrendSourcet() {
+        String shorturl= shortUrl.getShortUrlx();
+        return shorturl;
+
+    }
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据6位链接查询真实路径
+     * @Date 9:34 2019/4/23
+     * @Param [kn_goods]
+     * @return java.lang.String
+     **/
+    @Override
+    public String GoodsRestoreUrl(kn_goods kn_goods) {
+        String i=knGoodsMapper.GoodsRestoreUrl(kn_goods);
+        return i;
+    }
+    
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据id查询所有信息
+     * @Date 9:35 2019/4/23
+     * @Param [id]
+     * @return com.springmvc.pojo.GoodsDetail
+     **/
     @Override
     public GoodsDetail selectGoodsOne(int id) {
         GoodsDetail goodsDetail = new GoodsDetail();

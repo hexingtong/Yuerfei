@@ -34,7 +34,7 @@ import java.util.Map;
 @Api(value="会员controller",tags={"会员操作接口"})
 @Controller
 @RequestMapping("/Member")
-public class    MemberController {
+public class        MemberController {
     final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     @Autowired
@@ -69,10 +69,11 @@ public class    MemberController {
                                                   String phone,@RequestParam(value = "startTime", required = false)
                                                   String startTime,@RequestParam(value = "endTime", required = false)
                                                   String endTime) {
-        logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone+":"+startTime+":"+endTime);
+        logger.info("传入的pageno,pagesize,phone"+pageNo+":"+pageSize+":"+phone+"startTime:"+startTime+"endTime:"+endTime);
         PageResultInfo resultInfo = memberService.queryListAdmin2(pageNo, pageSize,phone,startTime,endTime);
         return resultInfo;
     }
+
     /**
      * Description：通过用户id删除会信息
      *
@@ -121,7 +122,6 @@ public class    MemberController {
             return new JsonModel(JsonModel.FAILED, erro);
         }
         return new JsonModel(JsonModel.SUCCESS);
-
     }
 
 //    /**

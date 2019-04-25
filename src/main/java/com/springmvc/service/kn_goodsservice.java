@@ -133,4 +133,24 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      * @return
      */
     Integer updateGoodspvuv();
+
+
+    /***
+     * @Author 苏俊杰
+     * @Description //TODO 生成短链接
+     * @Date 18:47 2019/4/22
+     * @Param
+     * @return
+     **/
+    String getfrendSourcet();
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 根据6位短链接查询真实链接
+     * @Date 9:32 2019/4/23
+     * @Param
+     * @return
+     **/
+    String GoodsRestoreUrl(kn_goods kn_goods);
+
 }
