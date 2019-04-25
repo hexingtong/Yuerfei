@@ -13,9 +13,7 @@ public class ArticleClick {
     @Id
     @GeneratedValue(generator = "JDBC")
     private Integer id;
-
     /**
-     *
      用户id
      */
     private Integer adminid;
