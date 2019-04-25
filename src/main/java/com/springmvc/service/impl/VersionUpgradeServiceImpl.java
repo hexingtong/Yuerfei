@@ -30,8 +30,6 @@ public class VersionUpgradeServiceImpl implements VersionUpgradeService{
      * @Param []
      * @return com.springmvc.pojo.VersionUpgrade
      **/
-
-
     @Override
     public VersionUpgrade selectVersionAll(VersionUpgrade versionUpgrade) {
         VersionUpgrade versionUpgradex=versionupgrademapper.selectVersionAll(versionUpgrade);

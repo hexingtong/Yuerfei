@@ -1,12 +1,11 @@
-package com.util.redis.impl;
+package com.springmvc.service.impl;
 
 import com.util.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+@Service
 public class RedisPoolService implements RedisService {
 	
 	@Autowired(required=false)

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.mapping.BankCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.BankCategory">
+    <!--
+
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="welfare" jdbcType="VARCHAR" property="welfare" />
+    <result column="speed" jdbcType="VARCHAR" property="speed" />
+    <result column="bankLimit" jdbcType="DOUBLE" property="banklimit" />
+    <result column="passRate" jdbcType="VARCHAR" property="passrate" />
+    <result column="shortUrl" jdbcType="VARCHAR" property="shorturl" />
+  </resultMap>
+
+</mapper>

@@ -50,6 +50,8 @@ public class HomeController {
     kn_goodsservice knGoodsservice;
     @Autowired
     NoticeService noticeService;
+    @Autowired
+    RedisService redisService;
 
     /**
      * Description：APP产品属性接口
@@ -200,10 +202,10 @@ public class HomeController {
     @RequestMapping("/getQQ")
     @ResponseBody
     public JsonResult getQQ() {
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
+       // Jedis jedis = new Jedis("39.98.53.253", 6379);
         JsonResult jsonResult = new JsonResult();
         try {
-            jsonResult.setData(jedis.get("qq"));
+            jsonResult.setData(redisService.get("qq"));
 
         } catch (Exception e) {
             jsonResult.setMessage("获取出错");
@@ -229,13 +231,13 @@ public class HomeController {
     @RequestMapping("/saveQQ")
     @ResponseBody
     public JsonResult saveQQ(String qq) {
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
+       // Jedis jedis = new Jedis("39.98.53.253", 6379);
         JsonResult jsonResult = new JsonResult();
         try {
             if (StringUtils.isNotEmpty(qq)) {
-                jedis.set("qq", qq);
+                redisService.set("qq", qq);
             } else {
-                jedis.set("qq", "null");
+                redisService.set("qq", "null");
             }
         } catch (Exception e) {
             logger.info("qq保存失败");
@@ -261,10 +263,10 @@ public class HomeController {
     @RequestMapping("/getWeixin")
     @ResponseBody
     public JsonResult getWeixing() {
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
+       // Jedis jedis = new Jedis("39.98.53.253", 6379);
         JsonResult jsonResult = new JsonResult();
         try {
-            jsonResult.setData(jedis.get("weixin"));
+            jsonResult.setData(redisService.get("weixin"));
 
         } catch (Exception e) {
             jsonResult.setMessage("获取出错");
@@ -290,13 +292,13 @@ public class HomeController {
     @RequestMapping("/saveWeixin")
     @ResponseBody
     public JsonResult saveWeixing(String weiXing) {
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
+       // Jedis jedis = new Jedis("39.98.53.253", 6379);
         JsonResult jsonResult = new JsonResult();
         try {
             if (StringUtils.isNotEmpty(weiXing)) {
-                jedis.set("weixin", weiXing);
+                redisService.set("weixin", weiXing);
             } else {
-                jedis.set("weixin", "null");
+                redisService.set("weixin", "null");
             }
         } catch (Exception e) {
             logger.info("微信保存失败");
