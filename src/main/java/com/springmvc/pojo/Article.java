@@ -1,5 +1,7 @@
 package com.springmvc.pojo;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Date;
  * @param
  * @return
  */
+@Repository
 public class Article {
     /**
      主键id
