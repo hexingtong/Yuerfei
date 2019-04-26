@@ -368,10 +368,10 @@ BEGIN;
   <update id="updateOnepvuv"  parameterType="com.springmvc.pojo.kn_goods">
     update kn_goods
     <set>
-      <if test="pv!=null and pv!='' ">
+      <if test="pv!=null  ">
         pv =#{pv},
       </if>
-      <if test="uv!=null and uv!='' ">
+      <if test="uv!=null ">
         uv=#{uv}
       </if>
     </set>
