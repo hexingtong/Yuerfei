@@ -69,7 +69,7 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
     }
 
     /**
-     * Description：得到產品列表不排除广告位
+     * Description：得到產品列表排除广告位
      *
      * @param
      * @return java.util.List<com.springmvc.pojo.kn_goods>
@@ -78,18 +78,8 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
      */
     @Override
     public List<kn_goods> getGoodsList2() {
-        logger.info("沒有參數");
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
-        String id = jedis.get("adId");
-        int id2;
-        if (StringUtils.isNotEmpty(id)) {
-            id2 = Integer.parseInt(id);
-        } else {
-            id2 = 0;
-        }
-
         List<kn_goods> lis = new ArrayList();
-        lis = knGoodsMapper.getGoodsList2(id2);
+        lis = knGoodsMapper.getGoodsList2();
         if (lis != null) {
             logger.info("參數為：" + lis);
             return lis;
@@ -571,17 +561,9 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
      */
     @Override
     public PageResultInfo pagegoodslist(Integer pageNo, Integer pageSize) {
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
-        String id = jedis.get("adId");
-        int id2;
-        if (StringUtils.isNotEmpty(id)) {
-            id2 = Integer.parseInt(id);
-        } else {
-            id2 = 0;
-        }
         PageHelper.startPage(pageNo, pageSize);
         List<kn_goods> agentLevelSettings;
-        agentLevelSettings = knGoodsMapper.getGoodsList2(id2);
+        agentLevelSettings = knGoodsMapper.getGoodsList2();
         PageInfo<kn_goods> pageInfo = new PageInfo<>(agentLevelSettings);
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
 

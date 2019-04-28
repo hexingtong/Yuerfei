@@ -85,14 +85,8 @@ public class HomeController {
     @ResponseBody
     public Map<String, List<kn_goods>> getGoods(HttpServletResponse response
     ) {
-        Jedis jedis = new Jedis("39.98.53.253", 6379);
-
         Map<String, List<kn_goods>> map = new HashMap<String, List<kn_goods>>();
         knGoodsservice.queryByTagid().get(0).getId();
-        int id = knGoodsservice.queryByTagid().get(0).getId();
-        jedis.set("adId", id + "");
-        //id存redis里
-
         map.put("goods", knGoodsservice.queryByTagid());
         return map;
     }

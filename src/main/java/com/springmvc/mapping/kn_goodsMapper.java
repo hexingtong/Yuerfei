@@ -25,7 +25,7 @@ public interface kn_goodsMapper extends Mapper<kn_goods> {
      * @author boyang
      * @date 2019/2/27 14:27
      */
-    List<kn_goods> getGoodsList2(Integer adid);
+    List<kn_goods> getGoodsList2();
     /**
      * Description：
      * 查询商品详情接口
