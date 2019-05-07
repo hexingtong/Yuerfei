@@ -86,6 +86,13 @@ public class RedisPoolService implements RedisService {
 	}
 
 	@Override
+	public void incrBy(String s, int i) {
+		Jedis jedis = jedisPool.getResource();
+		jedis.incrBy(s,i);
+		jedis.close();
+	}
+
+	@Override
 	public Long ttl(String key) {
 		Jedis jedis = jedisPool.getResource();
 		Long seconds = jedis.ttl(key);

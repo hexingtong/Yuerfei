@@ -19,5 +19,8 @@
     <result column="statusReason" jdbcType="INTEGER" property="statusreason" />
     <result column="stickStatus" jdbcType="INTEGER" property="stickstatus" />
   </resultMap>
+    <select id="getArticle" resultType="com.springmvc.pojo.VO.Article2">
+  SELECT c.*,k.img,k.title FROM article c  left join kn_admin K ON  K.id=c.adminId WHERE  c.id=#{articleId}
+    </select>
 
 </mapper>

@@ -76,13 +76,10 @@ public class GoodsController {
             listObject.setCode(StatusCode.CODE_SUCCESS);
             listObject.setMsg("返回数据成功！");
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-
         } else {
             listObject.setCode(StatusCode.CODE_ERROR);
             listObject.setMsg("返回数据失败！");
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-
-
         }
 
     }
@@ -99,7 +96,6 @@ public class GoodsController {
     public Map<String,List<KnProperty>> getPropertyList( HttpServletResponse response
     ) {
         Map<String,List<KnProperty>>map=new HashMap<String,List<KnProperty>>();
-
         map.put("property",propertyService.queryAll());
         return map;
     }
@@ -118,7 +114,6 @@ public class GoodsController {
         map.put("Statusputaway",statusputawayService.queryAll());
         return map;
     }
-
     /**
      * Description：商家产品标签接口
      * @author 苏俊杰
@@ -133,5 +128,4 @@ public class GoodsController {
         map.put("KnTag",knTagService.queryAll());
         return map;
     }
-
 }

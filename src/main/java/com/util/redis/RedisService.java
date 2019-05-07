@@ -30,4 +30,6 @@ public interface RedisService {
 	public String hget(String key, String field);
 
 	public void hset(String key, String field, String writeValueAsString);
+
+    public void incrBy(String s, int i);
 }
