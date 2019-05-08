@@ -81,7 +81,6 @@ public class AdminController {
 System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
     Subject subject = null;
         try {
-
           subject = SecurityUtils.getSubject();
             if (subject.isAuthenticated()) {
                 //已经通过登录
@@ -141,7 +140,6 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
                        e.printStackTrace();
                    }
                       adminService.updateSelectiveById(user2);
-
                    System.out.println("suse");
                    String i="suse";
                    listObject.setCode(StatusCode.CODE_SUCCESS);

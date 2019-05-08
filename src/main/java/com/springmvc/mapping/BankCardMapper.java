@@ -18,21 +18,46 @@ public interface BankCardMapper extends Mapper<BankCard> {
      * @date 2019/4/23 16:44
      */
     List<BankCard> getBankCard();
+
     /**
      * Description： 分页查询同一银行的卡
+     *
+     * @param
+     * @return
      * @author boyang
      * @date 2019/4/23 17:15
-     * @param
-     * @return
      */
-    List<BankCard> getBankById( Integer Id);
+    List<BankCard> getBankById(Integer Id);
+
     /**
      * Description：得到银行卡广告位接口
-     * @author boyang
-     * @date 2019/4/24 14:10
+     *
      * @param
      * @return
+     * @author boyang
+     * @date 2019/4/24 14:10
      */
     List<BankCard> getBankadvertisingList();
+
+    /**
+     * Description：后台分页得到银行卡展示
+     *
+     * @param
+     * @return
+     * @author boyang
+     * @date 2019/4/27 11:50
+     */
+
+    List<BankCard> getAllBank(BankCard bankCard);
+
+    /**
+     * Description：选择性插入数据
+     *
+     * @param
+     * @return int
+     * @author boyang
+     * @date 2019/4/28 16:36
+     */
+    int insertSelective(BankCard record);
 
 }

@@ -14,6 +14,9 @@
     <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
   </resultMap>
 
-
+  <select id="getCommentlist" resultType="com.springmvc.pojo.VO.CommentVO">
+    SELECT c.* ,title,img FROM comment c  left join kn_admin K ON  K.id=c.adminId
+ WHERE articleId=#{articleId}
+  </select>
 
 </mapper>

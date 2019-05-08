@@ -38,4 +38,6 @@ public interface  BankCardService extends  BaseService<BankCard>  {
    */
   List<BankCard> getBankadvertisingList();
 
+
+
 }

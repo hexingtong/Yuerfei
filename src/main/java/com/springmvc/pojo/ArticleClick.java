@@ -1,5 +1,11 @@
 package com.springmvc.pojo;
-
+/**
+ * Description：文章点击表
+ * @author boyang
+ * @date 2019/5/6 11:28
+ * @param
+ * @return
+ */
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.GeneratedValue;

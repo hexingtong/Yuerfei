@@ -73,7 +73,7 @@ public class BankController {
     @ApiOperation(value = "分页得到所有银行卡列表接口", httpMethod = "POST", response = StatusCode.class, notes = "分页得到所有银行卡列表接口")
     @RequestMapping("/getPageBankList")
     @ResponseBody
-    public PageResultInfo getPageBankList(Model model,
+    public JsonResult getPageBankList(Model model,
                                           @RequestParam(value = "pageNo", defaultValue = "1",
                                                   required = false)
                                                   Integer pageNo,
@@ -81,9 +81,19 @@ public class BankController {
                                                   Integer pageSize) {
 
         logger.info("传入的pageno,pagesize,phone" + pageNo + ":" + pageSize);
+        JsonResult jsonResult = new JsonResult();
 
-        PageResultInfo resultInfo =  bankCardService.queryBankList(pageNo,pageSize);
-        return resultInfo;
+        PageResultInfo resultInfo = null;
+        try {
+            resultInfo = bankCardService.queryBankList(pageNo,pageSize);
+            jsonResult.setCode(StatusCode.SUCCESSFULLY);
+            jsonResult.setData(resultInfo);
+        } catch (Exception e) {
+            jsonResult.setCode(StatusCode.FAILED);
+            e.printStackTrace();
+        }
+
+        return jsonResult;
 
     }
 
@@ -113,6 +123,7 @@ public class BankController {
         jsonResult.setData(list);
         return jsonResult;
     }
+
     /**
      * Description： 传入分类id得到对应的银行卡
      *
@@ -124,11 +135,20 @@ public class BankController {
     @ApiOperation(value = "分类取卡接口", httpMethod = "POST", response = StatusCode.class, notes = "分类取卡接口")
     @RequestMapping("/getAdvertisingCard")
     @ResponseBody
-    public PageResultInfo getAdvertisingCard(@RequestParam(value = "pageNo", defaultValue = "1",
+    public JsonResult getAdvertisingCard(@RequestParam(value = "pageNo", defaultValue = "1",
             required = false) Integer pageNo,
                                          @RequestParam(value = "pageSize", defaultValue = "8", required = false)
                                                  Integer pageSize,Integer bankId) {
-        PageResultInfo resultInfo = bankCardService.queryBankById(pageNo,pageSize,bankId);
-        return resultInfo;
+        JsonResult jsonResult = new JsonResult();
+        PageResultInfo resultInfo = null;
+        try {
+            resultInfo = bankCardService.queryBankById(pageNo,pageSize,bankId);
+            jsonResult.setCode(StatusCode.SUCCESSFULLY);
+            jsonResult.setData(resultInfo);
+        } catch (Exception e) {
+            jsonResult.setCode(StatusCode.FAILED);
+            e.printStackTrace();
+        }
+        return jsonResult;
     }
 }

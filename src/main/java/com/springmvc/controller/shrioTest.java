@@ -1,13 +1,17 @@
 package com.springmvc.controller;
 
 import com.springmvc.pojo.KnFriend;
+import com.util.redis.RedisService;
+import com.util.redis.impl.RedisPoolService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -16,11 +20,11 @@ import springfox.documentation.annotations.ApiIgnore;
  * @Author by
  * @Date: 2019/3/4 17:24
  **/
-@ApiIgnore()
 @Controller
 @RequestMapping("/shrio")
 public class shrioTest {
-
+    @Autowired
+    RedisService redisService;
    @RequestMapping("/sh")
     public  String login( String phone,String password){
         phone="12345";
@@ -40,8 +44,8 @@ public class shrioTest {
         // 打印认证结果
         System.out.println("认证结果：" + isAuthenticated);
        return "/Login/index";
-
     }
+
 
     @RequestMapping("/test")
     @ResponseBody
