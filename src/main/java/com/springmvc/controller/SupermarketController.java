@@ -65,7 +65,7 @@ public class SupermarketController {
                                       @RequestParam(value = "pageNo", defaultValue = "1",
                                               required = false)
                                               Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "3000", required = false)
+                                      @RequestParam(value = "pageSize", defaultValue = "5", required = false)
                                               Integer pageSize,
                                       @RequestParam(value = "title", required = false)
                                               String title,
@@ -96,7 +96,6 @@ public class SupermarketController {
             String frendSourcet=kn_goodsservice.getfrendSourcet();
             StringBuilder sb=new StringBuilder(frendSourcet);
             System.out.println("转换后的网址"+sb.toString());
-
             logger.info("控制层期限有没有值传进来"+goodsSupermarketDvo.getDeadline());
             logger.info("控制层期限区域有没有值传进来"+goodsSupermarketDvo.getPaceLending());
             logger.info("title"+goodsSupermarketDvo.getTitle());
@@ -221,7 +220,6 @@ public class SupermarketController {
         ListObject listObject=new ListObject();
         if(id!=0||!id.equals("")) {
             kn_goods knGoods = kn_goodsservice.selectGoodsSK(id);
-            Map map=new HashMap();
             String format = "day";
             Person[] person= FriendTimer.DatePvUv(knGoods.getShortUrl(),format);
             List<Person> lst=new ArrayList<>();

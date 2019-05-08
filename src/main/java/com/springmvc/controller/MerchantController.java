@@ -39,7 +39,13 @@ public class MerchantController {
 
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
-    //查询商户所有信息
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 查询商户所有信息
+     * @Date 14:30 2019/4/28
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "查询所有商户信息", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
     @RequestMapping("/MerchantList")
     @ResponseBody
@@ -71,7 +77,13 @@ public class MerchantController {
 
     }
 
-    //商户编辑页面
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 商户编辑页面
+     * @Date 14:30 2019/4/28
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "商户页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "商户页面编辑")
     @RequestMapping("/Merchantedit")
     @ResponseBody
@@ -95,7 +107,13 @@ public class MerchantController {
         }
     }
 
-    //商户页面删除
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 商户页面删除
+     * @Date 14:30 2019/4/28
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "商户页面删除", httpMethod = "POST", response = StatusCode.class, notes = "商户页面删除")
     @RequestMapping("/MerchantExamine")
     @ResponseBody

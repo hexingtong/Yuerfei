@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 public class TimerTask {
 
-    @Scheduled(cron = "0/2 * * * * ?")//每隔2秒隔行一次
 
     public void test2()
     {

@@ -12,15 +12,24 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
  http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.springmvc.controller" />
+    <bean class="com.util.Swagger.MySwagger"/>
+	<context:component-scan base-package="springfox"/>
+	<!-- don't handle the static resource -->
+	<mvc:default-servlet-handler />
 
+	<!-- if you use annotation you must configure following setting -->
+	<mvc:annotation-driven />
+	<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
+	<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
 
-
-	<!--&lt;!&ndash; 定时器开关&ndash;&gt;-->
+	<!-- &lt;!&ndash; 定时器开关&ndash;&gt;
+      -->
 	<task:annotation-driven />
 
-    <!-- 配置注解驱动 -->
+	<!-- 配置注解驱动 -->
     <mvc:annotation-driven />
     <mvc:default-servlet-handler/>
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
@@ -68,12 +77,9 @@
     <!--</bean>-->
 	<!-- 方式2 静态资源访问处理  org.springframework.web.servlet-3.1.4版本及以后使用 -->
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-<mvc:resources mapping="/images/**" location="/images/" />
-	<mvc:resources mapping="/js/**" location="/js/" />
-    <mvc:resources mapping="/css/**" location="/css/" />
 
 
-	<!--配置拦截登录拦截器-->
+	<!--&lt;!&ndash;配置拦截登录拦截器&ndash;&gt;-->
 	<!--<mvc:interceptors>-->
 		<!--<mvc:interceptor>-->
 			<!--&lt;!&ndash; 拦截所有的请求，这个必须写在前面，也就是写在【不拦截】的上面 &ndash;&gt;-->
@@ -97,7 +103,7 @@
 			<!--<mvc:exclude-mapping path="/v2/**"/>-->
 			<!--<mvc:exclude-mapping path="/admin/login"/>-->
 			<!--<mvc:exclude-mapping path="/swagger-ui.html/**"/>-->
-
+			<!--<mvc:exclude-mapping path="/TimerFride/**"/>-->
 			<!--<bean class="com.util.LoginHandlerInterceptor"></bean>-->
 		<!--</mvc:interceptor>-->
 	<!--</mvc:interceptors>-->
@@ -111,5 +117,21 @@
     <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
         <!--<property name="securityManager" ref="securityManager"/>-->
     <!--</bean>-->
+
+
+	<mvc:interceptors>
+	<mvc:interceptor>
+		<!-- 拦截所有请求，判断是否多次请求 -->
+		<mvc:mapping path="/**/*" />
+		<!--不拦截以下请求-->
+		<mvc:exclude-mapping path="/swagger-resources/**"/>
+		<mvc:exclude-mapping path="/webjars/**"/>
+		<mvc:exclude-mapping path="/v2/**"/>
+		<mvc:exclude-mapping path="/swagger-ui.html/**"/>
+		<mvc:exclude-mapping path="/admin/userInfo/verification"/>
+		<bean class="com.util.ipHandlerInterceptor" />
+	</mvc:interceptor>
+	</mvc:interceptors>
+
 
 </beans>

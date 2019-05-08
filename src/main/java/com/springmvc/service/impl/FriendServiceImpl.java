@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 @Service
 public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements FriendService {
-    final Logger logger = LoggerFactory.getLogger(kn_adminserviceimpl.class);
+    final Logger logger = LoggerFactory.getLogger(FriendServiceImpl.class);
 
     @Autowired
     private KnFriendMapper knFriendMapper;

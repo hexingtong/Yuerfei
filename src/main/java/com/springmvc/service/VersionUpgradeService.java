@@ -21,7 +21,7 @@ public interface VersionUpgradeService {
      * @Param []
      * @return com.springmvc.pojo.VersionUpgrade
      **/
-    VersionUpgrade selectVersionAll(VersionUpgrade versionUpgrade);
+    List<VersionUpgrade> selectVersionAll(VersionUpgrade versionUpgrade);
 
     /**
      * @Author 苏俊杰

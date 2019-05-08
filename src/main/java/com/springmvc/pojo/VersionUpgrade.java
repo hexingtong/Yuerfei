@@ -45,13 +45,13 @@ public class VersionUpgrade {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="create_time")
-    private Date CreateTime;
+    private Date createTime;
 
     //更新时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="update_time")
-    private Date UpdateTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -82,11 +82,11 @@ public class VersionUpgrade {
     }
 
     public Date getCreateTime() {
-        return CreateTime;
+        return createTime;
     }
 
     public Date getUpdateTime() {
-        return UpdateTime;
+        return updateTime;
     }
 
     public void setId(Integer id) {
@@ -118,25 +118,10 @@ public class VersionUpgrade {
     }
 
     public void setCreateTime(Date createTime) {
-        CreateTime = createTime;
+        this.createTime = createTime;
     }
 
     public void setUpdateTime(Date updateTime) {
-        UpdateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "VersionUpgrade{" +
-                "id=" + id +
-                ", AppId=" + AppId +
-                ", VersionId='" + VersionId + '\'' +
-                ", VersionCode='" + VersionCode + '\'' +
-                ", type=" + type +
-                ", ApkUrl='" + ApkUrl + '\'' +
-                ", UpgradePrompt='" + UpgradePrompt + '\'' +
-                ", CreateTime=" + CreateTime +
-                ", UpdateTime=" + UpdateTime +
-                '}';
+        this.updateTime = updateTime;
     }
 }

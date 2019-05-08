@@ -16,4 +16,18 @@
     <result column="shortUrl" jdbcType="VARCHAR" property="shorturl" />
   </resultMap>
 
+  <!--查询银行展示列表-->
+  <select id="selectAllBankCategory" parameterType="BankCategory" resultType="BankCategory">
+    SELECT * FROM bank_category
+    <where>
+      <if test="name!=null and name!='' ">
+        AND `name` LIKE CONCAT('%',#{name},'%' )
+      </if>
+    </where>
+  </select>
+
+  <!--增加银行类别-->
+  <insert id="insertBankCategory" parameterType="BankCategory">
+  INSERT INTO bank_category (name,img,addTime,welfare,speed,bankLimit,passRate,shortUrl) VALUES (#{name},#{img},#{addtime},#{welfare},#{speed},#{banklimit},#{passrate},#{shorturl})
+  </insert>
 </mapper>

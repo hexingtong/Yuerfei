@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.List;
  * @Author by
  * @Date: 2019/4/12 9:23
  **/
+@ApiIgnore()
 @RequestMapping("/homeData")
 @Controller
 public class GraphDataController {

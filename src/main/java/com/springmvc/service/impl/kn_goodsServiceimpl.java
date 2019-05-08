@@ -65,7 +65,6 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
             return null;
         }
 
-
     }
 
     /**
@@ -86,8 +85,6 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
         } else {
             return null;
         }
-
-
     }
 
 
@@ -154,10 +151,7 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
             } catch (NullPointerException e) {
                 logger.info("运行错误");
             }
-
-
         }
-
 //        logger.info("获取admin表中所有数据");
 //        PageInfo<kn_goods> pageInfo = new PageInfo<kn_goods>(agentLevelSettings);
 //        PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
@@ -646,7 +640,13 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
         String i=knGoodsMapper.GoodsRestoreUrl(kn_goods);
         return i;
     }
-    
+
+    @Override
+    public List getGoodsList3() {
+        List lst=knGoodsMapper.getGoodsList3();
+        return lst;
+    }
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 根据id查询所有信息
