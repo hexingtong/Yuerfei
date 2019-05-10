@@ -6,6 +6,10 @@
    select * FROM kn_goods  WHERE status=4 AND tag_id!=4 ORDER  BY uv+0 DESC
   </select>
 
+  <select id="getGoodsList3" resultType="com.springmvc.pojo.kn_goods"  >
+    select * FROM kn_goods  WHERE status=4 ORDER  BY uv+0 DESC
+  </select>
+
     <select id="queryMerchantId" resultType="java.lang.Integer" parameterType="kn_goods">
         select admin_id FROM kn_goods WHERE admin_id =#{id}
     </select>

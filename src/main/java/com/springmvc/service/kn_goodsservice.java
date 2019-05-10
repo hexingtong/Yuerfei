@@ -153,4 +153,14 @@ public interface kn_goodsservice extends BaseService<kn_goods> {
      **/
     String GoodsRestoreUrl(kn_goods kn_goods);
 
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 更新产品所有的pvuv
+     * @Date 17:28 2019/4/29
+     * @Param [kn_goods]
+     * @return java.util.List
+     **/
+    List getGoodsList3();
+
 }

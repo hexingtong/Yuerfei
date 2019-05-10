@@ -41,9 +41,7 @@ public class VersionUpgradeController {
     public void selectVersionUpgrade(HttpServletResponse response,VersionUpgrade versionUpgradex){
         ListObject listObject=new ListObject();
         //查询时间最新的版本号
-        VersionUpgrade versionUpgrade=versionUpgradeService.selectVersionAll(versionUpgradex);
-        List lst=new ArrayList();
-        lst.add(versionUpgrade);
+        List<VersionUpgrade> lst=versionUpgradeService.selectVersionAll(versionUpgradex);
         listObject.setItems(lst);
         listObject.setCode(StatusCode.CODE_SUCCESS);
         listObject.setMsg("查询成功!");

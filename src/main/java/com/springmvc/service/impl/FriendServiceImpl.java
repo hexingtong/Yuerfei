@@ -140,6 +140,7 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         kn_friend kn_friend=knFriendMapper.selectAlllAndFriend();
         return kn_friend;
     }
+
     @Override
     public int updateFriendZhuce(String url) {
         int i=knFriendMapper.updateFriendZhuce(url);

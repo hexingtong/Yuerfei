@@ -11,6 +11,7 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 /**
  * @ClassName QiniuTest
@@ -83,4 +84,6 @@ public class QiniuTest {
         String path = "/Users/mini/Downloads/qiniu_test22.jpg";
         new QiniuTest().uoloapQiniu(path);
     }
+
+
 }

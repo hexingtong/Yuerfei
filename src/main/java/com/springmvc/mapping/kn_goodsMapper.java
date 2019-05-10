@@ -158,5 +158,13 @@ Integer updateOnepvuv(kn_goods kn_goods);
      * @return
      **/
     String GoodsRestoreUrl(kn_goods kn_goods);
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 更新产品所有的pvuv
+     * @Date 17:29 2019/4/29
+     * @Param [kn_goods]
+     * @return java.util.List
+     **/
+    List getGoodsList3();
 
 }

@@ -9,6 +9,7 @@ import com.springmvc.service.BankCardService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.util.JsonResult;
 import com.util.StatusCode;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,13 @@ import java.util.List;
  * @Author by
  * @Date: 2019/4/23 9:57
  **/
+@Api(value="银行卡页面controller",tags={"银行卡操作接口"})
 @Controller
 @RequestMapping("/Bank")
 public class BankController {
-@Autowired
-BankCategoryMapper bankCategoryMapper;
-@Autowired
+        @Autowired
+        BankCategoryMapper bankCategoryMapper;
+        @Autowired
     BankCardService bankCardService;
     final Logger logger = LoggerFactory.getLogger(BankController.class);
     /**

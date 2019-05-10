@@ -6,6 +6,7 @@ import com.util.qiniuUtil.Auth;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author by
  * @Date: 2019/4/13 15:05
  **/
+@ApiIgnore()
 @RequestMapping("/upload")
 @Controller
 public class UploadToken {

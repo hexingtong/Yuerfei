@@ -13,7 +13,7 @@ public interface VersionUpgradeMapper {
      * @Param []
      * @return java.util.List<com.springmvc.pojo.VersionUpgrade>
      **/
-    VersionUpgrade selectVersionAll(VersionUpgrade version);
+    List<VersionUpgrade> selectVersionAll(VersionUpgrade version);
 
     /**
      * @Author 苏俊杰

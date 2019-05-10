@@ -284,7 +284,7 @@ public class OpenAPI {
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiAndroid);
         param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
-        param.setEndDate(DateUtils2.befoDay());
+        param.setEndDate(DateUtils2.currDay());
         param.setPeriodType("daily");
         try {
             UmengUappGetActiveUsersResult result = apiExecutor.execute(param);
@@ -310,7 +310,7 @@ public class OpenAPI {
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiIosAppkey);
         param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
-        param.setEndDate(DateUtils2.befoDay());
+        param.setEndDate(DateUtils2.currDay());
         param.setPeriodType("daily");
         try {
             UmengUappGetActiveUsersResult result = apiExecutor.execute(param);
@@ -442,7 +442,7 @@ public class OpenAPI {
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiAndroid);
         param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
-        param.setEndDate(DateUtils2.befoDay());
+        param.setEndDate(DateUtils2.currDay());
         param.setPeriodType("daily");
         try {
             UmengUappGetRetentionsResult result = apiExecutor.execute(param);
@@ -468,7 +468,7 @@ public class OpenAPI {
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiIosAppkey);
         param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
-        param.setEndDate(DateUtils2.befoDay());
+        param.setEndDate(DateUtils2.currDay());
         param.setPeriodType("daily");
 
 
@@ -790,7 +790,7 @@ public class OpenAPI {
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiAndroid);
         param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
-        param.setEndDate(DateUtils2.befoDay());
+        param.setEndDate(DateUtils2.currDay());
         param.setPeriodType("daily");
         try {
             UmengUappGetNewUsersResult result = apiExecutor.execute(param);
@@ -817,7 +817,7 @@ public class OpenAPI {
         // param.getOceanRequestPolicy().setUseHttps(false);
         param.setAppkey(YuerfeiIosAppkey);
         param.setStartDate(DateUtils2.getBeGinDaYoFMoth());
-        param.setEndDate(DateUtils2.befoDay());
+        param.setEndDate(DateUtils2.currDay());
         param.setPeriodType("daily");
         try {
             UmengUappGetNewUsersResult result = apiExecutor.execute(param);
@@ -830,20 +830,7 @@ public class OpenAPI {
     }
 
     public static void main(String[] args) {
-//        String Andrien=OpenAPI.umengAndrienUappGetActiveUsers();//安卓周活跃
-//         String ios=OpenAPI.umengIosUappGetActiveUsers();//苹果周活跃
-//                OpenAPI.umengAndrienDDUappGetActiveUsers();//安卓月活跃
-//            OpenAPI.umengIOSDDUappGetActiveUsers(); //苹果月活跃
-//            OpenAPI.umengSevenDayAndrienUappGetNewUsers();//安卓周新增
-//            OpenAPI.umengSevenDayIOSUappGetNewUsers();//苹果周新增
-//            OpenAPI.umengAndrienUappGetNewUsers();//安卓今日新增;
-//            OpenAPI.umengIosUappGetNewUsers();//苹果今日新增;
-//            OpenAPI.umengAndrienUappGetRetentions();//安卓3日留存
-//            OpenAPI.umengIosUappGetRetentions();//苹果3日留存
-//            OpenAPI.umengSevenDayAndrienUappGetRetentions();//安卓7日留存
-//            OpenAPI.umengSevenDayIosUappGetRetentions();//苹果7日留存
              OpenAPI.umengUappEventGetData();
-
     }
 
 }

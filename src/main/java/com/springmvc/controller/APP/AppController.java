@@ -82,6 +82,9 @@ public class AppController {
             logger.info("ids有没有值" + ids);
             if (StringUtil.isNotEmpty(id) && !id.equals("")&&!id.equals("error")) {
                 kn_admin = knAdminservice.selectUser(ids);
+                if(kn_admin.getFrendSource()==null){
+                    kn_admin.setFrendSource("");
+                }
                 lst.add(kn_admin);
                 listObject.setItems(lst);
                 listObject.setCode(StatusCode.CODE_SUCCESS);

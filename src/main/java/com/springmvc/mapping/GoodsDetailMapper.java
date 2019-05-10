@@ -20,4 +20,6 @@ public interface GoodsDetailMapper extends Mapper<GoodsDetail>{
      **/
     GoodsDetail selectDetail(int id);
 
+
+
 }

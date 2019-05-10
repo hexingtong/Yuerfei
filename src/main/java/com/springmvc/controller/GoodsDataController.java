@@ -164,7 +164,7 @@ public class GoodsDataController {
         System.out.println("拿取数据");
         String format="visitor";
 
-        List<kn_goods> lst=knGoodsservice.getGoodsList();
+        List<kn_goods> lst=knGoodsservice.getGoodsList3();
         Map map=new HashMap();
         for(int i=0;i<lst.size();i++){
             kn_goods kn_friend=new kn_goods();
@@ -190,14 +190,11 @@ public class GoodsDataController {
                     System.out.println("编辑失败");
                     listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
                     listObject.setMsg("编辑失败");
-
                     e.printStackTrace();
                 }
-
             }else{
                 listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
                 listObject.setMsg("上传链接失败");
-
             }
         }
         listObject.setCode(StatusCode.CODE_SUCCESS);
