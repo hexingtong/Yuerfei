@@ -1,6 +1,7 @@
 package com.springmvc.controller;
 
 
+import com.springmvc.pojo.DTO.FriendDVO;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.Person;
 import com.springmvc.pojo.kn_friend;
@@ -68,8 +69,8 @@ public class Kn_friendController {
             listObject.setMsg("查询失败");
             listObject.setCode(StatusCode.CODE_ERROR);
         }
-
     }
+
 
     /**
      * @Author 苏俊杰
@@ -94,6 +95,7 @@ public class Kn_friendController {
                 listObject.setMsg("删除成功!");
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+
             }else{
                 listObject.setMsg("删除失败!");
                 listObject.setCode(StatusCode.CODE_ERROR);
@@ -146,10 +148,51 @@ public class Kn_friendController {
      * @Param
      * @return
      **/
+//    @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = kn_friend.class, notes = "推广页面增加")
+//    @RequestMapping("/insertFriend")
+//    @ResponseBody
+//    public void insertFriend(HttpServletResponse response,kn_friend kn_friend){
+//        ListObject listObject=new ListObject();
+//        //先生成自己的短链接
+//        String shortshortUrl=FriendService.getShortUrl();
+//        System.out.println("推广名字"+kn_friend.getTitle());
+//        System.out.println("传入的网址"+kn_friend.getLongUrl());
+//        System.out.println("生成的6位短链接"+shortshortUrl);
+//        StringBuilder sb=new StringBuilder(shortshortUrl);
+//        sb.insert(0, "http://yef.miaojiedao.cn/friendx/");
+//        System.out.println("转换后的网址"+sb.toString());
+//        String folat=FriendApiUtils.AddFriendApi(sb.toString(),kn_friend.getTitle());
+//        if(!folat.equals("error")&&!shortshortUrl.equals("禁止生成IP地址作为域名的网址")) {
+//            kn_friend.setShortUrl(shortshortUrl);
+//            kn_friend.setUrl(folat);
+//            int i = FriendService.insertFrilend(kn_friend);
+//            if (i > 0) {
+//                listObject.setMsg("增加成功!");
+//                listObject.setCode(StatusCode.CODE_SUCCESS);
+//                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+//            } else {
+//                listObject.setMsg("增加失败!");
+//                listObject.setCode(StatusCode.CODE_ERROR);
+//                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+//            }
+//        }else{
+//            listObject.setMsg("生成API短链接失败!");
+//            listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
+//            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+//        }
+//    }
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 推广页面增加
+     * @Date 14:13 2019/4/8
+     * @Param
+     * @return
+     **/
     @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = kn_friend.class, notes = "推广页面增加")
     @RequestMapping("/insertFriend")
     @ResponseBody
-    public void insertFriend(HttpServletResponse response,kn_friend kn_friend){
+    public void insertFriend(HttpServletResponse response,FriendDVO kn_friend){
         ListObject listObject=new ListObject();
         //先生成自己的短链接
         String shortshortUrl=FriendService.getShortUrl();
@@ -179,6 +222,10 @@ public class Kn_friendController {
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
     }
+
+
+
+
 
 
     /**

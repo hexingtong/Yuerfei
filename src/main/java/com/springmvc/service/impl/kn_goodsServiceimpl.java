@@ -370,7 +370,6 @@ public class kn_goodsServiceimpl extends BaseServiceImpl<kn_goods> implements kn
                 logger.info("详情表插入成功!");
                 kn_goods knGoods = new kn_goods();
                 knGoods.setTitle(goodsSupermarketDvo.getTitle());
-                knGoods.setId(goodsDetail.getId());
                 knGoods.setApplyCount(goodsSupermarketDvo.getApplyCount());
                 knGoods.setLimit(goodsSupermarketDvo.getLimit());
                 knGoods.setDeadline(goodsSupermarketDvo.getDeadline());
