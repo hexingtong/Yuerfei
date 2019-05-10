@@ -153,4 +153,9 @@ ORDER BY login_time
   select DATE_FORMAT(add_time,'%Y-%m-%d') weeks,count(frend_source) count from kn_admin WHERE frend_source=#{frendSource} group by weeks;
   </select>
 
+  <!--根据短链接查询一个月的注册人数-->
+  <select id="getMonthCountRegistered"  resultType="Regustered">
+    select DATE_FORMAT(add_time,'%Y-%m-%d') weeks,count(frend_source) count from kn_admin WHERE frend_source=#{shortUrl} group by weeks;
+  </select>
+
 </mapper>

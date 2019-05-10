@@ -3,22 +3,29 @@ package com.springmvc.service.impl;
 import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.springmvc.mapping.FriendAdminMapper;
 import com.springmvc.mapping.KnFriendMapper;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
+import com.util.JsonUtils;
+import com.util.ResponseUtils;
+import com.util.StatusCode;
 import com.util.shortUrl.shortUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 @Service
 public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements FriendService {
     final Logger logger = LoggerFactory.getLogger(kn_adminserviceimpl.class);
-
+    @Autowired
+    private FriendAdminMapper friendAdminMapper;
     @Autowired
     private KnFriendMapper knFriendMapper;
 
@@ -83,13 +90,29 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         kn_friend.setAddTime(new Date());
         int i=knFriendMapper.updateFrilend(kn_friend);
         if(i>0){
-            logger.info("编辑成功");
+            logger.info("frilend 编辑成功");
             return 1;
         }else {
             logger.info("编辑失败");
             return 0;
         }
 
+    }
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public int updateFrilend2 (String title,Integer id,String longUrl,String username,String pwd,Integer intradayQuantity,Integer defaultQuantity) throws RuntimeException  {
+        kn_friend kn_friend=new kn_friend();
+        kn_friend.setTitle(title);
+        kn_friend.setLongUrl(longUrl);
+        kn_friend.setId(id);
+        kn_friend.setAddTime(new Date());
+        int i=knFriendMapper.updateFrilend(kn_friend);
+        Integer j= friendAdminMapper.updateFriend(username,pwd,intradayQuantity,defaultQuantity,id);
+        if (j>0&i>0){
+        return 1;
+        }else {
+            throw new RuntimeException("抛出异常,事务回滚");
+        }
     }
 
     @Override
@@ -117,7 +140,6 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         kn_friend kn_friend=knFriendMapper.selectAlllAndFriend();
         return kn_friend;
     }
-
     @Override
     public int updateFriendZhuce(String url) {
         int i=knFriendMapper.updateFriendZhuce(url);

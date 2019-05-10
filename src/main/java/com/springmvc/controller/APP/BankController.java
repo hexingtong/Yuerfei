@@ -43,13 +43,12 @@ BankCategoryMapper bankCategoryMapper;
      * @date 2019/4/23 11:13
      */
     @ApiOperation(value = "银行卡分类接口", httpMethod = "POST", response = StatusCode.class, notes = "银行卡分类接口")
-    @RequestMapping("/bankClassify")
+        @RequestMapping("/bankClassify")
     @ResponseBody
     public JsonResult getBankClassify() {
         JsonResult jsonResult = new JsonResult();
         try {
             jsonResult.setData(bankCategoryMapper.selectAll());
-
         } catch (Exception e) {
             jsonResult.setCode(StatusCode.CODE_ERROR);
             jsonResult.setMessage("获取错误");

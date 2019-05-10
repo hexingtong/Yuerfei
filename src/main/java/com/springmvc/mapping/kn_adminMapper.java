@@ -103,4 +103,12 @@ public interface kn_adminMapper extends Mapper<kn_admin> {
      * @return
      **/
     List<Regustered> selectMonthRegistered(kn_admin kn_admin);
+   /**
+    * Description：得到根据短链接查询一个月每天的注册总数
+    * @author boyang
+    * @date 2019/5/8 11:40
+    * @param
+    * @return java.util.List<com.springmvc.pojo.VO.Regustered>
+    */
+    List<Regustered> getMonthCountRegistered(String shortUrl);
 }

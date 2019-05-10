@@ -1,6 +1,8 @@
 package com.springmvc.controller;
 
 import com.aliyuncs.utils.StringUtils;
+import com.springmvc.mapping.FriendAdminMapper;
+import com.springmvc.pojo.FriendAdmin;
 import com.springmvc.pojo.JsonModel;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
@@ -41,47 +43,47 @@ import java.util.List;
  * @Author by
  * @Date: 2019/3/1 11:36
  **/
-@Api(value="登录类",tags={"登录退出接口"})
+@Api(value = "登录类", tags = {"登录退出接口"})
 @Controller
 @RequestMapping("/admin2")
 public class AdminController {
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
     @Autowired
     private kn_adminservice adminService;
+    @Autowired
+    private FriendAdminMapper friendAdminMapper;
+
     /**
      * 登录页面
      *
+     * @return String
      * @Description: TODO
      * @author
-     * @return
-     * @return String
      */
     @ApiIgnore()
     @RequestMapping("/toLogin")
     public String toLogin(HttpSession session) {
-
         return "login";
     }
     /**
      * 登录
      *
-     * @Description: TODO
-     * @author
      * @param userName
      * @param pwd
-     * @return
      * @return JsonModel
+     * @Description: TODO
+     * @author
      */
     @ApiIgnore()
     @RequestMapping("/loginhoutai")
     @ResponseBody
     public JsonModel login(String userName, String pwd, HttpSession session) {
 
-    logger.info("传入用户名+密码"+userName+pwd);
-System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
-    Subject subject = null;
+        logger.info("传入用户名+密码" + userName + pwd);
+        System.out.println("加密密码" + new Md5Hash("123", "123456", 5).toString());
+        Subject subject = null;
         try {
-          subject = SecurityUtils.getSubject();
+            subject = SecurityUtils.getSubject();
             if (subject.isAuthenticated()) {
                 //已经通过登录
                 logger.info("已经登录");
@@ -102,81 +104,115 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
             }
             return new JsonModel(JsonModel.FAILED, error);
         }
-    logger.info("session=------------------"+session.getAttribute("user"));
-    boolean isAuthenticated = subject.isAuthenticated();
-    // 打印认证结果
-    System.out.println("认证结果：" + isAuthenticated);
-    return new JsonModel(JsonModel.SUCCESS);
+        logger.info("session=------------------" + session.getAttribute("user"));
+        boolean isAuthenticated = subject.isAuthenticated();
+        // 打印认证结果
+        System.out.println("认证结果：" + isAuthenticated);
+        return new JsonModel(JsonModel.SUCCESS);
     }
 
     @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
     @RequestMapping("/login2")
-    public void ogin2(String userName, String pwd, HttpSession session,HttpServletResponse response,HttpServletRequest request) {
-        logger.info("userName"+userName+"pwd"+pwd);
-    logger.info("进入控制器");
-        ListObject listObject=new ListObject();
-       if (StringUtils.isNotEmpty(userName)&&StringUtils.isNotEmpty(pwd)){
-
-           kn_admin user = adminService.queryByPhone(userName);
-
-           if(user.getLevel()==2){
-               System.out.println("为商家id");
-               String i="no";
-               ResponseUtils.renderJson(response, JsonUtils.toJson(i));
-               return;
-           }
-           if(user!=null&&user.getLevel()!=2){
-               logger.info("传入密码"+pwd+"数据库密码"+user.getPwd());
-               if (pwd.equals(user.getPwd())){
-                   session.setAttribute("user",user);
-                   kn_admin user2=new kn_admin();
-                   user2.setId(user.getId());
-                   user2.setLoginTime(new Date());
-                   try {
-                  String ip= IPutil.getIpAddress(request);
-                  logger.info("得到的ip"+ip);
-                       user2.setLoginIp(ip);
-                   } catch (IOException e) {
-                       e.printStackTrace();
+    public void ogin2(String userName, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+        logger.info("userName" + userName + "pwd" + pwd);
+        logger.info("进入控制器");
+        ListObject listObject = new ListObject();
+        if (StringUtils.isNotEmpty(userName) && StringUtils.isNotEmpty(pwd)) {
+            kn_admin user = adminService.queryByPhone(userName);
+            if (user.getLevel() == 2) {
+                System.out.println("为商家id");
+                String i = "no";
+                ResponseUtils.renderJson(response, JsonUtils.toJson(i));
+                return;
+            }
+            if (user != null && user.getLevel() != 2) {
+                logger.info("传入密码" + pwd + "数据库密码" + user.getPwd());
+                if (pwd.equals(user.getPwd())) {
+                    session.setAttribute("user", user);
+                    kn_admin user2 = new kn_admin();
+                    user2.setId(user.getId());
+                    user2.setLoginTime(new Date());
+                    try {
+                        String ip = IPutil.getIpAddress(request);
+                        logger.info("得到的ip" + ip);
+                        user2.setLoginIp(ip);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    adminService.updateSelectiveById(user2);
+                    System.out.println("suse");
+                    String i = "suse";
+                    listObject.setCode(StatusCode.CODE_SUCCESS);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(i));
+                } else {
+                    //密码不正确
+                    String i = "fail2";
+                    System.out.println("fail2");
+                    listObject.setCode(StatusCode.CODE_ERROR);
+                    ResponseUtils.renderJson(response, JsonUtils.toJson(i));
+                }
+            } else {
+                //查不到数据
+                String i = "fail";
+                System.out.println("fail");
+                listObject.setCode(StatusCode.CODE_ERROR);
+                listObject.setMsg("查不到数据");
+                ResponseUtils.renderJson(response, JsonUtils.toJson(i));
+            }
+        } else {
+            //传入值为空
+            String i = "null";
+            System.out.println("null");
+            listObject.setCode(StatusCode.CODE_ERROR);
+            listObject.setMsg("null");
+            ResponseUtils.renderJson(response, JsonUtils.toJson(i));
+        }
+    }
+    /**
+     * Description：用于推送的时候登录
+     *
+     * @param
+     * @return
+     * @author boyang
+     * @date 2019/5/7 17:16
+     */
+    @ApiOperation(value = "推广登录页面", httpMethod = "POST", response = StatusCode.class, notes = "推广登录页面")
+    @RequestMapping("/login3")
+    @ResponseBody
+    public JsonResult login3(String userName, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+     JsonResult jsonResult =new JsonResult();
+        if (StringUtils.isNotEmpty(userName) && StringUtils.isNotEmpty(pwd)) {
+           FriendAdmin friendAdmin= friendAdminMapper.getPwd(userName);
+               if (friendAdmin!=null){
+                   logger.info("传入密码" + pwd + "数据库密码" + friendAdmin.getPwd());
+                   if(pwd.equals(friendAdmin.getPwd())){
+                      jsonResult.setMessage("登录成功");
+                      jsonResult.setCode(StatusCode.SUCCESSFULLY);
+                      jsonResult.setData(friendAdmin.getShorturl());
+                       return jsonResult;
+                   }else {
+                       jsonResult.setMessage("密码错误");
+                       jsonResult.setCode(StatusCode.FAILED);
+                       return jsonResult;
                    }
-                      adminService.updateSelectiveById(user2);
-                   System.out.println("suse");
-                   String i="suse";
-                   listObject.setCode(StatusCode.CODE_SUCCESS);
-                   ResponseUtils.renderJson(response, JsonUtils.toJson(i));
                }else {
-                   //密码不正确
-                   String i="fail2";
-                   System.out.println("fail2");
-                   listObject.setCode(StatusCode.CODE_ERROR);
-                   ResponseUtils.renderJson(response, JsonUtils.toJson(i));
+                   jsonResult.setMessage("账号不存在");
+                   jsonResult.setCode(StatusCode.FAILED);
+                   return jsonResult;
                }
-           }else {
-               //查不到数据
-               String i="fail";
-               System.out.println("fail");
-               listObject.setCode(StatusCode.CODE_ERROR);
-               listObject.setMsg("查不到数据" );
-               ResponseUtils.renderJson(response, JsonUtils.toJson(i));
-           }
-       }else {
-           //传入值为空
-           String i="null";
-           System.out.println("null");
-           listObject.setCode(StatusCode.CODE_ERROR);
-           listObject.setMsg("null" );
-           ResponseUtils.renderJson(response, JsonUtils.toJson(i));
-       }
+        }else {
+            jsonResult.setMessage("传入值为空");
+            jsonResult.setCode(StatusCode.FAILED);
+            return jsonResult;
+        }
     }
 
     /**
      * 后台欢迎页
-     *
+     * @param model
+     * @return String
      * @Description: TODO
      * @autho
-     * @param model
-     * @return
-     * @return String
      */
     @ApiIgnore()
     @RequestMapping("/welcome")
@@ -186,47 +222,40 @@ System.out.println("加密密码"+new Md5Hash("123", "123456", 5).toString());
     /**
      * 首页
      *
+     * @param model
+     * @return String
      * @Description: TODO
      * @author
-     * @param model
-     * @return
-     * @return String
      */
     @ApiIgnore()
     @RequestMapping("/index")
     public String toIndex(Model model) {
         return "index";
     }
-
     @ApiIgnore()
     @RequestMapping("/toUpdatePassword")
     public String toUpdatePassword(Model model) {
         return "admin/updatePassword";
     }
-
-/**
- * Description：退出登录清除sesion
- * @author boyang
- * @date 2019/3/16 16:13
- * @param
- * @return
- */
-@ApiOperation(value = "退出登录", httpMethod = "POST", response = StatusCode.class, notes = "退出登录")
-@RequestMapping("/loginOut")
-@ResponseBody
-public Integer deleSesson(Model model, HttpSession session, HttpServletRequest request) {
-logger.info(String.valueOf(session.getAttribute("user")));
-    if (session.getAttribute("user")!=null){
-        request.getSession().removeAttribute("user");//清空session信息
-        request.getSession().invalidate();//清除 session 中的所有信息
-        return 1;
-    }else {
-        return 0;
+    /**
+     * Description：退出登录清除sesion
+     *
+     * @param
+     * @return
+     * @author boyang
+     * @date 2019/3/16 16:13
+     */
+    @ApiOperation(value = "退出登录", httpMethod = "POST", response = StatusCode.class, notes = "退出登录")
+    @RequestMapping("/loginOut")
+    @ResponseBody
+    public Integer deleSesson(Model model, HttpSession session, HttpServletRequest request) {
+        logger.info(String.valueOf(session.getAttribute("user")));
+        if (session.getAttribute("user") != null) {
+            request.getSession().removeAttribute("user");//清空session信息
+            request.getSession().invalidate();//清除 session 中的所有信息
+            return 1;
+        } else {
+            return 0;
+        }
     }
-
-}
-
-
-
-
 }

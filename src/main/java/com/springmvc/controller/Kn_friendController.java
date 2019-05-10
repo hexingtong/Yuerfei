@@ -1,22 +1,23 @@
 package com.springmvc.controller;
 
 
+import com.springmvc.mapping.FriendAdminMapper;
+import com.springmvc.pojo.FriendAdmin;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.Person;
 import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
 import com.springmvc.service.FriendTimer;
+import com.util.*;
 import com.util.Https.HttpUtil;
-import com.util.JsonUtils;
-import com.util.ListObject;
-import com.util.ResponseUtils;
-import com.util.StatusCode;
 import com.util.shortUrl.FriendApiUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.annotations.ApiIgnore;
@@ -35,7 +36,8 @@ public class Kn_friendController {
 
     @Autowired
     private FriendService FriendService;
-
+@Autowired
+private FriendAdminMapper friendAdminMapper;
 
     /**
      * @Author 苏俊杰
@@ -110,41 +112,27 @@ public class Kn_friendController {
      * @Author 苏俊杰
      * @Description //TODO 推广页面编辑
      * @Date 14:13 2019/4/8
-     * @Param
-     * @return
      **/
     @ApiOperation(value = "推广页面编辑", httpMethod = "POST", response = StatusCode.class, notes = "推广页面编辑")
     @RequestMapping("/updateFriend")
     @ResponseBody
-    public void updateFrilend(HttpServletResponse response,String title,Integer id,String longUrl){
-        System.out.println("进入接口");
-        //只需要编辑自己的真实路径
-        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+longUrl+"-->");
-        ListObject listObject=new ListObject();
-        kn_friend kn_friend=new kn_friend();
-        kn_friend.setTitle(title);
-        kn_friend.setLongUrl(longUrl);
-        kn_friend.setId(id);
-        System.out.println("传进来的值-->id:"+id+"<--|title:"+title+"|-->||<--url:"+longUrl+"-->");
-            int i = FriendService.updateFrilend(kn_friend);
-            if (i > 0) {
-                listObject.setMsg("编辑成功!");
-                listObject.setCode(StatusCode.CODE_SUCCESS);
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-            } else {
-                listObject.setMsg("编辑失败!");
-                listObject.setCode(StatusCode.CODE_ERROR);
-                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
-            }
+    public JsonResult updateFrilend(HttpServletResponse response,String title,Integer id,String longUrl,String username,String pwd,  @RequestParam(value = "intradayQuantity", required = false)Integer intradayQuantity,@RequestParam(value = "defaultQuantity", required = false)Integer defaultQuantity ){
+JsonResult jsonResult=new JsonResult();
+        try {
+            int i = FriendService.updateFrilend2( title, id, longUrl, username, pwd, intradayQuantity,defaultQuantity);
+            jsonResult.setCode(StatusCode.SUCCESSFULLY);
+            jsonResult.setMessage("修改成功");
+        } catch (Exception e) {
+            jsonResult.setCode(StatusCode.FAILED);
+            jsonResult.setMessage("修改错误");
+            e.printStackTrace();
+        }
+        return  jsonResult;
     }
-
-
     /**
      * @Author 苏俊杰
      * @Description //TODO 推广页面增加
      * @Date 14:13 2019/4/8
-     * @Param
-     * @return
      **/
     @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = kn_friend.class, notes = "推广页面增加")
     @RequestMapping("/insertFriend")

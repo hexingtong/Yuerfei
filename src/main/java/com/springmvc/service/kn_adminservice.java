@@ -68,5 +68,12 @@ public interface kn_adminservice  extends BaseService<kn_admin> {
      * @return
      **/
     List<Regustered> selectMonthRegistered(kn_admin kn_admin);
-
+    /**
+     * Description： 短连接对应数据并进行扣量计算
+     * @author boyang
+     * @date 2019/5/8 10:46
+     * @param
+     * @return
+     */
+    List<Regustered> getMonthCountRegistered(String shortUrl);
 }

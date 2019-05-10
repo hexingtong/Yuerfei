@@ -27,6 +27,10 @@ public interface FriendService extends  BaseService<kn_friend> {
      */
     int updateFrilend(kn_friend kn_friend);
     /**
+     * 编辑推广链接
+     */
+    int updateFrilend2(String title,Integer id,String longUrl,String username,String pwd,Integer intradayQuantity,Integer defaultQuantity);
+    /**
      * 根据id查询单个推广链接所有数据
      */
     kn_friend selectFrilend(Integer id);

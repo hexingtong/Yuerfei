@@ -1,9 +1,12 @@
 package com.springmvc.service.impl;
 
+import com.springmvc.mapping.FriendAdminMapper;
 import com.springmvc.mapping.kn_adminMapper;
+import com.springmvc.pojo.FriendAdmin;
 import com.springmvc.pojo.LoanTerm;
 import com.springmvc.pojo.VO.Regustered;
 import com.springmvc.pojo.kn_admin;
+import com.springmvc.service.FriendService;
 import com.springmvc.service.kn_adminservice;
 import com.util.DateUtils2;
 import com.util.getRegistered.getzhuce;
@@ -26,6 +29,8 @@ public class kn_adminserviceimpl  extends BaseServiceImpl<kn_admin> implements k
 
     @Autowired
     private kn_adminMapper adminMapper;
+    @Autowired
+    private FriendAdminMapper friendAdminMapper;
 
     public kn_admin queryList(Integer id) {
         kn_admin knAdmin=adminMapper.queryList(id);
@@ -132,16 +137,31 @@ public class kn_adminserviceimpl  extends BaseServiceImpl<kn_admin> implements k
         return  lst;
     }
 
-//    @Override
-//    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
-//    public int instTest(LoanTerm loanTerm) {
-//        int i=adminMapper.instTest(loanTerm);
-//        if(i>0){
-//            throw new NullPointerException("hhh");
-//        }else {
-//            throw new RuntimeException("抛出异常,事务回滚");
-//        }
-//    }
-
+    /**
+     * Description： 短连接对应数据并进行扣量计算
+     * @author boyang
+     * @date 2019/5/8 10:46
+     */
+    @Override
+    public List<Regustered> getMonthCountRegistered(String shortUrl) {
+        //获取计算值
+        List<Regustered> lst=adminMapper.getMonthCountRegistered(shortUrl);
+        //得到当天和默认的扣量百分比
+      FriendAdmin friendAdmin= friendAdminMapper.getQuantity(shortUrl);
+      if (friendAdmin!=null&& lst!=null){
+          for (Regustered li:lst){
+              //等于单天的时候
+                   if(li.getWeeks()==DateUtils2.getCurrDate(DateUtils2.LONG_DATE_FORMAT)){
+                       logger.info("得到的当天的扣量"+friendAdmin.getIntradayquantity()+"当前的时间"+li.getWeeks()+"当前的值"+li.getCount());
+                     li.setCount((int)Math.rint( (friendAdmin.getIntradayquantity()*0.01*li.getCount())));
+                     logger.info("当天计算后的结果"+(int) ((100-friendAdmin.getIntradayquantity())*0.01*li.getCount()));
+                   }else {
+                       logger.info("得到的当天的扣量"+friendAdmin.getIntradayquantity()+"当前的时间"+li.getWeeks()+"当前的值"+li.getCount());
+                       li.setCount((int) Math.rint(((100-friendAdmin.getDefaultquantity())*0.01*li.getCount())));
+                       logger.info("默认计算后的结果"+(int) (friendAdmin.getDefaultquantity()*0.01*li.getCount()));
+                   } }
+                   }
+        return lst;
+    }
 
 }
