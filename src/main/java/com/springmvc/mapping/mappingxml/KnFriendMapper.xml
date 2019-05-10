@@ -19,23 +19,25 @@
   <!--* Description：得到推广列表
      *
      * @param , response, pageNo：当前页, pageSize：页容量,title:产品名称，Index1排序方式，propertyId产品属性，statusId审核状态-->
-  <select id="selectFriend" parameterType="kn_friend" resultType="kn_friend">
-    select * from kn_friend
+  <select id="selectFriend" parameterType="kn_friend" resultType="FriendDVO">
+    select * from kn_friend k,friend_admin f
     <where>
+      f.friendId=k.id
       <if test="title!=null and title!='' ">
-        AND  title  LIKE '%${title}%'
+        AND  k.title  LIKE '%${title}%'
       </if>
     </where>
     <if test="addTime!=null and addTime!='' ">
-      ORDER BY add_time
+      ORDER BY k.add_time
     </if>
     <if test="click!=null and click!='' ">
-      ORDER BY click DESC
+      ORDER BY k.click DESC
     </if>
     <if test="level!=null and level!='' ">
-      ORDER BY `level` DESC
+      ORDER BY k.`level` DESC
     </if>
   </select>
+
 
   <select id="selectAlllAndFriend" resultType="kn_friend">
     SELECT * FROM kn_friend
@@ -43,6 +45,10 @@
 
   <delete id="deleteFriend" parameterType="int">
   DELETE FROM kn_friend WHERE id=#{id}
+  </delete>
+
+  <delete id="deleteAndminFriend" parameterType="int">
+    DELETE FROM friend_admin WHERE friendid=#{friendid}
   </delete>
 
   <update id="updateFrilend" parameterType="kn_friend" >
@@ -71,6 +77,7 @@
     SELECT * FROM kn_friend WHERE id=#{id}
   </select>
 
+  <!--推广新增-->
   <insert id="insertFrilend" parameterType="kn_friend">
   insert into kn_friend
   <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -107,6 +114,56 @@
         #{longUrl},
       </if>
     </trim>
+
+    <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+
+  </insert>
+
+  <!--新增admin推广-->
+  <insert id="insertAdminFrilend" parameterType="FriendAdmin">
+  insert into friend_admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="friendid!=null and friendid!='' ">
+        friendid,
+      </if>
+      <if test="account!=null and account!='' ">
+        `account`,
+      </if>
+      <if test="pwd!=null and pwd!='' ">
+        pwd,
+      </if>
+      <if test="shorturl!=null and shorturl!='' ">
+        shorturl,
+      </if>
+      <if test="intradayquantity!=null and intradayquantity!='' ">
+        intradayQuantity,
+      </if>
+      <if test="defaultquantity!=null and defaultquantity!='' ">
+        defaultQuantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="friendid!=null and friendid!='' ">
+        #{friendid},
+      </if>
+      <if test="account!=null and account!='' ">
+        #{account},
+      </if>
+      <if test="pwd!=null and pwd!='' ">
+        #{pwd},
+      </if>
+      <if test="shorturl!=null and shorturl!='' ">
+        #{shorturl},
+      </if>
+      <if test="intradayquantity!=null and intradayquantity!='' ">
+        #{intradayQuantity},
+      </if>
+      <if test="defaultquantity!=null and defaultquantity!='' ">
+        #{defaultquantity},
+      </if>
+    </trim>
   </insert>
 
 
@@ -119,6 +176,9 @@
   <select id="selectFriendAll" resultType="kn_friend">
   SELECT * FROM kn_friend
   </select>
+
+
+
 
   <!--查询短链接-->
   <select id="selectShortUrl" resultType="kn_friend">

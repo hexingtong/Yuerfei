@@ -1,5 +1,7 @@
 package com.springmvc.service;
 
+import com.springmvc.pojo.DTO.FriendDVO;
+import com.springmvc.pojo.FriendAdmin;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_friend;
 
@@ -22,10 +24,12 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @return
      */
     int deleteFriend(int id);
+
     /**
      * 编辑推广链接
      */
     int updateFrilend(kn_friend kn_friend);
+
     /**
      * 编辑推广链接
      */
@@ -40,7 +44,7 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @param kn_friend
      * @return
      */
-    int insertFrilend(kn_friend kn_friend);
+    int insertFrilend(FriendDVO kn_friend);
 
     /**
      * @Author 苏俊杰
@@ -68,6 +72,16 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @return
      **/
     List<kn_friend> selectFriendAll();
+
+//    /**
+//     * @Author 苏俊杰
+//     * @Description //TODO 查询所有推广链接
+//     * @Date 2:34 2019/4/10
+//     * @Param
+//     * @return
+//     **/
+//    List<FriendDVO> selectFriendAll1();
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 生成6位推广链接
@@ -76,6 +90,7 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @return 
      **/
     String getShortUrl();
+
     /**
      * @Author 苏俊杰
      * @Description //TODO 根据短链接查询真实路径
@@ -93,5 +108,7 @@ public interface FriendService extends  BaseService<kn_friend> {
      * @return
      **/
     Integer updateFriendPv(String shorturl);
+
+
 
 }

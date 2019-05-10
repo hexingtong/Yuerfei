@@ -5,6 +5,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springmvc.mapping.FriendAdminMapper;
 import com.springmvc.mapping.KnFriendMapper;
+import com.springmvc.pojo.DTO.FriendDVO;
+import com.springmvc.pojo.FriendAdmin;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.kn_friend;
 import com.springmvc.service.FriendService;
@@ -16,6 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,12 +39,12 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         logger.info("传入的pageno,pagesize"+pageNo+":"+pageSize);
         PageHelper.startPage(pageNo, pageSize);
         kn_friend knFriend=new kn_friend();
-        List<kn_friend> agentLevelSettings;
+        List<FriendDVO> agentLevelSettings;
         if(!StringUtils.isEmpty(title) && !"".equals(title)){
             logger.info("进入title");
             knFriend.setTitle(title);
             agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-            PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+            PageInfo<FriendDVO> pageInfo = new PageInfo<>(agentLevelSettings);
             PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
             return resultInfo;
         }
@@ -48,41 +53,57 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
                 //推荐级别
                 knFriend.setLevel(2);
                 agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<FriendDVO> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                 return resultInfo;
             }else if(Index==2 || Index.equals(2) || Index.equals("2")){
                 //添加时间
                 knFriend.setAddTime(new Date());
                 agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<FriendDVO> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                 return resultInfo;
             }else if(Index==3 || Index.equals(3) || Index.equals("3")){
                 //点击量排序
                 knFriend.setClick(2);
                 agentLevelSettings = knFriendMapper.selectFriend(knFriend);
-                PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+                PageInfo<FriendDVO> pageInfo = new PageInfo<>(agentLevelSettings);
                 PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(), pageInfo.getList());
                 return resultInfo;
             }
         }
         agentLevelSettings = knFriendMapper.selectFriend(knFriend);
         logger.info("获取admin表中所有数据");
-        PageInfo<kn_friend> pageInfo = new PageInfo<>(agentLevelSettings);
+        PageInfo<FriendDVO> pageInfo = new PageInfo<>(agentLevelSettings);
         PageResultInfo resultInfo = new PageResultInfo(pageInfo.getTotal(),pageInfo.getList());
         return resultInfo;
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public int deleteFriend(int id){
-        int i=knFriendMapper.deleteFriend(id);
-        if(i>0){
-            logger.info("删除成功");
-            return 1;
-        }else {
-            logger.info("删除失败");
-            return 0;
-        }
+            int i=knFriendMapper.deleteFriend(id);
+            try {
+
+
+                if (i > 0) {
+                    int z = knFriendMapper.deleteAndminFriend(id);
+                    if (z > 0) {
+                        logger.info("删除成功");
+                        return 1;
+                    } else {
+                        logger.info("删除admin失败");
+                        throw new RuntimeException("删除失败第2张表,抛出异常,事务回滚");
+                    }
+
+                } else {
+                    logger.info("删除失败");
+                    throw new RuntimeException("删除失败第一张表,抛出异常,事务回滚");
+                }
+            }catch (Exception e){
+                return 0;
+            }
+
     }
 
     @Override
@@ -90,7 +111,7 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         kn_friend.setAddTime(new Date());
         int i=knFriendMapper.updateFrilend(kn_friend);
         if(i>0){
-            logger.info("frilend 编辑成功");
+            logger.info("编辑成功");
             return 1;
         }else {
             logger.info("编辑失败");
@@ -121,11 +142,38 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
         return kn_friend;
     }
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 同时插入两个推广表数据
+     * @Date 11:02 2019/5/8
+     * @Param [kn_friend]
+     * @return int
+     **/
     @Override
-    public int insertFrilend(kn_friend kn_friend) {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+    public int insertFrilend(FriendDVO kn_friend) {
         kn_friend.setAddTime(new Date());
         int i=knFriendMapper.insertFrilend(kn_friend);
-        return i;
+        logger.info("插入的id是"+kn_friend.getId());
+        if(i>0){
+            FriendAdmin friendAdmin=new FriendAdmin();
+            friendAdmin.setAccount(kn_friend.getAccount());
+            friendAdmin.setPwd(kn_friend.getPwd());
+            friendAdmin.setDefaultquantity(kn_friend.getDefaultQuantity());
+            friendAdmin.setIntradayquantity(kn_friend.getIntradayQuantity());
+            friendAdmin.setFriendid(kn_friend.getId());
+            friendAdmin.setShorturl(kn_friend.getUrl());
+            int z=knFriendMapper.insertAdminFrilend(friendAdmin);
+            if(z>0){
+                logger.info("最终插入成功");
+                return z;
+            }else {
+                throw new RuntimeException("插入失败第二张表,抛出异常,事务回滚");
+            }
+        }else {
+            //失败
+            throw new RuntimeException("插入失败第一张表,抛出异常,事务回滚");
+        }
     }
 
     /**

@@ -3,6 +3,7 @@ package com.springmvc.controller;
 
 import com.springmvc.mapping.FriendAdminMapper;
 import com.springmvc.pojo.FriendAdmin;
+import com.springmvc.pojo.DTO.FriendDVO;
 import com.springmvc.pojo.PageResultInfo;
 import com.springmvc.pojo.Person;
 import com.springmvc.pojo.kn_friend;
@@ -70,8 +71,8 @@ private FriendAdminMapper friendAdminMapper;
             listObject.setMsg("查询失败");
             listObject.setCode(StatusCode.CODE_ERROR);
         }
-
     }
+
 
     /**
      * @Author 苏俊杰
@@ -96,6 +97,7 @@ private FriendAdminMapper friendAdminMapper;
                 listObject.setMsg("删除成功!");
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+
             }else{
                 listObject.setMsg("删除失败!");
                 listObject.setCode(StatusCode.CODE_ERROR);
@@ -137,7 +139,7 @@ JsonResult jsonResult=new JsonResult();
     @ApiOperation(value = "推广页面增加", httpMethod = "POST", response = kn_friend.class, notes = "推广页面增加")
     @RequestMapping("/insertFriend")
     @ResponseBody
-    public void insertFriend(HttpServletResponse response,kn_friend kn_friend){
+    public void insertFriend(HttpServletResponse response,FriendDVO kn_friend){
         ListObject listObject=new ListObject();
         //先生成自己的短链接
         String shortshortUrl=FriendService.getShortUrl();
@@ -167,6 +169,10 @@ JsonResult jsonResult=new JsonResult();
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
     }
+
+
+
+
 
 
     /**

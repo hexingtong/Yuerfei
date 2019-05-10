@@ -64,7 +64,7 @@ public class kn_admintestController {
      * @return
      **/
     @ApiOperation(value = "WEB根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "参数 Phone(手机号) SCode(图片验证码)")
-    @RequestMapping(value = "/smsPhone")
+    @RequestMapping(value = "/smsPhone1")
     @ResponseBody
     public void test(HttpSession session,HttpServletResponse response, String Phone,String SCode) {
         List<kn_admin> lst = new ArrayList();
@@ -79,7 +79,7 @@ public class kn_admintestController {
             Date now=new Date();
             Long codeTime = Long.valueOf(session.getAttribute("codeTime") + "");
             Object cko = session.getAttribute("simpleCaptcha");
-            if (cko == null) {
+            if (cko == null){
                 listObject.setCode(StatusCode.CODE_NULL);
                 listObject.setMsg("请输入验证码!");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
@@ -132,24 +132,21 @@ public class kn_admintestController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            listObject.setCode(StatusCode.CODE_ERROR_503);
+            listObject.setMsg("请先获取图片验证码");
+            ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
     }
 
 
-    /**
-     * @Author 苏俊杰
-     * @Description //TODO 移动端发送验证码接口
-     * @Date 16:59 2019/5/7
-     * @Param
-     * @return
-     **/
-    @ApiOperation(value = "移动端根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
-    @RequestMapping(value = "/smsPhone1")
+    //发送验证码接口
+    @ApiOperation(value = "根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
+    @RequestMapping(value = "/smsPhone")
     @ResponseBody
-    public void test1(HttpServletResponse response, String Phone) {
+    public void test(HttpServletResponse response, String Phone) {
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
-        Jedis jedis = new Jedis();
+        Jedis jedis = new Jedis("39.98.53.253",6379);
         try {
             if (StringUtil.isEmpty(Phone)&&Phone.equals("")) {
                 listObject.setCode(StatusCode.CODE_ERROR);
@@ -158,14 +155,11 @@ public class kn_admintestController {
             }
             SmsPhone.setNewcode();
             String code = SmsPhone.getNewcode();
-            SendSmsResponse sendSms = sendSms(Phone, code);
+            SmsPhonegetDvo smsPhonegetDvo =SmsPhone.smsSend(Phone,code);
             logger.info("短信接口返回的数据----------------");
-            logger.info("Code=" + sendSms.getCode());
-            logger.info("Message=" + sendSms.getMessage());
-            logger.info("RequestId=" + sendSms.getRequestId());
-            logger.info("BizId=" + sendSms.getBizId());
+            logger.info("Code=" + code);
             logger.info("验证码为:" + code);
-            if (sendSms.getCode().equals("OK")) {
+            if (smsPhonegetDvo.getCode().equals("0")) {
                 logger.info("成功");
 //               session.setAttribute("SmsCode", code);
 //               session.setAttribute("Smsphones", Phone);
@@ -183,8 +177,14 @@ public class kn_admintestController {
                 listObject.setCode(StatusCode.CODE_SUCCESS);
                 listObject.setMsg("发送成功！");
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
+            } else {
+                logger.info("失败");
+                listObject.setCode("9527");
+                listObject.setMsg("错误");
+                ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
-        }catch (Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -357,7 +357,6 @@ public class kn_admintestController {
                 listObject.setItems(lst);
                 ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
             }
-
         } else {
             listObject.setCode(StatusCode.CODE_ERROR);
             listObject.setMsg("验证码已失效或手机号失效");
@@ -383,29 +382,36 @@ public class kn_admintestController {
         // 获得验证码对象
         JsonResult result=new JsonResult();
         Date now=new Date();
-        Long codeTime = Long.valueOf(session.getAttribute("codeTime") + "");
-        Object cko = session.getAttribute("simpleCaptcha");
-        if (cko == null) {
-            result.setCode(StatusCode.CODE_NULL);
-            result.setMessage("请输入验证码!");
-            return result;
-        }
-        String captcha = cko.toString();
-        // 判断验证码输入是否正确
-        if (StringUtils.isEmpty(SCode) || captcha == null || !(SCode.equalsIgnoreCase(captcha))) {
-            result.setCode(StatusCode.FAILED);
+        try {
+            Long codeTime = Long.valueOf(session.getAttribute("codeTime") + "");
+            Object cko = session.getAttribute("simpleCaptcha");
+            if (cko == null) {
+                result.setCode(StatusCode.CODE_NULL);
+                result.setMessage("请输入验证码!");
+                return result;
+            }
+            String captcha = cko.toString();
+            // 判断验证码输入是否正确
+            if (StringUtils.isEmpty(SCode) || captcha == null || !(SCode.equalsIgnoreCase(captcha))) {
+                result.setCode(StatusCode.FAILED);
                 result.setMessage("验证码输入错误!");
-            // 验证码有效时长为1分钟
-            return result;
+                // 验证码有效时长为1分钟
+                return result;
 
-        } else if ((now.getTime() - codeTime) / 1000 / 60 > 1) {
-            result.setCode(StatusCode.CODE_NULL);
-            result.setMessage("验证码已失效,请重新点击验证码!");
-            return result;
-        } else {
-            // 在这里可以处理自己需要的事务，比如验证登陆等
-            result.setCode(StatusCode.SUCCESSFULLY);
-            result.setMessage("验证成功!");
+            } else if ((now.getTime() - codeTime) / 1000 / 60 > 1) {
+                result.setCode(StatusCode.CODE_NULL);
+                result.setMessage("验证码已失效,请重新点击验证码!");
+                return result;
+            } else {
+                // 在这里可以处理自己需要的事务，比如验证登陆等
+                result.setCode(StatusCode.SUCCESSFULLY);
+                result.setMessage("验证成功!");
+                return result;
+            }
+        }catch (NumberFormatException e){
+                e.getLocalizedMessage();
+            result.setCode(StatusCode.FAILED);
+            result.setMessage("请先获取图片验证码!");
             return result;
         }
     }
@@ -417,6 +423,7 @@ public class kn_admintestController {
      * @Description //TODO 根据推广链接查询30天注册人数
      * @Date 10:35 2019/4/20
      * @Param
+     * @return
      **/
         @ApiOperation(value = "查询最近30天的注册人数", httpMethod = "POST", response = StatusCode.class, notes = "查询最近30天的注册人数")
         @RequestMapping(value = "/slectRegistered",method = {RequestMethod.POST, RequestMethod.GET})
@@ -471,7 +478,7 @@ public class kn_admintestController {
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
-
+        JsonResult result=new JsonResult();
         OutputStream os = response.getOutputStream();
         //返回验证码和图片的map
         Map<String,Object> map = SCaptcha.getImageCode(86, 37, os);
@@ -481,6 +488,8 @@ public class kn_admintestController {
         try {
             ImageIO.write((BufferedImage) map.get("image"), "jpg", os);
         } catch (IOException e) {
+            result.setMessage("发生异常："+e.getLocalizedMessage());
+            result.setCode(StatusCode.FAILED);
             return "";
         }   finally {
             if (os != null) {
@@ -488,7 +497,8 @@ public class kn_admintestController {
                 os.close();
             }
         }
-        return null;
+        return "";
     }
+
 
 }
