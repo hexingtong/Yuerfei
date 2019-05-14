@@ -151,14 +151,16 @@ public class kn_adminserviceimpl  extends BaseServiceImpl<kn_admin> implements k
       if (friendAdmin!=null&& lst!=null){
           for (Regustered li:lst){
               //等于单天的时候
-                   if(li.getWeeks()==DateUtils2.getCurrDate(DateUtils2.LONG_DATE_FORMAT)){
+              logger.info("得到时间"+li.getWeeks()+"当前时间"+DateUtils2.getCurrDate(DateUtils2.LONG_DATE_FORMAT));
+                   if(li.getWeeks().equals(DateUtils2.getCurrDate(DateUtils2.LONG_DATE_FORMAT))){
                        logger.info("得到的当天的扣量"+friendAdmin.getIntradayquantity()+"当前的时间"+li.getWeeks()+"当前的值"+li.getCount());
-                     li.setCount((int)Math.rint( (friendAdmin.getIntradayquantity()*0.01*li.getCount())));
-                     logger.info("当天计算后的结果"+(int) ((100-friendAdmin.getIntradayquantity())*0.01*li.getCount()));
+                     li.setCount((int)Math.rint( ((100-friendAdmin.getIntradayquantity())*0.01*li.getCount())));
+                     logger.info("当天计算后的结果"+(int)Math.rint( (friendAdmin.getIntradayquantity()*0.01*li.getCount())));
                    }else {
-                       logger.info("得到的当天的扣量"+friendAdmin.getIntradayquantity()+"当前的时间"+li.getWeeks()+"当前的值"+li.getCount());
+                       logger.info("得到的默认的扣量"+friendAdmin.getDefaultquantity()+"当前的时间"+li.getWeeks()+"当前的值"+li.getCount());
+                       System.out.println(((100-friendAdmin.getDefaultquantity())*0.01*li.getCount()));
                        li.setCount((int) Math.rint(((100-friendAdmin.getDefaultquantity())*0.01*li.getCount())));
-                       logger.info("默认计算后的结果"+(int) (friendAdmin.getDefaultquantity()*0.01*li.getCount()));
+                       logger.info("默认计算后的结果"+(int) Math.rint(((100-friendAdmin.getDefaultquantity())*0.01*li.getCount())));
                    } }
                    }
         return lst;
