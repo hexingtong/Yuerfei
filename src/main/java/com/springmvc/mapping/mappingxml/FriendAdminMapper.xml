@@ -26,10 +26,10 @@
         <if test="pwd!=null and pwd!='' ">
           pwd=#{pwd},
         </if>
-        <if test="intradayQuantity!=null and intradayQuantity!='' ">
+        <if test="intradayQuantity!=null ">
           intradayQuantity=#{intradayQuantity},
         </if>
-        <if test="defaultQuantity!=null and defaultQuantity!='' ">
+        <if test="defaultQuantity!=null ">
           defaultQuantity=#{defaultQuantity},
         </if>
       </trim>
