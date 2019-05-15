@@ -5,6 +5,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.utils.StringUtils;
 import com.github.pagehelper.StringUtil;
+import com.springmvc.pojo.FriendAdmin;
 import com.springmvc.pojo.VO.SmsPhonegetDvo;
 import com.springmvc.pojo.kn_admin;
 import com.springmvc.pojo.kn_friend;
@@ -454,24 +455,29 @@ public class kn_admintestController {
     @ApiOperation(value = "查询推广注册人数", httpMethod = "POST", response = StatusCode.class, notes = "查询推广注册人数")
     @RequestMapping("/getRegistered")
     @ResponseBody
-    public JsonResult getRegistered(HttpServletResponse response, String shortUrl) {
+    public JsonResult getRegistered(HttpServletResponse response, String shortUrl,HttpSession session) {
         JsonResult jsonResult = null;
-        if (StringUtils.isNotEmpty(shortUrl)){
-            try {
-                jsonResult = new JsonResult();
-                jsonResult.setData(knAdminservice.getMonthCountRegistered(shortUrl));
-                jsonResult.setCode(StatusCode.SUCCESSFULLY);
-                jsonResult.setMessage("返回成功扣量后的百分比");
-            } catch (Exception e) {
-                jsonResult.setMessage("返回错误");
-                jsonResult.setCode(StatusCode.FAILED);
-                e.printStackTrace();
+        FriendAdmin friendAdmin = (FriendAdmin) session.getAttribute("tuiName");
+        if ( friendAdmin.getShorturl().equals(shortUrl)){
+            System.out.println(session.getAttribute("tuiName").toString());
+
+            if (StringUtils.isNotEmpty(shortUrl)){
+                try {
+                    jsonResult = new JsonResult();
+                    jsonResult.setData(knAdminservice.getMonthCountRegistered(shortUrl));
+                    jsonResult.setCode(StatusCode.SUCCESSFULLY);
+                    jsonResult.setMessage("返回成功扣量后的百分比");
+                } catch (Exception e) {
+                    jsonResult.setMessage("返回错误");
+                    jsonResult.setCode(StatusCode.FAILED);
+                    e.printStackTrace();
+                }
+            }else {
+                jsonResult.setMessage("传入值为空");
             }
         }else {
-            jsonResult.setMessage("传入值为空");
-
+            jsonResult.setMessage("账号未登录");
         }
-
         return jsonResult;
     }
 
