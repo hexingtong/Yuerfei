@@ -65,6 +65,7 @@ public class AdminController {
     public String toLogin(HttpSession session) {
         return "login";
     }
+
     /**
      * 登录
      *
@@ -77,17 +78,17 @@ public class AdminController {
     @ApiIgnore()
     @RequestMapping("/loginhoutai")
     @ResponseBody
-    public JsonModel login(String userName, String pwd, HttpSession session) {
-
+    public JsonResult login(String userName, String pwd, HttpSession session) {
         logger.info("传入用户名+密码" + userName + pwd);
-        System.out.println("加密密码" + new Md5Hash("123", "123456", 5).toString());
         Subject subject = null;
+        JsonResult jsonResult = new JsonResult();
         try {
             subject = SecurityUtils.getSubject();
             if (subject.isAuthenticated()) {
                 //已经通过登录
                 logger.info("已经登录");
-                return new JsonModel(JsonModel.SUCCESS);
+                jsonResult.setCode(StatusCode.SUCCESSFULLY);
+                return jsonResult;
             }
             UsernamePasswordToken token = new UsernamePasswordToken(userName, pwd);
             token.setRememberMe(true);
@@ -97,18 +98,24 @@ public class AdminController {
             String error = "";
             if (e instanceof UnknownAccountException) {
                 error = "The account does not exist";
+                jsonResult.setMessage("The account does not exist");
+
             } else if (e instanceof IncorrectCredentialsException) {
                 error = "Incorrect account or password";
+                jsonResult.setMessage("Incorrect account or password");
             } else {
                 error = "Unknown error, please contact administrator";
+                jsonResult.setMessage("Unknown error, please contact administrator");
             }
-            return new JsonModel(JsonModel.FAILED, error);
+            return jsonResult;
         }
         logger.info("session=------------------" + session.getAttribute("user"));
         boolean isAuthenticated = subject.isAuthenticated();
         // 打印认证结果
         System.out.println("认证结果：" + isAuthenticated);
-        return new JsonModel(JsonModel.SUCCESS);
+        jsonResult.setMessage("登录成功");
+        jsonResult.setCode(StatusCode.SUCCESSFULLY);
+        return jsonResult;
     }
 
     @ApiOperation(value = "后台登录页面", httpMethod = "POST", response = StatusCode.class, notes = "后台登录页面")
@@ -168,6 +175,7 @@ public class AdminController {
             ResponseUtils.renderJson(response, JsonUtils.toJson(i));
         }
     }
+
     /**
      * Description：用于推送的时候登录
      *
@@ -180,27 +188,28 @@ public class AdminController {
     @RequestMapping("/login3")
     @ResponseBody
     public JsonResult login3(String userName, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-     JsonResult jsonResult =new JsonResult();
+        JsonResult jsonResult = new JsonResult();
         if (StringUtils.isNotEmpty(userName) && StringUtils.isNotEmpty(pwd)) {
-           FriendAdmin friendAdmin= friendAdminMapper.getPwd(userName);
-               if (friendAdmin!=null){
-                   logger.info("传入密码" + pwd + "数据库密码" + friendAdmin.getPwd());
-                   if(pwd.equals(friendAdmin.getPwd())){
-                      jsonResult.setMessage("登录成功");
-                      jsonResult.setCode(StatusCode.SUCCESSFULLY);
-                      jsonResult.setData(friendAdmin.getShorturl());
-                       return jsonResult;
-                   }else {
-                       jsonResult.setMessage("密码错误");
-                       jsonResult.setCode(StatusCode.FAILED);
-                       return jsonResult;
-                   }
-               }else {
-                   jsonResult.setMessage("账号不存在");
-                   jsonResult.setCode(StatusCode.FAILED);
-                   return jsonResult;
-               }
-        }else {
+            FriendAdmin friendAdmin = friendAdminMapper.getPwd(userName);
+            if (friendAdmin != null) {
+                logger.info("传入密码" + pwd + "数据库密码" + friendAdmin.getPwd());
+                if (pwd.equals(friendAdmin.getPwd())) {
+                    jsonResult.setMessage("登录成功");
+                    jsonResult.setCode(StatusCode.SUCCESSFULLY);
+                    jsonResult.setData(friendAdmin.getShorturl());
+                    session.setAttribute("tuiName",friendAdmin);
+                    return jsonResult;
+                } else {
+                    jsonResult.setMessage("密码错误");
+                    jsonResult.setCode(StatusCode.FAILED);
+                    return jsonResult;
+                }
+            } else {
+                jsonResult.setMessage("账号不存在");
+                jsonResult.setCode(StatusCode.FAILED);
+                return jsonResult;
+            }
+        } else {
             jsonResult.setMessage("传入值为空");
             jsonResult.setCode(StatusCode.FAILED);
             return jsonResult;
@@ -209,6 +218,7 @@ public class AdminController {
 
     /**
      * 后台欢迎页
+     *
      * @param model
      * @return String
      * @Description: TODO
@@ -219,6 +229,7 @@ public class AdminController {
     public String welcome(Model model) {
         return "welcome";
     }
+
     /**
      * 首页
      *
@@ -232,11 +243,13 @@ public class AdminController {
     public String toIndex(Model model) {
         return "index";
     }
+
     @ApiIgnore()
     @RequestMapping("/toUpdatePassword")
     public String toUpdatePassword(Model model) {
         return "admin/updatePassword";
     }
+
     /**
      * Description：退出登录清除sesion
      *
