@@ -20,8 +20,8 @@ import com.qiniu.util.StringMap;
  * @Date: 2019/4/12 17:24
  **/
 public class SimpleUpload {
-    Auth auth = Auth.create(AccountMgr.ACCESS_KEY, AccountMgr.SECRET_KEY);
-    Configuration cfg = new Configuration(Zone.zone0());
+    static Auth auth = Auth.create(AccountMgr.ACCESS_KEY, AccountMgr.SECRET_KEY);
+    static Configuration cfg = new Configuration(Zone.zone0());
     StringMap policy = new StringMap();
     UploadManager uploadManager = new UploadManager(cfg);
 
@@ -119,20 +119,19 @@ public class SimpleUpload {
 
     /**
      * Description：删除单个文件
-     *
      * @param
      * @return
      * @author boyang bucketManager.delete(bucket, key);
      * @date 2019/4/27 10:15
      */
-    public void deleteUpTokenCover(String key, String bucket) throws QiniuException {
+    public static void deleteUpTokenCover(String key, String bucket) throws QiniuException {
         BucketManager bucketManager = new BucketManager(auth, cfg);
-        bucketManager.delete(bucket, key);
+            bucketManager.delete(bucket, key);
+
     }
 
     /**
      * Description：自定义覆盖上传
-     *
      * @param
      * @return
      * @author boyang
@@ -174,7 +173,7 @@ public class SimpleUpload {
 
         SimpleUpload se = new SimpleUpload();
         //  se.uploads("D:\\an.png","tcweb1556260578679","generalize-app");
-        se.deleteUpTokenCover("tcweb1556260578679.jpg", "generalize-app");
+        se.deleteUpTokenCover("微信截图_20190305174656.png", "generalize-app");
 
     }
 

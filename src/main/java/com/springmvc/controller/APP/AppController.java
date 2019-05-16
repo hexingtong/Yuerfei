@@ -42,8 +42,6 @@ public class AppController {
 
     final Logger logger = LoggerFactory.getLogger(kn_goodsServiceimpl.class);
 
-
-
     @RequestMapping("/MoneyList")
     @ResponseBody
     public Map selectMoneyList() {
@@ -59,8 +57,6 @@ public class AppController {
         map.put("compositeRank", lstpx);
         return map;
     }
-
-
     @ApiOperation(value = "根据token获取用户信息", httpMethod = "POST", response = StatusCode.class, notes = "根据token获取用户信息")
     @RequestMapping(value = "/selectUser")
     @ResponseBody
@@ -105,9 +101,5 @@ public class AppController {
             listObject.setCode(StatusCode.CODE_ERROR_PARAMETER);
             ResponseUtils.renderJson(response, JsonUtils.toJson(listObject));
         }
-
     }
-
-
-
 }

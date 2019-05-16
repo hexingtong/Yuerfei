@@ -52,11 +52,11 @@ public class BankController {
         try {
             jsonResult.setData(bankCategoryMapper.selectAll());
         } catch (Exception e) {
-            jsonResult.setCode(StatusCode.CODE_ERROR);
+            jsonResult.setCode(StatusCode.FAILED);
             jsonResult.setMessage("获取错误");
             e.printStackTrace();
         }
-        jsonResult.setCode(StatusCode.CODE_SUCCESS);
+        jsonResult.setCode(StatusCode.SUCCESSFULLY);
         jsonResult.setResult(JsonResult.ResultStatus.success);
         return jsonResult;
     }
@@ -114,18 +114,17 @@ public class BankController {
         try {
           list= bankCardService.getBankadvertisingList();
         } catch (Exception e) {
-            jsonResult.setCode(StatusCode.CODE_SUCCESS);
+            jsonResult.setCode(StatusCode.FAILED);
             jsonResult.setMessage("查询失败");
             e.printStackTrace();
         }
-        jsonResult.setCode(StatusCode.CODE_SUCCESS);
+        jsonResult.setCode(StatusCode.SUCCESSFULLY);
         jsonResult.setData(list);
         return jsonResult;
     }
 
     /**
      * Description： 传入分类id得到对应的银行卡
-     *
      * @param
      * @return
      * @author boyang
