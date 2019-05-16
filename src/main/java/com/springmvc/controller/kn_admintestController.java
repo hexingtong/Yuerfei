@@ -67,7 +67,7 @@ public class kn_admintestController {
     @ApiOperation(value = "WEB根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "参数 Phone(手机号) SCode(图片验证码)")
     @RequestMapping(value = "/smsPhone1")
     @ResponseBody
-    public void test(HttpSession session,HttpServletResponse response, String Phone,String SCode) {
+    public void webGetCode(HttpSession session,HttpServletResponse response, String Phone,String SCode) {
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
         Jedis jedis = new Jedis("39.98.53.253",6379);
@@ -140,11 +140,19 @@ public class kn_admintestController {
     }
 
 
-    //发送验证码接口
-    @ApiOperation(value = "根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
+
+
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 移动端发送验证码接口
+     * @Date 16:59 2019/5/7
+     * @Param
+     * @return
+     **/
+    @ApiOperation(value = "移动端根据手机号发送验证码", httpMethod = "POST", response = StatusCode.class, notes = "根据手机号发送验证码")
     @RequestMapping(value = "/smsPhone")
     @ResponseBody
-    public void test(HttpServletResponse response, String Phone) {
+    public void getSmsCode(HttpServletResponse response, String Phone) {
         List<kn_admin> lst = new ArrayList();
         ListObject listObject = new ListObject();
         Jedis jedis = new Jedis("39.98.53.253",6379);
@@ -472,6 +480,7 @@ public class kn_admintestController {
         }
         return jsonResult;
     }
+
     /**
      * 用于生成带四位数字验证码的图片
      */
