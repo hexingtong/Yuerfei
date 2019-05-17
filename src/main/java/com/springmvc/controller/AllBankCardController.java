@@ -1,5 +1,6 @@
 package com.springmvc.controller;
 
+import com.qiniu.common.QiniuException;
 import com.springmvc.mapping.BankCardMapper;
 import com.springmvc.pojo.BankCard;
 import com.springmvc.pojo.BankCategory;
@@ -9,6 +10,7 @@ import com.springmvc.service.BankCategoryService;
 import com.springmvc.service.impl.kn_goodsServiceimpl;
 import com.util.JsonResult;
 import com.util.StatusCode;
+import com.util.qiniuUtil.SimpleUpload;
 import com.util.shortUrl.FriendApiUtils;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -40,7 +42,6 @@ public class AllBankCardController {
     @Autowired
     BankCardMapper bankCardMapper;
     final Logger logger = LoggerFactory.getLogger(AllBankCardController.class);
-
     /**
      * Description：银行卡展示接口(分页)
      *
@@ -94,6 +95,7 @@ public class AllBankCardController {
             allBankService.saveSelective(bankCard);
             jsonResult.setCode(StatusCode.SUCCESSFULLY);
         } else {
+            jsonResult.setCode(StatusCode.FAILED);
             jsonResult.setMessage("传入值为空");
         }
         return jsonResult;
@@ -101,7 +103,6 @@ public class AllBankCardController {
 
     /**
      * Description：银行卡删除接口
-     *
      * @param
      * @return
      * @author boyang
@@ -110,13 +111,17 @@ public class AllBankCardController {
     @ApiOperation(value = "银行卡删除接口", httpMethod = "POST", response = StatusCode.class, notes = "银行卡删除接口")
     @RequestMapping("/deleBank")
     @ResponseBody
-    public JsonResult deleBank(Model model, HttpServletResponse response, Integer bankId) {
+    public JsonResult deleBank(Model model, HttpServletResponse response, Integer bankId,String key,String bucket) {
         logger.info("传入id{"+bankId+"}");
         JsonResult jsonResult = new JsonResult();
         try {
-            allBankService.deleteById(bankId);
-            jsonResult.setCode(StatusCode.SUCCESSFULLY);
-        } catch (Exception e) {
+            SimpleUpload.deleteUpTokenCover(key,bucket);
+           allBankService.deleteById(bankId);
+           jsonResult.setCode(StatusCode.SUCCESSFULLY);
+        } catch (QiniuException e) {
+            jsonResult.setCode(StatusCode.FAILED);
+            e.printStackTrace();
+        }catch (Exception e) {
             jsonResult.setCode(StatusCode.FAILED);
             e.printStackTrace();
         }
