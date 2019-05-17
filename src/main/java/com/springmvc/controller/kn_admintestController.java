@@ -36,14 +36,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.crypto.dsig.keyinfo.KeyName;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import static com.util.SmsPhone.sendSms;
+import static java.awt.GraphicsEnvironment.isHeadless;
+import static org.apache.commons.codec.binary.StringUtils.newString;
 
 @Api(value = "app注册登录操作类", tags = {"登录接口"})
 @Controller
@@ -56,6 +61,8 @@ public class kn_admintestController {
 
     @Autowired
     private FriendService friendService;
+
+
 
     /**
      * @Author 苏俊杰
@@ -488,6 +495,9 @@ public class kn_admintestController {
     @RequestMapping(value = "/userInfo/verification")
     @ResponseBody
     public String imagecode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.setProperty("java.awt.headless","true");
+        System.out.println("是否开启headless?--"+isHeadless());
+
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");

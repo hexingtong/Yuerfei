@@ -101,4 +101,15 @@ public interface KnFriendMapper extends Mapper<kn_friend> {
      **/
     int deleteAndminFriend(Integer friendid);
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 查询推广账号有没有重复
+     * @Date 9:16 2019/5/15
+     * @Param
+     * @return
+     **/
+    int selectRegister(FriendAdmin friendAdmin);
+
+
+
 }

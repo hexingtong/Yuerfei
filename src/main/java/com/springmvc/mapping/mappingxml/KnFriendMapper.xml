@@ -195,4 +195,9 @@
     update `kn_friend` set goods_pv=goods_pv+1 where short_url = #{shortUrl}
   </update>
 
+  <!--查询账号有没有重复-->
+  <select id="selectRegister" resultType="Integer" parameterType="com.springmvc.pojo.FriendAdmin">
+    SELECT COUNT(0) FROM `friend_admin`  WHERE account=#{account}
+  </select>
+
 </mapper>

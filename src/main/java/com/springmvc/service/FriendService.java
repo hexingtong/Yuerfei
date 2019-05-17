@@ -109,6 +109,14 @@ public interface FriendService extends  BaseService<kn_friend> {
      **/
     Integer updateFriendPv(String shorturl);
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 查询推广账号有没有重复
+     * @Date 9:16 2019/5/15
+     * @Param
+     * @return
+     **/
+    int selectRegister(FriendAdmin friendAdmin);
 
 
 }

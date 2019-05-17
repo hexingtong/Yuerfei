@@ -37,8 +37,8 @@ public class Kn_friendController {
 
     @Autowired
     private FriendService FriendService;
-@Autowired
-private FriendAdminMapper friendAdminMapper;
+    @Autowired
+    private FriendAdminMapper friendAdminMapper;
 
     /**
      * @Author 苏俊杰
@@ -235,5 +235,28 @@ JsonResult jsonResult=new JsonResult();
         }
     }
 
+    /**
+     * @Author 苏俊杰
+     * @Description //TODO 检查推广账号有没有重复
+     * @Date 9:27 2019/5/15
+     * @Param
+     * @return
+     **/
+    @ApiOperation(value = "检查推广账号有没有重复",httpMethod = "POST",response = StatusCode.class,notes = "参数 account（账号）")
+    @RequestMapping("/checkFriendRegister")
+    @ResponseBody
+    public JsonResult checkFriendRegister(FriendAdmin friendAdmin){
+        JsonResult result=new JsonResult();
+        int i=FriendService.selectRegister(friendAdmin);
+        if(i==1){
+            result.setCode(StatusCode.FAILED);
+            result.setMessage("有相同账号!");
+            return result;
+        }else {
+            result.setCode(StatusCode.SUCCESSFULLY);
+            result.setMessage("检验成功!没有相同账号!");
+            return  result;
+        }
+    }
 
 }

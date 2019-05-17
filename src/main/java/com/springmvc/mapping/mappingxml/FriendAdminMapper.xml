@@ -16,6 +16,8 @@
     <result column="defaultQuantity" jdbcType="INTEGER" property="defaultquantity" />
     <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
   </resultMap>
+
+
   <!--自定义更新账号密码扣量-->
     <update id="updateFriend">
       UPDATE friend_admin
@@ -35,14 +37,18 @@
       </trim>
       WHERE friendId=#{id}
     </update>
+
     <!--获取用户登录信息-->
     <select id="getPwd" resultType="com.springmvc.pojo.FriendAdmin">
       SELECT f.* FROM friend_admin f WHERE  account=#{username}
-
     </select>
+
   <!--通过shortUrl过去扣量百分比-->
   <select id="getQuantity" resultType="com.springmvc.pojo.FriendAdmin">
       SELECT f.* FROM friend_admin f WHERE  shortUrl=#{shortUrl}
   </select>
+
+
+
 
 </mapper>

@@ -76,4 +76,5 @@ public interface kn_adminservice  extends BaseService<kn_admin> {
      * @return
      */
     List<Regustered> getMonthCountRegistered(String shortUrl);
+
 }

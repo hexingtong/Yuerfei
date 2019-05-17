@@ -162,7 +162,8 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
             friendAdmin.setDefaultquantity(kn_friend.getDefaultQuantity());
             friendAdmin.setIntradayquantity(kn_friend.getIntradayQuantity());
             friendAdmin.setFriendid(kn_friend.getId());
-            friendAdmin.setShorturl(kn_friend.getUrl());
+            //获取6位唯一字母
+            friendAdmin.setShorturl(kn_friend.getShortUrl());
             int z=knFriendMapper.insertAdminFrilend(friendAdmin);
             if(z>0){
                 logger.info("最终插入成功");
@@ -258,6 +259,17 @@ public class FriendServiceImpl extends BaseServiceImpl<kn_friend> implements Fri
     public Integer updateFriendPv(String shorturl){
         int i=knFriendMapper.updateFriendPv(shorturl);
         return i;
+    }
+
+    @Override
+    public int selectRegister(FriendAdmin friendAdmin) {
+        int i=knFriendMapper.selectRegister(friendAdmin);
+        if(i>0){
+            return 1;
+        }else {
+            return 0;
+        }
+
     }
 
 

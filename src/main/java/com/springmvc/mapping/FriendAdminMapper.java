@@ -29,4 +29,7 @@ FriendAdmin getQuantity(String shortUrl);
  * @return
  */
 Integer updateFriend(@Param("account") String account, @Param("pwd")String pwd, @Param("intradayQuantity")Integer intradayQuantity, @Param("defaultQuantity")Integer defaultQuantity, @Param("id") Integer id);
+
+
+
 }
